@@ -31,6 +31,6 @@
 1. __What will you do if every team member except one agrees on something?__ 
    * Go with what the group wants unless it mostly only affects the person who disagrees
 1. __What will you do if one person seems to be dominating the team process?__ 
-   * Ask them politely to make space for the other team members ideas
+   * Ask them politely to make space for the other team members' ideas
 1. __What will you do if you feel most of the facilitation responsibilities are falling on you?__ 
    * Ask my team for help first, then talk to the instructor/TAs if it doesn't get better/gets worse
