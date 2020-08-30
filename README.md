@@ -1,4 +1,4 @@
-# t16 - enter team name here
+# t16 - Team Hexadecimal
 
 # Member Information 
 Last Name | First Name | CSU eName | Github username | CSU email
