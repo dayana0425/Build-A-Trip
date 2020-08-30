@@ -1,5 +1,5 @@
 # t16 - Team Hexadecimal
-![Clockwise from top left: Daiana, Xinyi, Allie, Chen, and Matt](team/images/My Post.jpg)
+![Clockwise from top left: Daiana, Xinyi, Allie, Chen, and Matt](team/images/TeamHex.jpg)
 *Clockwise from top left: Daiana, Xinyi, Allie, Chen, and Matt*
 
 # Member Information 
