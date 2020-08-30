@@ -4,3 +4,4 @@
 Last Name | First Name | CSU eName | Github username | CSU email
 ------------ | ------------- | ------------- | ------------- | -------------
 Bilbao | Daiana | dbilbao | dayana0425 | dbilbao@rams.colostate.edu
+Wang  | Xinyi | xinyi99 | Xinyi-Wang99 | xinyi.wang@colostate.edu
