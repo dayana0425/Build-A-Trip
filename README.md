@@ -15,7 +15,7 @@ Wang  | Chen | daynight | daynight66 | daynight@colostate.edu
 
 Availability
 
-_Communication_
+__Communication__
 
 We will use Slack for casual group conversations and Teams for voice/video chat. We have a Slack and Teams group chat setup already. We will also be using Teams to notify the entire group of team meetings so each team member should have their Team notifications on at the very least. 
 
