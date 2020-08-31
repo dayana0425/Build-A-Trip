@@ -21,7 +21,7 @@ We will use Slack for casual group conversations and Teams for voice/video chat.
 
 Team Goal
 
-_Team Responsibilities_
+**Team Responsibilities**
 
 Our team will be available for meetings on Mondays, and we will communicate our outside work schedules with eachother a reasonable amount of time in advance. If something comes up during the week that will limit our availability, we will let the other team members know at least a day before our availability is limited.
 
