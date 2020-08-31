@@ -21,7 +21,7 @@ We will use Slack for casual group conversations and Teams for voice/video chat.
 
 **Team Goal**
 
-We are all trying to get an A in this class since if we set up a higher goal we could work harder to achieve it. Besides, this is not only an individual's work but also a team’s work, so we’ll all try to make as much effort as we can
+We are all trying to get an A in this class since if we set up a higher goal we could work harder to achieve it. Besides, this is not only an individual's work but also a team’s work, so we’ll all try to make as much effort as we can.
 
 Team Responsibilities
 
