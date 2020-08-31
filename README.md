@@ -15,14 +15,14 @@ Wang  | Chen | daynight | daynight66 | daynight@colostate.edu
 
 Availability
 
-Communication
+_Communication_
+
+We will use Slack for casual group conversations and Teams for voice/video chat. We have a Slack and Teams group chat setup already. We will also be using Teams to notify the entire group of team meetings so each team member should have their Team notifications on at the very least. 
 
 Team Goal
 
 Team Responsibilities
 
-Decision Making
-
-Conflict Resolution
+Decision Making & Conflict Resolution
 
 
