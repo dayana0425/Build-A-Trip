@@ -21,7 +21,9 @@ __Communication__
 
 We will use Slack for casual group conversations and Teams for voice/video chat. We have a Slack and Teams group chat setup already. We will also be using Teams to notify the entire group of team meetings so each team member should have their Team notifications on at the very least. 
 
-Team Goal
+**Team Goal**
+
+We are all trying to get an A in this class since if we set up a higher goal we could work harder to achieve it. Besides, this is not only an individual's work but also a team’s work, so we’ll all try to make as much effort as we can.
 
 Team Responsibilities
 
