@@ -13,3 +13,16 @@ Wang  | Chen | daynight | daynight66 | daynight@colostate.edu
 
 # Team Preferences
 
+Availability
+
+Communication
+
+Team Goal
+
+Team Responsibilities
+
+Decision Making
+
+Conflict Resolution
+
+
