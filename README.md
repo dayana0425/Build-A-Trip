@@ -13,7 +13,7 @@ Wang  | Chen | daynight | daynight66 | daynight@colostate.edu
 
 # Team Preferences
 
-_Availability_
+__Availability__
 
 We will plan on meeting on Monday's every week to discuss our individual availability for the coming week. As many of us have jobs we will have to adapt our availability each week. As far as classes and general availability go, we all have time to meet Monday/Wednesday/Friday in the late afternoon and evenings. We also all have our Tuesday and Thursday evenings available after 4pm. 
 
