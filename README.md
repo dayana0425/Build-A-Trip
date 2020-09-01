@@ -25,7 +25,9 @@ We will use Slack for casual group conversations and Teams for voice/video chat.
 
 We are all trying to get an A in this class since if we set up a higher goal we could work harder to achieve it. Besides, this is not only an individual's work but also a team’s work, so we’ll all try to make as much effort as we can.
 
-Team Responsibilities
+**Team Responsibilities**
+
+Our team will be available for meetings on Mondays, and we will communicate our outside work schedules with eachother a reasonable amount of time in advance. If something comes up during the week that will limit our availability, we will let the other team members know at least a day before our availability is limited. We will each complete our part of an assignment early enough to not interfere with other team members' ability to finish their parts.
 
 Decision Making & Conflict Resolution
 
