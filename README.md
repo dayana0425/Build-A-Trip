@@ -29,6 +29,6 @@ We are all trying to get an A in this class since if we set up a higher goal we 
 
 Our team will be available for meetings on Mondays, and we will communicate our outside work schedules with eachother a reasonable amount of time in advance. If something comes up during the week that will limit our availability, we will let the other team members know at least a day before our availability is limited. We will each complete our part of an assignment early enough to not interfere with other team members' ability to finish their parts.
 
-Decision Making & Conflict Resolution
+**Decision Making/Conflict Resolution**
 
-
+The most important thing for making decisions or resolving conflicts in our group is communication. When we assign tasks in the group, we will let everyone use their strengths through communication. When we have a conflict, we will also solve the problem through communication under the premise of mutual respect.
