@@ -27,6 +27,12 @@ The solution should clearly identify the team that created the product and a lit
 
 ** Team identification **
   Our team is the team 16, and our name is Team Hexadecimal
+  
+  
+  **Epic 3: About**
+  
+  In this epic we will add a mission statement first. Then we will add the information(name, image, short biography) of each team member
+  
 ## Metrics
 
 | Statistic | # Planned | # Completed |
