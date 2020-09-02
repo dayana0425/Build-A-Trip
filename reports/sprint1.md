@@ -1,4 +1,4 @@
-# Sprint # - *t16* - *Team Hexadecimal*
+# Sprint 1 - *t16* - *Team Hexadecimal*
 
 ## Goal
 ### Who is the development team?
