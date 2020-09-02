@@ -5,7 +5,7 @@
 The solution should clearly identify the team that created the product and a little bit about the team members.
 
 ## Sprint Leader
-### *firstname lastname*
+### *Daiana Bilbao*
 
 ## Definition of Done
 
