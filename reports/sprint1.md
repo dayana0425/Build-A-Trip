@@ -25,7 +25,8 @@ The solution should clearly identify the team that created the product and a lit
 
 ## Planned Epics
 
-
+** Team identification **
+  Our team is the team 16, and our name is Team Hexadecimal
 ## Metrics
 
 | Statistic | # Planned | # Completed |
