@@ -1,11 +1,11 @@
-# Sprint # - *your team number* - *your team name*
+# Sprint 1 - *t16* - *Team Hexadecimal*
 
 ## Goal
 ### Who is the development team?
 The solution should clearly identify the team that created the product and a little bit about the team members.
 
 ## Sprint Leader
-### *firstname lastname*
+### *Daiana Bilbao*
 
 ## Definition of Done
 
@@ -26,13 +26,26 @@ The solution should clearly identify the team that created the product and a lit
 ## Planned Epics
 
 
+**Epic 1: v1 protocol**
+
+Our first Epic will be v1 protocol where we will be satisfying our client's request to view the server capabilities of each server the client is connected to. 
+We will create a footer that the client can click on to view each server's information. We will also be giving the footer associated icons that will communicate the current connection status (green or red for connected or not connected) and that more information is available (a plus sign to indicate that information is available and no plus sign to indicate that there's nothing new).
+
+**Epic 2: Team Identification**
+
+Our team is the team 16, and our name is Team Hexadecimal
+
+**Epic 3: About**
+  
+In this epic we will add a mission statement first. Then we will add the information(name, image, short biography) of each team member
+
 ## Metrics
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *count* | *count* |
-| Tasks |  *count*   | *count* | 
-| Story Points |  *count*  | *count* | 
+| Epics | *3* | *NA* |
+| Tasks |  *13*   | *NA* | 
+| Story Points |  *14*  | *NA* | 
 
 
 ## Scrums
