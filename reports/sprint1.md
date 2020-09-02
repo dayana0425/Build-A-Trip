@@ -1,4 +1,4 @@
-# Sprint # - *your team number* - *your team name*
+# Sprint # - *t16* - *Team Hexadecimal*
 
 ## Goal
 ### Who is the development team?
@@ -30,9 +30,9 @@ The solution should clearly identify the team that created the product and a lit
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *count* | *count* |
-| Tasks |  *count*   | *count* | 
-| Story Points |  *count*  | *count* | 
+| Epics | *3* | *NA* |
+| Tasks |  *13*   | *NA* | 
+| Story Points |  *14*  | *NA* | 
 
 
 ## Scrums
