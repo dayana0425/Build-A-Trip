@@ -25,6 +25,14 @@ The solution should clearly identify the team that created the product and a lit
 
 ## Planned Epics
 
+**Epic 1: v1 protocol**
+
+Our first Epic will be v1 protocol where we will be satisfying our client's request to view the server capabilities of each server the client is connected to. 
+We will create a footer that the client can click on to view each server's information. We will also be giving the footer associated icons that will communicate the current connection status (green or red for connected or not connected) and that more information is available (a plus sign to indicate that information is available and no plus sign to indicate that there's nothing new).
+
+
+
+
 
 ## Metrics
 
