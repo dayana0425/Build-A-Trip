@@ -45,7 +45,7 @@ In this epic we will add a mission statement first. Then we will add the informa
 | --- | ---: | ---: |
 | Epics | *3* | *NA* |
 | Tasks |  *13*   | *NA* | 
-| Story Points |  *14*  | *NA* | 
+| Story Points |  *15*  | *NA* | 
 
 
 ## Scrums
