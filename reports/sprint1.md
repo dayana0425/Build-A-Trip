@@ -52,7 +52,7 @@ In this epic we will add a mission statement first. Then we will add the informa
 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
-| *date* | *#task, ...* | *#task, ...* | *none* | 
+| *September 4, 2020* | *#82* | *#81,#42,#43,#78* | *None* | 
 
 
 ## Review
