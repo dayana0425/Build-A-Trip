@@ -1,10 +1,12 @@
 # Sprint 1 - *t16* - *Team Hexadecimal*
 
 ## Goal
+
 ### Who is the development team?
 The solution should clearly identify the team that created the product and a little bit about the team members.
 
 ## Sprint Leader
+
 ### *Daiana Bilbao*
 
 ## Definition of Done
@@ -17,14 +19,11 @@ The solution should clearly identify the team that created the product and a lit
 * The sprint review and restrospective are captured below.
 * The design document is updated (design.md).
 
-
 ## Policies
 
 * GitHub etiquette
 
-
 ## Planned Epics
-
 
 **Epic 1: v1 protocol**
 
@@ -33,11 +32,19 @@ We will create a footer that the client can click on to view each server's infor
 
 **Epic 2: Team Identification**
 
-Our team is the team 16, and our name is Team Hexadecimal
+Our team is the team 16, and our name is Team Hexadecimal. This epic will identify our team's identity by specifying our team name on the website. 
 
 **Epic 3: About**
-  
-In this epic we will add a mission statement first. Then we will add the information(name, image, short biography) of each team member
+
+In this epic we will add our team's mission statement. Then we will add the information (name, image, short biography) of each team member. After completing this epic each individual member of our team will be individually introduced. 
+
+**Epic 4: Where Am I?**
+
+In this epic we will create a feature that allows the user to know their current location and also add a feature that will allow the user to return to their current location if they deviate from that location. 
+
+**Epic 5: Where Is?**
+
+In this epic we will create a feature that allows the user to enter latitude and longitude and display the given location on the map. 
 
 ## Metrics
 
@@ -47,13 +54,11 @@ In this epic we will add a mission statement first. Then we will add the informa
 | Tasks |  *13*   | *NA* | 
 | Story Points |  *15*  | *NA* | 
 
-
 ## Scrums
 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
 | *September 4, 2020* | *#82* | *#81,#42,#43,#78* | *None* | 
-
 
 ## Review
 
