@@ -26,6 +26,7 @@ const MODULE_RULES = {
 			},
 			{ test: /\.(png|svg|jpg|gif)$/, use: ['file-loader'] }
 		]
+
 };
 
 
