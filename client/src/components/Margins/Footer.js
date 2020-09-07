@@ -5,6 +5,7 @@ import ServerSettings from "./ServerSettings";
 
 const UNICODE_LINK_SYMBOL = "\uD83D\uDD17";
 const UNICODE_WARNING_SIGN = "\u26A0";
+const UNICODE_INFORMATION_SIGN = "\u24D8";
 const UNKNOWN_SERVER_NAME = "Unknown";
 
 export default class Footer extends Component {
@@ -31,8 +32,8 @@ export default class Footer extends Component {
                     <div className="centered">
                         {linkStatusSymbol} Connected to {serverName} &nbsp;
                         <a className="tco-text" onClick={() => this.setState({serverSettingsOpen: true})}>
-                            ({this.props.serverSettings.serverPort}).
-                        </a>
+                            {UNICODE_INFORMATION_SIGN}.
+                        </a>å
                     {this.renderServerSettings()}
                     </div>
                 </Container>
@@ -47,6 +48,7 @@ export default class Footer extends Component {
     getServerNameFromConnectionStatus() {
         return this.connectedToValidServer() ? this.props.serverSettings.serverConfig.serverName : UNKNOWN_SERVER_NAME;
     }
+
 
     connectedToValidServer() {
         return this.props.serverSettings.serverConfig && this.props.serverSettings.serverConfig.serverName;
