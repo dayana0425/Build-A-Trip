@@ -58,8 +58,8 @@ In this epic we will create a feature that allows the user to enter latitude and
 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
-| *September 4, 2020* | *#82* | *#81,#42,#43,#78* | *None* | 
-
+| *September 4, 2020* | *#82* | *#62,#44,#81,#54,#82* | *None* | 
+| *September 8, 2020* | *#62,#44,#81,#54,#82* | *#56, #63, #42, #78, #58* | *None* | 
 ## Review
 
 #### Epics done  
