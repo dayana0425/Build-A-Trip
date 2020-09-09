@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-
 import {Container, Row, Col, Button} from 'reactstrap';
-
 import {CLIENT_TEAM_NAME} from "../../utils/constants";
-
-import MyImage from './team-member-images/testImage.jpg';
 import XinyiImage from './team-member-images/Xinyi.jpg';
+import DaianaAbout from './Daiana-About.js'
+
+
 export default class About extends Component {
 
     render() {
@@ -17,9 +16,7 @@ export default class About extends Component {
                 <h2> Mission Statement </h2>
                 <p> Insert Mission Statement Here </p>
                 <h2> Team Members </h2>
-                <h4> Team Member #1 Name </h4>
-                <img src={MyImage} alt="torchlight in the sky" width={200} height={200} />
-                <p> Team Member #1 Bio </p>
+                <DaianaAbout name="Daiana Bilbao" />
                 <h4> Xinyi Wang </h4>
                 <img src={XinyiImage} alt="Xinyi's image"  />
                 <p> I'm Xinyi Wang, a senior student who majored in computer science with a minor in mathematics.
