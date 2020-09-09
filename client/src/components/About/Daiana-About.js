@@ -3,8 +3,6 @@ import myImage from "./team-member-images/Daiana.jpg";
 import { Media } from 'reactstrap';
 
 const imgStyle = {
-    maxHeight: 180,
-    maxWidth: 210,
     marginRight: 10
 }
 
