@@ -1,5 +1,5 @@
 import React from 'react';
-import myImage from "./team-member-images/Matt.jpg";
+import myImage from "./team-member-images/Matt200x200.jpg";
 import { Media } from 'reactstrap';
 
 const imgStyle = {
