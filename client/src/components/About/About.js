@@ -20,13 +20,9 @@ export default class About extends Component {
                 <DaianaAbout name="Daiana Bilbao" />
 
                 <XinyiAbout name = "Xinyi Wang"/>
-                <h4> Team Member #3 Name </h4>
-                <p> Team Member #3 Bio </p>
 
                 <ChenAbout name = "Chen Wang" />
-                <h4> Team Member #5 Name </h4>
-                <p> Team Member #4 Bio </p>
-          
+
                 <MattAbout name = "Matt Vildibill" />
             </Col>
             <Col id="closeAbout" xs='auto' >
