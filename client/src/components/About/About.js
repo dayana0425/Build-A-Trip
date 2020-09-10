@@ -15,7 +15,7 @@ export default class About extends Component {
             <Col>
               <h1> About: {CLIENT_TEAM_NAME} </h1>
                 <h2> Mission Statement </h2>
-                <p> Insert Mission Statement Here </p>
+                <p> Providing the guidance necessary to navigate a better life. </p>
                 <h2> Team Members </h2>
                 <DaianaAbout name="Daiana Bilbao" />
 
