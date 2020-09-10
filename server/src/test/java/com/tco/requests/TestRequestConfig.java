@@ -33,9 +33,9 @@ public class TestRequestConfig {
   }
 
   @Test
-  @DisplayName("Team name is t16 Team Hexadecimal")
+  @DisplayName("Team name is T16 Team Hexadecimal")
   public void testServerName() {
     String name = conf.getServerName();
-    assertEquals("t16 Team Hexadecimal", name);
+    assertEquals("T16 Team Hexadecimal", name);
   }
 }
