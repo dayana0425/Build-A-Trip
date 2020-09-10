@@ -4,6 +4,7 @@ import {CLIENT_TEAM_NAME} from "../../utils/constants";
 import DaianaAbout from './Daiana-About.js'
 import XinyiAbout from './XinyI-About.js'
 import ChenAbout from './Chen-About.js'
+import MattAbout from './Matt-About.js'
 
 export default class About extends Component {
 
@@ -25,6 +26,8 @@ export default class About extends Component {
                 <ChenAbout name = "Chen Wang" />
                 <h4> Team Member #5 Name </h4>
                 <p> Team Member #4 Bio </p>
+          
+                <MattAbout name = "Matt Vildibill" />
             </Col>
             <Col id="closeAbout" xs='auto' >
               <Button color="primary" onClick={this.props.closePage} xs={1}>
