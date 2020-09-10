@@ -16,7 +16,7 @@ public class RequestConfig extends RequestHeader {
 
   @Override
   public void buildResponse() {
-    this.serverName = "t16 Team Hexadecimal";
+    this.serverName = "T16 Team Hexadecimal";
     log.trace("buildResponse -> {}", this);
   }
 
