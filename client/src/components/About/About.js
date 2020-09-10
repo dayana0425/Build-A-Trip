@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Container, Row, Col, Button} from 'reactstrap';
 import {CLIENT_TEAM_NAME} from "../../utils/constants";
 import DaianaAbout from './Daiana-About.js'
-import XinyiAbout from './Xinyi-About.js'
-
+import XinyiAbout from './XinyI-About.js'
+import ChenAbout from './Chen-About.js'
 
 export default class About extends Component {
 
@@ -21,8 +21,8 @@ export default class About extends Component {
                 <XinyiAbout name = "Xinyi Wang"/>
                 <h4> Team Member #3 Name </h4>
                 <p> Team Member #3 Bio </p>
-                <h4> Team Member #4 Name </h4>
-                <p> Team Member #4 Bio </p>
+
+                <ChenAbout name = "Chen Wang" />
                 <h4> Team Member #5 Name </h4>
                 <p> Team Member #4 Bio </p>
             </Col>
