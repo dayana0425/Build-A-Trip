@@ -15,8 +15,11 @@ export default class About extends Component {
             <Col>
               <h1> About: {CLIENT_TEAM_NAME} </h1>
                 <h2> Mission Statement </h2>
-                <p> Providing the guidance necessary to navigate a better life. </p>
+
+                <p> Team Hexadecimal is comprised of aspiring Computer Scientists who are dedicated to building not only amazing software projects but building amazing software projects the right way by applying Clean Code principles to the code we write and utilizing scrum development as our process. </p>
+
                 <h2> Team Members </h2>
+
                 <DaianaAbout name="Daiana Bilbao" />
 
                 <XinyiAbout name = "Xinyi Wang"/>

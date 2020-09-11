@@ -20,8 +20,8 @@ export default ({name}) => {
                 <Media heading>
                     {name}
                 </Media>
-                My name is Chen Wang, a senior computer science student. I like to work on math problems because after
-                I finishing these problems I will feel a sense of accomplishment. I also enjoy spending time with my
+                My name is Chen Wang, I am a senior Computer Science student. In my free time I like to work on math problems because after
+                I finish these problems I feel a sense of accomplishment. I also enjoy spending time with my
                 friends to enhance our friendship.
             </Media>
         </Media>
