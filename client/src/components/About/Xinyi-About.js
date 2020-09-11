@@ -20,9 +20,9 @@ export default ({name}) => {
                     <Media heading>
                     {name}
                     </Media>
-                        Hi, I'm Xinyi Wang, a senior student who majored in Computer Science with a minor in Mathematics. My ultimate
-                        goal is do better than yesterday. In my spare time, I like baking some snacks, doing some painting stuff and
-                        some outdoor activities, hiking, camping, etc.
+                        Hi, I'm Xinyi Wang, a senior student who majors in Computer Science with a minor in Mathematics. My ultimate
+                        goal is do better than yesterday. In my spare time, I like baking snacks, painting things and
+                        doing outdoor activities like hiking, camping, etc.
               </Media>
             </Media>
     );
