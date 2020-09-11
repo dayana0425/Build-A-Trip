@@ -50,9 +50,9 @@ In this epic we will create a feature that allows the user to enter latitude and
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *3* | *NA* |
-| Tasks |  *13*   | *NA* | 
-| Story Points |  *15*  | *NA* | 
+| Epics | *3* | *3* |
+| Tasks |  *13*   | *13* | 
+| Story Points |  *16*  | *16* | 
 
 ## Scrums
 
@@ -60,23 +60,26 @@ In this epic we will create a feature that allows the user to enter latitude and
 | :--- | :--- | :--- | :--- |
 | *September 4, 2020* | *#82* | *#62,#44,#81,#54,#82* | *None* | 
 | *September 8, 2020* | *#62,#44,#81,#54,#82* | *#56, #63, #42, #78, #58* | *None* | 
-| *September 9, 2020* | *#62,#44,#81,#54,#82,#56, #63, #42, #78, #58* | *#56, #43* | *None* | 
+| *September 9, 2020* | *#62,#44,#81,#54,#82,#56, #63, #42, #78, #58* | *#56, #43* | *None* |
+| *September 10, 2020* | *#62,#44,#81,#54,#82,#56, #63, #42, #78, #58,#56, #43, #65* |  | *None* |
+
 
 ## Review
 
 #### Epics done  
-
+We finished 3/5 Epics.
 #### Epics not done 
-
+We didn't finish 2/5 Epics. 
 #### What went well
-
+The tasks associated with the About epic went smoothly once there was a skeleton created all team members we able to add their bio/image/name. 
 #### Problems encountered and resolutions
-
-
+Our communication struggled due to everyone having different schedules but we were able to get all the tasks that we wanted to get done. We are still working on how we can all work together more often.  
 ## Retrospective
 
 #### What went well
-
+When dealing with problems we were each having, we communicated our problems to eachother and tried to help eachother to resolve those issues.
 #### Potential improvements
-
+Potential improvements are to better synchronize our schedules so that more team members are readily available to help while working on tasks. We also need to better improve how we assign tasks so that the work load is balanced among team members. 
 #### What we will change next time
+We will synchronize schedules and better balance the work load amongst each other. We will have weekly meetings (in combination with scrum meetings) to discuss our schedules and abilities to do certain tasks. 
+
