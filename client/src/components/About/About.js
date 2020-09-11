@@ -40,9 +40,6 @@ export default class About extends Component {
                 <ChenAbout name = "Chen Wang" />
 
                 <MattAbout name = "Matt Vildibill" />
-                <Button color="primary" onClick={this.props.closePage} xs={1}>
-                                Close
-                              </Button>
             </Col>
           </Row>
         </Container>
