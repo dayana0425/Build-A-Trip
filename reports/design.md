@@ -106,19 +106,32 @@ Often there are several related classes but we've listed only one to simplify th
 
 
 # Sprint 1
+
 ### Component Hierarchy
 ![class diagram](../team/images/ComponentHierachy-Sprint1.png )
-New Additions: 
-* Chen-About renders information about Chen. 
-* Daiana-About renders information about Daiana. 
-* Matt-About renders information about Matt. 
-* Xinyi-About renders information about Xinyi.
+
+We've made a few new additions as demonstrated in the image above. We created individual files for each member to have their information rendered on the About section of our website. 
 ### Class Diagram
 Not changed.
 ### UI 
 ![class diagram](../team/images/UI-Sprint1.png )
 
 # Sprint 2
+##v2 protocol 
+**Component Hierarchy** 
+
+No changes to the Component Hierarchy are planned. 
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI**
+
+![class diagram](../team/images/v2-protocol-UI-Sprint2.png)
+
+This is how we are imaging v2 protocol to look like on our site after Sprint 2. 
+
 # Sprint 3
 # Sprint 4 
 # Sprint 5
