@@ -117,7 +117,7 @@ Not changed.
 ![class diagram](../team/images/UI-Sprint1.png )
 
 # Sprint 2
-##v2 protocol 
+## v2 protocol 
 **Component Hierarchy** 
 
 No changes to the Component Hierarchy are planned. 
@@ -130,7 +130,19 @@ No changes to the Class Diagram are planned.
 
 ![class diagram](../team/images/v2-protocol-UI-Sprint2.png)
 
-This is how we are imaging v2 protocol to look like on our site after Sprint 2. 
+## Where is?
+**Component Hierarchy** 
+
+No changes to the Component Hierarchy are planned. 
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI**
+
+![class diagram](../team/images/Where-is-UI-Sprint2.png)
+This is how we are imaging Where Is? Epic to look like on our site after Sprint 2. 
 
 # Sprint 3
 # Sprint 4 
