@@ -108,16 +108,22 @@ Often there are several related classes but we've listed only one to simplify th
 # Sprint 1
 
 ### Component Hierarchy
+
 ![class diagram](../team/images/ComponentHierachy-Sprint1.png )
 
 We've made a few new additions as demonstrated in the image above. We created individual files for each member to have their information rendered on the About section of our website. 
+
 ### Class Diagram
+
 Not changed.
+
 ### UI 
+
 ![class diagram](../team/images/UI-Sprint1.png )
 
 # Sprint 2
-## v2 protocol 
+
+### v2 protocol 
 **Component Hierarchy** 
 
 No changes to the Component Hierarchy are planned. 
@@ -130,7 +136,9 @@ No changes to the Class Diagram are planned.
 
 ![class diagram](../team/images/v2-protocol-UI-Sprint2.png)
 
-## Where is?
+This is how we are imaging v2 Protocol Epic to look like on our site after Sprint 2.
+
+### Where is?
 **Component Hierarchy** 
 
 No changes to the Component Hierarchy are planned. 
@@ -142,9 +150,10 @@ No changes to the Class Diagram are planned.
 **UI**
 
 ![class diagram](../team/images/Where-is-UI-Sprint2.png)
+
 This is how we are imaging Where Is? Epic to look like on our site after Sprint 2. 
 
-## Find places
+### Find places
 **Component Hierarchy** 
 
 No changes to the Component Hierarchy are planned. 
@@ -153,9 +162,12 @@ No changes to the Component Hierarchy are planned.
 
 No changes to the Class Diagram are planned.
 
-**UI**
+**UI** 
+
 ![class diagram](../team/images/Find-Places-UI.jpeg)
-## Find Distance
+
+### Find Distance
+
 **Component Hierarchy** 
 
 No changes to the Component Hierarchy are planned. 
@@ -166,6 +178,7 @@ No changes to the Class Diagram are planned.
 
 **UI**
 ![class diagram](../team/images/find-distance-UI.jpg)
+
 # Sprint 3
 # Sprint 4 
 # Sprint 5
