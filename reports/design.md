@@ -144,6 +144,19 @@ No changes to the Class Diagram are planned.
 ![class diagram](../team/images/Where-is-UI-Sprint2.png)
 This is how we are imaging Where Is? Epic to look like on our site after Sprint 2. 
 
+## Find places
+**Component Hierarchy** 
+
+No changes to the Component Hierarchy are planned. 
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI**
+![class diagram](../team/images/Find-Places-UI.jpeg)
+## Find Places?
+
 # Sprint 3
 # Sprint 4 
 # Sprint 5

@@ -49,6 +49,9 @@ The goal for this epic is to find the distance. When the user choose two places,
 
 **Find places**
 
+The goal for this Epic is for the user to be able to find places matching the name they provided. At the same time, 
+the map will also display a shortlist of relevant places and allow selection of one.
+
 **Where is?** 
 
 The goal for this Epic is for the user to be able to see a specified location on the map using latitude and longitude. 
