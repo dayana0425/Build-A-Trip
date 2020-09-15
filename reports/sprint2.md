@@ -38,6 +38,9 @@
 ## Planned Epics
 **v2 protocol** 
 
+The goal for this Epic is to support version 2 of the protocol. 
+We will add supportedRequests to config, the distance type, the find type and update the requestVersion to 2.
+                                                               
 **Where am I?**
 
 **Find distance**
@@ -45,6 +48,9 @@
 **Find places**
 
 **Where is?** 
+
+The goal for this Epic is for the user to be able to see a specified location on the map using latitude and longitude. 
+We'll add a feature for them to be able to paste a string containing latitude and longitude. We'll also create a validation feature that will validate their input to ensure there are no errors. 
 
 ## Metrics
 
@@ -60,6 +66,14 @@
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
 | September 14, 2020 | *None* | *None* | *None*  | 
+| September 16, 2020 | *NA* | *NA* | *NA*  | 
+| September 18, 2020 | *NA* | *NA* | *NA*  | 
+| September 21, 2020 | *NA* | *NA* | *NA*  | 
+| September 23, 2020 | *NA* | *NA* | *NA*  | 
+| September 25, 2020 | *NA* | *NA* | *NA*  | 
+| September 28, 2020 | *NA* | *NA* | *NA*  | 
+| September 30, 2020 | *NA* | *NA* | *NA*  | 
+
 
 
 ## Review
