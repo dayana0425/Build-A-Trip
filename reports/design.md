@@ -155,8 +155,17 @@ No changes to the Class Diagram are planned.
 
 **UI**
 ![class diagram](../team/images/Find-Places-UI.jpeg)
-## Find Places?
+## Find Distance
+**Component Hierarchy** 
 
+No changes to the Component Hierarchy are planned. 
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI**
+![class diagram](../team/images/find-distance-UI.jpg)
 # Sprint 3
 # Sprint 4 
 # Sprint 5
