@@ -43,6 +43,8 @@ We will add supportedRequests to config, the distance type, the find type and up
                                                                
 **Where am I?**
 
+The goal for this epic is to find the distance. When the user choose two places, the distance and a line between these places will occur.
+
 **Find distance**
 
 **Find places**
