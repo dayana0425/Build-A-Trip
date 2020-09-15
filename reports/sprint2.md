@@ -64,8 +64,8 @@ We'll add a feature for them to be able to paste a string containing latitude an
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
 | Epics | *5* | *0* |
-| Tasks |  *NA*   | *NA* | 
-| Story Points |  *NA*  | *NA* | 
+| Tasks |  *23*   | *0* | 
+| Story Points |  *34*  | *0* | 
 
 
 ## Scrums
