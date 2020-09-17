@@ -73,7 +73,7 @@ We'll add a feature for them to be able to paste a string containing latitude an
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
 | September 14, 2020 | *None* | *None* | *None*  | 
-| September 16, 2020 | *NA* | *NA* | *NA*  | 
+| September 16, 2020 | *None* | *#141,#142,#140,#139* | *None*  | 
 | September 18, 2020 | *NA* | *NA* | *NA*  | 
 | September 21, 2020 | *NA* | *NA* | *NA*  | 
 | September 23, 2020 | *NA* | *NA* | *NA*  | 
