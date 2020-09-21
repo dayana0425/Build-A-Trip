@@ -24,7 +24,7 @@ export default class ServerSettings extends Component {
             <div>
                 <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
                     <ModalHeader toggle={() => this.props.toggleOpen()}>Server Connection</ModalHeader>
-                    {this.renderSettings(this.getCurrentServerName())}
+                    {this.renderSettings(this.getCurrentServerName(), this.getCurrentVersion())}
                     {this.renderActions()}
                 </Modal>
             </div>
@@ -63,7 +63,7 @@ export default class ServerSettings extends Component {
                          Version:
                          </Col>
                          <Col xs={10}>
-                             SPRINT1
+                             {this.getCurrentVersion()}
                          </Col>
                 </Row>
             </ModalBody>
@@ -107,6 +107,15 @@ export default class ServerSettings extends Component {
             currentServerName = this.state.config.serverName;
         }
         return currentServerName;
+    }
+
+    getCurrentVersion(){
+        let currentVersion = this.props.serverSettings.serverConfig && this.state.validServer == null ? this.props.serverSettings.serverConfig.requestVersion : "";
+
+        if(this.state.config && Object.keys(this.state.config).length > 0) {
+            currentVersion = this.state.config.requestVersion;
+        }
+        return currentVersion;
     }
 
     updateInput(value) {
