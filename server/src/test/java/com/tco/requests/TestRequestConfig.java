@@ -39,6 +39,7 @@ public class TestRequestConfig {
     String name = conf.getServerName();
     assertEquals("T16 Team Hexadecimal", name);
   }
+
   @Test
   @DisplayName("Supported Requests length")
   public void testSupportedRequestsLength() {
