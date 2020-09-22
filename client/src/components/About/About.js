@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Container, Row, Col, Button} from 'reactstrap';
 import {CLIENT_TEAM_NAME} from "../../utils/constants";
 import DaianaAbout from './Daiana-About.js'
-import XinyiAbout from './XinyI-About.js'
+import XinyiAbout from './Xinyi-About.js'
 import ChenAbout from './Chen-About.js'
 import MattAbout from './Matt-About.js'
 
