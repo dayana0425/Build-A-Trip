@@ -74,8 +74,8 @@ We'll add a feature for them to be able to paste a string containing latitude an
 | :--- | :--- | :--- | :--- |
 | September 14, 2020 | *None* | *None* | *None*  | 
 | September 16, 2020 | *None* | *#141,#142,#140,#139* | *None*  | 
-| September 18, 2020 | *None* | *#141,#142,#140,#139* | *None*  | 
-| September 21, 2020 | *NA* | *NA* | *NA*  | 
+| September 18, 2020 | *None* | *#141,#142,#140,#139,#186* | *None*  | 
+| September 21, 2020 | *#142,#141* | *#139,#140,#157,#158* | *None*  | 
 | September 23, 2020 | *NA* | *NA* | *NA*  | 
 | September 25, 2020 | *NA* | *NA* | *NA*  | 
 | September 28, 2020 | *NA* | *NA* | *NA*  | 
