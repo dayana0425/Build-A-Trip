@@ -5,6 +5,7 @@ import com.tco.requests.RequestConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -38,4 +39,32 @@ public class TestRequestConfig {
     String name = conf.getServerName();
     assertEquals("T16 Team Hexadecimal", name);
   }
+  @Test
+  @DisplayName("Supported Requests length")
+  public void testSupportedRequestsLength() {
+    List<String> supportedRequests = conf.getSupportedRequests();
+    assertEquals(3, supportedRequests.size());
+  }
+
+  @Test
+  @DisplayName("Supported Requests config")
+  public void testSupportedRequestConfig() {
+    List<String> supportedRequests = conf.getSupportedRequests();
+    assertEquals("config", (supportedRequests.get(0)));
+  }
+
+  @Test
+  @DisplayName("Supported Requests Distance")
+  public void testSupportedRequestDistance() {
+    List<String> supportedRequests = conf.getSupportedRequests();
+    assertEquals("distance", (supportedRequests.get(1)));
+  }
+
+  @Test
+  @DisplayName("Supported Requests Find")
+  public void testSupportedRequestFInd() {
+    List<String> supportedRequests = conf.getSupportedRequests();
+    assertEquals("find", (supportedRequests.get(2)));
+  }
+
 }
