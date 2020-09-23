@@ -36,7 +36,7 @@ export default class Atlas extends Component {
               <Col sm={12} md={{size: 10, offset: 1}}>
                 {this.renderLeafletMap()}
               </Col>
-              <Col sm={12} md={{size: 10, offset: 10}}>
+              <Col sm={12} md={{size: 10, offset: 1}}>
                 <Button style={this.buttonStyle} onClick={() => this.where()}>
                   Where Am I?
                 </Button>
@@ -52,8 +52,7 @@ export default class Atlas extends Component {
   }
                   
   buttonStyle = {
-    marginTop: -110,
-    marginLeft: 100
+    marginTop: 10
   }
   
   componentDidMount() {
