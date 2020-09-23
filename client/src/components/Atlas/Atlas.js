@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Col, Container, Row} from 'reactstrap';
+import {Col, Container, Row, Button} from 'reactstrap';
 
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
@@ -36,10 +36,23 @@ export default class Atlas extends Component {
               <Col sm={12} md={{size: 10, offset: 1}}>
                 {this.renderLeafletMap()}
               </Col>
+              <Col sm={12} md={{size: 10, offset: 10}}>
+                <Button style={this.buttonStyle} onClick={() => this.where()}>
+                  Where Am I?
+                </Button>
+              </Col>
             </Row>
           </Container>
         </div>
     );
+  }
+
+  where() {
+    alert("Here!");
+  }
+  buttonStyle = {
+    marginTop: -110,
+    marginLeft: 100
   }
 
   renderLeafletMap() {
