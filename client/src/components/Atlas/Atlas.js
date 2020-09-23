@@ -20,12 +20,12 @@ export default class Atlas extends Component {
 
   constructor(props) {
     super(props);
-
     this.setMarker = this.setMarker.bind(this);
-
     this.state = {
       markerPosition: null,
     };
+    this.componentDidMount();
+
   }
 
   render() {
@@ -50,9 +50,28 @@ export default class Atlas extends Component {
   where() {
     alert("Here!");
   }
+                  
   buttonStyle = {
     marginTop: -110,
     marginLeft: 100
+  }
+  
+  componentDidMount() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+          function(position) {
+            console.log("Latitude is :", position.coords.latitude);
+            console.log("Longitude is :", position.coords.longitude);
+            console.log(position);
+            },
+          function(error) {
+            console.error("Error Code = " + error.code + " - " + error.message);
+            }
+      );
+      console.log("Available");
+    } else {
+      console.log("Not Available");
+    }
   }
 
   renderLeafletMap() {
@@ -97,4 +116,5 @@ export default class Atlas extends Component {
   getStringMarkerPosition() {
     return this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
   }
+
 }
