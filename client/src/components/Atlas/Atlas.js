@@ -24,7 +24,6 @@ export default class Atlas extends Component {
     this.state = {
       markerPosition: null,
     };
-    this.componentDidMount();
 
   }
 
@@ -37,7 +36,7 @@ export default class Atlas extends Component {
                 {this.renderLeafletMap()}
               </Col>
               <Col sm={12} md={{size: 10, offset: 1}}>
-                <Button style={this.buttonStyle} onClick={() => this.where()}>
+                <Button style={this.buttonStyle} onClick={() => this.requestCurrentLocation()}>
                   Where Am I?
                 </Button>
               </Col>
@@ -47,15 +46,15 @@ export default class Atlas extends Component {
     );
   }
 
-  where() {
-    alert("Here!");
-  }
-                  
+  // where() {
+  //   alert("Here!");
+  // }
+  //
   buttonStyle = {
     marginTop: 10
   }
   
-  componentDidMount() {
+  requestCurrentLocation() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
           function(position) {
