@@ -14,6 +14,7 @@ public class RequestFind extends RequestHeader{
     private Integer found;          //the total number of matching places in the data sources
     private ArrayList places;       //list of places found
     private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
+    private FindDatabase fdb;
 
 
     public RequestFind(){       //default constructor
@@ -29,13 +30,18 @@ public class RequestFind extends RequestHeader{
         if(this.limit == 0) {
             this.limit = 100;
         }
+
     }
 
     @Override
     public void buildResponse() throws BadRequestException {
-      //this.found =  //return value
-      //this.places = //return value
+      this.found = fdb.getCount();
+      this.places = fdb.getPlaces();
     }
+
+    public Integer getLimit() {return limit;}
+
+    public String getMatch() {return match;}
 
     public Integer getFound() {return found;}
 
