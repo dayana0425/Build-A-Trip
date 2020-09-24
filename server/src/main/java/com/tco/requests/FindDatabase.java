@@ -29,25 +29,27 @@ public class FindDatabase {
         String isTravis = System.getenv("TRAVIS");
         useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
         // Note that if the variable isn't defined, System.getenv will return null
+        //String isTravis = "true";
         String DB_URL;
         String DB_USER;
         String DB_PASSWORD;
         if(isTravis != null && isTravis.equals("true")) {
-            DB_URL = "jdbc:mysql://127.0.0.1/cs314";
+            DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";
             DB_USER = "root";
             DB_PASSWORD = null;
         }
-        if (useTunnel != null && useTunnel.equals("true")) {
+        else if (useTunnel != null && useTunnel.equals("true")) {
             DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";        // the port-number is 56247
+            DB_USER = "cs314-db";
+            DB_PASSWORD = "eiK5liet1uej";
         } else {
             DB_URL = "jdbc:mysql://faure.cs.colostate.edu/cs314";
+            DB_USER = "cs314-db";
+            DB_PASSWORD = "eiK5liet1uej";
         }
-        DB_USER = "cs314-db";
-        DB_PASSWORD = "eiK5liet1uej";
         String limitation = Integer.toString(limit);
         String QUERY = "SELECT name, type,latitude,longitude,municipality from " +
                         "world where name like '%" + match + "%' limit " + limit;
-
             try ( // connect to the database and query
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
@@ -68,7 +70,7 @@ public class FindDatabase {
                 }
             }
             catch(Exception e){
-                System.err.println("Exception: " + e.getMessage());         //
+                System.err.println("Exception: " + e.getMessage());
             }
 
     }
