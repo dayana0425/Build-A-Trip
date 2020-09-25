@@ -8,6 +8,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 import 'leaflet/dist/leaflet.css';
 
+
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
 const MARKER_ICON = L.icon({ iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40] });
@@ -56,11 +57,22 @@ export default class Atlas extends Component {
     );
   }
 
-  // where() {
-  //   alert("Here!");
-  // }
-  //
+  where() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        let coordinates = {latlng: {lat: position.coords.latitude, lng: position.coords.longitude}};
+        setMarker(coordinates);
+      });
+    } else {
+      alert("geolocation is not available!");
+    }
+    function setMarker(coordinates){
+      //alert("hi");
+      this.setState({markerPosition: coordinates.latlng})
+    }
 
+  }
+  
   buttonStyle = {
     marginTop: 10
   }
