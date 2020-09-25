@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Col, Container, Row, Button} from 'reactstrap';
+import {Col, Container, Row, Form, FormGroup, Label, Input, FormText, Button} from 'reactstrap';
 
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
@@ -21,9 +21,7 @@ export default class Atlas extends Component {
 
   constructor(props) {
     super(props);
-
     this.setMarker = this.setMarker.bind(this);
-
     this.state = {
       markerPosition: null,
     };
@@ -35,10 +33,21 @@ export default class Atlas extends Component {
           <Container>
             <Row>
               <Col sm={12} md={{size: 10, offset: 1}}>
+                <Form>
+                  <FormGroup>
+                    <Label for="Location_1">Location 1</Label>
+                    <Input type="Location_1" name="Location_1" id="ExampleLocation_1" placeholder="Longitude, Latitude" />
+                  </FormGroup>
+                  <FormGroup>
+                    <Label for="Location_2">Location 2</Label>
+                    <Input type="Location_2" name="Location_2" id="ExampleLocation_2" placeholder="Longitude, Latitude" />
+                  </FormGroup>
+                </Form>
+                <Button color="primary" style = {this.findDistanceButtonStyle}>Find Distance</Button>{' '}
                 {this.renderLeafletMap()}
               </Col>
               <Col sm={12} md={{size: 10, offset: 1}}>
-                <Button style={this.buttonStyle} onClick={() => this.where()}>
+                <Button color = "primary" style={this.buttonStyle} onClick={() => this.requestCurrentLocation()}>
                   Where Am I?
                 </Button>
               </Col>
@@ -63,8 +72,31 @@ export default class Atlas extends Component {
     }
 
   }
+  
   buttonStyle = {
     marginTop: 10
+  }
+
+  findDistanceButtonStyle = {
+    marginBottom: 10
+  }
+  
+  requestCurrentLocation() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+          function(position) {
+            console.log("Latitude is :", position.coords.latitude);
+            console.log("Longitude is :", position.coords.longitude);
+            console.log(position);
+            },
+          function(error) {
+            console.error("Error Code = " + error.code + " - " + error.message);
+            }
+      );
+      console.log("Available");
+    } else {
+      console.log("Not Available");
+    }
   }
 
   renderLeafletMap() {
@@ -109,4 +141,5 @@ export default class Atlas extends Component {
   getStringMarkerPosition() {
     return this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
   }
+
 }
