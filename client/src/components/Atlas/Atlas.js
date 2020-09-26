@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Col, Container, Row, Form, FormGroup, Label, Input, FormText, Button} from 'reactstrap';
-
+import {Col, Container, Row, Button} from 'reactstrap';
+import Tabs from './Tabs.js'
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -33,20 +33,8 @@ export default class Atlas extends Component {
           <Container>
             <Row>
               <Col sm={12} md={{size: 10, offset: 1}}>
-                <Form>
-                  <FormGroup>
-                    <Label for="Location_1">Location 1</Label>
-                    <Input type="Location_1" name="Location_1" id="ExampleLocation_1" placeholder="Longitude, Latitude" />
-                  </FormGroup>
-                  <FormGroup>
-                    <Label for="Location_2">Location 2</Label>
-                    <Input type="Location_2" name="Location_2" id="ExampleLocation_2" placeholder="Longitude, Latitude" />
-                  </FormGroup>
-                </Form>
-                <Button color="primary" style = {this.findDistanceButtonStyle}>Find Distance</Button>{' '}
+                <Tabs> </Tabs>
                 {this.renderLeafletMap()}
-              </Col>
-              <Col sm={12} md={{size: 10, offset: 1}}>
                 <Button color = "primary" style={this.buttonStyle} onClick={() => this.requestCurrentLocation()}>
                   Where Am I?
                 </Button>
@@ -70,17 +58,12 @@ export default class Atlas extends Component {
       //alert("hi");
       this.setState({markerPosition: coordinates.latlng})
     }
-
   }
-  
+
   buttonStyle = {
     marginTop: 10
   }
 
-  findDistanceButtonStyle = {
-    marginBottom: 10
-  }
-  
   requestCurrentLocation() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
