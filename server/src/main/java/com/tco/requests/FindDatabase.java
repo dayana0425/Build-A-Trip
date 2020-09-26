@@ -33,17 +33,18 @@ public class FindDatabase {
         String DB_URL;
         String DB_USER;
         String DB_PASSWORD;
+
         if(isTravis != null && isTravis.equals("true")) {
-            DB_URL = "jdbc:mariadb://127.0.0.1:56247/cs314";
+            DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";
             DB_USER = "root";
             DB_PASSWORD = null;
         }
         else if (useTunnel != null && useTunnel.equals("true")) {
-            DB_URL = "jdbc:mariadb://127.0.0.1:56247/cs314";        // the port-number is 56247
+            DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";        // the port-number is 56247
             DB_USER = "cs314-db";
             DB_PASSWORD = "eiK5liet1uej";
         } else {
-            DB_URL = "jdbc:mariadb://faure.cs.colostate.edu/cs314";
+            DB_URL = "jdbc:mysql://faure.cs.colostate.edu/cs314";
             DB_USER = "cs314-db";
             DB_PASSWORD = "eiK5liet1uej";
         }
