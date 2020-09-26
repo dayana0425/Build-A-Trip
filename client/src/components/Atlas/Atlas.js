@@ -71,10 +71,10 @@ export default class Atlas extends Component {
             console.log("Latitude is :", position.coords.latitude);
             console.log("Longitude is :", position.coords.longitude);
             console.log(position);
-            },
+          },
           function(error) {
             console.error("Error Code = " + error.code + " - " + error.message);
-            }
+          }
       );
       console.log("Available");
     } else {
