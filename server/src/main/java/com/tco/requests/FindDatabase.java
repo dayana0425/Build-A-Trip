@@ -26,16 +26,16 @@ public class FindDatabase {
 
 
     public void connect2DB() {
-        String isTravis = System.getenv("TRAVIS");
+        //String isTravis = System.getenv("TRAVIS");
         useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
         // Note that if the variable isn't defined, System.getenv will return null
-        //String isTravis = "true";
+        String isTravis = "true";
         String DB_URL;
         String DB_USER;
         String DB_PASSWORD;
 
         if(isTravis != null && isTravis.equals("true")) {
-            DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";
+            DB_URL = "jdbc:mysql://127.0.0.1/cs314";
             DB_USER = "root";
             DB_PASSWORD = null;
         }
