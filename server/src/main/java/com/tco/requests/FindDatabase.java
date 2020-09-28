@@ -33,7 +33,6 @@ public class FindDatabase {
         String DB_URL;
         String DB_USER;
         String DB_PASSWORD;
-        System.err.println(isTravis);
         if(isTravis != null && isTravis.equals("true")) {
             DB_URL = "jdbc:mysql://127.0.0.1/cs314";
             DB_USER = "root";
