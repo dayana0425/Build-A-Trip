@@ -9,11 +9,11 @@ import org.slf4j.LoggerFactory;
 
 public class RequestFind extends RequestHeader{
 
-    private String match;            //an alphanumeric pattern used to find geographic locations
-    private int limit;          //the maximun number of matching places that may be return
-    private int found;          //the total number of matching places in the data sources
-    private ArrayList places;       //list of places found
-    private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
+    private String match; //an alphanumeric pattern used to find geographic locations
+    private int limit; //the maximun number of matching places that may be return
+    private int found; //the total number of matching places in the data sources
+    private ArrayList places; //list of places found
+    private final transient Logger log = LoggerFactory.getLogger(RequestFind.class);
 
     private String tunnel;
 
@@ -29,7 +29,7 @@ public class RequestFind extends RequestHeader{
         this.match = match;
         this.limit = limit;     // this means the client doesn't give a limitation for how many do they want
         if(this.limit == 0) {
-            this.limit = 100;
+            this.limit = 10;
         }
 
     }

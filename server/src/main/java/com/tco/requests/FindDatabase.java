@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import  java.sql.ResultSet;
+import java.util.Queue;
 
 
 public class FindDatabase {
@@ -17,7 +18,7 @@ public class FindDatabase {
     private String match;
     private int limit;
     private int count;
-    private ArrayList<ArrayList<String>> places;
+    private ArrayList<Place> places;
     private String useTunnel;
     public FindDatabase(String match, int limit){
         this.match = match;
@@ -28,14 +29,11 @@ public class FindDatabase {
     public void connect2DB() {
         String isTravis = System.getenv("TRAVIS");
         useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
-        // Note that if the variable isn't defined, System.getenv will return null
-        //String isTravis = "true";
         String DB_URL;
         String DB_USER;
         String DB_PASSWORD;
-
         if(isTravis != null && isTravis.equals("true")) {
-            DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";
+            DB_URL = "jdbc:mysql://127.0.0.1/cs314";
             DB_USER = "root";
             DB_PASSWORD = null;
         }
@@ -49,25 +47,34 @@ public class FindDatabase {
             DB_PASSWORD = "eiK5liet1uej";
         }
         String limitation = Integer.toString(limit);
-        String QUERY = "SELECT name, type,latitude,longitude,municipality from " +
-                        "world where name like '%" + match + "%' limit " + limit;
+        String QUERY =
+                "SELECT world.name,world.id,world.type,world.latitude,world.longitude,world.municipality,world.altitude " +
+                "FROM world INNER JOIN continent INNER JOIN region INNER JOIN country " +
+                "WHERE world.continent = continent.id AND world.iso_region = region.id AND world.iso_country = country.id AND " +
+                "(world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%') " +
+                "ORDER BY world.name desc LIMIT " + limit + ";";
             try ( // connect to the database and query
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
               ResultSet results = query.executeQuery(QUERY);
             )
             {
+                System.out.println(QUERY);
                 count = 0;
-                places = new ArrayList<ArrayList<String>>();
+                places = new ArrayList<Place>();
                 while (results.next()) {
-                  ArrayList<String> data = new ArrayList<String>();
-                  data.add(results.getString("name"));
-                  data.add(results.getString("type"));
-                  data.add(results.getString("latitude"));
-                  data.add(results.getString("longitude"));
-                  data.add(results.getString("municipality"));
+                  Place p = new Place(
+
+                          results.getString("name"),
+                          results.getString("latitude"),
+                          results.getString("longitude"),
+                          results.getString("id"),
+                          results.getString("altitude"),
+                          results.getString("municipality"),
+                          results.getString("type")
+                  );
                   count++;
-                  places.add(data);
+                  places.add(p);
                 }
             }
             catch(Exception e){
@@ -78,7 +85,7 @@ public class FindDatabase {
 
     public int getCount(){return count;}
 
-    public ArrayList<ArrayList<String>> getPlaces(){return places;}
+    public ArrayList<Place> getPlaces(){return places;}
 
     public String getUseDatabaseTunnel() {return useTunnel;}
 

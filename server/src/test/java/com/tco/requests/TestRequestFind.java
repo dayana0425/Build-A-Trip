@@ -48,12 +48,13 @@ public class TestRequestFind {
     }
 
 
-    @Test
-    @DisplayName("Found is 10")
-    public void testFound(){
-        assertEquals(10,find.getFound());
+//    @Test
+//    @DisplayName("Found is 10")
+//    public void testFound(){
+//        assertEquals(10,find.getFound());
+//    }
 
-    }
+
 
 
 }

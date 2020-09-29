@@ -13,7 +13,7 @@ public class RequestDistance extends RequestHeader {
     private Long distance;
     private Double earthRadius;
     private Map<String,String> place1, place2;
-    private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
+    private final transient Logger log = LoggerFactory.getLogger(RequestDistance.class);
 
     public RequestDistance(){
         this.requestType = "distance";
