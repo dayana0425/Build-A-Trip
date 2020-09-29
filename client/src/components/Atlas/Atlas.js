@@ -65,17 +65,24 @@ export default class Atlas extends Component {
   }
 
   requestCurrentLocation() {
+    self = this;
     if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-          function(position) {
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude);
-            console.log(position);
-          },
-          function(error) {
-            console.error("Error Code = " + error.code + " - " + error.message);
-          }
-      );
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+              console.log(this, self);
+              self.setState({markerPosition: L.latLng(position.coords.latitude, position.coords.longitude)});
+              console.log(L.latLng());
+            },
+            function(error) {
+              console.error("Error Code = " + error.code + " - " + error.message);
+            }
+        );
+
+
+
+      // console.log(this.state, currentLocation);
+      // this.setState({markerPosition: currentLocation});
+      console.log(this.state);
       console.log("Available");
     } else {
       console.log("Not Available");
@@ -102,6 +109,7 @@ export default class Atlas extends Component {
   }
 
   setMarker(mapClickInfo) {
+    console.log(mapClickInfo);
     this.setState({markerPosition: mapClickInfo.latlng});
   }
 
@@ -113,6 +121,7 @@ export default class Atlas extends Component {
     };
 
     if (this.state.markerPosition) {
+      console.log(this.state.markerPosition);
       return (
           <Marker ref={initMarker} position={this.state.markerPosition} icon={MARKER_ICON}>
             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition()}</Popup>

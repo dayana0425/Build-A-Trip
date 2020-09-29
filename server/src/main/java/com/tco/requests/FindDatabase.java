@@ -47,14 +47,19 @@ public class FindDatabase {
             DB_PASSWORD = "eiK5liet1uej";
         }
         String limitation = Integer.toString(limit);
-        String QUERY = "SELECT name,id,type,latitude,longitude,municipality,altitude FROM " +
-                        "world WHERE name like '%" + match + "%' limit " + limit + ";";
+        String QUERY =
+                "SELECT world.name,world.id,world.type,world.latitude,world.longitude,world.municipality,world.altitude " +
+                "FROM world INNER JOIN continent INNER JOIN region INNER JOIN country " +
+                "WHERE world.continent = continent.id AND world.iso_region = region.id AND world.iso_country = country.id AND " +
+                "(world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%') " +
+                "ORDER BY world.name desc LIMIT " + limit + ";";
             try ( // connect to the database and query
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
               ResultSet results = query.executeQuery(QUERY);
             )
             {
+                System.out.println(QUERY);
                 count = 0;
                 places = new ArrayList<Place>();
                 while (results.next()) {
