@@ -17,7 +17,7 @@ public class TestRequestDistance {
 
     @BeforeEach
     public void createConfigurationForTestCases(){
-        dist = new RequestDistance(3959f, null, null, null, null);
+        dist = new RequestDistance(3959.0, null, null, null, null);
         //dist.buildResponse();
     }
 
@@ -66,7 +66,7 @@ public class TestRequestDistance {
     @Test
     @DisplayName("Distance Test")
     public void testColorado(){
-        RequestDistance distance = new RequestDistance(3959f, "41", "-109", "37", "-102");
+        RequestDistance distance = new RequestDistance(3959.0, "41", "-109", "37", "-102");
         distance.buildResponse();
         assertEquals(466, distance.getDistance());
     }
