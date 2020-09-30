@@ -18,7 +18,7 @@ public class FindDatabase {
     private String match;
     private int limit;
     private int count;
-    private ArrayList<Place> places;
+    private ArrayList<Place> places = new ArrayList<Place>();
     private String useTunnel;
     public FindDatabase(String match, int limit){
         this.match = match;
@@ -52,7 +52,7 @@ public class FindDatabase {
                 "FROM world INNER JOIN continent INNER JOIN region INNER JOIN country " +
                 "WHERE world.continent = continent.id AND world.iso_region = region.id AND world.iso_country = country.id AND " +
                 "(world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%') " +
-                "ORDER BY world.name desc LIMIT " + limit + ";";
+                "ORDER BY world.name asc LIMIT ;";
             try ( // connect to the database and query
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
