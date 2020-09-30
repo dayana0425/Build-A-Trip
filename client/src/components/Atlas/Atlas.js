@@ -57,6 +57,7 @@ export default class Atlas extends Component {
     function setMarker(coordinates){
       //alert("hi");
       this.setState({markerPosition: coordinates.latlng})
+
     }
   }
 

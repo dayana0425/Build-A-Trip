@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
+
 const whereIsButtonStyle = {
     marginBottom: 10
 }
@@ -9,51 +10,52 @@ const whereIsButtonStyle = {
 export default class WhereIs extends Component {
     constructor(props){
         super(props);
-        this.state = {valueLatitude: ''};
-        this.state = {valueLongitude: ''};
-        this.handleChangeLatitude = this.handleChangeLatitude.bind(this);
-        this.handleChangeLongitude = this.handleChangeLongitude.bind(this);
-        this.handleFindLocation = this.handleFindLocation.bind(this);
+        this.state = {
+            Longitude: '',
+            Latitude: ''
+        };
+        this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChangeLongitude(event){
-        this.setState({valueLongitude: event.target.valueLongitude});
-    }
 
-    handleChangeLatitude(event){
-            this.setState({valueLatitude: event.target.valueLatitude});
+    handleChange(event){
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+    handleSubmit(event){
+        //console.log("hi" + this.state.Longitude+ this.state.Latitude);
+        //event.preventDefault();
+    }
+    handleClick(txt) {
+        this.handleSubmit();
+        console.log('Click happened' + txt);
+      }
 
-    }
-    handleFindLocation(event){
-        alert(this.state.value);
-        event.preventDefault();
-        console.log('clicked!');
-    }
 
     render(){
         return(
             <Col sm="30">
-                <Form onClick = {this.handleFindLocation}>
+                <Form onSubmit = {this.handleSubmit}>
                     <FormGroup>
                         <Label for="Longitude">Longitude</Label>
-                        <Input type="Longitude"
+                        <Input type="text"
                                 name="Longitude"
-                                id="Longitude"
                                 placeholder="Enter Longitude"
                                 value = {this.state.valueLongitude}
-                                onChange = {this.handleChangeLongitude}/>
+                                onChange ={(e) => {this.handleChange(e)}}/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="Latitude">Latitude</Label>
-                        <Input type="Latitude"
+                        <Input type="text"
                                 name="Latitude"
-                                id="Latitude"
                                 placeholder="Enter Latitude"
                                 value = {this.state.valueLatitude}
-                                onChange = {this.handleChangeLatitude}/>
+                                onChange = {this.handleChange}/>
                     </FormGroup>
+                    <Button color="primary" style = {whereIsButtonStyle} onClick={ (e) => {this.handleClick();}}>
+                    Find Location
+                    </Button>
                 </Form>
-                <Button color="primary" style = {whereIsButtonStyle}>Find Location</Button>{' '}
             </Col>
         );
     }
