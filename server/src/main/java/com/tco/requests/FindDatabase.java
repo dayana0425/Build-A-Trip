@@ -40,42 +40,42 @@ public class FindDatabase {
             DB_USER = "cs314-db";
             DB_PASSWORD = "eiK5liet1uej";
         }
-
+        String limitation = Integer.toString(limit);
         String QUERY =
                 "SELECT world.name,world.id,world.type,world.latitude,world.longitude,world.municipality,world.altitude " +
-                "FROM world INNER JOIN continent INNER JOIN region INNER JOIN country " +
-                "WHERE world.continent = continent.id AND world.iso_region = region.id AND world.iso_country = country.id AND " +
-                "(world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%') " +
-                "ORDER BY world.name asc;";
-            try ( // connect to the database and query
+                        "FROM world INNER JOIN continent INNER JOIN region INNER JOIN country " +
+                        "WHERE world.continent = continent.id AND world.iso_region = region.id AND world.iso_country = country.id AND " +
+                        "(world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%') " +
+                        "ORDER BY world.name asc;";
+        try ( // connect to the database and query
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
               ResultSet results = query.executeQuery(QUERY);
 
-            )
-            {
-                while (results.next()) {
-                  Place p = new Place(
-                          results.getString("name"),
-                          results.getString("latitude"),
-                          results.getString("longitude"),
-                          results.getString("id"),
-                          results.getString("altitude"),
-                          results.getString("municipality"),
-                          results.getString("type")
-                  );
-                  places.add(p);
-                  count++;
-                }
+        )
+        {
+            while (results.next()) {
+                Place p = new Place(
+                        results.getString("name"),
+                        results.getString("latitude"),
+                        results.getString("longitude"),
+                        results.getString("id"),
+                        results.getString("altitude"),
+                        results.getString("municipality"),
+                        results.getString("type")
+                );
+                places.add(p);
+                count++;
+            }
 
-                if(limit > 0){
-                    ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
-                    places = newPlaces;
-                }
+            if(limit > 0){
+                ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
+                places = newPlaces;
             }
-            catch(Exception e){
-                System.err.println("Exception: " + e.getMessage());
-            }
+        }
+        catch(Exception e){
+            System.err.println("Exception: " + e.getMessage());
+        }
 
     }
 
