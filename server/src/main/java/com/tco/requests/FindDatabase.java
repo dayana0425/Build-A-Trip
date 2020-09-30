@@ -18,7 +18,7 @@ public class FindDatabase {
     private String match;
     private int limit;
     private int count;
-    private ArrayList<Place> places = new ArrayList<Place>;
+    private ArrayList<Place> places = new ArrayList<Place>();
     private String useTunnel;
     public FindDatabase(String match, int limit){
         this.match = match;
