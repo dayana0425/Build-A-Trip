@@ -11,8 +11,8 @@ import java.util.Queue;
 
 public class FindDatabase {
     private String match;
-    private int limit;
-    private int count;
+    private int limit = 0;
+    private int count = 0;
     private ArrayList<Place> places = new ArrayList<Place>();;
     private String useTunnel;
     public FindDatabase(String match, int limit){
@@ -83,7 +83,7 @@ public class FindDatabase {
 
     public ArrayList<Place> getPlaces(){return places;}
 
-    public String getUseDatabaseTunnel() {return useTunnel;}
+    //public String getUseDatabaseTunnel() {return useTunnel;}
 
 
 }

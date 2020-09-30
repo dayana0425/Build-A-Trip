@@ -15,8 +15,8 @@ public class RequestFind extends RequestHeader{
     private ArrayList places = new ArrayList<Place>(); //list of places found
     private final transient Logger log = LoggerFactory.getLogger(RequestFind.class);
 
-    private String tunnel;
 
+    //String tunnel;
 
     public RequestFind(){ //default constructor
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
