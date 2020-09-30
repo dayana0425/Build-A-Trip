@@ -1,13 +1,10 @@
 package com.tco.requests;
-
 import org.eclipse.jetty.client.util.StringContentProvider;
-
 import java.lang.Integer;
 import java.lang.String;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Queue;
-
 
 public class FindDatabase {
     private String match;
