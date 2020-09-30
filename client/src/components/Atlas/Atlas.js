@@ -68,16 +68,13 @@ export default class Atlas extends Component {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
-              console.log(this, self);
               self.setState({markerPosition: L.latLng(position.coords.latitude, position.coords.longitude)});
+              self.setMarker();
             },
             function(error) {
               console.error("Error Code = " + error.code + " - " + error.message);
             }
         );
-
-      // console.log(this.state, currentLocation);
-      // this.setState({markerPosition: currentLocation});
       console.log(this.state);
       console.log("Available");
     } else {
