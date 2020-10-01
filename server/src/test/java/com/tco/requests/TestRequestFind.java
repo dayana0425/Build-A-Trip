@@ -60,6 +60,4 @@ public class TestRequestFind {
         assertEquals(10,find.getPlaces().size());
     }
 
-
-
 }
