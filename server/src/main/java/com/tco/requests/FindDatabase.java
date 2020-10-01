@@ -42,8 +42,8 @@ public class FindDatabase {
                 "SELECT world.name,world.id,world.type,world.latitude,world.longitude,world.municipality,world.altitude " +
                         "FROM world INNER JOIN continent INNER JOIN region INNER JOIN country " +
                         "WHERE world.continent = continent.id AND world.iso_region = region.id AND world.iso_country = country.id AND " +
-                        "(world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%') " +
-                        "ORDER BY world.name asc;";
+                        "(world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '% "+ match + "%')" +
+                        "ORDER BY world.name ASC;";
         try ( // connect to the database and query
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
@@ -64,8 +64,8 @@ public class FindDatabase {
                 places.add(p);
                 count++;
             }
-
-            if(limit > 0){
+            System.out.println(places);
+            if(limit > 0 && limit < places.size()){
                 ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
                 places = newPlaces;
             }
