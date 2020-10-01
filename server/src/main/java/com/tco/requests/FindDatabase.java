@@ -48,7 +48,6 @@ public class FindDatabase {
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
               ResultSet results = query.executeQuery(QUERY);
-
         )
         {
             while (results.next()) {
@@ -64,7 +63,9 @@ public class FindDatabase {
                 places.add(p);
                 count++;
             }
+
             System.out.println(places);
+
             if(limit > 0 && limit < places.size()){
                 ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
                 places = newPlaces;
