@@ -55,17 +55,17 @@ export default class ServerSettings extends Component {
                     </Col>
                 </Row>
                 <Row className="m-2">
-                     <Col xs={2}>
+                     <Col>
                          Type: {this.getType()}
                      </Col>
                 </Row>
                 <Row className="m-2">
-                    <Col xs={2}>
+                    <Col>
                         Version: {this.getCurrentVersion()}
                     </Col>
                 </Row>
                 <Row className="m-2">
-                    <Col xs={2}>
+                    <Col>
                         Supported Requests: [{this.getSupportedRequests()}]
                     </Col>
                 </Row>
@@ -134,7 +134,7 @@ export default class ServerSettings extends Component {
         if(this.state.config && Object.keys(this.state.config).length>0){
             sr = this.state.config.supportedRequests;
         }
-        return sr.toString();
+        return sr[0] +", "+ sr[1] +", "+ sr[2];
     }
 
     updateInput(value) {
