@@ -66,7 +66,7 @@ export default class ServerSettings extends Component {
                 </Row>
                 <Row className="m-2">
                     <Col>
-                        Supported Requests: [{this.getSupportedRequests()}]
+                        Supported Requests: [{this.getSupportedRequests()[0] + ", " + this.getSupportedRequests()[1] + ", " + this.getSupportedRequests()[2]}]
                     </Col>
                 </Row>
             </ModalBody>
