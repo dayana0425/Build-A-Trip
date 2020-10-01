@@ -1,10 +1,8 @@
 import React from 'react';
 import myImage from "./team-member-images/Matt200x200.jpg";
 import { Media } from 'reactstrap';
+import Picture from "./Format.js";
 
-const imgStyle = {
-    marginRight: 10
-}
 
 const containerStyle = {
     marginTop:10
@@ -13,9 +11,7 @@ const containerStyle = {
 export default ({name}) => {
     return (
             <Media style = {containerStyle} >
-              <Media left top href="#">
-                    <Media src={myImage} style={imgStyle} alt="Matt's image" />
-              </Media>
+             <Picture picture = {myImage} alert = "Matt's image"/>
               <Media body>
                     <Media heading>
                     {name}

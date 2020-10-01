@@ -1,6 +1,7 @@
 import React from 'react';
 import myImage from "./team-member-images/Daiana.jpg";
 import { Media } from 'reactstrap';
+import Picture from "./Format.js";
 
 const imgStyle = {
     marginRight: 10
@@ -9,9 +10,7 @@ const imgStyle = {
 export default ({name}) => {
     return (
         <Media>
-            <Media left top href="#">
-                <Media src={myImage} style={imgStyle} alt="Test Image" />
-            </Media>
+            <Picture picture = {myImage} alert = "Daiana's info"/>
             <Media body>
                 <Media heading>
                     {name}
