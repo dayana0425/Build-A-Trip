@@ -3,10 +3,6 @@ import myImage from "./team-member-images/Chen_200x200.jpg";
 import { Media } from 'reactstrap';
 import Picture from "./Format.js";
 
-const imgStyle = {
-    marginRight: 10
-}
-
 const containerStyle = {
     marginTop:10
 }
