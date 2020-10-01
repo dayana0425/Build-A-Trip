@@ -44,21 +44,6 @@ export default class Atlas extends Component {
     );
   }
 
-  // where() {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(function (position) {
-  //       let coordinates = {latlng: {lat: position.coords.latitude, lng: position.coords.longitude}};
-  //       setMarker(coordinates);
-  //     });
-  //   } else {
-  //     alert("geolocation is not available!");
-  //   }
-  //   function setMarker(coordinates){
-  //     //alert("hi");
-  //     this.setState({markerPosition: coordinates.latlng})
-  //   }
-  // }
-
   buttonStyle = {
     marginTop: 10
   }
@@ -76,10 +61,8 @@ export default class Atlas extends Component {
               console.error("Error Code = " + error.code + " - " + error.message);
             }
         );
-      console.log(this.state);
-      console.log("Available");
     } else {
-      console.log("Not Available");
+              console.log("Not Available");
     }
   }
 
