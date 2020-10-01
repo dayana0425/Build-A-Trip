@@ -99,6 +99,7 @@ function mockConfigResponse() {
             'placeAttributes': ["latitude", "longitude", "name"],
             'requestType': "config",
             'requestVersion': 1,
+            'supportedRequests': [],
             'serverName': "t00"
         }));
 }
