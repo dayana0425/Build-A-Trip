@@ -63,6 +63,7 @@ export default class Atlas extends Component {
     marginTop: 10
   }
 
+
   requestCurrentLocation() {
     self = this;
     if ("geolocation" in navigator) {
