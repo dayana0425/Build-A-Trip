@@ -149,7 +149,7 @@ No changes to the Class Diagram are planned.
 
 **UI**
 
-![class diagram](../team/images/Where-is-UI-Sprint2.png)
+![class diagram](../team/images/where_is_UI.jpg)
 
 This is how we are imaging Where Is? Epic to look like on our site after Sprint 2. 
 
@@ -164,7 +164,7 @@ No changes to the Class Diagram are planned.
 
 **UI** 
 
-![class diagram](../team/images/Find-Places-UI.jpeg)
+![class diagram](../team/images/find_place_UI.jpg)
 
 ### Find Distance
 
@@ -177,7 +177,7 @@ No changes to the Component Hierarchy are planned.
 No changes to the Class Diagram are planned.
 
 **UI**
-![class diagram](../team/images/find-distance-UI.jpg)
+![class diagram](../team/images/find_distance_UI.jpg)
 
 ### Where am I?
 **Component Hierarchy** 
@@ -190,7 +190,7 @@ No changes to the Class Diagram are planned.
 
 **UI** 
 
-![class diagram](../team/images/Where-am-I-UI.jpg)
+![class diagram](../team/images/where_am_I_UI.jpg)
 
 # Sprint 3
 # Sprint 4 
