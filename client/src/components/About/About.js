@@ -14,7 +14,7 @@ export default class About extends Component {
           <Row>
             <Col>
             <Row>
-              <Col columnWidth = '2'>
+              <Col columnwidth = '2'>
               <h1> About: {CLIENT_TEAM_NAME} </h1>
               </Col>
               <Col id="closeAbout" xs='auto' >

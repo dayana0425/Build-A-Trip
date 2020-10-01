@@ -57,6 +57,7 @@ export default class Atlas extends Component {
     function setMarker(coordinates){
       //alert("hi");
       this.setState({markerPosition: coordinates.latlng})
+
     }
   }
 
@@ -67,22 +68,16 @@ export default class Atlas extends Component {
   requestCurrentLocation() {
     self = this;
     if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-              console.log(this, self);
-              self.setState({markerPosition: L.latLng(position.coords.latitude, position.coords.longitude)});
-              console.log(L.latLng());
-            },
-            function(error) {
-              console.error("Error Code = " + error.code + " - " + error.message);
-            }
-        );
-
-
-
-      // console.log(this.state, currentLocation);
-      // this.setState({markerPosition: currentLocation});
-      console.log(this.state);
+      navigator.geolocation.getCurrentPosition(
+          function(position) {
+            console.log(this, self);
+            self.setState({markerPosition: L.latLng(position.coords.latitude, position.coords.longitude)});
+            console.log(L.latLng());
+          },
+          function(error) {
+            console.error("Error Code = " + error.code + " - " + error.message);
+          }
+      );
       console.log("Available");
     } else {
       console.log("Not Available");
