@@ -104,6 +104,7 @@ export default class Atlas extends Component {
   }
 
   setMarker(mapClickInfo) {
+    console.log(mapClickInfo);
     this.setState({markerPosition: mapClickInfo.latlng});
   }
 
@@ -115,6 +116,7 @@ export default class Atlas extends Component {
     };
 
     if (this.state.markerPosition) {
+      console.log(this.state.markerPosition);
       return (
           <Marker ref={initMarker} position={this.state.markerPosition} icon={MARKER_ICON}>
             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition()}</Popup>

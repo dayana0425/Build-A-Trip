@@ -67,41 +67,7 @@ export default class ServerSettings extends Component {
                          </Col>
                 </Row>
 
-                <Row className="m-2">
-                     <Col xs={4}>
-                         Place 1:
-                         </Col>
-                         <Col xs={8}>
-                             Place 1 Here
-                         </Col>
-                </Row>
 
-                <Row className="m-2">
-                     <Col xs={4}>
-                         Place 2:
-                         </Col>
-                         <Col xs={8}>
-                             Place 2 Here
-                         </Col>
-                </Row>
-
-                <Row className="m-2">
-                     <Col xs={4}>
-                         Earth Radius:
-                         </Col>
-                         <Col xs={8}>
-                             Radius Here
-                         </Col>
-                </Row>
-
-                <Row className="m-2">
-                     <Col xs={4}>
-                         Distance:
-                         </Col>
-                         <Col xs={8}>
-                             Distance Here
-                         </Col>
-                </Row>
             </ModalBody>
         );
     }

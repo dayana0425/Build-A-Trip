@@ -13,25 +13,25 @@ public class RequestDistance extends RequestHeader {
     private Long distance;
     private Double earthRadius;
     private Map<String,String> place1, place2;
-    private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
+    private final transient Logger log = LoggerFactory.getLogger(RequestDistance.class);
 
     public RequestDistance(){
         this.requestType = "distance";
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
     }
 
-//    public RequestDistance(Float radius, String lat1, String lon1, String lat2, String lon2) {
-//        this();
-//        this.distance = null;
-//        this.earthRadius = radius;
-//        this.place1 = new HashMap();
-//        this.place1.put("latitude", lat1);
-//        this.place1.put("longitude", lon1);
-//        this.place2 = new HashMap();
-//        this.place2.put("latitude", lat2);
-//        this.place2.put("longitude", lon2);
-//
-//    }
+    public RequestDistance(Double radius, String lat1, String lon1, String lat2, String lon2) {
+        this();
+        this.distance = null;
+        this.earthRadius = radius;
+        this.place1 = new HashMap();
+        this.place1.put("latitude", lat1);
+        this.place1.put("longitude", lon1);
+        this.place2 = new HashMap();
+        this.place2.put("latitude", lat2);
+        this.place2.put("longitude", lon2);
+
+    }
 
     @Override
     public void buildResponse() {
@@ -64,8 +64,10 @@ public class RequestDistance extends RequestHeader {
         return Math.round(dist * earthRad);
     }
 
-    public Long getDistance() {
-        return distance;
-    }
+    public Map<String,String> getPlace1(){return this.place1;}
+    public Map<String,String> getPlace2(){return this.place2;}
+    public double getEarthRadius(){return earthRadius;}
+    public Long getDistance() { return distance; }
+
 
 }
