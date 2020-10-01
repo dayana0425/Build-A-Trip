@@ -31,7 +31,7 @@ export default class ServerSettings extends Component {
         );
     }
 
-    renderSettings(currentServerName) {
+    renderSettings(currentServerName, currentVersion, currentType, currentSupportedRequests) {
         return (
             <ModalBody>
                 <Row className="m-2">
@@ -56,17 +56,17 @@ export default class ServerSettings extends Component {
                 </Row>
                 <Row className="m-2">
                      <Col>
-                         Type: {this.getType()}
+                         Type: {currentType}
                      </Col>
                 </Row>
                 <Row className="m-2">
                     <Col>
-                        Version: {this.getCurrentVersion()}
+                        Version: {currentVersion}
                     </Col>
                 </Row>
                 <Row className="m-2">
                     <Col>
-                        Supported Requests: [{this.getSupportedRequests()}]
+                        Supported Requests: [{currentSupportedRequests}]
                     </Col>
                 </Row>
             </ModalBody>
