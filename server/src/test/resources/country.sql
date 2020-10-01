@@ -16,34 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `region`
+-- Table structure for table `country`
 --
 
-DROP TABLE IF EXISTS `region`;
+DROP TABLE IF EXISTS `country`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `region` (
+CREATE TABLE `country` (
   `index` int(11) NOT NULL,
-  `id` varchar(100) NOT NULL,
-  `local_code` varchar(10) DEFAULT NULL,
-  `name` varchar(200) DEFAULT NULL,
-  `continent` varchar(10) DEFAULT NULL,
-  `iso_country` varchar(10) DEFAULT NULL,
+  `id` varchar(10) NOT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `continent` varchar(3) DEFAULT NULL,
   `wikipedia_link` varchar(1000) DEFAULT NULL,
   `keywords` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  FULLTEXT KEY `regions_name_idx` (`name`)
+  KEY `countries_code_idx` (`id`),
+  FULLTEXT KEY `countries_name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `region`
+-- Dumping data for table `country`
 --
--- WHERE:  name like '%Dave%'limit 100
+-- WHERE:  name like '%Russia%' limit 100
 
-LOCK TABLES `region` WRITE;
-/*!40000 ALTER TABLE `region` DISABLE KEYS */;
-/*!40000 ALTER TABLE `region` ENABLE KEYS */;
+LOCK TABLES `country` WRITE;
+/*!40000 ALTER TABLE `country` DISABLE KEYS */;
+INSERT INTO `country` VALUES (302714,'RU','Russia','EU','http://en.wikipedia.org/wiki/Russia','Soviet, Sovietskaya, Sovetskaya, ????????? ??????');
+/*!40000 ALTER TABLE `country` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-29 21:59:24
+-- Dump completed on 2020-09-30 20:38:53

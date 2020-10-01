@@ -16,33 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `country`
+-- Table structure for table `region`
 --
 
-DROP TABLE IF EXISTS `country`;
+DROP TABLE IF EXISTS `region`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `country` (
+CREATE TABLE `region` (
   `index` int(11) NOT NULL,
-  `id` varchar(10) NOT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  `continent` varchar(3) DEFAULT NULL,
+  `id` varchar(100) NOT NULL,
+  `local_code` varchar(10) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
+  `continent` varchar(10) DEFAULT NULL,
+  `iso_country` varchar(10) DEFAULT NULL,
   `wikipedia_link` varchar(1000) DEFAULT NULL,
   `keywords` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `countries_code_idx` (`id`),
-  FULLTEXT KEY `countries_name_idx` (`name`)
+  FULLTEXT KEY `regions_name_idx` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `country`
+-- Dumping data for table `region`
 --
--- WHERE:  name like '%Dave%'limit 100
+-- WHERE:  name like '%water%' limit 100
 
-LOCK TABLES `country` WRITE;
-/*!40000 ALTER TABLE `country` DISABLE KEYS */;
-/*!40000 ALTER TABLE `country` ENABLE KEYS */;
+LOCK TABLES `region` WRITE;
+/*!40000 ALTER TABLE `region` DISABLE KEYS */;
+INSERT INTO `region` VALUES (304152,'IE-WD','WD','County Waterford','EU','IE','http://en.wikipedia.org/wiki/Waterford',NULL),(306701,'TC-LW','LW','Little Water Cay','NA','TC','http://en.wikipedia.org/wiki/Little_Water_Cay_',NULL);
+/*!40000 ALTER TABLE `region` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-09-29 23:33:32
+-- Dump completed on 2020-09-30 20:35:52

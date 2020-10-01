@@ -98,7 +98,6 @@ class MicroServer {
     }
 
     // To Serve Static Files (SPA)
-
     staticFiles.location("/public/");
     redirect.get("/", "/index.html");
   }

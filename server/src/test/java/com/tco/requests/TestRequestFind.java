@@ -49,9 +49,15 @@ public class TestRequestFind {
 
 
 //    @Test
-//    @DisplayName("Found is 10")
+//    @DisplayName("Found is 28")
 //    public void testFound(){
-//        assertEquals(10,find.getFound());
+//        assertEquals(28,find.getFound());
+//    }
+//
+//    @Test
+//    @DisplayName("Places list should be 10 because the limit is 10")
+//    public void testPlacesReturned(){
+//        assertEquals(10,find.getPlaces().size());
 //    }
 
 }
