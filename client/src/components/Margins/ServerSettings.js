@@ -35,38 +35,43 @@ export default class ServerSettings extends Component {
         return (
             <ModalBody>
                 <Row className="m-2">
-                    <Col xs ={2}>
+                    <Col xs ={3}>
                         Name:
                     </Col>
-                    <Col>
-                    </Col>
-                    <Col xs = {10}>
+                    <Col xs = {9}>
                         {currentServerName}
                     </Col>
                 </Row>
                 <Row className="m-2">
-                    <Col xs={2}>
+                    <Col xs={3}>
                         URL:
                     </Col>
-                    <Col>
-                    </Col>
-                    <Col xs={10}>
+                    <Col xs={9}>
                         {this.renderInputField()}
                     </Col>
                 </Row>
                 <Row className="m-2">
-                     <Col>
-                         Type: {currentType}
+                     <Col xs={3}>
+                         Type:
+                     </Col>
+                     <Col xs={9}>
+                        {currentType}
                      </Col>
                 </Row>
                 <Row className="m-2">
-                    <Col>
-                        Version: {currentVersion}
+                    <Col xs={3}>
+                        Version:
+                    </Col>
+                    <Col xs={9}>
+                        {currentVersion}
                     </Col>
                 </Row>
                 <Row className="m-2">
-                    <Col>
-                        Supported Requests: [{currentSupportedRequests}]
+                    <Col xs={3}>
+                        Supported Requests:
+                    </Col>
+                    <Col xs={9}>
+                        [{currentSupportedRequests}]
                     </Col>
                 </Row>
             </ModalBody>
