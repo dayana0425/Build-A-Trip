@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 
-
 const findDistanceButtonStyle = {
     marginBottom: 10
 }

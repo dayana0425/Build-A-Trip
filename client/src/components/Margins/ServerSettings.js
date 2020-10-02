@@ -24,19 +24,21 @@ export default class ServerSettings extends Component {
             <div>
                 <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
                     <ModalHeader toggle={() => this.props.toggleOpen()}>Server Connection</ModalHeader>
-                    {this.renderSettings(this.getCurrentServerName(), this.getCurrentVersion())}
+                    {this.renderSettings(this.getCurrentServerName(), this.getCurrentVersion(), this.getType(), this.getSupportedRequests())}
                     {this.renderActions()}
                 </Modal>
             </div>
         );
     }
 
-    renderSettings(currentServerName) {
+    renderSettings(currentServerName, currentVersion, currentType, currentSupportedRequests) {
         return (
             <ModalBody>
                 <Row className="m-2">
                     <Col xs ={2}>
                         Name:
+                    </Col>
+                    <Col>
                     </Col>
                     <Col xs = {10}>
                         {currentServerName}
@@ -46,28 +48,27 @@ export default class ServerSettings extends Component {
                     <Col xs={2}>
                         URL:
                     </Col>
+                    <Col>
+                    </Col>
                     <Col xs={10}>
                         {this.renderInputField()}
                     </Col>
                 </Row>
                 <Row className="m-2">
-                     <Col xs={2}>
-                         Type:
-                     </Col>
-                     <Col xs={10}>
-                          Config
+                     <Col>
+                         Type: {currentType}
                      </Col>
                 </Row>
                 <Row className="m-2">
-                     <Col xs={2}>
-                         Version:
-                         </Col>
-                         <Col xs={10}>
-                             {this.getCurrentVersion()}
-                         </Col>
+                    <Col>
+                        Version: {currentVersion}
+                    </Col>
                 </Row>
-
-
+                <Row className="m-2">
+                    <Col>
+                        Supported Requests: [{currentSupportedRequests}]
+                    </Col>
+                </Row>
             </ModalBody>
         );
     }
@@ -120,10 +121,26 @@ export default class ServerSettings extends Component {
         return currentVersion;
     }
 
+    getType(){
+        let type = this.props.serverSettings.serverConfig && this.state.validServer == null ? this.props.serverSettings.serverConfig.requestType : "";
+        if(this.state.config && Object.keys(this.state.config).length>0){
+            type = this.state.config.requestType;
+        }
+        return type;
+    }
+
+    getSupportedRequests(){
+        let sr = this.props.serverSettings.serverConfig && this.state.validServer == null ? this.props.serverSettings.serverConfig.supportedRequests : "";
+        if(this.state.config && Object.keys(this.state.config).length>0){
+            sr = this.state.config.supportedRequests;
+        }
+        return sr;
+    }
+
     updateInput(value) {
         this.setState({inputText: value}, () => {
             if (this.shouldAttemptConfigRequest(value)) {
-                sendServerRequest({requestType: "config", requestVersion: 1}, value)
+                sendServerRequest({requestType: "config", requestVersion: 1, supportedRequests: []}, value)
                     .then(config => {
                         if (config) { this.processConfigResponse(config.data) }
                         else { this.setState({validServer: true, config: config}); }

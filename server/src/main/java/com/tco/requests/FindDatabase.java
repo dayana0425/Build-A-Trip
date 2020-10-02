@@ -48,7 +48,6 @@ public class FindDatabase {
         if(isTravis != null && isTravis.equals("true")){
             QUERY = "SELECT name,id,type,latitude,longitude,municipality,altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%"+ match +"%');";
         }
-        System.out.println("SELECT name,id,type,latitude,longitude,municipality,altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%"+ match +"%');");
         try ( // connect to the database and query
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
@@ -68,8 +67,6 @@ public class FindDatabase {
                 places.add(p);
                 count++;
             }
-
-            System.out.println(places);
 
             if(limit > 0 && limit < places.size()){
                 ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
