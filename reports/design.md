@@ -126,11 +126,11 @@ Not changed.
 ### v2 protocol 
 **Component Hierarchy** 
 
-No changes to the Component Hierarchy are planned. 
+![class diagram](../team/images/v2%20Component%20hierarchy.jpg)
 
 **Class Diagram**
 
-No changes to the Class Diagram are planned.
+![class diagram](../team/images/v2%20class%20diagram.jpg)
 
 **UI**
 
@@ -141,11 +141,11 @@ This is how we are imaging v2 Protocol Epic to look like on our site after Sprin
 ### Where is?
 **Component Hierarchy** 
 
-No changes to the Component Hierarchy are planned. 
+![class diagram](../team/images/Component%20Hierarchy.jpg)
 
 **Class Diagram**
 
-No changes to the Class Diagram are planned.
+![class diagram](../team/images/class%20diagram.jpg)
 
 **UI**
 
@@ -156,11 +156,11 @@ This is how we are imaging Where Is? Epic to look like on our site after Sprint 
 ### Find places
 **Component Hierarchy** 
 
-No changes to the Component Hierarchy are planned. 
+![class diagram](../team/images/Component%20Hierarchy.jpg)
 
 **Class Diagram**
 
-No changes to the Class Diagram are planned.
+![class diagram](../team/images/class%20diagram.jpg)
 
 **UI** 
 
@@ -170,11 +170,11 @@ No changes to the Class Diagram are planned.
 
 **Component Hierarchy** 
 
-No changes to the Component Hierarchy are planned. 
+![class diagram](../team/images/Component%20Hierarchy.jpg)
 
 **Class Diagram**
 
-No changes to the Class Diagram are planned.
+![class diagram](../team/images/class%20diagram.jpg)
 
 **UI**
 ![class diagram](../team/images/find_distance_UI.jpg)
