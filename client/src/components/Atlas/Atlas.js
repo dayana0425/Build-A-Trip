@@ -66,8 +66,8 @@ export default class Atlas extends Component {
   }
 
   renderLeafletMap() {
-      var map_center;
-      var zoom = 15;
+      let map_center;
+      let zoom = 15;
       if (this.state.markerPosition == null){
           map_center = MAP_CENTER_DEFAULT;
       }
