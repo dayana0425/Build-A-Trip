@@ -66,16 +66,26 @@ export default class Atlas extends Component {
   }
 
   renderLeafletMap() {
+      let map_center;
+      let zoom = 15;
+      if (this.state.markerPosition == null){
+          map_center = MAP_CENTER_DEFAULT;
+      }
+      else {
+          map_center = [this.state.markerPosition.lat, this.state.markerPosition.lng];
+          zoom = 17;
+      }
+
     return (
         <Map
             className={'mapStyle'}
             boxZoom={false}
             useFlyTo={true}
-            zoom={15}
+            zoom={zoom}
             minZoom={MAP_MIN_ZOOM}
             maxZoom={MAP_MAX_ZOOM}
             maxBounds={MAP_BOUNDS}
-            center={MAP_CENTER_DEFAULT}
+            center={map_center}
             onClick={this.setMarker}
         >
           <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>

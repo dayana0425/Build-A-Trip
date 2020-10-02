@@ -46,6 +46,7 @@ export default class WhereIs extends Component {
                                 onChange ={(e) => {this.handleChange(e)}}/>
                     </FormGroup>
                     <FormGroup>
+                        <Label for="Latitude">Latitude</Label>
                         <Input type="text"
                                 name="Latitude"
                                 placeholder="Enter Latitude"
