@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { InputGroup, InputGroupAddon, Button, Input, Table} from 'reactstrap';
-import {isJsonResponseValid, sendServerRequest} from "../../utils/restfulAPI";
-import * as findSchema from "../../../schemas/FindResponse.json";
+import { InputGroup, InputGroupAddon, Button, Input, Table, Alert} from 'reactstrap';
+import {sendServerRequest} from "../../utils/restfulAPI";
+
 
 
 const buttonStyle = {
@@ -12,10 +12,11 @@ export default class FindPlaces extends Component {
     constructor(props){
         super(props);
         this.state = {
-            searching:'',
-            validServer: null,
-            find: {}
-        };
+            searching: '',
+            places: [],
+            found: 0,
+            limit: 0
+        }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
@@ -25,11 +26,12 @@ export default class FindPlaces extends Component {
          });
     }
 
-    handleClick(event){
+    handleClick(){
         this.requestMatch(this.state.searching);
     }
 
     render(){
+        const {places,found, limit } = this.state;
         return(
             <div>
                 <InputGroup>
@@ -42,67 +44,62 @@ export default class FindPlaces extends Component {
                         <Button color="primary" style = {buttonStyle} onClick={(e) => {this.handleClick();}}>Search</Button>
                     </InputGroupAddon>
                 </InputGroup>
-                {this.renderTable()}
 
+                <Table bordered striped>
+                    {this.renderTableHeader()}
+                    <tbody>
+                    {this.renderTable(places)}
+                    </tbody>
+                </Table>
+                {this.renderResultsFound(found, limit)}
             </div>
         );
     }
 
     requestMatch(inputValue) {
-        sendServerRequest({requestType: "find", requestVersion: 2, match: inputValue, limit: 3, places: []})
+        const {places} = this.state;
+        sendServerRequest({requestType: "find", requestVersion: 2, match: inputValue, limit: 5, places: []})
             .then(find => {
                 if (find) {
-                    this.processConfigResponse(find.data);
-                    console.log(find.data);
+                    this.setState({places: find.data.places, found: find.data.found, limit: find.data.limit});
+                    {this.renderTable(places)}
                 } else {
-                    this.setState({validServer: true, find: find});
+                   console.log('Error');
                 }
             });
     }
 
-    processConfigResponse(find) {
-        if(!isJsonResponseValid(find, findSchema)) {
-            this.setState({validServer: false, find: false});
-        } else {
-            this.setState({validServer: true, find: find});
-        }
-    }
-
     renderTable() {
-    return(
-        <Table hover>
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Airport Name</th>
-            <th>Longitude</th>
-            <th>Latitude</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Fort Collins </td>
-            <td>43.2 </td>
-            <td>42.3</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Denver</td>
-            <td>34.2</td>
-            <td>234.3</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Loveland </td>
-            <td>80.2</td>
-            <td>200.2</td>
-        </tr>
-        </tbody>
-        </Table>
-    );
+        return this.state.places.map((place, index) => {
+            const { id, name, municipality } = place
+            return (
+                <tr key={id}>
+                    <td>{id}</td>
+                    <td>{name}</td>
+                    <td>{municipality}</td>
+                </tr>
+
+            )
+        })
     }
 
-
+    renderResultsFound(found, limit){
+        return(
+        <Alert color="success">
+            {found} results found, currently displaying {limit} of the most relevant results.
+        </Alert>
+        );
+    }
+    renderTableHeader(){
+        return(
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Airport Name</th>
+                <th>Municipality</th>
+            </tr>
+            </thead>
+        )
+    }
 };
 
