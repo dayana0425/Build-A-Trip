@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import { InputGroup, InputGroupAddon, Button, Input, Table, Alert} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
 
-
-
 const buttonStyle = {
     marginBottom: 10
 }
