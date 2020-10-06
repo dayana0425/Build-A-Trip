@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import { Button, Col, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
-
 import { sendServerRequest, isJsonResponseValid } from "../../utils/restfulAPI";
-
 import * as configSchema from "../../../schemas/ResponseConfig";
-
+import {tableFormat} from './Template.js'
 export default class ServerSettings extends Component {
 
     constructor(props) {
@@ -34,46 +32,11 @@ export default class ServerSettings extends Component {
     renderSettings(currentServerName, currentVersion, currentType, currentSupportedRequests) {
         return (
             <ModalBody>
-                <Row className="m-2">
-                    <Col xs ={3}>
-                        Name:
-                    </Col>
-                    <Col xs = {9}>
-                        {currentServerName}
-                    </Col>
-                </Row>
-                <Row className="m-2">
-                    <Col xs={3}>
-                        URL:
-                    </Col>
-                    <Col xs={9}>
-                        {this.renderInputField()}
-                    </Col>
-                </Row>
-                <Row className="m-2">
-                     <Col xs={3}>
-                         Type:
-                     </Col>
-                     <Col xs={9}>
-                        {currentType}
-                     </Col>
-                </Row>
-                <Row className="m-2">
-                    <Col xs={3}>
-                        Version:
-                    </Col>
-                    <Col xs={9}>
-                        {currentVersion}
-                    </Col>
-                </Row>
-                <Row className="m-2">
-                    <Col xs={3}>
-                        Supported Requests:
-                    </Col>
-                    <Col xs={9}>
-                        [{currentSupportedRequests}]
-                    </Col>
-                </Row>
+               { tableFormat("Name",currentServerName)}
+               { tableFormat("URL",this.renderInputField())}
+               { tableFormat("Type", currentType)}
+               { tableFormat("Version", currentVersion)}
+               { tableFormat("Supported Requests", currentSupportedRequests)}
             </ModalBody>
         );
     }
