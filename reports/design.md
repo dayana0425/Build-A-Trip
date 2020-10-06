@@ -197,15 +197,21 @@ No changes to the Class Diagram are planned.
 ### v3 protocol 
 **Component Hierarchy** 
 
-No changes to the Component Hierarchy are planned. 
+![class diagram](../team/images/sprint3-v3-protocol-component.png)
 
+This is an update view that includes all the components that will be required for v3 protocol. Mainly it is concerning the new Trip object. 
+ 
 **Class Diagram**
 
-No changes to the Class Diagram are planned.
+![class diagram](../team/images/sprint3-v3-protocol-classes.png)
+
+This is a diagram of how the new classes will be interacting. Mainly it's concerning the new Trip object. The microserver will be sending a request to RequestTrip class and the RequestTrip class will be utilizing the new Trip class to create a new Trip object. Lastly, TestRequestTrip class will be testing our RequestTrip class. 
 
 **UI** 
 
-No changes to the UI are planned.
+![class diagram](../team/images/sprint3-v3-protocol-ui.png)
+
+This is the only change that will occur in the UI. Simply adding Trip as a supported request and displaying it in Server Connection.
 
 ### Build a trip 
 **Component Hierarchy** 
