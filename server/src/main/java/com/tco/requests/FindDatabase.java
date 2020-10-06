@@ -56,13 +56,12 @@ public class FindDatabase {
     }
 
     public void connect2DB() {
-        String limitation = Integer.toString(limit);
         try (
               Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
               Statement query = conn.createStatement();
               ResultSet results = query.executeQuery(QUERY);
-        )
-        { while (results.next()) {
+        ) {
+            while (results.next()) {
                 Place p = new Place(
                         results.getString("name"),
                         results.getString("latitude"),
@@ -75,15 +74,18 @@ public class FindDatabase {
                 places.add(p);
                 count++;
             }
-            if(limit > 0 && limit < places.size()){
-                ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
-                places = newPlaces;
-            }
         }
         catch(Exception e){
             System.err.println("Exception: " + e.getMessage());
         }
+    }
 
+    public void limitResult(){
+        String limitation = Integer.toString(limit);
+        if(limit > 0 && limit < places.size()){
+            ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
+            places = newPlaces;
+        }
     }
 
     public int getCount(){return count;}

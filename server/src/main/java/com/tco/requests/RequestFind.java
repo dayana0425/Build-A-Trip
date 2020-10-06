@@ -45,6 +45,7 @@ public class RequestFind extends RequestHeader{
         fdb.environment();
         fdb.getQuery();
         fdb.connect2DB();
+        fdb.limitResult();
         this.found = fdb.getCount();
         this.places = fdb.getPlaces();
     }
