@@ -193,5 +193,57 @@ No changes to the Class Diagram are planned.
 ![class diagram](../team/images/where_am_I_UI.jpg)
 
 # Sprint 3
+
+### v3 protocol 
+**Component Hierarchy** 
+
+No changes to the Component Hierarchy are planned. 
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI** 
+
+No changes to the UI are planned.
+
+### Build a trip 
+**Component Hierarchy** 
+
+No changes to the Component Hierarchy are planned. 
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI** 
+
+No changes to the UI are planned.
+
+### Modify trip
+**Component Hierarchy** 
+
+No changes to the Component Hierarchy are planned. 
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI** 
+
+No changes to the UI are planned.
+
+### Find places
+**Component Hierarchy** 
+
+No changes to the Component Hierarchy are planned. 
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI** 
+
+No changes to the UI are planned.
 # Sprint 4 
 # Sprint 5
