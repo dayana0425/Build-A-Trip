@@ -22,6 +22,7 @@ public class RequestFind extends RequestHeader{
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
         this.requestType = "find";
         this.match = "Dave";
+        this.limit = 1;
     }
 
     public RequestFind(String match) {
