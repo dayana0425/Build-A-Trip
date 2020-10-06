@@ -42,8 +42,9 @@ public class RequestFind extends RequestHeader{
     //public void buildResponse() throws BadRequestException {
     public void buildResponse(){
         FindDatabase fdb = new FindDatabase(match,limit);
+        fdb.environment();
+        fdb.getQuery();
         fdb.connect2DB();
-        //tunnel = fdb.getUseDatabaseTunnel();
         this.found = fdb.getCount();
         this.places = fdb.getPlaces();
     }
