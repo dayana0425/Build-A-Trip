@@ -43,6 +43,10 @@
 
 For this epic, we plan to update the request version to version 3. We plan to add trip as a supported request along with config, distance, and find and create a protocol object of the type trip. We also plan to modify the the Find behavior when no match is specified.
 
+**Find Distance**
+
+For this epic, we plan to allow the user to choose to points on the map, and after the user selects two points, a line will be drawn connecting the two points as well as show the distance in miles.
+
 **Find Places**
 
 For this epic, we plan to fix the query because it does not check ID like match. We also plan to be able to select from the relevant places table and show markers on the map when you select a place.
@@ -59,9 +63,9 @@ For this epic, we plan to allow users to modify a trip that they already created
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *4* | *count* |
-| Tasks |  *29*   | *count* | 
-| Story Points |  *45*  | *sum* | 
+| Epics | *5* | *count* |
+| Tasks |  *35*   | *count* | 
+| Story Points |  *55*  | *sum* | 
 
 We as a team did not complete the amount of tasks and story points that we planned to. We did not get started on Sprint 2 until later on in the sprint and we plan to start right away for Sprint 3. Last sprint, we designated one team member for their own epic, and we plan to all work on the same epic as a team until it is completed for this sprint. We believe this will not only improve our communication, but also improve our clean code scores from last sprint because everyone needs to be able to understand it. We also have a new team member, and we think this will help us to get more tasks and story points completed.
 
