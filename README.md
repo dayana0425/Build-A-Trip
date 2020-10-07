@@ -1,6 +1,6 @@
 # t16 - Team Hexadecimal
-![Clockwise from top left: Daiana, Xinyi, Allie, Chen, and Matt](team/images/Team-Hex-New.jpg)
-*Clockwise from top left: Xinyi, Chen, Daiana and Matt*
+![Clockwise from top left: Daiana, Xinyi, Allie, Chen, and Matt](team/images/team-members-new.jpg)
+*From left to right: Xinyi, Chen, Daiana, Matt and Ryan*
 
 # Member Information 
 Last Name | First Name | CSU eName | Github username | CSU email
