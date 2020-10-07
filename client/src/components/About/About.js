@@ -11,6 +11,7 @@ import XinyiPic from './team-member-images/Xinyi.jpg'
 import DaianaPic from './team-member-images/Daiana.jpg'
 import MattPic from './team-member-images/Matt200x200.jpg'
 import ChenPic from './team-member-images/Chen_200x200.jpg'
+import RyanPic from './team-member-images/Ryan200x200.jpg'
 
 export default class About extends Component {
 
@@ -57,6 +58,9 @@ export default class About extends Component {
                                                                     + "to work on math problems because after I finish these problems I feel a sense"
                                                                     + "of accomplishment. I also enjoy spending time with my friends to enhance our friendship.")}
 
+               {aboutFormat ("Ryan Loptien", RyanPic, "Ryan's pic", "My name is Ryan Loptien and I am a senior Applied Computing Technology student "
+                                                                    + "with a minor in business administration. I enjoy playing golf with family and playing all "
+                                                                    + "types of board and video games. When I finish school, I hope to get into the cyber-security field.")}
             </Col>
           </Row>
         </Container>
