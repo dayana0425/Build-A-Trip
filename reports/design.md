@@ -242,14 +242,14 @@ No changes to the UI are planned.
 ### Find places
 **Component Hierarchy** 
 
-No changes to the Component Hierarchy are planned. 
+No changes new to the Component Hierarchy are planned for this sprint since we started Find Places last sprint we already have it organized in the way that we want.
 
 **Class Diagram**
 
-No changes to the Class Diagram are planned.
+No changes new to the Class Diagram are planned. 
 
 **UI** 
 
-No changes to the UI are planned.
+No new changes to the UI are planned. We plan to leave find places just the way that it is for now. We are not sure yet if we will incorporate it in Create a Trip. It is a possibility.
 # Sprint 4 
 # Sprint 5
