@@ -63,9 +63,9 @@ For this epic, we plan to allow users to modify a trip that they already created
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *5* | *count* |
-| Tasks |  *30*   | *count* | 
-| Story Points |  *55*  | *sum* | 
+| Epics | *5* | *0* |
+| Tasks |  *30*   | *0* | 
+| Story Points |  *55*  | *0* | 
 
 We as a team did not complete the amount of tasks and story points that we planned to. We did not get started on Sprint 2 until later on in the sprint and we plan to start right away for Sprint 3. Last sprint, we designated one team member for their own epic, and we plan to all work on the same epic as a team until it is completed for this sprint. We believe this will not only improve our communication, but also improve our clean code scores from last sprint because everyone needs to be able to understand it. We also have a new team member, and we think this will help us to get more tasks and story points completed.
 
@@ -73,7 +73,7 @@ We as a team did not complete the amount of tasks and story points that we plann
 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
-| October 5, 2020 | *None* | *#249, #251, #257, #258, #277* | *None* | 
+| October 5, 2020 | *None* | *None* | *None* | 
 
 
 ## Review
