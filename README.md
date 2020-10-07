@@ -6,6 +6,7 @@
 Last Name | First Name | CSU eName | Github username | CSU email
 ------------ | ------------- | ------------- | ------------- | -------------
 Bilbao | Daiana | dbilbao | dayana0425 | dbilbao@rams.colostate.edu
+Loptien | Ryan | rloptien | rloptien | rloptien@colostate.edu
 Vildibill  | Matt | mattv | MattVildibill | mattv@colostate.edu
 Wang  | Xinyi | xinyi99 | Xinyi-Wang99 | xinyi.wang@colostate.edu
 Wang  | Chen | daynight | daynight66 | daynight@colostate.edu
