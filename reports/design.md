@@ -157,14 +157,19 @@ This is how we are imaging Where Is? Epic to look like on our site after Sprint 
 **Component Hierarchy** 
 
 ![class diagram](../team/images/Component%20Hierarchy.jpg)
+We has created a Find Distance component which will render Find Distance such as the table and add add markers to the map.
 
 **Class Diagram**
 
 ![class diagram](../team/images/class%20diagram.jpg)
 
+The Find Distance Component is rendered by our Master Tab component which renders all components that are on each tab in our website.
+
 **UI** 
 
 ![class diagram](../team/images/find_place_UI.jpg)
+
+This is how Find Places will look like on the client side.
 
 ### Find Distance
 
@@ -232,14 +237,14 @@ Modify trip features will be accessible when a trip name is clicked on. When cli
 ### Find places
 **Component Hierarchy** 
 
-No changes to the Component Hierarchy are planned. 
+No changes new to the Component Hierarchy are planned for this sprint since we started Find Places last sprint we already have it organized in the way that we want.
 
 **Class Diagram**
 
-No changes to the Class Diagram are planned.
+No changes new to the Class Diagram are planned. 
 
 **UI** 
 
-No changes to the UI are planned.
+No new changes to the UI are planned. We plan to leave find places just the way that it is for now. We are not sure yet if we will incorporate it in Create a Trip. It is a possibility.
 # Sprint 4 
 # Sprint 5
