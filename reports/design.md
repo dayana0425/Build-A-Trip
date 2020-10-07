@@ -213,31 +213,21 @@ This is a diagram of how the new classes will be interacting. Mainly it's concer
 
 This is the only change that will occur in the UI. Simply adding Trip as a supported request and displaying it in Server Connection.
 
-### Build a trip 
+### Build a trip/Modify a Trip
 **Component Hierarchy** 
 
 No changes to the Component Hierarchy are planned. 
 
 **Class Diagram**
 
-No changes to the Class Diagram are planned.
+![class diagram](../team/images/Build-Modify-Trip-Design.jpg)
 
 **UI** 
 
-No changes to the UI are planned.
+Changing the Distance tab to Build a Trip. This tab will now display an itinerary at the bottom of the page that allows the user to enter destination coordinates that will show on the map and in the itinerary. Options to save a trip and load a previous trip will now exist below the itinerary. 
 
-### Modify trip
-**Component Hierarchy** 
+Modify trip features will be accessible when a trip name is clicked on. When clicked on, the user will have the option to make that location the new starting point, remove the destination, view previous notes, or add notes about that destination. Additionally, the user will be able to drag and drop rows in the itinerary to change the order of the trip. Changes will be refelcted in the itinerary table. 
 
-No changes to the Component Hierarchy are planned. 
-
-**Class Diagram**
-
-No changes to the Class Diagram are planned.
-
-**UI** 
-
-No changes to the UI are planned.
 
 ### Find places
 **Component Hierarchy** 
