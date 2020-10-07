@@ -74,6 +74,7 @@ We as a team did not complete the amount of tasks and story points that we plann
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
 | October 5, 2020 | *None* | *None* | *None* | 
+| October 7, 2020 | *None* | *#152, #156, #164, #211, #300* | *None* | 
 
 
 ## Review
