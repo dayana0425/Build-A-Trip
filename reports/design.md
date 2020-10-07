@@ -157,14 +157,19 @@ This is how we are imaging Where Is? Epic to look like on our site after Sprint 
 **Component Hierarchy** 
 
 ![class diagram](../team/images/Component%20Hierarchy.jpg)
+We has created a Find Distance component which will render Find Distance such as the table and add add markers to the map.
 
 **Class Diagram**
 
 ![class diagram](../team/images/class%20diagram.jpg)
 
+The Find Distance Component is rendered by our Master Tab component which renders all components that are on each tab in our website.
+
 **UI** 
 
 ![class diagram](../team/images/find_place_UI.jpg)
+
+This is how Find Places will look like on the client side.
 
 ### Find Distance
 
