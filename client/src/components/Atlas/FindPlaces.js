@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { InputGroup, InputGroupAddon, Button, Input, Table, Alert} from 'reactstrap';
+import {InputGroup, InputGroupAddon, Button, Input, Table, Alert } from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
 
 const buttonStyle = {
@@ -13,23 +13,26 @@ export default class FindPlaces extends Component {
             searching: '',
             places: [],
             found: 0,
-            limit: 0
+            results: 0,
+            markerPosition: null
+
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
+
     handleChange(event){
-         this.setState({
-                [event.target.name]: event.target.value
-         });
+        this.setState({
+            [event.target.name]: event.target.value
+        });
     }
 
-    handleClick(){
+    handleClick(event){
         this.requestMatch(this.state.searching);
     }
 
     render(){
-        const {places,found, limit } = this.state;
+        const {places,found, results} = this.state;
         return(
             <div>
                 <InputGroup>
@@ -39,17 +42,16 @@ export default class FindPlaces extends Component {
                            placeholder="Enter the place"
                            onChange = {(e) => {this.handleChange(e)}}/>
                 <InputGroupAddon addonType="append">
-                        <Button color="primary" style = {buttonStyle} onClick={(e) => {this.handleClick();}}>Search</Button>
+                        <Button color="primary" style = {buttonStyle} onClick={(e) => {this.handleClick(e);}}>Search</Button>
                     </InputGroupAddon>
                 </InputGroup>
-
-                <Table bordered striped>
+                <Table bordered hover striped>
                     {this.renderTableHeader()}
                     <tbody>
                     {this.renderTable(places)}
                     </tbody>
                 </Table>
-                {this.renderResultsFound(found, limit)}
+                {this.renderResultsFound(found, results)}
             </div>
         );
     }
@@ -59,7 +61,7 @@ export default class FindPlaces extends Component {
         sendServerRequest({requestType: "find", requestVersion: 2, match: inputValue, limit: 5, places: []})
             .then(find => {
                 if (find) {
-                    this.setState({places: find.data.places, found: find.data.found, limit: find.data.limit});
+                    this.setState({places: find.data.places, found: find.data.found, results: find.data.places.length});
                     {this.renderTable(places)}
                 } else {
                    console.log('Error');
@@ -68,10 +70,11 @@ export default class FindPlaces extends Component {
     }
 
     renderTable() {
-        return this.state.places.map((place, index) => {
-            const { id, name, municipality } = place
+        return this.state.places.map((place) => {
+            const { id, name, municipality, longitude, latitude } = place
             return (
-                <tr key={id}>
+
+                <tr key={id} onClick={() => {doSomething(longitude,latitude)}}>
                     <td>{id}</td>
                     <td>{name}</td>
                     <td>{municipality}</td>
@@ -81,13 +84,14 @@ export default class FindPlaces extends Component {
         })
     }
 
-    renderResultsFound(found, limit){
+    renderResultsFound(found, results){
         return(
         <Alert color="success">
-            {found} results found, currently displaying {limit} of the most relevant results.
+            {found} results found. Currently displaying {results} of the most relevant results.
         </Alert>
         );
     }
+
     renderTableHeader(){
         return(
             <thead>
@@ -99,5 +103,9 @@ export default class FindPlaces extends Component {
             </thead>
         )
     }
+
 };
 
+function doSomething(long, lat) {
+    alert('long: ' + long + ' lat: ' + lat);
+}
