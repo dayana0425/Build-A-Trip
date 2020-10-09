@@ -15,17 +15,14 @@ public class RequestFind extends RequestHeader{
     private ArrayList places = new ArrayList<Place>(); //list of places found
     private final transient Logger log = LoggerFactory.getLogger(RequestFind.class);
 
-
-    //String tunnel;
-
     public RequestFind(){ //default constructor
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
         this.requestType = "find";
-        this.match = "Dave";
-        this.limit = 1;
+        this.match = "";
+        this.limit = 0;
     }
 
-    public RequestFind(String match) {
+    public RequestFind(String match) { //match is specified but no limit
         this();
         this.match = match;
         this.limit = 0;
@@ -58,5 +55,4 @@ public class RequestFind extends RequestHeader{
 
     public ArrayList getPlaces() {return places;}
 
-    //public String getTunnel(){return tunnel;}
 }
