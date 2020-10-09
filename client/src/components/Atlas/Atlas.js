@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Col, Container, Row, Button} from 'reactstrap';
 import Tabs from './Tabs.js'
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
-
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
@@ -24,6 +23,7 @@ export default class Atlas extends Component {
     this.state = {
       markerPosition: null,
     };
+
   }
 
   render() {
@@ -95,7 +95,6 @@ export default class Atlas extends Component {
   }
 
   setMarker(mapClickInfo) {
-    console.log(mapClickInfo);
     this.setState({markerPosition: mapClickInfo.latlng});
   }
 
@@ -107,7 +106,6 @@ export default class Atlas extends Component {
     };
 
     if (this.state.markerPosition) {
-      console.log(this.state.markerPosition);
       return (
           <Marker ref={initMarker} position={this.state.markerPosition} icon={MARKER_ICON}>
             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition()}</Popup>

@@ -24,8 +24,7 @@ export default class WhereIs extends Component {
         });
     }
     handleSubmit(event){
-        //console.log("hi" + this.state.Longitude+ this.state.Latitude);
-        //event.preventDefault();
+
     }
     handleClick(txt) {
         this.handleSubmit();
