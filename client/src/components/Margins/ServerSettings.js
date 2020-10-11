@@ -13,8 +13,9 @@ export default class ServerSettings extends Component {
             validServer: null,
             config: {}
         };
-
+         console.log(this.state);
         this.saveInputText = this.state.inputText;
+
     }
 
     render() {
@@ -71,7 +72,8 @@ export default class ServerSettings extends Component {
         );
     }
 
-    getCurrentServerName() {
+
+   getCurrentServerName() {
         let currentServerName = this.props.serverSettings.serverConfig && this.state.validServer === null ?
                                 this.props.serverSettings.serverConfig.serverName : "";
         if (this.state.config && Object.keys(this.state.config).length > 0) {
@@ -102,7 +104,7 @@ export default class ServerSettings extends Component {
         if(this.state.config && Object.keys(this.state.config).length>0){
             sr = this.state.config.supportedRequests;
         }
-        return sr;
+        return sr[0] + ' ' + sr[1] + ' ' + sr[2];
     }
 
     updateInput(value) {
