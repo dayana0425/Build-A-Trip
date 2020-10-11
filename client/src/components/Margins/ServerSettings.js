@@ -102,7 +102,7 @@ export default class ServerSettings extends Component {
         if(this.state.config && Object.keys(this.state.config).length>0){
             sr = this.state.config.supportedRequests;
         }
-        return sr[0] + ' ' +sr[1] + ' ' +sr[2];
+        return sr;
     }
 
     updateInput(value) {
