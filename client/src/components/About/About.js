@@ -41,9 +41,7 @@ export default class About extends Component {
               <h1> About: {CLIENT_TEAM_NAME} </h1>
               </Col>
               <Col id="closeAbout" xs='auto' >
-                <Button color="primary" onClick={this.props.closePage} xs={1}>
-                    Close
-                </Button>
+                <Button color="primary" onClick={this.props.closePage} xs={1}>Close</Button>
               </Col>
             </Row>
                 <h2> Mission Statement </h2>
