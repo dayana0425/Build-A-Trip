@@ -3,8 +3,8 @@
 | Inspection | Details |
 | ----- | ----- |
 | Subject | *file and methods/line range to review for meeting* |
-| Meeting | *date, time, location* |
-| Checklist | *reference, URL, etc.* |
+| Meeting | *October 14, 2020, 4:00PM , Teams* |
+| Checklist | *t16/reports/checklist.md* |
 
 ### Roles
 
