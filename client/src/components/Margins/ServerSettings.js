@@ -4,15 +4,6 @@ import { sendServerRequest, isJsonResponseValid } from "../../utils/restfulAPI";
 import * as configSchema from "../../../schemas/ResponseConfig";
 import {tableFormat} from './Template.js'
 
-function getProperties(object,validator,config,type){
-    let value = object.serverSettings.serverConfig && validator === null ?
-                                                object.serverSettings.serverConfig[type]: "";
-    if(config && Object.keys(config).length > 0) {
-                value = config[type];
-            }
-     return value;
-}
-
 export default class ServerSettings extends Component {
 
     constructor(props) {
@@ -32,7 +23,11 @@ export default class ServerSettings extends Component {
             <div>
                 <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
                     <ModalHeader toggle={() => this.props.toggleOpen()}>Server Connection</ModalHeader>
-                    {this.renderSettings(this.getCurrentServerName(), this.getCurrentVersion(), this.getType(), this.getSupportedRequests())}
+                    {this.renderSettings(
+                     this.getProperties("serverName"),
+                     this.getProperties("serverVersion"),
+                     this.getProperties("requestType"),
+                     this.getProperties("supportedRequests"))}
                     {this.renderActions()}
                 </Modal>
             </div>
@@ -81,25 +76,16 @@ export default class ServerSettings extends Component {
         );
     }
 
-    getCurrentServerName() {
-            let currentServerName = getProperties(this.props, this.state.validServer, this.state.config,"serverName");
-            return currentServerName;
+    getProperties(type){
+        let value = this.props.serverSettings.serverConfig && this.state.validServer=== null ?
+                                                    this.props.serverSettings.serverConfig[type]: "";
+        if(this.state.config && Object.keys(this.state.config).length > 0) {
+                    value = his.state.config[type];
+                }
+
+         return value;
     }
 
-    getCurrentVersion(){
-        let currentVersion = getProperties(this.props, this.state.validServer,this.state.config,"serverVersion");
-        return currentVersion;
-    }
-
-    getType(){
-       let type = getProperties(this.props, this.state.validServer,this.state.config,"requestType");
-        return type;
-    }
-
-    getSupportedRequests(){
-        let sr = getProperties(this.props, this.state.validServer,this.state.config,"supportedRequests");
-       return sr;
-    }
 
     updateInput(value) {
         this.setState({inputText: value}, () => {
