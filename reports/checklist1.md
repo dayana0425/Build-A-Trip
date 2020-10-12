@@ -11,6 +11,7 @@ The checklist will be updated as we identify new faults in our code that we wish
 * Should the upper bound of arrays be equal to the size of the array or size-1?
 * If character strings are used, is a delimiter explicitly assigned?
 * Is there any possibility of a buffer overflow?
+* Do all program variables exist in the smallest scope possible?
 
 ### Control faults
 * For each conditional statement, is the condition correct?
@@ -18,6 +19,7 @@ The checklist will be updated as we identify new faults in our code that we wish
 * Are compound statements correctly bracketed?
 * In case statements, are all possible cases accounted for?
 * If a break is required after each case in case statements, has it been included?
+* Are we returning the result immediately after obtaining the desired return result?
 
 ### Parameter faults
 * Are all input variables used?
@@ -37,3 +39,17 @@ The checklist will be updated as we identify new faults in our code that we wish
 
 ### Exception faults
 * Have all possible error conditions been considered?
+
+### Style
+* Are method variables defined close to the code where they’re used or at the start of the method?
+* Do the constant/variable/class names conform to standards? (Constants should be all capital letters with underscores, variables should be camel case, the first letter should be capitalized for class names.)
+
+### Testing
+* Is there a test for this code?
+* Does the test code test a good subset of cases? 
+
+### Readability and Maintainability 
+* Do the names (of fields, variables, parameters, methods and classes) actually reflect the thing they represent?
+* Can I understand what the code does by reading it?
+* Can I understand what the tests do?
+* Are the exception error messages understandable?
