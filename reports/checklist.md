@@ -37,7 +37,6 @@ The checklist will be updated as we identify new faults in our code that we wish
 * Are the parameters in the right order?
 * Do all components use a consistent model for shared memory structure?
 
-
 ### Storage faults
 * If a linked structure is modified, have all links been correctly diagnosed?
 * If dynamic storage is used, has space been allocated correctly?
@@ -46,6 +45,8 @@ The checklist will be updated as we identify new faults in our code that we wish
 ### Exception faults
 * Have all possible error conditions been considered and do they have their own reminders?
 * Are exceptions and errors handled and logged properly?
+* Are exceptions used rather than return codes?
+* Is null passed or returned? (It shouldn't be.)
 
 ### Style
 * Are method variables defined close to the code where they’re used or at the start of the method?
@@ -57,6 +58,8 @@ The checklist will be updated as we identify new faults in our code that we wish
 * Is there a test for this code?
 * Does the test code test a good subset of cases? 
 * Does the test code also testing for the corner cases?
+* Are the tests clean? (Are they readable using clarity, simplicity, and density of expression?)
+* Do tests follow F.I.R.S.T.? (Fast, Independent, Repeatable, Self-Validating, Timely)
 
 ### Readability and Maintainability 
 * Do the names (of fields, variables, parameters, methods and classes) actually reflect the thing they represent?
