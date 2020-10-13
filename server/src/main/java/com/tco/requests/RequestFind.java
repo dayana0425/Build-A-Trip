@@ -50,12 +50,10 @@ public class RequestFind extends RequestHeader{
         else if(match != null && limit == null){
             fdb = new FindDatabase(match);
         }
-        else if(match == null && limit == null){
-            fdb = new FindDatabase();
-        }
         else{
             fdb = new FindDatabase();
         }
+
         return fdb;
     }
 
