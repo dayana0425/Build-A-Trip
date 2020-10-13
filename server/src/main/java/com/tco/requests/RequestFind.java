@@ -33,6 +33,16 @@ public class RequestFind extends RequestHeader{
 
     @Override
     public void buildResponse(){
+        FindDatabase fdb = getFindDatabase(match, limit);
+        fdb.environment();
+        fdb.getQuery();
+        fdb.connect2DB();
+        fdb.limitResult();
+        this.found = fdb.getCount();
+        this.places = fdb.getPlaces();
+    }
+
+    public FindDatabase getFindDatabase(String match, Integer limit){
         FindDatabase fdb;
         if(match != null && limit != null){
             fdb = new FindDatabase(match, limit);
@@ -46,13 +56,7 @@ public class RequestFind extends RequestHeader{
         else{
             fdb = new FindDatabase();
         }
-
-        fdb.environment();
-        fdb.getQuery();
-        fdb.connect2DB();
-        fdb.limitResult();
-        this.found = fdb.getCount();
-        this.places = fdb.getPlaces();
+        return fdb;
     }
 
     public Integer getLimit() {

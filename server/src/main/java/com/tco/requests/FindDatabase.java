@@ -65,48 +65,65 @@ public class FindDatabase {
     }
 
     public void connect2DB() {
-        try (
-              Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-              Statement query = conn.createStatement();
-              ResultSet results = query.executeQuery(QUERY);
-        ) {
-            if(isTravis != null && isTravis.equals("true") || isRandom == true){
-                while (results.next()) {
-                    Place p = new Place(
-                            results.getString("name"),
-                            results.getString("latitude"),
-                            results.getString("longitude"),
-                            results.getString("id"),
-                            results.getString("altitude"),
-                            results.getString("municipality"),
-                            results.getString("type")
-                    );
-                    places.add(p);
-                    count++;
+        if(isTravis != null && isTravis.equals("true") || isRandom == true){
+            travisGetPlaces();
+        }
+        else {
+            masterGetPlaces();
+        }
+    }
 
-                    if(isRandom){
-                        break;
-                    }
+    public void travisGetPlaces() {
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                Statement query = conn.createStatement();
+                ResultSet results = query.executeQuery(QUERY);
+        ) {
+            while (results.next()) {
+                Place p = new Place(
+                        results.getString("name"),
+                        results.getString("latitude"),
+                        results.getString("longitude"),
+                        results.getString("id"),
+                        results.getString("altitude"),
+                        results.getString("municipality"),
+                        results.getString("type")
+                );
+                places.add(p);
+                count++;
+
+                if (isRandom) {
+                    break;
                 }
             }
-            else {
-                while (results.next()) {
-                    String url = getURL(results.getString("home_link"), results.getString(11), results.getString(12), results.getString(13));
-                    Place p = new Place(
-                            results.getString("name"),
-                            results.getString("latitude"),
-                            results.getString("longitude"),
-                            results.getString("id"),
-                            results.getString("altitude"),
-                            results.getString("municipality"),
-                            results.getString("type"),
-                            results.getString("iso_region"),
-                            results.getString("iso_country"),
-                            url
-                    );
-                    places.add(p);
-                    count++;
-                }
+        }
+        catch(Exception e){
+            System.err.println("Exception: " + e.getMessage());
+        }
+    }
+
+    public void masterGetPlaces() {
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                Statement query = conn.createStatement();
+                ResultSet results = query.executeQuery(QUERY);
+        ) {
+            while (results.next()) {
+                String url = getURL(results.getString("home_link"), results.getString(11), results.getString(12), results.getString(13));
+                Place p = new Place(
+                        results.getString("name"),
+                        results.getString("latitude"),
+                        results.getString("longitude"),
+                        results.getString("id"),
+                        results.getString("altitude"),
+                        results.getString("municipality"),
+                        results.getString("type"),
+                        results.getString("iso_region"),
+                        results.getString("iso_country"),
+                        url
+                );
+                places.add(p);
+                count++;
             }
         }
         catch(Exception e){
