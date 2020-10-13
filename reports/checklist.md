@@ -20,8 +20,8 @@ The checklist will be updated as we identify new faults in our code that we wish
 * Are compound statements correctly bracketed?
 * In case statements, are all possible cases accounted for?
 * If a break is required after each case in case statements, has it been included?
+* If a continue needed after a break in case statements, has it been included?
 * Are we returning the result immediately after obtaining the desired return result?
-* 
 
 ### Parameter faults
 * Are all input variables used?
@@ -29,6 +29,7 @@ The checklist will be updated as we identify new faults in our code that we wish
 * Can unexpected inputs cause corruption?
 * Does the variable has a meaningful name?
 * Has the variable been defined by a correct type?
+* Whether the input of a variable will exceed the bound?
 
 ### Interface faults
 * Do all functions and methods have the correct number of parameters?
@@ -43,12 +44,14 @@ The checklist will be updated as we identify new faults in our code that we wish
 * Is space explicitly deallocated after it is no longer required?
 
 ### Exception faults
-* Have all possible error conditions been considered?
+* Have all possible error conditions been considered and do they have their own reminders?
 * Are exceptions and errors handled and logged properly?
 
 ### Style
 * Are method variables defined close to the code where they’re used or at the start of the method?
 * Do the constant/variable/class names conform to standards? (Constants should be all capital letters with underscores, variables should be camel case, the first letter should be capitalized for class names.)
+* Are the maps, tables, and buttons corresponding and neat?
+* Whether the color of the corresponding area is the same, including buttons, lines and tables?
 
 ### Testing
 * Is there a test for this code?
