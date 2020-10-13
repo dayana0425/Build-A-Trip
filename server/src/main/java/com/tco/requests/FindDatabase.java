@@ -109,7 +109,6 @@ public class FindDatabase {
                 ResultSet results = query.executeQuery(QUERY);
         ) {
             while (results.next()) {
-                String url = getURL(results.getString("home_link"), results.getString(11), results.getString(12), results.getString(13));
                 Place p = new Place(
                         results.getString("name"),
                         results.getString("latitude"),
@@ -120,7 +119,7 @@ public class FindDatabase {
                         results.getString("type"),
                         results.getString("iso_region"),
                         results.getString("iso_country"),
-                        url
+                        getURL(results.getString("home_link"), results.getString(11), results.getString(12), results.getString(13))
                 );
                 places.add(p);
                 count++;
@@ -132,21 +131,24 @@ public class FindDatabase {
     }
 
     public String getURL(String home_link, String region_wiki, String country_wiki, String continent_wiki){
+        String result = "";
         if(home_link != null){
-            return home_link;
+            result = home_link;
         }
         else if(region_wiki != null){
-            return region_wiki;
+            result = region_wiki;
         }
         else if(country_wiki != null){
-            return country_wiki;
+            result = country_wiki;
         }
         else if(continent_wiki != null){
-            return continent_wiki;
+            result = continent_wiki;
         }
         else{
-            return "";
+            return result;
         }
+
+        return result;
     }
 
     public void limitResult(){
