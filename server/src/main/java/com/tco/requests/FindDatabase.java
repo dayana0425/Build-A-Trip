@@ -1,13 +1,10 @@
 package com.tco.requests;
-import org.eclipse.jetty.client.util.StringContentProvider;
-import java.lang.Integer;
 import java.lang.String;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Queue;
 
 public class FindDatabase {
-    private int limit = 0;
+    private Integer limit = 0;
     private int count = 0;
     private ArrayList<Place> places = new ArrayList<Place>();
     private String match;
@@ -17,11 +14,23 @@ public class FindDatabase {
     private String DB_USER;
     private String DB_PASSWORD;
     private String QUERY;
+    private Boolean isRandom = false;
 
 
-    public FindDatabase(String match, int limit){
+    public FindDatabase(String match, Integer limit){
         this.match = match;
         this.limit = limit;
+    }
+
+    public FindDatabase(String match){
+        this.match = match;
+        this.limit = 0;
+
+    }
+
+    public FindDatabase(){
+        this.match = getRandomMatch(1);
+        this.isRandom = true;
     }
 
     public void environment(){
@@ -44,14 +53,14 @@ public class FindDatabase {
     }
 
     public void getQuery(){
-        QUERY =
-                "SELECT world.name,world.id,world.type,world.latitude,world.longitude,world.municipality,world.altitude " +
-                        "FROM world INNER JOIN continent INNER JOIN region INNER JOIN country " +
-                        "WHERE world.continent = continent.id AND world.iso_region = region.id AND world.iso_country = country.id AND " +
-                        "(world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%"+ match + "%' OR world.id LIKE '%" + match + "%') " +
-                        "ORDER BY world.name ASC;";
-        if(isTravis != null && isTravis.equals("true")){
-            QUERY = "SELECT name,id,type,latitude,longitude,municipality,altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%"+ match +"%');";
+        if(isTravis != null && isTravis.equals("true") || isRandom == true){
+            QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%"+ match +"%');";
+        }
+        else{
+            QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
+                    "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
+                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%"+ match + "%' OR world.id LIKE '%" + match + "%') " +
+                    "ORDER BY world.name ASC;";
         }
     }
 
@@ -61,18 +70,43 @@ public class FindDatabase {
               Statement query = conn.createStatement();
               ResultSet results = query.executeQuery(QUERY);
         ) {
-            while (results.next()) {
-                Place p = new Place(
-                        results.getString("name"),
-                        results.getString("latitude"),
-                        results.getString("longitude"),
-                        results.getString("id"),
-                        results.getString("altitude"),
-                        results.getString("municipality"),
-                        results.getString("type")
-                );
-                places.add(p);
-                count++;
+            if(isTravis != null && isTravis.equals("true") || isRandom == true){
+                while (results.next()) {
+                    Place p = new Place(
+                            results.getString("name"),
+                            results.getString("latitude"),
+                            results.getString("longitude"),
+                            results.getString("id"),
+                            results.getString("altitude"),
+                            results.getString("municipality"),
+                            results.getString("type")
+                    );
+                    places.add(p);
+                    count++;
+
+                    if(isRandom){
+                        break;
+                    }
+                }
+            }
+            else {
+                while (results.next()) {
+                    String url = getURL(results.getString("home_link"), results.getString(11), results.getString(12), results.getString(13));
+                    Place p = new Place(
+                            results.getString("name"),
+                            results.getString("latitude"),
+                            results.getString("longitude"),
+                            results.getString("id"),
+                            results.getString("altitude"),
+                            results.getString("municipality"),
+                            results.getString("type"),
+                            results.getString("iso_region"),
+                            results.getString("iso_country"),
+                            url
+                    );
+                    places.add(p);
+                    count++;
+                }
             }
         }
         catch(Exception e){
@@ -80,17 +114,61 @@ public class FindDatabase {
         }
     }
 
+    public String getURL(String home_link, String region_wiki, String country_wiki, String continent_wiki){
+        if(home_link != null){
+            return home_link;
+        }
+        else if(region_wiki != null){
+            return region_wiki;
+        }
+        else if(country_wiki != null){
+            return country_wiki;
+        }
+        else if(continent_wiki != null){
+            return continent_wiki;
+        }
+        else{
+            return "";
+        }
+    }
+
     public void limitResult(){
-        String limitation = Integer.toString(limit);
+        if(this.limit == null){
+            getLimitIfZero();
+        }
         if(limit > 0 && limit < places.size()){
             ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
             places = newPlaces;
         }
     }
 
-    public int getCount(){return count;}
+    public void getLimitIfZero(){
+        if(places.size() <= 100){
+            this.limit = places.size();
+        }
+        else{
+            this.limit = 100;
+        }
+    }
 
-    public ArrayList<Place> getPlaces(){return places;}
+    public int getCount(){
+        return this.count;
+    }
+
+    public ArrayList<Place> getPlaces(){
+        return this.places;
+    }
+
+    static String getRandomMatch(int n) {
+        String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index = (int)(alphaNumericString.length() * Math.random());
+            sb.append(alphaNumericString.charAt(index));
+        }
+
+        return sb.toString();
+    }
 
 
 }

@@ -32,4 +32,5 @@ public class RequestConfig extends RequestHeader {
   public List<String> getSupportedRequests() {
     return supportedRequests;
   }
+
 }
