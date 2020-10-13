@@ -12,6 +12,7 @@ The checklist will be updated as we identify new faults in our code that we wish
 * If character strings are used, is a delimiter explicitly assigned?
 * Is there any possibility of a buffer overflow?
 * Do all program variables exist in the smallest scope possible?
+* Is there any code for debugging?
 
 ### Control faults
 * For each conditional statement, is the condition correct?
@@ -20,17 +21,21 @@ The checklist will be updated as we identify new faults in our code that we wish
 * In case statements, are all possible cases accounted for?
 * If a break is required after each case in case statements, has it been included?
 * Are we returning the result immediately after obtaining the desired return result?
+* 
 
 ### Parameter faults
 * Are all input variables used?
 * Are values assigned to all output variables before they are output?
 * Can unexpected inputs cause corruption?
+* Does the variable has a meaningful name?
+* Has the variable been defined by a correct type?
 
 ### Interface faults
 * Do all functions and methods have the correct number of parameters?
 * Do formal and actual parameter types match?
 * Are the parameters in the right order?
 * Do all components use a consistent model for shared memory structure?
+
 
 ### Storage faults
 * If a linked structure is modified, have all links been correctly diagnosed?
@@ -39,6 +44,7 @@ The checklist will be updated as we identify new faults in our code that we wish
 
 ### Exception faults
 * Have all possible error conditions been considered?
+* Are exceptions and errors handled and logged properly?
 
 ### Style
 * Are method variables defined close to the code where they’re used or at the start of the method?
@@ -47,6 +53,7 @@ The checklist will be updated as we identify new faults in our code that we wish
 ### Testing
 * Is there a test for this code?
 * Does the test code test a good subset of cases? 
+* Does the test code also testing for the corner cases?
 
 ### Readability and Maintainability 
 * Do the names (of fields, variables, parameters, methods and classes) actually reflect the thing they represent?
