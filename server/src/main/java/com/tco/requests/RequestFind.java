@@ -1,6 +1,4 @@
 package com.tco.requests;
-
-import com.tco.misc.BadRequestException;
 import java.util.ArrayList;
 import java.lang.String;
 import org.slf4j.Logger;
@@ -14,7 +12,7 @@ public class RequestFind extends RequestHeader{
     private ArrayList places = new ArrayList<Place>(); //list of places found
     private final transient Logger log = LoggerFactory.getLogger(RequestFind.class);
 
-    public RequestFind(){ //default constructor
+    public RequestFind(){
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
         this.requestType = "find";
     }
@@ -83,6 +81,7 @@ public class RequestFind extends RequestHeader{
                 newMatch += match.charAt(i);
             }
         }
+
         return newMatch;
     }
 

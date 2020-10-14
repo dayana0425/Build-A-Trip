@@ -16,7 +16,6 @@ public class FindDatabase {
     private String QUERY;
     private Boolean isRandom = false;
 
-
     public FindDatabase(String match, Integer limit){
         this.match = match;
         this.limit = limit;
@@ -29,13 +28,14 @@ public class FindDatabase {
     }
 
     public FindDatabase(){
-        this.match = getRandomMatch(1);
+        this.match = getRandomMatch(2);
         this.isRandom = true;
     }
 
     public void environment(){
         isTravis = System.getenv("TRAVIS");
         useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
+
         if(isTravis != null && isTravis.equals("true")) {
             DB_URL = "jdbc:mysql://127.0.0.1/cs314";
             DB_USER = "root";
@@ -53,7 +53,7 @@ public class FindDatabase {
     }
 
     public void getQuery(){
-        if(isTravis != null && isTravis.equals("true") || isRandom == true){
+        if(isTravis != null && isTravis.equals("true")){
             QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%"+ match +"%');";
         }
         else{
@@ -65,7 +65,7 @@ public class FindDatabase {
     }
 
     public void connect2DB() {
-        if(isTravis != null && isTravis.equals("true") || isRandom == true){
+        if(isTravis != null && isTravis.equals("true")){
             travisGetPlaces();
         }
         else {
@@ -92,7 +92,7 @@ public class FindDatabase {
                 places.add(p);
                 count++;
 
-                if (isRandom) {
+                if(isRandom){
                     break;
                 }
             }
@@ -123,6 +123,10 @@ public class FindDatabase {
                 );
                 places.add(p);
                 count++;
+
+                if(isRandom){
+                    break;
+                }
             }
         }
         catch(Exception e){
@@ -155,19 +159,14 @@ public class FindDatabase {
         if(this.limit == null){
             getLimitIfZero();
         }
+
         if(limit > 0 && limit < places.size()){
-            ArrayList<Place> newPlaces = new ArrayList<Place>(places.subList(0,limit));
-            places = newPlaces;
+            places = new ArrayList<Place>(places.subList(0,limit));
         }
     }
 
     public void getLimitIfZero(){
-        if(places.size() <= 100){
-            this.limit = places.size();
-        }
-        else{
-            this.limit = 100;
-        }
+        this.limit = Math.min(places.size(), 100);
     }
 
     public int getCount(){
@@ -178,16 +177,13 @@ public class FindDatabase {
         return this.places;
     }
 
-    static String getRandomMatch(int n) {
-        String alphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvxyz";
+    public String getRandomMatch(int n) {
+        String alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
         StringBuilder sb = new StringBuilder(n);
         for (int i = 0; i < n; i++) {
-            int index = (int)(alphaNumericString.length() * Math.random());
-            sb.append(alphaNumericString.charAt(index));
+            int index = (int)(alphaString.length() * Math.random());
+            sb.append(alphaString.charAt(index));
         }
-
         return sb.toString();
     }
-
-
 }
