@@ -75,7 +75,9 @@ We as a team did not complete the amount of tasks and story points that we plann
 | :--- | :--- | :--- | :--- |
 | October 5, 2020 | *None* | *None* | *None* | 
 | October 7, 2020 | *None* | *#152, #156, #164, #211, #300* | *None* | 
-
+| October 9, 2020 | *None* | *#152, #164, #211*,#273, #284, #308| *#156, #300* | 
+| October 12, 2020 | *None* | *#152, #164, #211, #259, #270, #305*| *#156, #300, #273, #284, #308* | 
+| October 14, 2020 | *None* | *#277, #250, #256, #164, #152, #211* | *#156, #255, #300, #273, #284, #308, #259, #270, #305* | 
 
 ## Review
 
