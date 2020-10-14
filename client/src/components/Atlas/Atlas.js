@@ -5,12 +5,14 @@ import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import currentLocationIcon from '../../static/images/home-marker-icon.png';
 
 import 'leaflet/dist/leaflet.css';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
 const MARKER_ICON = L.icon({ iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40] });
+const CURR_LOC_MARKER_ICON = L.icon({ iconUrl: currentLocationIcon, shadowUrl: iconShadow, iconAnchor: [12, 40] });
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_MIN_ZOOM = 1;
@@ -23,6 +25,7 @@ export default class Atlas extends Component {
     this.setMarker = this.setMarker.bind(this);
     this.state = {
       markerPosition: null,
+      homeMarkerPosition: null,
     };
   }
 
@@ -53,7 +56,7 @@ export default class Atlas extends Component {
     if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
             function(position) {
-              self.setState({markerPosition: L.latLng(position.coords.latitude, position.coords.longitude)});
+              self.setState({homeMarkerPosition: L.latLng(position.coords.latitude, position.coords.longitude)});
               self.setMarker();
             },
             function(error) {
@@ -63,16 +66,21 @@ export default class Atlas extends Component {
     } else {
               console.log("Not Available");
     }
+    self.setState({markerPosition: null});
   }
 
   renderLeafletMap() {
       let map_center;
       let zoom = 15;
-      if (this.state.markerPosition == null){
+      if (this.state.markerPosition == null && this.state.homeMarkerPosition == null){
           map_center = MAP_CENTER_DEFAULT;
       }
-      else {
+      else if (this.state.markerPosition != null){
           map_center = [this.state.markerPosition.lat, this.state.markerPosition.lng];
+          zoom = 17;
+      }
+      else {
+          map_center = [this.state.homeMarkerPosition.lat, this.state.homeMarkerPosition.lng];
           zoom = 17;
       }
 
@@ -114,10 +122,23 @@ export default class Atlas extends Component {
           </Marker>
       );
     }
+
+    if (this.state.homeMarkerPosition) {
+      console.log(this.state.homeMarkerPosition);
+      return (
+          <Marker ref={initMarker} position={this.state.homeMarkerPosition} icon={CURR_LOC_MARKER_ICON}>
+              <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringHomeMarkerPosition()}</Popup>
+          </Marker>
+      );
+    }
   }
 
   getStringMarkerPosition() {
     return this.state.markerPosition.lat.toFixed(2) + ', ' + this.state.markerPosition.lng.toFixed(2);
+  }
+
+  getStringHomeMarkerPosition() {
+      return this.state.homeMarkerPosition.lat.toFixed(2) + ', ' + this.state.homeMarkerPosition.lng.toFixed(2);
   }
 
 }
