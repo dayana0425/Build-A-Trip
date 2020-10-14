@@ -11,7 +11,7 @@ public class Place {
     String region = "";
     String country = "";
     String url = "";
-
+    String note = "";
     public Place(){
         this.name = "";
         this.latitude = "";
@@ -66,5 +66,27 @@ public class Place {
         this.altitude = altitude;
         this.municipality = municipality;
         this.type = type;
+    }
+
+    public Place(
+            String name,
+            String latitude,
+            String longitude,
+    ){
+        this.name = name;
+        this,latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Place(
+            String name,
+            String latitude,
+            String longitude,
+            String note,
+            ){
+        this.name = name;
+        this,latitude = latitude;
+        this.longitude = longitude;
+        this.note = note;
     }
 }
