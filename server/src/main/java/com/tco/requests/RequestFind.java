@@ -81,7 +81,6 @@ public class RequestFind extends RequestHeader{
                 newMatch += match.charAt(i);
             }
         }
-
         return newMatch;
     }
 
