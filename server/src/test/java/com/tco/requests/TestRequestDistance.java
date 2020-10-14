@@ -29,10 +29,10 @@ public class TestRequestDistance {
     }
 
     @Test
-    @DisplayName("Version number is 2")
+    @DisplayName("Version number is 3")
     public void testVersion() {
         int version = dist.getRequestVersion();
-        assertEquals(2, version);
+        assertEquals(3, version);
     }
 
 

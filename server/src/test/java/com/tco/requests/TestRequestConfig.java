@@ -30,10 +30,10 @@ public class TestRequestConfig {
   }
 
   @Test
-  @DisplayName("Version number is 2")
+  @DisplayName("Version number is 3")
   public void testVersion() {
     int version = conf.getRequestVersion();
-    assertEquals(2, version);
+    assertEquals(3, version);
   }
 
   @Test
@@ -47,7 +47,7 @@ public class TestRequestConfig {
   @DisplayName("Supported Requests length")
   public void testSupportedRequestsLength() {
     List<String> supportedRequests = conf.getSupportedRequests();
-    assertEquals(3, supportedRequests.size());
+    assertEquals(4, supportedRequests.size());
   }
 
   @Test
@@ -66,9 +66,16 @@ public class TestRequestConfig {
 
   @Test
   @DisplayName("Supported Requests Find")
-  public void testSupportedRequestFInd() {
+  public void testSupportedRequestFind() {
     List<String> supportedRequests = conf.getSupportedRequests();
     assertEquals("find", (supportedRequests.get(2)));
+  }
+
+  @Test
+  @DisplayName("Supported Requests Find")
+  public void testSupportedRequestTrip() {
+    List<String> supportedRequests = conf.getSupportedRequests();
+    assertEquals("trip", (supportedRequests.get(3)));
   }
 
 }

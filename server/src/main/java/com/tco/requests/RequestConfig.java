@@ -1,5 +1,4 @@
 package com.tco.requests;
-import com.tco.misc.BadRequestException;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,7 @@ public class RequestConfig extends RequestHeader {
     this.supportedRequests.add("config");
     this.supportedRequests.add("distance");
     this.supportedRequests.add("find");
+    this.supportedRequests.add("trip");
     log.trace("buildResponse -> {}", this);
   }
 
