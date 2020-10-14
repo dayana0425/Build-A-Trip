@@ -48,12 +48,6 @@ The checklist will be updated as we identify new faults in our code that we wish
 * Are exceptions used rather than return codes?
 * Is null passed or returned? (It shouldn't be.)
 
-### Style
-* Are method variables defined close to the code where they’re used or at the start of the method?
-* Do the constant/variable/class names conform to standards? (Constants should be all capital letters with underscores, variables should be camel case, the first letter should be capitalized for class names.)
-* Are the maps, tables, and buttons corresponding and neat?
-* Whether the color of the corresponding area is the same, including buttons, lines and tables?
-
 ### Testing
 * Is there a test for this code?
 * Does the test code test a good subset of cases? 
