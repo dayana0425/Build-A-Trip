@@ -39,7 +39,6 @@ public class RequestTrip extends RequestHeader{
             rd.buildResponse();
             distance[i] = rd.getDistance().intValue();
         }
-        System.out.println(this.distance);
     }
 
 
