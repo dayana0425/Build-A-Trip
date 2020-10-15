@@ -71,10 +71,10 @@ public class Place {
     public Place(
             String name,
             String latitude,
-            String longitude,
+            String longitude
     ){
         this.name = name;
-        this,latitude = latitude;
+        this.latitude = latitude;
         this.longitude = longitude;
     }
 
@@ -82,10 +82,10 @@ public class Place {
             String name,
             String latitude,
             String longitude,
-            String note,
+            String note
             ){
         this.name = name;
-        this,latitude = latitude;
+        this.latitude = latitude;
         this.longitude = longitude;
         this.note = note;
     }
