@@ -65,20 +65,25 @@ public class FindDatabase {
     }
 
     public void connect2DB() {
-        if(isTravis != null && isTravis.equals("true")){
-            travisGetPlaces();
-        }
-        else {
-            masterGetPlaces();
-        }
-    }
-
-    public void travisGetPlaces() {
         try (
                 Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
                 Statement query = conn.createStatement();
                 ResultSet results = query.executeQuery(QUERY);
         ) {
+
+            if (isTravis != null && isTravis.equals("true")) {
+                travisGetPlaces(results);
+            } else {
+                masterGetPlaces(results);
+            }
+        }
+        catch(Exception e){
+            System.err.println("Exception: " + e.getMessage());
+        }
+    }
+
+    public void travisGetPlaces(ResultSet results) throws SQLException {
+        {
             while (results.next()) {
                 Place p = new Place(
                         results.getString("name"),
@@ -91,23 +96,15 @@ public class FindDatabase {
                 );
                 places.add(p);
                 count++;
-
                 if(isRandom){
                     break;
                 }
             }
         }
-        catch(Exception e){
-            System.err.println("Exception: " + e.getMessage());
-        }
     }
 
-    public void masterGetPlaces() {
-        try (
-                Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-                Statement query = conn.createStatement();
-                ResultSet results = query.executeQuery(QUERY);
-        ) {
+    public void masterGetPlaces(ResultSet results) throws SQLException{
+        {
             while (results.next()) {
                 Place p = new Place(
                         results.getString("name"),
@@ -128,9 +125,6 @@ public class FindDatabase {
                     break;
                 }
             }
-        }
-        catch(Exception e){
-            System.err.println("Exception: " + e.getMessage());
         }
     }
 
