@@ -25,10 +25,10 @@
 | FindDatabase.java 152-155 & 163 | no test case for if it doesn't have a specific limit | med | xinyi | #340 |
 | FindDatabase.java 174-181 | no test case for the getRandomMatch()| med | xinyi | #341 |
 | RequestFind.java constructor| should we add a new constructor of the limit is specific but match is not? | hi | xinyi| #336 |
-| FindDatabase.java : 42 | DB_PASSWORD shouldn't equal null. | low | rloptien | |
-| FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | |
-| RequestFind.java : 10-11 | limit and found should be initialized before used. | low | rloptien | |
-| RequestFind.java : 74-85 | No testing for checkforNonAlphaNum(). | med | rloptien | |
+| FindDatabase.java : 42 | DB_PASSWORD shouldn't equal null. | low | rloptien | #338 |
+| FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | #341 |
+| RequestFind.java : 10-11 | limit and found should be initialized before used. | low | rloptien | #342 |
+| RequestFind.java : 74-85 | No testing for checkforNonAlphaNum(). | med | rloptien | #343 |
 
 ### Results
 
