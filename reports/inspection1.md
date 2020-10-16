@@ -13,6 +13,7 @@
 | xinyi | 45min |
 | Daiana Bilbao | 20 min |
 | rloptien | 35min |
+| Chen | 30 min |
 
 ### Problems found
 
@@ -29,3 +30,4 @@
 | FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | |
 | RequestFind.java : 10-11 | limit and found should be initialized before used. | low | rloptien | |
 | RequestFind.java : 74-85 | No testing for checkforNonAlphaNum(). | med | rloptien | |
+| FindDatabase.java 133-149| have all case returned, no need the last return  | low | Chen | --- |
