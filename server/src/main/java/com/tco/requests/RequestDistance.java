@@ -64,7 +64,7 @@ public class RequestDistance extends RequestHeader {
 //        }
         Double dist2Lat = Double.parseDouble(place2.get("latitude"));
         Double dist2Lng = Double.parseDouble(place2.get("longitude"));
-        //validateCoords(dist2Lat, dist2Lng);
+        validateCoords(dist2Lat, dist2Lng);
         Double latDist = Math.toRadians(dist2Lat - dist1Lat);
         Double lngDist = Math.toRadians(dist2Lng - dist1Lng);
 
