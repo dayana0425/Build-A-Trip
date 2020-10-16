@@ -13,11 +13,13 @@
 | xinyi | 45min |
 | Daiana Bilbao | 20 min |
 | rloptien | 35min |
+| Chen | 30 min |
 
 ### Problems found
 
 | File:line | problem | hi/med/low | who found | github#  |
 | ----- | ----- |----- | ----- | ----- |
+| FindDatabase.java 133-149| have all case returned, no need the last return  | low | Chen | --- |
 | FindDatabase.java 131-150| no test case for getURL  | med | xinyi | #340 |
 | FindDatabase.java 152-155 & 163 | no test case for if it doesn't have a specific limit | med | xinyi | #340 |
 | FindDatabase.java 174-181 | no test case for the getRandomMatch()| med | xinyi | #341 |
@@ -29,3 +31,4 @@
 | FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | #341 |
 | RequestFind.java : 10-11 | limit and found should be initialized before used. | low | rloptien | #342 |
 | RequestFind.java : 74-85 | No testing for checkforNonAlphaNum(). | med | rloptien | #343 |
+
