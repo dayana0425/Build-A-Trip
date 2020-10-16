@@ -14,11 +14,13 @@
 | Daiana Bilbao | 20 min |
 | rloptien | 35min |
 | mattv | 30min |
+| Chen | 30 min |
 
 ### Problems found
 
 | File:line | problem | hi/med/low | who found | github#  |
 | ----- | ----- |----- | ----- | ----- |
+| FindDatabase.java 133-149| have all case returned, no need the last return  | low | Chen | --- |
 | FindDatabase.java 131-150| no test case for getURL  | med | xinyi | #340 |
 | FindDatabase.java 152-155 & 163 | no test case for if it doesn't have a specific limit | med | xinyi | #340 |
 | FindDatabase.java 174-181 | no test case for the getRandomMatch()| med | xinyi | #341 |
@@ -26,10 +28,11 @@
 | RequestDistance.java : 2-7  | Get rid of unused imported java classes and/or packages | low | Daiana | --- |
 | RequestDistance.java : 42-47 | Handle exceptions for null or empty string using try/catch block and logger when using ParseDouble | med | Daiana | --- |
 | RequestDistance.java : 37  | check that return value of calculate() is not null before assigning it to distance var in buildResponse() | med | Daiana | --- |
-| FindDatabase.java : 42 | DB_PASSWORD shouldn't equal null. | low | rloptien | |
-| FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | |
-| RequestFind.java : 10-11 | limit and found should be initialized before used. | low | rloptien | |
-| RequestFind.java : 74-85 | No testing for checkforNonAlphaNum(). | med | rloptien | |
 | RequestDistance.java : 1-8 | Remove unused imports and packages | low | mattv | #335 | 
 | RequestDistance.java : 59-81 | Test cases for calculateDistance | med | mattv | #339 |  
 | RequestDistance.java : 79-82 | Verify Distance Units | med | mattv | #339 |
+| FindDatabase.java : 42 | DB_PASSWORD shouldn't equal null. | low | rloptien | #338 |
+| FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | #341 |
+| RequestFind.java : 10-11 | limit and found should be initialized before used. | low | rloptien | #342 |
+| RequestFind.java : 74-85 | No testing for checkforNonAlphaNum(). | med | rloptien | #343 |
+
