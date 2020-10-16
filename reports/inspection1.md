@@ -11,7 +11,7 @@
 | Name | Preparation Time |
 | ----- | ----- |
 | xinyi | 45min |
-|  |  |
+| Daiana Bilbao | 20 min |
 |  |  |
 
 ### Problems found
@@ -19,6 +19,9 @@
 | File:line | problem | hi/med/low | who found | github#  |
 | ----- | ----- |----- | ----- | ----- |
 | FindDatabase.java 131-150| no test case for getURL  | med | xinyi | --- |
-| FindDatabase.java 152-155 & 163 | no test case for if it doesn't have a specific limit | med | xinyi | |
-| FindDatabase.java 174-181 | no test case for the getRandomMatch()| med | xinyi | |
-| RequestFind.java constructor| should we add a new constructor of the limit is specific but match is not? | hi | xinyi| |
+| FindDatabase.java 152-155 & 163 | no test case for if it doesn't have a specific limit | med | xinyi | --- |
+| FindDatabase.java 174-181 | no test case for the getRandomMatch()| med | xinyi | --- |
+| RequestFind.java constructor| should we add a new constructor of the limit is specific but match is not? | hi | xinyi| --- |
+| RequestDistance.java | Get rid of unused imported java classes and/or packages | low | Daiana | --- |
+| RequestDistance.java | Handle exceptions for null or empty string using try/block and logger when using ParseDouble | med | Daiana | --- |
+| RequestDistance.java | check that return value of calculate() is not null before assigning it to distance var in buildResponse() | med | Daiana | --- |
