@@ -18,10 +18,10 @@
 
 | File:line | problem | hi/med/low | who found | github#  |
 | ----- | ----- |----- | ----- | ----- |
-| FindDatabase.java 131-150| no test case for getURL  | med | xinyi | --- |
-| FindDatabase.java 152-155 & 163 | no test case for if it doesn't have a specific limit | med | xinyi | --- |
-| FindDatabase.java 174-181 | no test case for the getRandomMatch()| med | xinyi | --- |
-| RequestFind.java constructor| should we add a new constructor of the limit is specific but match is not? | hi | xinyi| --- |
+| FindDatabase.java 131-150| no test case for getURL  | med | xinyi | #340 |
+| FindDatabase.java 152-155 & 163 | no test case for if it doesn't have a specific limit | med | xinyi | #340 |
+| FindDatabase.java 174-181 | no test case for the getRandomMatch()| med | xinyi | #341 |
+| RequestFind.java constructor| should we add a new constructor of the limit is specific but match is not? | hi | xinyi| #336 |
 | RequestDistance.java : 2-7  | Get rid of unused imported java classes and/or packages | low | Daiana | --- |
 | RequestDistance.java : 42-47 | Handle exceptions for null or empty string using try/catch block and logger when using ParseDouble | med | Daiana | --- |
 | RequestDistance.java : 37  | check that return value of calculate() is not null before assigning it to distance var in buildResponse() | med | Daiana | --- |
