@@ -30,6 +30,6 @@
 | FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | |
 | RequestFind.java : 10-11 | limit and found should be initialized before used. | low | rloptien | |
 | RequestFind.java : 74-85 | No testing for checkforNonAlphaNum(). | med | rloptien | |
-| RequestDistance.java : 1-8 | Remove unused imports and packages | low | mattv | #335 | |
-| RequestDistance.java : 59-81 | Test cases for calculateDistance | med | mattv | #339 | | 
-| RequestDistance.java : 79-82 | Verify Distance Units | med | mattv | #339 | |
+| RequestDistance.java : 1-8 | Remove unused imports and packages | low | mattv | #335 | 
+| RequestDistance.java : 59-81 | Test cases for calculateDistance | med | mattv | #339 |  
+| RequestDistance.java : 79-82 | Verify Distance Units | med | mattv | #339 |
