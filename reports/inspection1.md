@@ -12,7 +12,7 @@
 | ----- | ----- |
 | xinyi | 45min |
 | Daiana Bilbao | 20 min |
-|  |  |
+| rloptien | 35min |
 
 ### Problems found
 
@@ -25,3 +25,7 @@
 | RequestDistance.java | Get rid of unused imported java classes and/or packages | low | Daiana | --- |
 | RequestDistance.java | Handle exceptions for null or empty string using try/block and logger when using ParseDouble | med | Daiana | --- |
 | RequestDistance.java | check that return value of calculate() is not null before assigning it to distance var in buildResponse() | med | Daiana | --- |
+| FindDatabase.java : 42 | DB_PASSWORD shouldn't equal null. | low | rloptien | |
+| FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | |
+| RequestFind.java : 10-11 | limit and found should be initialized before used. | low | rloptien | |
+| RequestFind.java : 74-85 | No testing for checkforNonAlphaNum(). | med | rloptien | |
