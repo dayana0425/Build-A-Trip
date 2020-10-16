@@ -17,6 +17,7 @@
 ### Problems found
 
 | *file:line* |* problem* | *hi/med/low* | *who found* | *github#*  |
+| ----- | ----- |----- | ----- | ----- |
 | *FindDatabase.java 131-150*| *no test case for getURL*  | *med* | *xinyi* | --- |
 | *FindDatabase.java 152-155 & 163* | *no test case for if it doesn't have a specific limit* | *med* | *xinyi* | |
 | *FindDatabase.java 174-181* | *no test case for the getRandomMatch()*| *med* | xinyi | |
