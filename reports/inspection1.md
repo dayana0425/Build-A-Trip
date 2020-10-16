@@ -23,7 +23,7 @@
 | FindDatabase.java 174-181 | no test case for the getRandomMatch()| med | xinyi | --- |
 | RequestFind.java constructor| should we add a new constructor of the limit is specific but match is not? | hi | xinyi| --- |
 | RequestDistance.java | Get rid of unused imported java classes and/or packages | low | Daiana | --- |
-| RequestDistance.java | Handle exceptions for null or empty string using try/block and logger when using ParseDouble | med | Daiana | --- |
+| RequestDistance.java | Handle exceptions for null or empty string using try/catch block and logger when using ParseDouble | med | Daiana | --- |
 | RequestDistance.java | check that return value of calculate() is not null before assigning it to distance var in buildResponse() | med | Daiana | --- |
 | FindDatabase.java : 42 | DB_PASSWORD shouldn't equal null. | low | rloptien | |
 | FindDatabase.java : 174-181 | No testing for getRandomMatch() | med | rloptien | |
