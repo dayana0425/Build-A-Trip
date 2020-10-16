@@ -37,20 +37,36 @@ public class RequestDistance extends RequestHeader {
     public void buildResponse() {
         //this.serverName = "T16 Team Hexadecimal";
         //this.distance = findDistance(this.place1, this.place2, this.earthRadius);
+
         this.distance = calculate(this.place1, this.place2, this.earthRadius);
         //this.distance = 466;
         log.trace("buildResponse -> {}", this);
     }
 
+    static boolean validateCoords(double lat, double lon){
+        if(lat < -90 || lat > 90){
+            //throw new IllegalArgumentException("Latitude must be between -90 and 90 degrees");
+            return false;
+        }
+        else if(lon < -180 || lon > 180){
+            //throw new IllegalArgumentException("Longitude must be between -90 and 90 degrees");
+            return false;
+        }else{
+            return true;
+        }
+    }
+
     protected static Long calculate(Map<String, String> place1, Map<String, String> place2, Double earthRad){
         Double dist1Lat = Double.parseDouble(place1.get("latitude")); //PARSE PLACE 1 and 2
-        Double dist1Long = Double.parseDouble(place1.get("longitude"));
-
+        Double dist1Lng = Double.parseDouble(place1.get("longitude"));
+//        if(validateCoords(dist1Lat, dist1Lng)){
+//            throw new IllegalArgumentException("Latitude must be between -90 and 90 degrees");
+//        }
         Double dist2Lat = Double.parseDouble(place2.get("latitude"));
         Double dist2Lng = Double.parseDouble(place2.get("longitude"));
-
+        //validateCoords(dist2Lat, dist2Lng);
         Double latDist = Math.toRadians(dist2Lat - dist1Lat);
-        Double lngDist = Math.toRadians(dist2Lng - dist1Long);
+        Double lngDist = Math.toRadians(dist2Lng - dist1Lng);
 
         Double calc = Math.sin(latDist/2.0)
                 * Math.sin(latDist/2.0)
