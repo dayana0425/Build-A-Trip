@@ -7,8 +7,8 @@ import org.slf4j.LoggerFactory;
 
 public class RequestFind extends RequestHeader{
     private String match;
-    private Integer limit;
-    private Integer found;
+    private Integer limit = 0;
+    private Integer found = 0;
     private ArrayList places = new ArrayList<Place>(); //list of places found
     private final transient Logger log = LoggerFactory.getLogger(RequestFind.class);
 

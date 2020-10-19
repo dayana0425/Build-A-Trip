@@ -39,7 +39,7 @@ public class FindDatabase {
         if(isTravis != null && isTravis.equals("true")) {
             DB_URL = "jdbc:mysql://127.0.0.1/cs314";
             DB_USER = "root";
-            DB_PASSWORD = null;
+            DB_PASSWORD = "";
         }
         else if (useTunnel != null && useTunnel.equals("true")) {
             DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";        // the port-number is 56247
