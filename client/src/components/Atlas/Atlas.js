@@ -233,6 +233,8 @@ export default class Atlas extends Component {
         this.renderLeafletMap();
     }
 
+
+
     renderLeafletMap() {
         let map_center;
         let fit_bounds;
@@ -242,18 +244,12 @@ export default class Atlas extends Component {
             let sortedMarkerPositions = this.state.markerPositions.sort((a, b) => (a.lng > b.lng) ? 1 : -1);
 
             if (sortedMarkerPositions.length == 1) {
-                console.log("first");
                 map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
                 zoom = 17;
             } else {
-                if(sortedMarkerPositions[0].lat <= -90.0 || sortedMarkerPositions[0].lng <= -180.0 || sortedMarkerPositions[sortedMarkerPositions.length - 1].lat >= 90.0 || sortedMarkerPositions[sortedMarkerPositions.length - 1].lng >= 180.0){
-                    fit_bounds = MAP_BOUNDS;
-                }
-                else {
-                    console.log("here");
-                    fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
-                }
+                fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
             }
+
         } else {
             map_center = MAP_CENTER_DEFAULT;
         }
