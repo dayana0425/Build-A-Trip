@@ -1,6 +1,21 @@
-import React, {Component, useState} from 'react';
-import {Col, Container, Row, Button, Nav, NavItem, NavLink, TabContent, TabPane, Alert, InputGroup, Input, InputGroupAddon, Table} from 'reactstrap';
-import {Map, Marker, Popup, TileLayer, MapBounds} from 'react-leaflet';
+import React, {Component} from 'react';
+import {
+    Col,
+    Container,
+    Row,
+    Button,
+    Nav,
+    NavItem,
+    NavLink,
+    TabContent,
+    TabPane,
+    Alert,
+    InputGroup,
+    Input,
+    InputGroupAddon,
+    Table
+} from 'reactstrap';
+import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import currentLocationIcon from '../../static/images/home-marker-icon.png';
@@ -11,8 +26,8 @@ import {sendServerRequest} from "../../utils/restfulAPI";
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
-const MARKER_ICON = L.icon({ iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40] });
-const CURR_LOC_MARKER_ICON = L.icon({ iconUrl: currentLocationIcon, shadowUrl: iconShadow, iconAnchor: [12, 40] });
+const MARKER_ICON = L.icon({iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
+const CURR_LOC_MARKER_ICON = L.icon({iconUrl: currentLocationIcon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
 const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_MIN_ZOOM = 1;
@@ -28,263 +43,263 @@ export default class Atlas extends Component {
         marginBottom: 10
     }
 
-constructor(props) {
-    super(props);
-    this.setMarker = this.setMarker.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.setPlacesMarkersOnMap = this.setPlacesMarkersOnMap.bind(this);
+    constructor(props) {
+        super(props);
+        this.setMarker = this.setMarker.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.addMarkersToMap = this.addMarkersToMap.bind(this);
 
-    this.state = {
-      markerPosition: null,
-      homeMarkerPosition: null,
-      markerPositions: [],
-      activeTab: '1',
-      searching: '',
-      places: [],
-      found: 0,
-      results: 0,
-      clearMarker: false
-    };
-  }
+        this.state = {
+            markerPosition: null, //client testing will fail if you take this out
+            markerPositions: [], //holds all markerPositions via input, map click, searched places, and current location botton
+            activeTab: '1',
+            searching: '',
+            places: [],
+            found: 0,
+            results: 0,
+            clearMarker: false
+        };
+    }
 
-  render() {
-    return (
-        <div>
-          <Container>
-            <Row>
-              <Col sm={12} md={{size: 10, offset: 1}}>
-                      <h1> Build A Trip </h1>
-                      <Nav tabs>
-                          <NavItem>
-                              <NavLink
-                                  className={classnames({ active: this.state.activeTab === '1' })}
-                                  onClick={() => { this.toggle('1'); }}>
-                                  Add Locations
-                              </NavLink>
-                          </NavItem>
-                          <NavItem>
-                              <NavLink
-                                  className={classnames({ active: this.state.activeTab=== '2' })}
-                                  onClick={() => { this.toggle('2'); }}>
-                                  Search Places
-                              </NavLink>
-                          </NavItem>
-                      </Nav>
-                  <TabContent activeTab={this.state.activeTab}>
-                      <TabPane tabId="1">
-                          { this.state.activeTab == 1 ? <h4> Add Locations </h4> : null }
-                          <FindDistance/>
-                      </TabPane>
-                      <TabPane tabId="2">
-                          { this.state.activeTab == 2 ? <h4> Search Places </h4> : null }
-                          { this.renderFindPlaces() }
-                      </TabPane>
-                  </TabContent>
-                {this.renderLeafletMap()}
-                <Button color = "primary" style={this.buttonStyle} onClick={() => this.requestCurrentLocation()}>
-                  Where Am I?
-                </Button>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-    );
-  }
-
-  renderFindPlaces(){
-    return(
-        <div>
-            <InputGroup>
-                <Input type="text"
-                       name = "searching"
-                       value = {this.match}
-                       placeholder="Enter the place"
-                       onChange = {(e) => {this.handleChange(e)}}/>
-                       <InputGroupAddon addonType="append">
-                            <Button color="primary" style = {this.buttonStyleTable} onClick={(e) => {this.handleClick(e)}}>Search</Button>
-                        </InputGroupAddon>
-            </InputGroup>
-            <Table bordered hover striped>
-                {this.renderTableHeader()}
-                <tbody>
-                {this.renderTable(this.state.places)}
-                </tbody>
-            </Table>
-            {this.renderResultsFound(this.state.found, this.state.results)}
-        </div>
-    );
-  }
-
-  renderTable(places) {
-    return places.map((place) => {
-        const { id, name, longitude, latitude } = place
+    render() {
         return (
-            <tr key={id} >
-                <td>
-                    {name}
-                </td>
-                <td>
-                    <Button variant="primary"onClick={() => {this.setPlacesMarkersOnMap(longitude,latitude)}}>Add</Button>
-                </td>
+            <div>
+                <Container>
+                    <Row>
+                        <Col sm={12} md={{size: 10, offset: 1}}>
+                            <h1> Build A Trip </h1>
+                            <Nav tabs>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab === '1' })}
+                                        onClick={() => { this.toggle('1'); }}>
+                                        Add Locations
+                                    </NavLink>
+                                </NavItem>
+                                <NavItem>
+                                    <NavLink
+                                        className={classnames({ active: this.state.activeTab=== '2' })}
+                                        onClick={() => { this.toggle('2'); }}>
+                                        Search Places
+                                    </NavLink>
+                                </NavItem>
+                            </Nav>
+                            <TabContent activeTab={this.state.activeTab}>
+                                <TabPane tabId="1">
+                                    { this.state.activeTab == 1 ? <h4> Add Locations </h4> : null }
+                                    <FindDistance/>
+                                </TabPane>
+                                <TabPane tabId="2">
+                                    { this.state.activeTab == 2 ? <h4> Search Places </h4> : null }
+                                    { this.renderFindPlaces() }
+                                </TabPane>
+                            </TabContent>
+                            {this.renderLeafletMap()}
+                            <Button color="primary" style={this.buttonStyle}
+                                    onClick={() => this.requestCurrentLocation()}>
+                                Add Current Location
+                            </Button>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
+        );
+    }
+
+    /* START OF TAB COMPONENT */
+
+    toggle(tab) {
+        if (this.state.activeTab !== tab) {
+            this.setState({activeTab: tab});
+        }
+    }
+
+    /* END OF TAB COMPONENT */
+
+    /*  START OF FIND PLACES COMPONENTS */
+
+    renderFindPlaces() {
+        return (
+            <div>
+                <InputGroup>
+                    <Input type="text"
+                           name="searching"
+                           value={this.match}
+                           placeholder="Enter the place"
+                           onChange={(e) => {
+                               this.handleChange(e)
+                           }}/>
+                    <InputGroupAddon addonType="append">
+                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {
+                            this.handleClick(e)
+                        }}>Search</Button>
+                    </InputGroupAddon>
+                </InputGroup>
+                <Table bordered hover striped>
+                    {this.renderTableHeader()}
+                    <tbody>
+                    {this.renderTable(this.state.places)}
+                    </tbody>
+                </Table>
+                {this.renderResultsFound(this.state.found, this.state.results)}
+            </div>
+        );
+    }
+
+    renderTableHeader() {
+        return (
+            <thead>
+            <tr>
+                <th>Airport Name</th>
+                <th> </th>
             </tr>
-
+            </thead>
         )
-    })
-  }
+    }
 
-  renderResultsFound(found, results){
-    return(
-        <Alert color="success">
-            {found} results found. Currently displaying {results} of the most relevant results.
-        </Alert>
-    );
-  }
+    renderTable(places) {
+        return places.map((place) => {
+            const {id, name, longitude, latitude} = place
+            return (
+                <tr key={id}>
+                    <td>
+                        {name}
+                    </td>
+                    <td>
+                        <Button variant="primary" onClick={() => {
+                            this.addMarkersToMap(latitude, longitude)
+                        }}>Add</Button>
+                    </td>
+                </tr>
 
-  renderTableHeader(){
-    return(
-        <thead>
-        <tr>
-            <th>Airport Name</th>
-            <th> </th>
-        </tr>
-        </thead>
-    )
-   }
+            )
+        })
+    }
 
-  handleChange = (event) => {
-    this.setState({
-        [event.target.name]: event.target.value
-    });
-  }
+    renderResultsFound(found, results) { //results == limit
+        return (
+            <Alert color="success">
+                {found} results found. Currently displaying {results} of the most relevant results.
+            </Alert>
+        );
+    }
 
-  handleClick = (event) =>{
-    this.requestMatch(this.state.searching);
-  }
-
-  requestMatch(inputValue) {
-    const {places} = this.state;
-    sendServerRequest({requestType: "find", requestVersion: 2, match: inputValue, limit: 5, places: []})
-        .then(find => {
-            if (find) {
-                this.setState({places: find.data.places, found: find.data.found, results: find.data.places.length});
-                {this.renderTable(places)}
-            } else {
-                console.log('Error');
-            }
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
         });
-  }
-
-  setPlacesMarkersOnMap(long, lat) {
-    this.setState({ markerPositions: [...this.state.markerPositions, L.latLng(lat,long)] });
-    this.renderLeafletMap();
-  }
-
-  toggle(tab) {
-    if (this.state.activeTab !== tab) {
-        this.setState({ activeTab: tab });
     }
-  }
 
-  requestCurrentLocation() {
-    self = this;
-    if ("geolocation" in navigator) {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-              self.setState({homeMarkerPosition: L.latLng(position.coords.latitude, position.coords.longitude)});
-              self.setMarker();
-            },
-            function(error) {
-              console.error("Error Code = " + error.code + " - " + error.message);
+    handleClick = (event) => {
+        this.requestMatch(this.state.searching);
+    }
+
+    requestMatch(inputValue) {
+        const {places} = this.state;
+        sendServerRequest({requestType: "find", requestVersion: 2, match: inputValue, limit: 5, places: []})
+            .then(find => {
+                if (find) {
+                    this.setState({places: find.data.places, found: find.data.found, results: find.data.places.length});
+                    {
+                        this.renderTable(places)
+                    }
+                } else {
+                    console.log('Error');
+                }
+            });
+    }
+
+    /* END OF FIND PLACES COMPONENT */
+
+    requestCurrentLocation() {
+        self = this;
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    self.addMarkersToMap(position.coords.latitude, position.coords.longitude);
+                },
+                function (error) {
+                    console.error("Error Code = " + error.code + " - " + error.message);
+                }
+            );
+        } else {
+            console.log("Not Available");
+        }
+    }
+
+    addMarkersToMap(lat, long) {
+        this.setState({markerPositions: [...this.state.markerPositions, L.latLng(lat, long)]});
+        this.renderLeafletMap();
+    }
+
+
+
+    renderLeafletMap() {
+        let map_center;
+        let fit_bounds;
+        let zoom = 15;
+
+        if (this.state.markerPositions.length != 0) {
+            let sortedMarkerPositions = this.state.markerPositions.sort((a, b) => (a.lng > b.lng) ? 1 : -1);
+
+            if (sortedMarkerPositions.length == 1) {
+                map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
+                zoom = 17;
+            } else {
+                fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
             }
+
+        } else {
+            map_center = MAP_CENTER_DEFAULT;
+        }
+
+        return (
+            <Map
+                className={'mapStyle'}
+                boxZoom={false}
+                zoom={zoom}
+                minZoom={MAP_MIN_ZOOM}
+                maxZoom={MAP_MAX_ZOOM}
+                maxBounds={MAP_BOUNDS}
+                center={map_center}
+                bounds={fit_bounds}
+                boundsOptions={{padding: [50, 50]}}
+                onClick={this.setMarker}
+                useFlyTo={true}
+                maxBoundsViscosity={1.0}
+            >
+                <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
+                {this.getMarker()}
+            </Map>
         );
-    } else {
-              console.log("Not Available");
     }
-  }
 
-  renderLeafletMap() {
-      let map_center;
-      let zoom = 15;
-      let fit_bounds;
-
-
-      if(this.state.markerPositions.length != 0){
-          let smp = this.state.markerPositions.sort((a,b) => ( a.lng > b.lng ) ? 1 : -1);
-
-          if(smp.length == 1){
-              map_center = [smp[0].lat, smp[0].lng];
-          }
-          else {
-              fit_bounds = L.latLngBounds(smp[0], smp[smp.length-1]);
-          }
-      }
-      else if(this.state.homeMarkerPosition){
-          map_center = [this.state.homeMarkerPosition.lat, this.state.homeMarkerPosition.lng];
-          zoom = 17;
-      }
-      else {
-          map_center = MAP_CENTER_DEFAULT;
-      }
-
-  return (
-
-        <Map
-            className={'mapStyle'}
-            boxZoom={false}
-            useFlyTo={true}
-            zoom={zoom}
-            minZoom={MAP_MIN_ZOOM}
-            maxZoom={MAP_MAX_ZOOM}
-            maxBounds={MAP_BOUNDS}
-            center={map_center}
-            bounds={fit_bounds}
-            boundsOptions={{padding: [50, 50]}}
-            onClick={this.setMarker}
-            useFlyTo={true}
-        >
-          <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-          {this.getMarker()}
-        </Map>
-        );
-  }
-
-  setMarker(mapClickInfo) {
+    setMarker(mapClickInfo) {
         this.setState({markerPosition: mapClickInfo.latlng});
-  }
+    }
 
-  getMarker() {
+    getMarker() {
         const initMarker = ref => {
             if (ref) {
                 ref.leafletElement.openPopup()
             }
         };
 
-        if (this.state.markerPositions) {
+        if (this.state.markerPositions.length != 0) {
             return (
-                    this.state.markerPositions.map((position, idx) =>
-                        <Marker key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
-                            <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPositions(position)}</Popup>
-                        </Marker>
-                    )
-            );
-        }
-
-        if (this.state.homeMarkerPosition) {
-            return (
-                <Marker ref={initMarker} position={this.state.homeMarkerPosition} icon={CURR_LOC_MARKER_ICON}>
-                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringHomeMarkerPosition()}</Popup>
-                </Marker>
+                this.state.markerPositions.map((position, idx) =>
+                    <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
+                        <Popup offset={[0, -18]}
+                               className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                    </Marker>
+                )
             );
         }
     }
 
-  getStringMarkerPositions(markerPos){
+    getStringMarkerPosition(markerPos) {
         return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
-  }
-
-  getStringHomeMarkerPosition() {
-        return this.state.homeMarkerPosition.lat.toFixed(2) + ', ' + this.state.homeMarkerPosition.lng.toFixed(2);
-  }
+    }
 
 }
