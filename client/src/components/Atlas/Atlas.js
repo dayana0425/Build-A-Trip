@@ -35,12 +35,21 @@ const MAP_MAX_ZOOM = 19;
 
 export default class Atlas extends Component {
 
-    buttonStyle = {
+    buttonStyleCurrLocation = {
         marginTop: 10
     }
 
     buttonStyleTable = {
         marginBottom: 10
+    }
+
+    buttonStyleClear = {
+        marginTop: 10,
+        marginLeft: 10
+    }
+
+    tripTextField = {
+        marginBottom: 20
     }
 
     constructor(props) {
@@ -49,6 +58,7 @@ export default class Atlas extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
+        this.clearAllMarkers = this.clearAllMarkers.bind(this);
 
         this.state = {
             markerPosition: null, //client testing will fail if you take this out
@@ -58,7 +68,7 @@ export default class Atlas extends Component {
             places: [],
             found: 0,
             results: 0,
-            clearMarker: false
+            tripName: ''
         };
     }
 
@@ -68,7 +78,8 @@ export default class Atlas extends Component {
                 <Container>
                     <Row>
                         <Col sm={12} md={{size: 10, offset: 1}}>
-                            <h1> Build A Trip </h1>
+                            <h1> Build A Trip: {this.state.tripName} </h1>
+                            {this.renderTripName()}
                             <Nav tabs>
                                 <NavItem>
                                     <NavLink
@@ -87,18 +98,22 @@ export default class Atlas extends Component {
                             </Nav>
                             <TabContent activeTab={this.state.activeTab}>
                                 <TabPane tabId="1">
-                                    { this.state.activeTab == 1 ? <h4> Add Locations </h4> : null }
+                                    { this.state.activeTab == 1 }
                                     <FindDistance/>
                                 </TabPane>
                                 <TabPane tabId="2">
-                                    { this.state.activeTab == 2 ? <h4> Search Places </h4> : null }
+                                    { this.state.activeTab == 2 }
                                     { this.renderFindPlaces() }
                                 </TabPane>
                             </TabContent>
                             {this.renderLeafletMap()}
-                            <Button color="primary" style={this.buttonStyle}
+                            <Button color="primary" style={this.buttonStyleCurrLocation}
                                     onClick={() => this.requestCurrentLocation()}>
-                                Add Current Location
+                                    Add Current Location
+                            </Button>
+                            <Button color="primary" style={this.buttonStyleClear}
+                                    onClick={() => this.clearAllMarkers()}>
+                                    Clear
                             </Button>
                         </Col>
                     </Row>
@@ -106,6 +121,32 @@ export default class Atlas extends Component {
             </div>
         );
     }
+
+    /* START OF TRIP COMPONENT */
+
+    renderTripName(){
+        return(
+            <InputGroup>
+                <Input type="text"
+                       name="tripName"
+                       value={this.name}
+                       placeholder="Enter Trip Name"
+                       style = {this.tripTextField}
+                       onChange={(e) => {
+                           this.handleChangeTrip(e)
+                       }}/>
+            </InputGroup>
+        );
+    }
+
+    handleChangeTrip = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
+
+    /* END OF TRIP COMPONENT */
 
     /* START OF TAB COMPONENT */
 
@@ -126,7 +167,7 @@ export default class Atlas extends Component {
                     <Input type="text"
                            name="searching"
                            value={this.match}
-                           placeholder="Enter the place"
+                           placeholder="Enter Place"
                            onChange={(e) => {
                                this.handleChange(e)
                            }}/>
@@ -167,7 +208,7 @@ export default class Atlas extends Component {
                         {name}
                     </td>
                     <td>
-                        <Button variant="primary" onClick={() => {
+                        <Button center variant="primary" onClick={() => {
                             this.addMarkersToMap(latitude, longitude)
                         }}>Add</Button>
                     </td>
@@ -233,7 +274,9 @@ export default class Atlas extends Component {
         this.renderLeafletMap();
     }
 
-
+    clearAllMarkers(){
+        this.setState({markerPositions: []});
+    }
 
     renderLeafletMap() {
         let map_center;
@@ -278,6 +321,8 @@ export default class Atlas extends Component {
     setMarker(mapClickInfo) {
         this.setState({markerPosition: mapClickInfo.latlng});
     }
+
+
 
     getMarker() {
         const initMarker = ref => {
