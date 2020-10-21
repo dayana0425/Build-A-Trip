@@ -115,11 +115,7 @@ public class FindDatabase {
                 places.add(p);
                 count++;
             }
-            if (limit!=null){
-                if(limit > 0 && limit < places.size()) {
-                    places = new ArrayList<Place>(places.subList(0, limit));
-                }
-            }
+            limitPlaces();
         }
     }
 
@@ -141,10 +137,14 @@ public class FindDatabase {
                 places.add(p);
                 count++;
             }
-            if (limit!=null){
-                if(limit > 0 && limit < places.size()) {
-                    places = new ArrayList<Place>(places.subList(0, limit));
-                }
+           limitPlaces();
+        }
+    }
+
+    public void limitPlaces(){
+        if (limit!=null){
+            if(limit > 0 && limit < places.size()) {
+                places = new ArrayList<Place>(places.subList(0, limit));
             }
         }
     }
