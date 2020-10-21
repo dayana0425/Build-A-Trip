@@ -28,8 +28,8 @@
 | Atlas.js : 103-127 | Create a component for button style | low | xinyi99 | --- |
 | Atlas.js | Can we change a color for the marker | low | xinyi99 | --- |
 | Atlas.js : 33 | Unused const MARKER_ICON | low | chen | --- |
-| Atlas.js : 198/202 | Compared a character to an integer | low | chen | --- |
-| Atlas.js : 286 | Unused parameter for function handleClick | low | chen | --- |
+| Atlas.js : 198/202 | Compared a character to an integer | low | chen | #385 |
+| Atlas.js : 286 | Unused parameter for function handleClick | low | chen | #386 |
 | Atlas.js : 177-208 | RenderTabs/RenderButtons are very long, consider drop down menu or more efficient methods | med | mattv | --- |
 | Atlas.js : 116 | Find iterative solution to build itinerary table | med | mattv | --- |
 
