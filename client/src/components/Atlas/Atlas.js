@@ -370,7 +370,7 @@ export default class Atlas extends Component {
     }
 
     setMarker(mapClickInfo) {
-        this.setState({markerPosition: mapClickInfo.latlng});
+        this.addMarkersToMap(mapClickInfo.latlng);
     }
 
 
