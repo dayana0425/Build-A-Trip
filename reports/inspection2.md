@@ -18,5 +18,7 @@
 | ----- | ----- |----- | ----- | ----- |
 | Atlas.js : 182-271 | Refactor Find Places by making it a child component of Atlas.js | med | Daiana | --- |
 | Atlas.js : 29 | Unused MARKER_ICON but I think we can make use of the MARKER_ICON in the future in order to differentiate the START MARKER from proceeding markers & maybe we can have an END MARKER too | med | Daiana | --- |
+| Atlas.js : 275-289 | No Testing for Request Current Location | med | rloptien | --- |
+| Atlas.js : 282-284 | Uses error code instead of exception | low | rloptien | --- |
 
 ### Results
