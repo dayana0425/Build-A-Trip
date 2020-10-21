@@ -252,7 +252,17 @@ export default class Atlas extends Component {
     }
 
     handleClick = (event) => {
-        this.requestMatch(this.state.searching);
+        var match = '';
+        this.state.searching.split("").map( letter=>{
+            if ((/[a-zA-Z0-9_]/).test(letter))
+                match +=letter
+            else
+                match += '_'
+            return match
+        }
+        )
+        console.log(match)
+        this.requestMatch(match)
     }
 
     requestMatch(inputValue) {
