@@ -32,3 +32,5 @@
 | Atlas.js : 286 | Unused parameter for function handleClick | low | chen | --- |
 
 ### Results
+
+After today's meeting we've created issues and added them to our sprint 3 milestone, however, most issues are in the icebox since we do not think we'll get to fix them before sprint 3 ends. We have prioritized the most important ones and added them to our backlog. 
