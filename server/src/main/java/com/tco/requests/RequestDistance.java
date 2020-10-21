@@ -22,6 +22,8 @@ public class RequestDistance extends RequestHeader {
 
     public RequestDistance(Double radius, String lat1, String lon1, String lat2, String lon2) {
         this();
+        this.distance = null;
+        this.earthRadius = radius;
         this.place1 = new HashMap();
         this.place1.put("latitude", lat1);
         this.place1.put("longitude", lon1);
@@ -53,9 +55,7 @@ public class RequestDistance extends RequestHeader {
     protected static Long calculate(Map<String, String> place1, Map<String, String> place2, Double earthRad){
         Double dist1Lat = Double.parseDouble(place1.get("latitude")); //PARSE PLACE 1 and 2
         Double dist1Lng = Double.parseDouble(place1.get("longitude"));
-//        if(validateCoords(dist1Lat, dist1Lng)){
-//            throw new IllegalArgumentException("Latitude must be between -90 and 90 degrees");
-//        }
+        validateCoords(dist1Lat,dist1Lng);
         Double dist2Lat = Double.parseDouble(place2.get("latitude"));
         Double dist2Lng = Double.parseDouble(place2.get("longitude"));
         validateCoords(dist2Lat, dist2Lng);

@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class FindDatabase {
-    private Integer limit = 0;
+    private Integer limit = null;
     private int count = 0;
     private ArrayList<Place> places = new ArrayList<Place>();
     private String match;
@@ -15,21 +15,33 @@ public class FindDatabase {
     private String DB_PASSWORD;
     private String QUERY;
     private Boolean isRandom = false;
+    private Integer limitFound = 0;
 
     public FindDatabase(String match, Integer limit){
         this.match = match;
         this.limit = limit;
+        if(match == null){
+            this.match = getRandomMatch(2);
+            this.isRandom = true;
+            if(limit == null || limit == 0)
+                this.limitFound = 1;
+            if(limit != null && limit >0)
+                this.limitFound = limit;
+        }
+        else if(match != null){
+            if(limit == null || limit == 0)
+                this.limit = 100;
+        }
     }
 
-    public FindDatabase(String match){
-        this.match = match;
-        this.limit = 0;
-
-    }
-
-    public FindDatabase(){
-        this.match = getRandomMatch(2);
-        this.isRandom = true;
+    public String getRandomMatch(int n) {
+        String alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index = (int)(alphaString.length() * Math.random());
+            sb.append(alphaString.charAt(index));
+        }
+        return sb.toString();
     }
 
     public void environment(){
@@ -55,6 +67,12 @@ public class FindDatabase {
     public void getQuery(){
         if(isTravis != null && isTravis.equals("true")){
             QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%"+ match +"%');";
+        }
+        else if(this.isRandom) {
+            QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
+                    "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
+                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%"+ match + "%' OR world.id LIKE '%" + match + "%') " +
+                    "ORDER BY world.name ASC LIMIT " + Integer.toString(this.limitFound) +";";
         }
         else{
             QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
@@ -96,10 +114,8 @@ public class FindDatabase {
                 );
                 places.add(p);
                 count++;
-                if(isRandom){
-                    break;
-                }
             }
+            limitPlaces();
         }
     }
 
@@ -120,10 +136,15 @@ public class FindDatabase {
                 );
                 places.add(p);
                 count++;
+            }
+           limitPlaces();
+        }
+    }
 
-                if(isRandom){
-                    break;
-                }
+    public void limitPlaces(){
+        if (limit!=null){
+            if(limit > 0 && limit < places.size()) {
+                places = new ArrayList<Place>(places.subList(0, limit));
             }
         }
     }
@@ -149,20 +170,6 @@ public class FindDatabase {
         return result;
     }
 
-    public void limitResult(){
-        if(this.limit == null){
-            getLimitIfZero();
-        }
-
-        if(limit > 0 && limit < places.size()){
-            places = new ArrayList<Place>(places.subList(0,limit));
-        }
-    }
-
-    public void getLimitIfZero(){
-        this.limit = Math.min(places.size(), 100);
-    }
-
     public int getCount(){
         return this.count;
     }
@@ -171,13 +178,4 @@ public class FindDatabase {
         return this.places;
     }
 
-    public String getRandomMatch(int n) {
-        String alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
-        StringBuilder sb = new StringBuilder(n);
-        for (int i = 0; i < n; i++) {
-            int index = (int)(alphaString.length() * Math.random());
-            sb.append(alphaString.charAt(index));
-        }
-        return sb.toString();
-    }
 }
