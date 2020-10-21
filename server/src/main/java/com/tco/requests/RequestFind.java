@@ -17,51 +17,21 @@ public class RequestFind extends RequestHeader{
         this.requestType = "find";
     }
 
-    public RequestFind(String match) {
-        this();
-        this.match = match;
-//        this.match = checkForNonAlphaNum(match);
-    }
-
-    public RequestFind(Integer limit){
-        this();
-        this.limit =limit;
-    }
-
     public RequestFind(String match, Integer limit){
         this();
-//        this.match = checkForNonAlphaNum(match);
         this.limit = limit;
         this.match = match;
     }
 
     @Override
     public void buildResponse(){
-        FindDatabase fdb = getFindDatabase(match, limit);
+        this.getRequestVersion();
+        FindDatabase fdb = new FindDatabase(match, limit);
         fdb.environment();
         fdb.getQuery();
         fdb.connect2DB();
-        fdb.limitResult();
         this.found = fdb.getCount();
         this.places = fdb.getPlaces();
-    }
-
-    public FindDatabase getFindDatabase(String match, Integer limit){
-        FindDatabase fdb;
-        if(match != null && limit != null){             //match and limit both are specified
-            fdb = new FindDatabase(match, limit);
-        }
-        else if(match != null && limit == null){        //only match
-            fdb = new FindDatabase(match);
-        }
-        else if(match == null && limit !=null) {        //only limit
-            fdb = new FindDatabase((limit));
-        }
-        else{                                           //both aren't specified
-            fdb = new FindDatabase();
-        }
-
-        return fdb;
     }
 
     public Integer getLimit() {
@@ -80,18 +50,6 @@ public class RequestFind extends RequestHeader{
         return places;
     }
 
-//    public String checkForNonAlphaNum(String match) {
-//        String newMatch = "";
-//        for(int i = 0; i < match.length(); i++){
-//            if(!Character.isLetterOrDigit(match.charAt(i))){
-//                newMatch += "_";
-//            }
-//            else {
-//                newMatch += match.charAt(i);
-//            }
-//        }
-//        return newMatch;
-//    }
 
 
 }
