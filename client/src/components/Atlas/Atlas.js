@@ -100,13 +100,9 @@ export default class Atlas extends Component {
     renderMapButtons(){
         return(
             <div>
-            <Button color="primary" style={this.buttonStyleCurrLocation}
-                    onClick={() => this.requestCurrentLocation()}>
-                Add Current Location
-            </Button>
             <Button color="primary" style={this.buttonStyleClear}
                     onClick={() => this.clearAllMarkers()}>
-                Clear
+                Clear Markers and Return to Current Location
             </Button>
             <Button color="primary" style={this.buttonStyleClear}>
                 Show Distance
@@ -356,6 +352,7 @@ export default class Atlas extends Component {
 
         } else {
             map_center = MAP_CENTER_DEFAULT;
+            this.requestCurrentLocation();
         }
 
         return (
@@ -380,7 +377,7 @@ export default class Atlas extends Component {
     }
 
     setMarker(mapClickInfo) {
-        this.setState({markerPosition: mapClickInfo.latlng});
+        this.addMarkersToMap(mapClickInfo.latlng);
     }
 
 
@@ -392,7 +389,17 @@ export default class Atlas extends Component {
             }
         };
 
-        if (this.state.markerPositions.length != 0) {
+        if (this.state.markerPositions.length > 1) {
+            return (
+                this.state.markerPositions.map((position, idx) =>
+                    <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
+                        <Popup offset={[0, -18]}
+                               className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                    </Marker>
+                )
+            );
+        }
+        else {
             return (
                 this.state.markerPositions.map((position, idx) =>
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
