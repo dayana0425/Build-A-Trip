@@ -11,6 +11,7 @@
 | Name | Preparation Time |
 | ----- | ----- |
 | Daiana Bilbao | 20 min |
+| Ryan Loptien | 30 min |
 
 ### Problems found
 
