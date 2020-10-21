@@ -3,7 +3,7 @@
 | Inspection | Details |
 | ----- | ----- |
 | Subject | *Atlas.js Inspection* |
-| Meeting | *October 14, 2020, 4:00PM,Teams* |
+| Meeting | *October 21, 2020, 4:00PM,Teams* |
 | Checklist | *t16/reports/checklist.md* |
 
 ### Roles
@@ -13,6 +13,7 @@
 | Daiana Bilbao | 20 min |
 | Ryan Loptien | 30 min |
 | Xinyi Wang | 30 min |
+| Chen Wang | 30 min |
 
 ### Problems found
 
@@ -26,4 +27,8 @@
 | Atlas.js : 296,310,329 | Remove debugging statement or Changing it to console.error | low | xinyi99 | --- |
 | Atlas.js : 103-127 | Create a component for button style | low | xinyi99 | --- |
 | Atlas.js | Can we change a color for the marker | low | xinyi99 | --- |
+| Atlas.js : 33 | Unused const MARKER_ICON | low | chen | --- |
+| Atlas.js : 198/202 | Compared a character to an integer | low | chen | --- |
+| Atlas.js : 286 | Unused parameter for function handleClick | low | chen | --- |
+
 ### Results
