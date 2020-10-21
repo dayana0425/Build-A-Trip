@@ -22,30 +22,24 @@ public class RequestDistance extends RequestHeader {
 
     public RequestDistance(Double radius, String lat1, String lon1, String lat2, String lon2) {
         this();
-        //System.out.println("!!!!"+lat1+ " " + lat2 + " " + lon1 + " " + lon2);
-        this.distance = null;
-        this.earthRadius = radius;
         this.place1 = new HashMap();
         this.place1.put("latitude", lat1);
         this.place1.put("longitude", lon1);
         this.place2 = new HashMap();
         this.place2.put("latitude", lat2);
         this.place2.put("longitude", lon2);
+        this.distance = null;
+        this.earthRadius = radius;
     }
 
     @Override
     public void buildResponse() {
-        //this.serverName = "T16 Team Hexadecimal";
-        //this.distance = findDistance(this.place1, this.place2, this.earthRadius);
-
-        this.distance = calculate(this.place1, this.place2, this.earthRadius);
-        //this.distance = 466;
         log.trace("buildResponse -> {}", this);
+        this.distance = calculate(this.place1, this.place2, this.earthRadius);
     }
 
     static boolean validateCoords(double lat, double lon){
         if(lat < -90 || lat > 90){
-            //throw new IllegalArgumentException("Latitude must be between -90 and 90 degrees");
             return false;
         }
         else if(lon < -180 || lon > 180){

@@ -80,7 +80,7 @@ export default class ServerSettings extends Component {
         let value = this.props.serverSettings.serverConfig && this.state.validServer=== null ?
                                                     this.props.serverSettings.serverConfig[type]: "";
         if(this.state.config && Object.keys(this.state.config).length > 0) {
-                    value = his.state.config[type];
+                    value = this.state.config[type];
                 }
 
          return value;
