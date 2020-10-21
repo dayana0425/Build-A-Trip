@@ -13,7 +13,11 @@ import {
     InputGroup,
     Input,
     InputGroupAddon,
-    Table
+    Table,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter
 } from 'reactstrap';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -68,7 +72,8 @@ export default class Atlas extends Component {
             places: [],
             found: 0,
             results: 0,
-            tripName: ''
+            tripName: '',
+            modal: false
         };
     }
 
@@ -103,11 +108,38 @@ export default class Atlas extends Component {
                     onClick={() => this.clearAllMarkers()}>
                 Clear
             </Button>
+            <Button color="primary" style={this.buttonStyleClear}>
+                Show Distance
+            </Button>
+            <Button color="primary" style={this.buttonStyleClear}
+                    onClick={() => this.toggleModal()}>
+                Show Itinerary
+            </Button>
+            <Modal isOpen={this.state.modal} toggle={() => this.toggleModal()}>
+                <ModalHeader toggle={() => this.toggleModal()}>Modal Title</ModalHeader>
+                <ModalBody>
+                    Add something here
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={() => this.toggleModal()}>
+                        Do something
+                    </Button>
+                    <Button color="secondary" onClick={() => this.toggleModal()}>
+                        Cancel
+                    </Button>
+                </ModalFooter>
+            </Modal>
             </div>
         );
     }
 
     /* END OF MAP BUTTONS */
+
+    /* START OF HELP CREATE MODAL */
+
+    toggleModal = () => this.setState({modal: !this.state.modal})
+
+    /* END OF HELP CREATE MODAL */
 
     /* START OF TRIP COMPONENT */
 
