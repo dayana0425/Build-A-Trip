@@ -24,6 +24,6 @@
 | Atlas.js : 282-284 | Uses error code instead of exception | low | rloptien | --- |
 | Atlas.js : 282-284 | Uses error code instead of exception | low | rloptien | --- |
 | Atlas.js : 296,310,329 | Remove debugging statement or Changing it to console.error | low | xinyi99 | --- |
-| Atlas.js : 103-127 | create a component for button style | low | xinyi99 | --- |
-| Atlas.js | can we change a color for the marker | low | xinyi99 | --- |
+| Atlas.js : 103-127 | Create a component for button style | low | xinyi99 | --- |
+| Atlas.js | Can we change a color for the marker | low | xinyi99 | --- |
 ### Results
