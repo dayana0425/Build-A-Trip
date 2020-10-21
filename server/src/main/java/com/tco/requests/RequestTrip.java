@@ -44,6 +44,7 @@ public class RequestTrip extends RequestHeader{
 
     @Override
     public void buildResponse() {
+        this.getOptions();
         this.distance();
     }
 
