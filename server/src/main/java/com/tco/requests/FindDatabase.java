@@ -4,7 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class FindDatabase {
-    private Integer limit = 0;
+    private Integer limit = null;
     private int count = 0;
     private ArrayList<Place> places = new ArrayList<Place>();
     private String match;

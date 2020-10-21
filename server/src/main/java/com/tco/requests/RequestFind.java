@@ -6,8 +6,8 @@ import org.slf4j.LoggerFactory;
 
 
 public class RequestFind extends RequestHeader{
-    private String match;
-    private Integer limit;
+    private String match = null;
+    private Integer limit = null;
     private Integer found = 0;
     private ArrayList places = new ArrayList<Place>(); //list of places found
     private final transient Logger log = LoggerFactory.getLogger(RequestFind.class);
@@ -19,13 +19,20 @@ public class RequestFind extends RequestHeader{
 
     public RequestFind(String match) {
         this();
-        this.match = checkForNonAlphaNum(match);
+        this.match = match;
+//        this.match = checkForNonAlphaNum(match);
+    }
+
+    public RequestFind(Integer limit){
+        this();
+        this.limit =limit;
     }
 
     public RequestFind(String match, Integer limit){
         this();
-        this.match = checkForNonAlphaNum(match);
+//        this.match = checkForNonAlphaNum(match);
         this.limit = limit;
+        this.match = match;
     }
 
     @Override
@@ -41,13 +48,16 @@ public class RequestFind extends RequestHeader{
 
     public FindDatabase getFindDatabase(String match, Integer limit){
         FindDatabase fdb;
-        if(match != null && limit != null){
+        if(match != null && limit != null){             //match and limit both are specified
             fdb = new FindDatabase(match, limit);
         }
-        else if(match != null && limit == null){
+        else if(match != null && limit == null){        //only match
             fdb = new FindDatabase(match);
         }
-        else{
+        else if(match == null && limit !=null) {        //only limit
+            fdb = new FindDatabase((limit));
+        }
+        else{                                           //both aren't specified
             fdb = new FindDatabase();
         }
 
@@ -70,18 +80,18 @@ public class RequestFind extends RequestHeader{
         return places;
     }
 
-    public String checkForNonAlphaNum(String match) {
-        String newMatch = "";
-        for(int i = 0; i < match.length(); i++){
-            if(!Character.isLetterOrDigit(match.charAt(i))){
-                newMatch += "_";
-            }
-            else {
-                newMatch += match.charAt(i);
-            }
-        }
-        return newMatch;
-    }
+//    public String checkForNonAlphaNum(String match) {
+//        String newMatch = "";
+//        for(int i = 0; i < match.length(); i++){
+//            if(!Character.isLetterOrDigit(match.charAt(i))){
+//                newMatch += "_";
+//            }
+//            else {
+//                newMatch += match.charAt(i);
+//            }
+//        }
+//        return newMatch;
+//    }
 
 
 }
