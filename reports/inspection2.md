@@ -14,6 +14,7 @@
 | Ryan Loptien | 30 min |
 | Xinyi Wang | 30 min |
 | Chen Wang | 30 min |
+| Matt Vildibill | 30 min |
 
 ### Problems found
 
@@ -29,5 +30,7 @@
 | Atlas.js : 33 | Unused const MARKER_ICON | low | chen | --- |
 | Atlas.js : 198/202 | Compared a character to an integer | low | chen | --- |
 | Atlas.js : 286 | Unused parameter for function handleClick | low | chen | --- |
+| Atlas.js : 177-208 | RenderTabs/RenderButtons are very long, consider drop down menu or more efficient methods | med | mattv | --- |
+| Atlas.js : 116 | Find iterative solution to build itinerary table | med | mattv | --- |
 
 ### Results
