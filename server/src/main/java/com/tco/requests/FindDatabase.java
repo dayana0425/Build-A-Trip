@@ -20,22 +20,28 @@ public class FindDatabase {
     public FindDatabase(String match, Integer limit){
         this.match = match;
         this.limit = limit;
-        if(match == null && limit == null){
+        if(match == null){
+            this.match = getRandomMatch(2);
             this.isRandom = true;
-            this.limitFound = 1;
-        }
-        else if(match == null){
-            this.isRandom = true;
+            if(limit == null || limit == 0)
+                this.limitFound = 1;
             if(limit != null && limit >0)
                 this.limitFound = limit;
-            if(limit != null && limit ==0)
-                this.limitFound = 100;
         }
         else if(match != null){
             if(limit == null || limit == 0)
                 this.limit = 100;
         }
+    }
 
+    public String getRandomMatch(int n) {
+        String alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index = (int)(alphaString.length() * Math.random());
+            sb.append(alphaString.charAt(index));
+        }
+        return sb.toString();
     }
 
     public void environment(){
@@ -63,9 +69,10 @@ public class FindDatabase {
             QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%"+ match +"%');";
         }
         else if(this.isRandom) {
-            String limitation = Integer.toString(this.limitFound);
-            QUERY = "SELECT * FROM world LIMIT " +limitation +";";
-            System.out.println(QUERY);
+            QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
+                    "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
+                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%"+ match + "%' OR world.id LIKE '%" + match + "%') " +
+                    "ORDER BY world.name ASC LIMIT " + Integer.toString(this.limitFound) +";";
         }
         else{
             QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
