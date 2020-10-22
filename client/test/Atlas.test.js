@@ -1,7 +1,7 @@
 import './jestConfig/enzyme.config.js';
 
 import React from 'react';
-import {shallow} from 'enzyme';
+import {shallow,mount} from 'enzyme';
 
 import Atlas from '../src/components/Atlas/Atlas';
 
@@ -44,3 +44,28 @@ function simulateOnClickEvent(reactWrapper, event) {
 }
 
 test("Testing Atlas's Initial State", testMarkerIsRenderedOnClick);
+
+function testConvertedString(){
+    let match = "xinyi's";
+    const exampleWrapper = mount(<Atlas/>);
+    let convertedString = exampleWrapper.instance().convertInputString(match);
+    expect(convertedString).toEqual("xinyi_s");
+}
+test("Testing converting punctuation to '_'", testConvertedString);
+
+function testRequestMatch(){
+    let match = "Dave";
+    const exampleWrapper = shallow(<Atlas/>);
+    exampleWrapper.instance().requestMatch(match);
+    const found = exampleWrapper.state().found;
+    expect(found).toEqual(0);
+}
+test ("Testing requestMatch", testRequestMatch);
+
+function testClearAllMarkers(){
+    const exampleWrapper = mount(<Atlas/>);
+    exampleWrapper.instance().clearAllMarkers();
+    var list = exampleWrapper.state().markerPosition;
+    expect(list).toEqual(null);
+}
+test("Testing clear markers",testClearAllMarkers);

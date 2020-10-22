@@ -219,8 +219,8 @@ export default class Atlas extends Component {
                                this.handleChange(e)
                            }}/>
                     <InputGroupAddon addonType="append">
-                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {
-                            this.handleClick(e)
+                        <Button color="primary" style={this.buttonStyleTable} onClick={() => {
+                            this.handleClick()
                         }}>Search</Button>
                     </InputGroupAddon>
                 </InputGroup>
@@ -278,17 +278,21 @@ export default class Atlas extends Component {
         });
     }
 
-    handleClick = (event) => {
+    convertInputString(searching){
         var match = '';
-        this.state.searching.split("").map( letter=>{
+        searching.split("").map( letter=>{
             if ((/[a-zA-Z0-9_]/).test(letter))
-                match +=letter
+               match +=letter
             else
                 match += '_'
-            return match
-        }
-        )
-        console.log(match)
+        })
+        return match;
+    }
+
+
+
+    handleClick() {
+        var match = this.convertInputString(this.state.searching)
         this.requestMatch(match)
     }
 
