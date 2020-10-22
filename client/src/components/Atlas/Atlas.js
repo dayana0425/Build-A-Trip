@@ -439,5 +439,4 @@ export default class Atlas extends Component {
     getStringMarkerPosition(markerPos) {
         return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
-
 }
