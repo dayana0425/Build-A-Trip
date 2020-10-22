@@ -160,9 +160,6 @@ public class FindDatabase {
         else if(continent_wiki != null){
             result = continent_wiki;
         }
-        else{
-            return result;
-        }
 
         return result;
     }
@@ -173,6 +170,14 @@ public class FindDatabase {
 
     public ArrayList<Place> getPlaces(){
         return this.places;
+    }
+
+    public int getLimitFound(){
+        return this.limitFound;
+    }
+
+    public String getMatch(){
+        return this.match;
     }
 
 }
