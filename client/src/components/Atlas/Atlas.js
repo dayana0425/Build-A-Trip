@@ -530,12 +530,10 @@ export default class Atlas extends Component {
 
     drawLines(points){
         if (points.length > 1 ){
-
             return (
                <Polyline positions={points} color='red'/>
             );
         }
-
         return
     }
 

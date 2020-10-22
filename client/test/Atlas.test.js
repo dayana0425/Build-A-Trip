@@ -69,3 +69,11 @@ function testClearAllMarkers(){
     expect(list).toEqual(null);
 }
 test("Testing clear markers",testClearAllMarkers);
+
+function testDrawLines(){
+    const exampleWrapper = mount(<Atlas/>);
+    var point = exampleWrapper.instance().drawLines(1);
+    expect(point).toEqual(null);
+}
+
+
