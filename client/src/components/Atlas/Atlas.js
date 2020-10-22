@@ -232,7 +232,6 @@ export default class Atlas extends Component {
                         }}>Add</Button>
                     </td>
                 </tr>
-
             )
         })
     }
@@ -265,7 +264,7 @@ export default class Atlas extends Component {
                         this.renderTable(places)
                     }
                 } else {
-                    console.log('Error');
+                    console.error('Error');
                 }
             });
     }
@@ -277,14 +276,11 @@ export default class Atlas extends Component {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 function (position) {
-                    self.addMarkersToMap(position.coords.latitude, position.coords.longitude);
-                },
+                    self.addMarkersToMap(position.coords.latitude, position.coords.longitude);},
                 function (error) {
-                    console.error("Error Code = " + error.code + " - " + error.message);
-                }
-            );
+                    console.error("Error Code = " + error.code + " - " + error.message);});
         } else {
-            console.log("Not Available");
+            console.error("Not Available");
         }
     }
 
@@ -340,8 +336,6 @@ export default class Atlas extends Component {
     setMarker(mapClickInfo) {
         this.setState({markerPosition: mapClickInfo.latlng});
     }
-
-
 
     getMarker() {
         const initMarker = ref => {
