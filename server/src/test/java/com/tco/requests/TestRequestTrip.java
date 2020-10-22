@@ -72,21 +72,21 @@ public class TestRequestTrip {
     @Test
     @DisplayName("The first distance should be 30")
     public void testDistance4FirstPlace(){
-        int[] distance = trip.getDistance();
+        Long[] distance = trip.getDistance();
         assertEquals(30,distance[0]);
     }
 
     @Test
     @DisplayName("The first distance should be 4")
     public void testDistance4SecondPlace(){
-        int[] distance = trip.getDistance();
+        Long[] distance = trip.getDistance();
         assertEquals(44,distance[1]);
     }
 
     @Test
     @DisplayName("The first distance should be 62")
     public void testDistance4ThirdPlace(){
-        int[] distance = trip.getDistance();
+        Long[] distance = trip.getDistance();
         assertEquals(62,distance[2]);
     }
 

@@ -64,21 +64,18 @@ public class FindDatabase {
         }
     }
 
-    public void getQuery(){
-        if(isTravis != null && isTravis.equals("true")){
-            QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%"+ match +"%');";
-        }
-        else if(this.isRandom) {
+    public void getQuery() {
+        if (isTravis != null && isTravis.equals("true")) {
+            QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%" + match + "%');";
+        } else {
             QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
                     "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
-                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%"+ match + "%' OR world.id LIKE '%" + match + "%') " +
-                    "ORDER BY world.name ASC LIMIT " + Integer.toString(this.limitFound) +";";
-        }
-        else{
-            QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
-                    "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
-                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%"+ match + "%' OR world.id LIKE '%" + match + "%') " +
-                    "ORDER BY world.name ASC;";
+                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') " +
+                    "ORDER BY world.name ASC";
+            if (this.isRandom) {
+                QUERY += " LIMIT " + Integer.toString(this.limitFound);
+            }
+            QUERY += ";";
         }
     }
 
@@ -163,9 +160,6 @@ public class FindDatabase {
         else if(continent_wiki != null){
             result = continent_wiki;
         }
-        else{
-            return result;
-        }
 
         return result;
     }
@@ -176,6 +170,14 @@ public class FindDatabase {
 
     public ArrayList<Place> getPlaces(){
         return this.places;
+    }
+
+    public int getLimitFound(){
+        return this.limitFound;
+    }
+
+    public String getMatch(){
+        return this.match;
     }
 
 }

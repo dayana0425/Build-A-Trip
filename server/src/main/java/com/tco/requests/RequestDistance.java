@@ -22,8 +22,6 @@ public class RequestDistance extends RequestHeader {
 
     public RequestDistance(Double radius, String lat1, String lon1, String lat2, String lon2) {
         this();
-        this.distance = null;
-        this.earthRadius = radius;
         this.place1 = new HashMap();
         this.place1.put("latitude", lat1);
         this.place1.put("longitude", lon1);
