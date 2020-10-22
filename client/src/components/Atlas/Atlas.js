@@ -14,11 +14,11 @@ import {
     Input,
     InputGroupAddon,
     Table,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter
+    Collapse,
+    CardBody,
+    Card
 } from 'reactstrap';
+import { List, ListItem, ListItemText } from '@material-ui/core';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -27,7 +27,6 @@ import classnames from 'classnames';
 import 'leaflet/dist/leaflet.css';
 import FindDistance from "./FindDistance";
 import {sendServerRequest} from "../../utils/restfulAPI";
-
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
 const MARKER_ICON = L.icon({iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
@@ -52,10 +51,6 @@ export default class Atlas extends Component {
         marginLeft: 10
     }
 
-    tripTextField = {
-        marginBottom: 20
-    }
-
     constructor(props) {
         super(props);
         this.setMarker = this.setMarker.bind(this);
@@ -73,7 +68,11 @@ export default class Atlas extends Component {
             found: 0,
             results: 0,
             tripName: '',
-            modal: false
+            isOpen: false,
+            options: null,
+            placesForItinerary: [],
+            distances: [],
+            roundTrip: 0
         };
     }
 
@@ -83,8 +82,6 @@ export default class Atlas extends Component {
                 <Container>
                     <Row>
                         <Col sm={12} md={{size: 10, offset: 1}}>
-                            <h1> Build A Trip: {this.state.tripName} </h1> {/* Might move this somewhere else later*/}
-                            {this.renderTripName()}
                             {this.renderTabs()}
                             {this.renderLeafletMap()}
                             {this.renderMapButtons()}
@@ -97,70 +94,34 @@ export default class Atlas extends Component {
 
     /* MAP BUTTONS */
 
-    renderMapButtons(){
-        return(
+    renderMapButtons() {
+        return (
             <div>
-            <Button color="primary" style={this.buttonStyleClear}
-                    onClick={() => this.clearAllMarkers()}>
-                Clear Markers and Return to Current Location
-            </Button>
-            <Button color="primary" style={this.buttonStyleClear}>
-                Show Distance
-            </Button>
-            <Button color="primary" style={this.buttonStyleClear}
-                    onClick={() => this.toggleModal()}>
-                Show Itinerary
-            </Button>
-            <Modal isOpen={this.state.modal} toggle={() => this.toggleModal()}>
-                <ModalHeader toggle={() => this.toggleModal()}>Modal Title</ModalHeader>
-                <ModalBody>
-                    Add something here
-                </ModalBody>
-                <ModalFooter>
-                    <Button color="primary" onClick={() => this.toggleModal()}>
-                        Do something
-                    </Button>
-                    <Button color="secondary" onClick={() => this.toggleModal()}>
-                        Cancel
-                    </Button>
-                </ModalFooter>
-            </Modal>
+                <Button color="primary" style={this.buttonStyleCurrLocation}
+                        onClick={() => this.clearAllMarkers()}>
+                        Reset {/*Clear Markers and Return to Current Location*/}
+                </Button>
+                <Button color="primary" style={this.buttonStyleClear}>
+                        Show Distance
+                </Button>
+                <Button color="primary" onClick={()=>this.toggleIsOpen()} style={this.buttonStyleClear}>Show Itinerary</Button>
+                <Collapse isOpen={this.state.isOpen}>
+                    <Card style={{marginTop: 10}}>
+                        <CardBody style={{marginTop: 10}}>
+                            {this.renderBuildATrip()}
+                            <h2> Itinerary {this.state.tripName} </h2>
+                            <List>
+                            {this.renderTripTable(this.state.placesForItinerary)}
+                            </List>
+                            <h2>{"Round Trip Distance (mi): " + this.state.roundTrip}</h2>
+                        </CardBody>
+                    </Card>
+                </Collapse>
             </div>
         );
     }
 
     /* END OF MAP BUTTONS */
-
-    /* START OF HELP CREATE MODAL */
-
-    toggleModal = () => this.setState({modal: !this.state.modal})
-
-    /* END OF HELP CREATE MODAL */
-
-    /* START OF TRIP COMPONENT */
-
-    renderTripName(){
-        return(
-            <InputGroup>
-                <Input type="text"
-                       name="tripName"
-                       value={this.name}
-                       placeholder="Enter Trip Name"
-                       style = {this.tripTextField}
-                       onChange={(e) => {
-                           this.handleChangeTrip(e)
-                       }}/>
-            </InputGroup>
-        );
-    }
-
-    handleChangeTrip = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
-
-    /* END OF TRIP COMPONENT */
 
     /* START OF TAB COMPONENT */
 
@@ -170,33 +131,37 @@ export default class Atlas extends Component {
         }
     }
 
-    renderTabs(){
-        return(
+    renderTabs() {
+        return (
             <div>
                 <Nav tabs>
                     <NavItem>
                         <NavLink
-                            className={classnames({ active: this.state.activeTab === '1' })}
-                            onClick={() => { this.toggle('1'); }}>
+                            className={classnames({active: this.state.activeTab === '1'})}
+                            onClick={() => {
+                                this.toggle('1');
+                            }}>
                             Add Locations
                         </NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink
-                            className={classnames({ active: this.state.activeTab=== '2' })}
-                            onClick={() => { this.toggle('2'); }}>
+                            className={classnames({active: this.state.activeTab === '2'})}
+                            onClick={() => {
+                                this.toggle('2');
+                            }}>
                             Search Places
                         </NavLink>
                     </NavItem>
                 </Nav>
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="1">
-                        { this.state.activeTab == 1 }
+                        {this.state.activeTab == 1}
                         <FindDistance/>
                     </TabPane>
                     <TabPane tabId="2">
-                        { this.state.activeTab == 2 }
-                        { this.renderFindPlaces() }
+                        {this.state.activeTab == 2}
+                        {this.renderFindPlaces()}
                     </TabPane>
                 </TabContent>
             </div>
@@ -204,6 +169,66 @@ export default class Atlas extends Component {
     }
 
     /* END OF TAB COMPONENT */
+
+    /* START OF TRIP COMPONENT */
+
+    toggleIsOpen(){
+        this.setState({isOpen: !this.state.isOpen});
+    }
+
+    renderBuildATrip() {
+        return (
+            <div>
+                <InputGroup>
+                    <Input type="text"
+                           name="options"
+                           value={this.name}
+                           placeholder="Enter Trip Name"
+                           onChange={(e) => {this.handleChangeTrip(e)}}/>
+                    <InputGroupAddon addonType="append">
+                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {this.handleTripClick(e)}}>Enter</Button>
+                    </InputGroupAddon>
+                </InputGroup>
+            </div>
+        );
+    }
+
+    renderTripTable(places) {
+        return places.map((place, index) => {
+            return (<ListItem key={index}>
+                        <ListItemText primary={"Place " + (index+1) + ": " + place.name} />
+                    </ListItem>
+            )
+        })
+    }
+
+    handleChangeTrip = (event) => {
+        this.setState({
+            [event.target.name]: { title: event.target.value, earthRadius: "3959.0" }
+        });
+    }
+
+    handleTripClick = (event) => {
+        this.requestTrip();
+    }
+
+    requestTrip() {
+        const {distances} = this.state;
+        sendServerRequest({requestType: "trip", requestVersion: 3, options: this.state.options, places: this.state.placesForItinerary})
+            .then(trip => {
+                if (trip) {
+                    this.setState({distances: trip.data.distances});
+                    this.setState({tripName: trip.data.options.title});
+                    if(trip.data.distances){
+                        this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
+                    }
+                } else {
+                    console.error('Error');
+                }
+            });
+    }
+
+    /* END OF BUILD A TRIP COMPONENT */
 
     /*  START OF FIND PLACES COMPONENTS */
 
@@ -219,8 +244,8 @@ export default class Atlas extends Component {
                                this.handleChange(e)
                            }}/>
                     <InputGroupAddon addonType="append">
-                        <Button color="primary" style={this.buttonStyleTable} onClick={() => {
-                            this.handleClick()
+                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {
+                            this.handleClick(e)
                         }}>Search</Button>
                     </InputGroupAddon>
                 </InputGroup>
@@ -255,16 +280,15 @@ export default class Atlas extends Component {
                         {name}
                     </td>
                     <td>
-                        <Button center variant="primary" onClick={() => {
-                            this.addMarkersToMap(latitude, longitude)
-                        }}>Add</Button>
+                        <Button variant="primary" onClick={() => {
+                            this.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
                     </td>
                 </tr>
             )
         })
     }
 
-    renderResultsFound(found, results) { //results == limit
+    renderResultsFound(found, results) {
         return (
             <Alert color="success">
                 {found} results found. Currently displaying {results} of the most relevant results.
@@ -278,27 +302,25 @@ export default class Atlas extends Component {
         });
     }
 
+    handleClick = (event) => {
+        let match = this.convertInputString(this.state.searching)
+        this.requestMatch(match)
+    }
+
     convertInputString(searching){
-        var match = '';
+        let match = '';
         searching.split("").map( letter=>{
             if ((/[a-zA-Z0-9_]/).test(letter))
-               match +=letter
+                match +=letter
             else
                 match += '_'
         })
         return match;
     }
 
-
-
-    handleClick() {
-        var match = this.convertInputString(this.state.searching)
-        this.requestMatch(match)
-    }
-
     requestMatch(inputValue) {
         const {places} = this.state;
-        sendServerRequest({requestType: "find", requestVersion: 2, match: inputValue, limit: 5, places: []})
+        sendServerRequest({requestType: "find", requestVersion: 3, match: inputValue, limit: 5, places: []})
             .then(find => {
                 if (find) {
                     this.setState({places: find.data.places, found: find.data.found, results: find.data.places.length});
@@ -318,21 +340,30 @@ export default class Atlas extends Component {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 function (position) {
-                    self.addMarkersToMap(position.coords.latitude, position.coords.longitude);},
+                    self.addMarkersToMap("Home", position.coords.latitude, position.coords.longitude);
+                },
                 function (error) {
-                    console.error("Error Code = " + error.code + " - " + error.message);});
+                    console.error("Error Code = " + error.code + " - " + error.message);
+                });
         } else {
             console.error("Not Available");
         }
     }
 
-    addMarkersToMap(lat, long) {
-        this.setState({markerPositions: [...this.state.markerPositions, L.latLng(lat, long)]});
+    addMarkersToMap(placeName, lat, long) {
+        let coords = L.latLng(lat, long);
+        this.setState({markerPositions: [...this.state.markerPositions, coords]});
+        this.setState({placesForItinerary: [...this.state.placesForItinerary, {
+            name: placeName,
+            latitude: coords.lat.toFixed() + '',
+            longitude: coords.lng.toFixed() + ''
+        }]});
         this.renderLeafletMap();
     }
 
-    clearAllMarkers(){
+    clearAllMarkers() {
         this.setState({markerPositions: []});
+        this.setState({placesForItinerary: []});
     }
 
     renderLeafletMap() {
@@ -377,7 +408,7 @@ export default class Atlas extends Component {
     }
 
     setMarker(mapClickInfo) {
-        this.addMarkersToMap(mapClickInfo.latlng);
+        this.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
     }
 
     getMarker() {
@@ -396,8 +427,7 @@ export default class Atlas extends Component {
                     </Marker>
                 )
             );
-        }
-        else {
+        } else {
             return (
                 this.state.markerPositions.map((position, idx) =>
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
@@ -412,5 +442,4 @@ export default class Atlas extends Component {
     getStringMarkerPosition(markerPos) {
         return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
-
 }
