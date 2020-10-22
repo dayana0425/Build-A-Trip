@@ -18,14 +18,16 @@ export default class ServerSettings extends Component {
 
     }
 
+
     render() {
+        this.getCurretnSupportedRequest
         return (
             <div>
                 <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
                     <ModalHeader toggle={() => this.props.toggleOpen()}>Server Connection</ModalHeader>
                     {this.renderSettings(
                      this.getProperties("serverName"),
-                     this.getProperties("serverVersion"),
+                     this.getProperties("requestVersion"),
                      this.getProperties("requestType"),
                      this.getProperties("supportedRequests"))}
                     {this.renderActions()}
@@ -41,7 +43,8 @@ export default class ServerSettings extends Component {
                { tableFormat("URL",this.renderInputField())}
                { tableFormat("Type", currentType)}
                { tableFormat("Version", currentVersion)}
-               { tableFormat("Supported Requests", currentSupportedRequests)}
+               { tableFormat("Supported Requests", currentSupportedRequests)
+               }
             </ModalBody>
         );
     }
