@@ -58,7 +58,6 @@ export default class Atlas extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
-
         this.state = {
             markerPosition: null, //client testing will fail if you take this out
             markerPositions: [], //holds all markerPositions via input, map click, searched places, and current location botton
@@ -302,7 +301,7 @@ export default class Atlas extends Component {
         });
     }
 
-    handleClick = (event) => {
+    handleClick() {
         let match = this.convertInputString(this.state.searching)
         this.requestMatch(match)
     }
@@ -370,37 +369,23 @@ export default class Atlas extends Component {
         let map_center;
         let fit_bounds;
         let zoom = 15;
-
         if (this.state.markerPositions.length != 0) {
             let sortedMarkerPositions = this.state.markerPositions.sort((a, b) => (a.lng > b.lng) ? 1 : -1);
-
             if (sortedMarkerPositions.length == 1) {
                 map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
                 zoom = 17;
             } else {
                 fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
             }
-
         } else {
             map_center = MAP_CENTER_DEFAULT;
             this.requestCurrentLocation();
         }
-
         return (
-            <Map
-                className={'mapStyle'}
-                boxZoom={false}
-                zoom={zoom}
-                minZoom={MAP_MIN_ZOOM}
-                maxZoom={MAP_MAX_ZOOM}
-                maxBounds={MAP_BOUNDS}
-                center={map_center}
-                bounds={fit_bounds}
-                boundsOptions={{padding: [50, 50]}}
-                onClick={this.setMarker}
-                useFlyTo={true}
-                maxBoundsViscosity={1.0}
-            >
+            <Map className={'mapStyle'} boxZoom={false} zoom={zoom} minZoom={MAP_MIN_ZOOM}
+                 maxZoom={MAP_MAX_ZOOM} maxBounds={MAP_BOUNDS} center={map_center}
+                 bounds={fit_bounds} boundsOptions={{padding: [50, 50]}} onClick={this.setMarker}
+                 useFlyTo={true} maxBoundsViscosity={1.0} >
                 <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
                 {this.getMarker()}
             </Map>
