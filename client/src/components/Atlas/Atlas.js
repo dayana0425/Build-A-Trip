@@ -27,6 +27,7 @@ import currentLocationIcon from '../../static/images/home-marker-icon.png';
 import classnames from 'classnames';
 import 'leaflet/dist/leaflet.css';
 import {sendServerRequest} from "../../utils/restfulAPI";
+import {Polyline} from 'react-leaflet';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
@@ -110,6 +111,7 @@ export default class Atlas extends Component {
                         Reset {/*Clear Markers and Return to Current Location*/}
                 </Button>
                 <Button color="primary" style={this.buttonStyleClear}>
+
                         Show Distance
                 </Button>
                 <Button color="primary" onClick={()=>this.toggleIsOpen()} style={this.buttonStyleClear}>Show Itinerary</Button>
@@ -121,7 +123,11 @@ export default class Atlas extends Component {
                             <List>
                             {this.renderTripTable(this.state.placesForItinerary)}
                             </List>
-                            <h2>{"Round Trip Distance (mi): " + this.state.roundTrip}</h2>
+                            <h2>{"Round Trip Distance (mi): " +
+                            this.state.distances.reduce(function(a,b){
+                                                        return a+b;
+                                                    },0)}
+                            </h2>
                         </CardBody>
                     </Card>
                 </Collapse>
@@ -202,12 +208,16 @@ export default class Atlas extends Component {
     }
 
     renderTripTable(places) {
-        return places.map((place, index) => {
-            return (<ListItem key={index}>
-                        <ListItemText primary={"Place " + (index+1) + ": " + place.name} />
-                    </ListItem>
-            )
-        })
+
+        //console.log("Distances", distances);
+        return (
+            places.map((place,index) =>
+                <ListItem key={index}>
+                                <ListItemText primary={"Place " + (index+1) + ": " + place.name} />
+                                <ListItemText primary={"Distance " + this.state.distances[index]}/>
+                            </ListItem>
+                 )
+        )
     }
 
     handleChangeTrip = (event) => {
@@ -221,15 +231,18 @@ export default class Atlas extends Component {
     }
 
     requestTrip() {
+        console.log("HELLO THERE", this.state.roundTrip);
         const {distances} = this.state;
         sendServerRequest({requestType: "trip", requestVersion: 3, options: this.state.options, places: this.state.placesForItinerary})
             .then(trip => {
+                console.log("HELLO THERE", this.state.roundTrip);
                 if (trip) {
                     this.setState({distances: trip.data.distances});
                     this.setState({tripName: trip.data.options.title});
                     if(trip.data.distances){
                         this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
                     }
+                    console.log("HELLO THERE", this.state.roundTrip);
                 } else {
                     console.error('Error');
                 }
@@ -404,10 +417,36 @@ export default class Atlas extends Component {
         this.setState({markerPositions: [...this.state.markerPositions, coords]});
         this.setState({placesForItinerary: [...this.state.placesForItinerary, {
             name: placeName,
-            latitude: coords.lat.toFixed() + '',
-            longitude: coords.lng.toFixed() + ''
+            latitude: coords.lat + '',
+            longitude: coords.lng + ''
         }]});
+
+        var distances = [0];
+                var i;
+                       for (i = 1; i < this.state.placesForItinerary.length; i++){
+                            console.log("Iterating? ", i)
+                             //console.log("Look here", places)
+                             //console.log(place, i, this.state.placesForItinerary[i+1])
+                             let data = {
+                                        requestType: "distance",
+                                        requestVersion: 3,
+                                        place1: this.state.placesForItinerary[i-1],
+                                        place2: this.state.placesForItinerary[i],
+                                        earthRadius: 3959.0
+                             }
+                             sendServerRequest(data).then(trip => {
+                                if (!trip) {
+                                    distances.push(-1);
+                                }
+                                distances.push(trip.data.distance);
+                                console.log("Got distance")
+                             });
+                        }
+
+                        this.setState({distances: distances})
+
         this.renderLeafletMap();
+
     }
 
     clearAllMarkers() {
@@ -420,7 +459,7 @@ export default class Atlas extends Component {
         let fit_bounds;
         let zoom = 15;
         if (this.state.markerPositions.length != 0) {
-            let sortedMarkerPositions = this.state.markerPositions.sort((a, b) => (a.lng > b.lng) ? 1 : -1);
+            let sortedMarkerPositions = [...this.state.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
             if (sortedMarkerPositions.length == 1) {
                 map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
                 zoom = 17;
@@ -431,6 +470,14 @@ export default class Atlas extends Component {
             map_center = MAP_CENTER_DEFAULT;
             this.requestCurrentLocation();
         }
+      
+        var points = [];
+
+        this.state.markerPositions.forEach((position) => {
+                points.push([position.lat, position.lng])
+            }
+        );
+
         return (
             <Map className={'mapStyle'} boxZoom={false} zoom={zoom} minZoom={MAP_MIN_ZOOM}
                  maxZoom={MAP_MAX_ZOOM} maxBounds={MAP_BOUNDS} center={map_center}
@@ -438,12 +485,15 @@ export default class Atlas extends Component {
                  useFlyTo={true} maxBoundsViscosity={1.0} >
                 <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
                 {this.getMarker()}
+                {this.drawLines(points)}
             </Map>
         );
     }
 
     setMarker(mapClickInfo) {
         this.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
+
+
     }
 
     getMarker() {
@@ -477,4 +527,16 @@ export default class Atlas extends Component {
     getStringMarkerPosition(markerPos) {
         return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
+
+    drawLines(points){
+        if (points.length > 1 ){
+
+            return (
+               <Polyline positions={points} color='red'/>
+            );
+        }
+
+        return
+    }
+
 }
