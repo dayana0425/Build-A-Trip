@@ -4,6 +4,7 @@ import {
     Container,
     Row,
     Button,
+    Form,
     Nav,
     NavItem,
     NavLink,
@@ -25,9 +26,9 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import currentLocationIcon from '../../static/images/home-marker-icon.png';
 import classnames from 'classnames';
 import 'leaflet/dist/leaflet.css';
-import FindDistance from "./FindDistance";
 import {sendServerRequest} from "../../utils/restfulAPI";
 import {Polyline} from 'react-leaflet';
+
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
 const MARKER_ICON = L.icon({iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
@@ -36,12 +37,9 @@ const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quo
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_MIN_ZOOM = 1;
 const MAP_MAX_ZOOM = 19;
+const EARTH_RADIUS = 3959;
 
 export default class Atlas extends Component {
-
-    buttonStyleCurrLocation = {
-        marginTop: 10
-    }
 
     buttonStyleTable = {
         marginBottom: 10
@@ -52,6 +50,10 @@ export default class Atlas extends Component {
         marginLeft: 10
     }
 
+    buttonStyleAddCoordinates = {
+        marginBottom : 10
+    }
+
     constructor(props) {
         super(props);
         this.setMarker = this.setMarker.bind(this);
@@ -59,7 +61,9 @@ export default class Atlas extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
-
+        this.handleChangeLatitude = this.handleChangeLatitude.bind(this);
+        this.handleChangeLongitude = this.handleChangeLongitude.bind(this);
+        this.handleCoordinateSubmit = this.handleCoordinateSubmit.bind(this);
         this.state = {
             markerPosition: null, //client testing will fail if you take this out
             markerPositions: [], //holds all markerPositions via input, map click, searched places, and current location botton
@@ -73,7 +77,11 @@ export default class Atlas extends Component {
             options: null,
             placesForItinerary: [],
             distances: [],
-            roundTrip: 0
+            roundTrip: 0,
+            lat1: 0,
+            lng1: 0,
+            //lat2: 0,
+            //lng2: 0,
         };
     }
 
@@ -147,7 +155,7 @@ export default class Atlas extends Component {
                             onClick={() => {
                                 this.toggle('1');
                             }}>
-                            Add Locations
+                            Add Location
                         </NavLink>
                     </NavItem>
                     <NavItem>
@@ -163,7 +171,7 @@ export default class Atlas extends Component {
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="1">
                         {this.state.activeTab == 1}
-                        <FindDistance/>
+                        {this.renderAddLocationByCoordinates()}
                     </TabPane>
                     <TabPane tabId="2">
                         {this.state.activeTab == 2}
@@ -315,7 +323,7 @@ export default class Atlas extends Component {
         });
     }
 
-    handleClick = (event) => {
+    handleClick() {
         let match = this.convertInputString(this.state.searching)
         this.requestMatch(match)
     }
@@ -347,6 +355,47 @@ export default class Atlas extends Component {
     }
 
     /* END OF FIND PLACES COMPONENT */
+    /* START OF ADD LOCATION BY COORDINATES COMPONENT */
+
+    renderAddLocationByCoordinates(){
+        return (
+            <Col sm="30">
+                <Form>
+                    <Input type="text" name="lat1" value={this.lat1} placeholder="Enter Latitude" onChange={(e) => { this.handleChangeLatitude(e)}} />
+                    <Input type="text" name="lng1" value={this.lng1} placeholder="Enter Longitude" onChange={(e) => { this.handleChangeLongitude(e)}} />
+                </Form>
+                <Button color="primary" style = {this.buttonStyleAddCoordinates}
+                        onClick={() => this.handleCoordinateSubmit()}>
+                    Add Location
+                </Button>{' '}
+            </Col>
+        );
+    }
+
+    handleCoordinateSubmit() {
+        this.addMarkersToMap("User's Typed Coordinates",this.state.lat1, this.state.lng1);
+    }
+
+    handleChangeLatitude = (event) => {
+        this.setState({[event.target.name]: event.target.value});
+    }
+
+    handleChangeLongitude = (event) => {
+        this.setState({[event.target.name]: event.target.value});
+    }
+
+    requestGreatCircleDistance(latitude1, longitude1, latitude2, longitude2){
+        let radian;
+        let distance;
+        let diff_longitude = Math.abs(longitude1 - longitude2);
+        radian = Math.acos(
+            Math.sin(latitude1)*Math.sin(latitude2) + Math.cos(latitude1)*Math.cos(latitude2)*Math.cos(diff_longitude)
+        );
+        distance = radian * EARTH_RADIUS;
+        return (distance);
+    }
+
+    /* END OF ADD LOCATION BY COORDINATES COMPONENT */
 
     requestCurrentLocation() {
         self = this;
@@ -370,8 +419,6 @@ export default class Atlas extends Component {
             name: placeName,
             latitude: coords.lat + '',
             longitude: coords.lng + ''
-            //latitude: coords.lat.toFixed() + '',
-            //longitude: coords.lng.toFixed() + ''
         }]});
 
         var distances = [0];
@@ -411,30 +458,19 @@ export default class Atlas extends Component {
         let map_center;
         let fit_bounds;
         let zoom = 15;
-
         if (this.state.markerPositions.length != 0) {
-
             let sortedMarkerPositions = [...this.state.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
-
             if (sortedMarkerPositions.length == 1) {
                 map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
                 zoom = 17;
             } else {
                 fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
             }
-
         } else {
             map_center = MAP_CENTER_DEFAULT;
             this.requestCurrentLocation();
         }
-
-
-//                var latlngs = [
-//                    [45.51, -122.68],
-//                    [37.77, -122.43],
-//                    [34.04, -118.2]
-//                ];
-
+      
         var points = [];
 
         this.state.markerPositions.forEach((position) => {
@@ -443,20 +479,10 @@ export default class Atlas extends Component {
         );
 
         return (
-            <Map
-                className={'mapStyle'}
-                boxZoom={false}
-                zoom={zoom}
-                minZoom={MAP_MIN_ZOOM}
-                maxZoom={MAP_MAX_ZOOM}
-                maxBounds={MAP_BOUNDS}
-                center={map_center}
-                bounds={fit_bounds}
-                boundsOptions={{padding: [50, 50]}}
-                onClick={this.setMarker}
-                useFlyTo={true}
-                maxBoundsViscosity={1.0}
-            >
+            <Map className={'mapStyle'} boxZoom={false} zoom={zoom} minZoom={MAP_MIN_ZOOM}
+                 maxZoom={MAP_MAX_ZOOM} maxBounds={MAP_BOUNDS} center={map_center}
+                 bounds={fit_bounds} boundsOptions={{padding: [50, 50]}} onClick={this.setMarker}
+                 useFlyTo={true} maxBoundsViscosity={1.0} >
                 <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
                 {this.getMarker()}
                 {this.drawLines(points)}
