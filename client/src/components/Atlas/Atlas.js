@@ -1,24 +1,6 @@
 import React, {Component} from 'react';
-import {
-    Col,
-    Container,
-    Row,
-    Button,
-    Form,
-    Nav,
-    NavItem,
-    NavLink,
-    TabContent,
-    TabPane,
-    Alert,
-    InputGroup,
-    Input,
-    InputGroupAddon,
-    Table,
-    Collapse,
-    CardBody,
-    Card
-} from 'reactstrap';
+import { Col, Container, Row, Button, Form, Nav, NavItem, NavLink, TabContent, TabPane, Alert, InputGroup, Input,
+         InputGroupAddon, Table, Collapse, CardBody, Card } from 'reactstrap';
 import { List, ListItem, ListItemText } from '@material-ui/core';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -80,8 +62,6 @@ export default class Atlas extends Component {
             roundTrip: 0,
             lat1: 0,
             lng1: 0,
-            //lat2: 0,
-            //lng2: 0,
         };
     }
 
@@ -111,7 +91,6 @@ export default class Atlas extends Component {
                         Reset {/*Clear Markers and Return to Current Location*/}
                 </Button>
                 <Button color="primary" style={this.buttonStyleClear}>
-
                         Show Distance
                 </Button>
                 <Button color="primary" onClick={()=>this.toggleIsOpen()} style={this.buttonStyleClear}>Show Itinerary</Button>
