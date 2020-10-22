@@ -534,7 +534,7 @@ export default class Atlas extends Component {
                <Polyline positions={points} color='red'/>
             );
         }
-        return
+        return null
     }
 
 }

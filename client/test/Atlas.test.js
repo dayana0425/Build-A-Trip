@@ -75,5 +75,6 @@ function testDrawLines(){
     var point = exampleWrapper.instance().drawLines(1);
     expect(point).toEqual(null);
 }
+test("Testing Draw Lines",testDrawLines);
 
 
