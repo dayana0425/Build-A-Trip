@@ -303,16 +303,19 @@ export default class Atlas extends Component {
     }
 
     handleClick = (event) => {
-        let match = '';
-        this.state.searching.split("").map(letter => {
-                if ((/[a-zA-Z0-9_]/).test(letter))
-                    match += letter
-                else
-                    match += '_'
-                return match
-            }
-        )
+        let match = this.convertInputString(this.state.searching)
         this.requestMatch(match)
+    }
+
+    convertInputString(searching){
+        let match = '';
+        searching.split("").map( letter=>{
+            if ((/[a-zA-Z0-9_]/).test(letter))
+                match +=letter
+            else
+                match += '_'
+        })
+        return match;
     }
 
     requestMatch(inputValue) {
@@ -343,7 +346,7 @@ export default class Atlas extends Component {
                     console.error("Error Code = " + error.code + " - " + error.message);
                 });
         } else {
-            console.error("Not Available");
+            //console.error("Not Available");
         }
     }
 
