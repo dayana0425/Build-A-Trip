@@ -8,7 +8,8 @@ import java.lang.String;
 public class RequestTrip extends RequestHeader{
     private HashMap<String,String> options = new HashMap<String, String>();         //haven't initialized it
     private ArrayList<HashMap> places = new ArrayList<HashMap>();
-    private int[] distance;
+    private Long[] distances;
+
 
     public RequestTrip(){
         this.requestType = "trip";
@@ -24,10 +25,8 @@ public class RequestTrip extends RequestHeader{
 
     public void distance(){
         int len = places.size();
-        distance = new int[len];
-        System.out.println(len);
+        distances = new Long[len];
         Double earthRadius = Double.parseDouble(options.get("earthRadius"));
-        System.out.println(earthRadius);
         for(int i = 0; i < len; i++){
             HashMap place1 = places.get(i%len);
             HashMap place2 = places.get((i+1)%len);
@@ -37,7 +36,7 @@ public class RequestTrip extends RequestHeader{
             String lon2 = (String)place2.get("longitude");
             RequestDistance rd =  new RequestDistance(earthRadius,lat1,lon1,lat2,lon2);
             rd.buildResponse();
-            distance[i] = rd.getDistance().intValue();
+            distances[i] = rd.getDistance();
         }
     }
 
@@ -48,8 +47,8 @@ public class RequestTrip extends RequestHeader{
         this.distance();
     }
 
-    public int[] getDistance(){
-        return distance;
+    public Long[] getDistance(){
+        return distances;
     }
 
     public HashMap<String,String> getOptions(){
