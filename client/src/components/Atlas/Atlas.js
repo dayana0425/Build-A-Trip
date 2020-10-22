@@ -346,7 +346,7 @@ export default class Atlas extends Component {
                     console.error("Error Code = " + error.code + " - " + error.message);
                 });
         } else {
-            //console.error("Not Available");
+            console.error("Not Available");
         }
     }
 
