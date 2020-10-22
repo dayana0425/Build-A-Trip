@@ -382,9 +382,6 @@ export default class Atlas extends Component {
         var distances = [0];
         var i;
         for (i = 1; i < this.state.placesForItinerary.length; i++) {
-            //console.log("Iterating? ", i)
-            //console.log("Look here", places)
-            //console.log(place, i, this.state.placesForItinerary[i+1])
             let data = {
                 requestType: "distance",
                 requestVersion: 3,
@@ -397,12 +394,10 @@ export default class Atlas extends Component {
                     distances.push(-1);
                 }
                 distances.push(trip.data.distance);
-                //console.log("Got distance")
             });
         }
-        this.setState({distances: distances})
+        this.setState({distances: distances});
         this.renderLeafletMap();
-
     }
 
     clearAllMarkers() {
