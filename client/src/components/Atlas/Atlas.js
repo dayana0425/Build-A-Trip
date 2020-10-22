@@ -19,7 +19,7 @@ import {
     CardBody,
     Card
 } from 'reactstrap';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import {List, ListItem, ListItemText} from '@material-ui/core';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -51,7 +51,11 @@ export default class Atlas extends Component {
     }
 
     buttonStyleAddCoordinates = {
-        marginBottom : 10
+        marginBottom: 10
+    }
+
+    buttonStyleReset = {
+        marginTop: 10
     }
 
     constructor(props) {
@@ -64,6 +68,7 @@ export default class Atlas extends Component {
         this.handleChangeLatitude = this.handleChangeLatitude.bind(this);
         this.handleChangeLongitude = this.handleChangeLongitude.bind(this);
         this.handleCoordinateSubmit = this.handleCoordinateSubmit.bind(this);
+
         this.state = {
             markerPosition: null, //client testing will fail if you take this out
             markerPositions: [], //holds all markerPositions via input, map click, searched places, and current location botton
@@ -80,8 +85,6 @@ export default class Atlas extends Component {
             roundTrip: 0,
             lat1: 0,
             lng1: 0,
-            //lat2: 0,
-            //lng2: 0,
         };
     }
 
@@ -106,27 +109,24 @@ export default class Atlas extends Component {
     renderMapButtons() {
         return (
             <div>
-                <Button color="primary" style={this.buttonStyleCurrLocation}
-                        onClick={() => this.clearAllMarkers()}>
-                        Reset {/*Clear Markers and Return to Current Location*/}
+                <Button color="primary" style={this.buttonStyleReset} onClick={() => this.clearAllMarkers()}>
+                    Reset
                 </Button>
-                <Button color="primary" style={this.buttonStyleClear}>
-
-                        Show Distance
+                <Button color="primary" onClick={() => this.toggleIsOpen()} style={this.buttonStyleClear}>
+                    Show Itinerary
                 </Button>
-                <Button color="primary" onClick={()=>this.toggleIsOpen()} style={this.buttonStyleClear}>Show Itinerary</Button>
                 <Collapse isOpen={this.state.isOpen}>
                     <Card style={{marginTop: 10}}>
                         <CardBody style={{marginTop: 10}}>
                             {this.renderBuildATrip()}
                             <h2> Itinerary {this.state.tripName} </h2>
                             <List>
-                            {this.renderTripTable(this.state.placesForItinerary)}
+                                {this.renderTripTable(this.state.placesForItinerary)}
                             </List>
                             <h2>{"Round Trip Distance (mi): " +
-                            this.state.distances.reduce(function(a,b){
-                                                        return a+b;
-                                                    },0)}
+                            this.state.distances.reduce(function (a, b) {
+                                return a + b;
+                            }, 0)}
                             </h2>
                         </CardBody>
                     </Card>
@@ -186,7 +186,7 @@ export default class Atlas extends Component {
 
     /* START OF TRIP COMPONENT */
 
-    toggleIsOpen(){
+    toggleIsOpen() {
         this.setState({isOpen: !this.state.isOpen});
     }
 
@@ -198,9 +198,13 @@ export default class Atlas extends Component {
                            name="options"
                            value={this.name}
                            placeholder="Enter Trip Name"
-                           onChange={(e) => {this.handleChangeTrip(e)}}/>
+                           onChange={(e) => {
+                               this.handleChangeTrip(e)
+                           }}/>
                     <InputGroupAddon addonType="append">
-                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {this.handleTripClick(e)}}>Enter</Button>
+                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {
+                            this.handleTripClick(e)
+                        }}>Enter</Button>
                     </InputGroupAddon>
                 </InputGroup>
             </div>
@@ -208,21 +212,19 @@ export default class Atlas extends Component {
     }
 
     renderTripTable(places) {
-
-        //console.log("Distances", distances);
         return (
-            places.map((place,index) =>
+            places.map((place, index) =>
                 <ListItem key={index}>
-                                <ListItemText primary={"Place " + (index+1) + ": " + place.name} />
-                                <ListItemText primary={"Distance " + this.state.distances[index]}/>
-                            </ListItem>
-                 )
+                    <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
+                    <ListItemText primary={"Distance " + this.state.distances[index]}/>
+                </ListItem>
+            )
         )
     }
 
     handleChangeTrip = (event) => {
         this.setState({
-            [event.target.name]: { title: event.target.value, earthRadius: "3959.0" }
+            [event.target.name]: {title: event.target.value, earthRadius: "3959.0"}
         });
     }
 
@@ -231,18 +233,20 @@ export default class Atlas extends Component {
     }
 
     requestTrip() {
-        console.log("HELLO THERE", this.state.roundTrip);
         const {distances} = this.state;
-        sendServerRequest({requestType: "trip", requestVersion: 3, options: this.state.options, places: this.state.placesForItinerary})
+        sendServerRequest({
+            requestType: "trip",
+            requestVersion: 3,
+            options: this.state.options,
+            places: this.state.placesForItinerary
+        })
             .then(trip => {
-                console.log("HELLO THERE", this.state.roundTrip);
                 if (trip) {
                     this.setState({distances: trip.data.distances});
                     this.setState({tripName: trip.data.options.title});
-                    if(trip.data.distances){
+                    if (trip.data.distances) {
                         this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
                     }
-                    console.log("HELLO THERE", this.state.roundTrip);
                 } else {
                     console.error('Error');
                 }
@@ -286,7 +290,7 @@ export default class Atlas extends Component {
             <thead>
             <tr>
                 <th>Airport Name</th>
-                <th> </th>
+                <th></th>
             </tr>
             </thead>
         )
@@ -302,7 +306,8 @@ export default class Atlas extends Component {
                     </td>
                     <td>
                         <Button variant="primary" onClick={() => {
-                            this.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
+                            this.addMarkersToMap(name, latitude, longitude)
+                        }}>Add</Button>
                     </td>
                 </tr>
             )
@@ -328,11 +333,11 @@ export default class Atlas extends Component {
         this.requestMatch(match)
     }
 
-    convertInputString(searching){
+    convertInputString(searching) {
         let match = '';
-        searching.split("").map( letter=>{
+        searching.split("").map(letter => {
             if ((/[a-zA-Z0-9_]/).test(letter))
-                match +=letter
+                match += letter
             else
                 match += '_'
         })
@@ -355,16 +360,21 @@ export default class Atlas extends Component {
     }
 
     /* END OF FIND PLACES COMPONENT */
+
     /* START OF ADD LOCATION BY COORDINATES COMPONENT */
 
-    renderAddLocationByCoordinates(){
+    renderAddLocationByCoordinates() {
         return (
             <Col sm="30">
                 <Form>
-                    <Input type="text" name="lat1" value={this.lat1} placeholder="Enter Latitude" onChange={(e) => { this.handleChangeLatitude(e)}} />
-                    <Input type="text" name="lng1" value={this.lng1} placeholder="Enter Longitude" onChange={(e) => { this.handleChangeLongitude(e)}} />
+                    <Input type="text" name="lat1" value={this.lat1} placeholder="Enter Latitude" onChange={(e) => {
+                        this.handleChangeLatitude(e)
+                    }}/>
+                    <Input type="text" name="lng1" value={this.lng1} placeholder="Enter Longitude" onChange={(e) => {
+                        this.handleChangeLongitude(e)
+                    }}/>
                 </Form>
-                <Button color="primary" style = {this.buttonStyleAddCoordinates}
+                <Button color="primary" style={this.buttonStyleAddCoordinates}
                         onClick={() => this.handleCoordinateSubmit()}>
                     Add Location
                 </Button>{' '}
@@ -373,7 +383,7 @@ export default class Atlas extends Component {
     }
 
     handleCoordinateSubmit() {
-        this.addMarkersToMap("User's Typed Coordinates",this.state.lat1, this.state.lng1);
+        this.addMarkersToMap("User's Typed Coordinates", this.state.lat1, this.state.lng1);
     }
 
     handleChangeLatitude = (event) => {
@@ -384,12 +394,12 @@ export default class Atlas extends Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    requestGreatCircleDistance(latitude1, longitude1, latitude2, longitude2){
+    requestGreatCircleDistance(latitude1, longitude1, latitude2, longitude2) {
         let radian;
         let distance;
         let diff_longitude = Math.abs(longitude1 - longitude2);
         radian = Math.acos(
-            Math.sin(latitude1)*Math.sin(latitude2) + Math.cos(latitude1)*Math.cos(latitude2)*Math.cos(diff_longitude)
+            Math.sin(latitude1) * Math.sin(latitude2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(diff_longitude)
         );
         distance = radian * EARTH_RADIUS;
         return (distance);
@@ -414,37 +424,31 @@ export default class Atlas extends Component {
 
     addMarkersToMap(placeName, lat, long) {
         let coords = L.latLng(lat, long);
-        this.setState({markerPositions: [...this.state.markerPositions, coords]});
-        this.setState({placesForItinerary: [...this.state.placesForItinerary, {
-            name: placeName,
-            latitude: coords.lat + '',
-            longitude: coords.lng + ''
-        }]});
+        this.setState({ markerPositions: [...this.state.markerPositions, coords]});
+        this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
 
         var distances = [0];
-                var i;
-                       for (i = 1; i < this.state.placesForItinerary.length; i++){
-                            console.log("Iterating? ", i)
-                             //console.log("Look here", places)
-                             //console.log(place, i, this.state.placesForItinerary[i+1])
-                             let data = {
-                                        requestType: "distance",
-                                        requestVersion: 3,
-                                        place1: this.state.placesForItinerary[i-1],
-                                        place2: this.state.placesForItinerary[i],
-                                        earthRadius: 3959.0
-                             }
-                             sendServerRequest(data).then(trip => {
-                                if (!trip) {
-                                    distances.push(-1);
-                                }
-                                distances.push(trip.data.distance);
-                                console.log("Got distance")
-                             });
-                        }
-
-                        this.setState({distances: distances})
-
+        var i;
+        for (i = 1; i < this.state.placesForItinerary.length; i++) {
+            //console.log("Iterating? ", i)
+            //console.log("Look here", places)
+            //console.log(place, i, this.state.placesForItinerary[i+1])
+            let data = {
+                requestType: "distance",
+                requestVersion: 3,
+                place1: this.state.placesForItinerary[i - 1],
+                place2: this.state.placesForItinerary[i],
+                earthRadius: 3959.0
+            }
+            sendServerRequest(data).then(trip => {
+                if (!trip) {
+                    distances.push(-1);
+                }
+                distances.push(trip.data.distance);
+                //console.log("Got distance")
+            });
+        }
+        this.setState({distances: distances})
         this.renderLeafletMap();
 
     }
@@ -458,8 +462,10 @@ export default class Atlas extends Component {
         let map_center;
         let fit_bounds;
         let zoom = 15;
+
         if (this.state.markerPositions.length != 0) {
             let sortedMarkerPositions = [...this.state.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
+
             if (sortedMarkerPositions.length == 1) {
                 map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
                 zoom = 17;
@@ -470,7 +476,7 @@ export default class Atlas extends Component {
             map_center = MAP_CENTER_DEFAULT;
             this.requestCurrentLocation();
         }
-      
+
         var points = [];
 
         this.state.markerPositions.forEach((position) => {
@@ -479,10 +485,18 @@ export default class Atlas extends Component {
         );
 
         return (
-            <Map className={'mapStyle'} boxZoom={false} zoom={zoom} minZoom={MAP_MIN_ZOOM}
-                 maxZoom={MAP_MAX_ZOOM} maxBounds={MAP_BOUNDS} center={map_center}
-                 bounds={fit_bounds} boundsOptions={{padding: [50, 50]}} onClick={this.setMarker}
-                 useFlyTo={true} maxBoundsViscosity={1.0} >
+            <Map className={'mapStyle'}
+                 boxZoom={false}
+                 zoom={zoom}
+                 minZoom={MAP_MIN_ZOOM}
+                 maxZoom={MAP_MAX_ZOOM}
+                 maxBounds={MAP_BOUNDS}
+                 center={map_center}
+                 bounds={fit_bounds}
+                 boundsOptions={{padding: [50, 50]}}
+                 onClick={this.setMarker}
+                 useFlyTo={true}
+                 maxBoundsViscosity={1.0}>
                 <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
                 {this.getMarker()}
                 {this.drawLines(points)}
@@ -492,8 +506,6 @@ export default class Atlas extends Component {
 
     setMarker(mapClickInfo) {
         this.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
-
-
     }
 
     getMarker() {
@@ -507,8 +519,7 @@ export default class Atlas extends Component {
             return (
                 this.state.markerPositions.map((position, idx) =>
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
-                        <Popup offset={[0, -18]}
-                               className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
                     </Marker>
                 )
             );
@@ -516,8 +527,7 @@ export default class Atlas extends Component {
             return (
                 this.state.markerPositions.map((position, idx) =>
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
-                        <Popup offset={[0, -18]}
-                               className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
                     </Marker>
                 )
             );
@@ -528,12 +538,9 @@ export default class Atlas extends Component {
         return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
 
-    drawLines(points){
-        if (points.length > 1 ){
-
-            return (
-               <Polyline positions={points} color='red'/>
-            );
+    drawLines(points) {
+        if (points.length > 1) {
+            return ( <Polyline positions={points} color='red'/>);
         }
 
         return
