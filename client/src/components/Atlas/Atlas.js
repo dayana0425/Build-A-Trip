@@ -74,7 +74,7 @@ export default class Atlas extends Component {
             markerPositions: [], //holds all markerPositions via input, map click, searched places, and current location botton
             activeTab: '1',
             searching: '',
-            places: [],
+            places: [], //for find places component
             found: 0,
             results: 0,
             tripName: '',
@@ -84,7 +84,7 @@ export default class Atlas extends Component {
             distances: [],
             roundTrip: 0,
             lat1: 0,
-            lng1: 0,
+            lng1: 0
         };
     }
 
@@ -123,11 +123,7 @@ export default class Atlas extends Component {
                             <List>
                                 {this.renderTripTable(this.state.placesForItinerary)}
                             </List>
-                            <h2>{"Round Trip Distance (mi): " +
-                            this.state.distances.reduce(function (a, b) {
-                                return a + b;
-                            }, 0)}
-                            </h2>
+                            <h2>{"Round Trip Distance (mi): " + this.state.distances.reduce(function (a, b) {return a + b;}, 0)}</h2>
                         </CardBody>
                     </Card>
                 </Collapse>
@@ -152,18 +148,14 @@ export default class Atlas extends Component {
                     <NavItem>
                         <NavLink
                             className={classnames({active: this.state.activeTab === '1'})}
-                            onClick={() => {
-                                this.toggle('1');
-                            }}>
+                            onClick={() => {this.toggle('1');}}>
                             Add Location
                         </NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink
                             className={classnames({active: this.state.activeTab === '2'})}
-                            onClick={() => {
-                                this.toggle('2');
-                            }}>
+                            onClick={() => {this.toggle('2');}}>
                             Search Places
                         </NavLink>
                     </NavItem>
@@ -194,17 +186,9 @@ export default class Atlas extends Component {
         return (
             <div>
                 <InputGroup>
-                    <Input type="text"
-                           name="options"
-                           value={this.name}
-                           placeholder="Enter Trip Name"
-                           onChange={(e) => {
-                               this.handleChangeTrip(e)
-                           }}/>
+                    <Input type="text" name="options" value={this.name} placeholder="Enter Trip Name" onChange={(e) => {this.handleChangeTrip(e)}}/>
                     <InputGroupAddon addonType="append">
-                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {
-                            this.handleTripClick(e)
-                        }}>Enter</Button>
+                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {this.requestTrip(e)}}>Enter</Button>
                     </InputGroupAddon>
                 </InputGroup>
             </div>
@@ -216,24 +200,17 @@ export default class Atlas extends Component {
             places.map((place, index) =>
                 <ListItem key={index}>
                     <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
-                    <ListItemText primary={"Distance " + this.state.distances[index]}/>
+                    <ListItemText primary={"Distance: " + this.state.distances[index]}/>
                 </ListItem>
             )
         )
     }
 
     handleChangeTrip = (event) => {
-        this.setState({
-            [event.target.name]: {title: event.target.value, earthRadius: "3959.0"}
-        });
+        this.setState({[event.target.name]: {title: event.target.value, earthRadius: "3959.0"}});
     }
 
-    handleTripClick = (event) => {
-        this.requestTrip();
-    }
-
-    requestTrip() {
-        const {distances} = this.state;
+    requestTrip(event) {
         sendServerRequest({
             requestType: "trip",
             requestVersion: 3,
@@ -265,20 +242,14 @@ export default class Atlas extends Component {
                            name="searching"
                            value={this.match}
                            placeholder="Enter Place"
-                           onChange={(e) => {
-                               this.handleChange(e)
-                           }}/>
+                           onChange={(e) => {this.handleChange(e)}}/>
                     <InputGroupAddon addonType="append">
-                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {
-                            this.handleClick(e)
-                        }}>Search</Button>
+                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {this.handleClick(e)}}>Search</Button>
                     </InputGroupAddon>
                 </InputGroup>
                 <Table bordered hover striped>
                     {this.renderTableHeader()}
-                    <tbody>
-                    {this.renderTable(this.state.places)}
-                    </tbody>
+                    <tbody>{this.renderTable(this.state.places)}</tbody>
                 </Table>
                 {this.renderResultsFound(this.state.found, this.state.results)}
             </div>
@@ -290,7 +261,7 @@ export default class Atlas extends Component {
             <thead>
             <tr>
                 <th>Airport Name</th>
-                <th></th>
+                <th> </th>
             </tr>
             </thead>
         )
@@ -305,9 +276,7 @@ export default class Atlas extends Component {
                         {name}
                     </td>
                     <td>
-                        <Button variant="primary" onClick={() => {
-                            this.addMarkersToMap(name, latitude, longitude)
-                        }}>Add</Button>
+                        <Button variant="primary" onClick={() => {this.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
                     </td>
                 </tr>
             )
@@ -315,17 +284,11 @@ export default class Atlas extends Component {
     }
 
     renderResultsFound(found, results) {
-        return (
-            <Alert color="success">
-                {found} results found. Currently displaying {results} of the most relevant results.
-            </Alert>
-        );
+        return (<Alert color="success">{found} results found. Currently displaying {results} of the most relevant results.</Alert>);
     }
 
     handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
+        this.setState({[event.target.name]: event.target.value});
     }
 
     handleClick() {
@@ -376,7 +339,7 @@ export default class Atlas extends Component {
                 </Form>
                 <Button color="primary" style={this.buttonStyleAddCoordinates}
                         onClick={() => this.handleCoordinateSubmit()}>
-                    Add Location
+                        Add Location
                 </Button>{' '}
             </Col>
         );
@@ -392,17 +355,6 @@ export default class Atlas extends Component {
 
     handleChangeLongitude = (event) => {
         this.setState({[event.target.name]: event.target.value});
-    }
-
-    requestGreatCircleDistance(latitude1, longitude1, latitude2, longitude2) {
-        let radian;
-        let distance;
-        let diff_longitude = Math.abs(longitude1 - longitude2);
-        radian = Math.acos(
-            Math.sin(latitude1) * Math.sin(latitude2) + Math.cos(latitude1) * Math.cos(latitude2) * Math.cos(diff_longitude)
-        );
-        distance = radian * EARTH_RADIUS;
-        return (distance);
     }
 
     /* END OF ADD LOCATION BY COORDINATES COMPONENT */
@@ -542,7 +494,6 @@ export default class Atlas extends Component {
         if (points.length > 1) {
             return ( <Polyline positions={points} color='red'/>);
         }
-
         return
     }
 
