@@ -221,30 +221,28 @@ This is the only change that will occur in the UI. Simply adding Trip as a suppo
 ### Build a trip/Modify a Trip
 **Component Hierarchy** 
 
-No changes to the Component Hierarchy are planned. 
+![class diagram](../team/images/sprint3_compo.png)
 
 **Class Diagram**
 
-![class diagram](../team/images/Build-Modify-Trip-Design.jpg)
+![class diagram](../team/images/sprint3_classdia.png)
 
 **UI** 
 
-Changing the Distance tab to Build a Trip. This tab will now display an itinerary at the bottom of the page that allows the user to enter destination coordinates that will show on the map and in the itinerary. Options to save a trip and load a previous trip will now exist below the itinerary. 
-
-Modify trip features will be accessible when a trip name is clicked on. When clicked on, the user will have the option to make that location the new starting point, remove the destination, view previous notes, or add notes about that destination. Additionally, the user will be able to drag and drop rows in the itinerary to change the order of the trip. Changes will be refelcted in the itinerary table. 
-
+![class diagram](../team/images/buildatrip_UI.png)
 
 ### Find places
 **Component Hierarchy** 
 
-No changes new to the Component Hierarchy are planned for this sprint since we started Find Places last sprint we already have it organized in the way that we want.
+![class diagram](../team/images/sprint3_compo.png)
 
 **Class Diagram**
 
-No changes new to the Class Diagram are planned. 
+![class diagram](../team/images/sprint3_classdia.png)
 
 **UI** 
 
-No new changes to the UI are planned. We plan to leave find places just the way that it is for now. We are not sure yet if we will incorporate it in Create a Trip. It is a possibility.
+![class diagram](../team/images/findplaces_UI.png)
+
 # Sprint 4 
 # Sprint 5
