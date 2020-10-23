@@ -221,7 +221,7 @@ This is the only change that will occur in the UI. Simply adding Trip as a suppo
 ### Build a trip/Modify a Trip
 **Component Hierarchy** 
 
-![class diagram](../team/images/sprint3_compo.png)
+![class diagram](../team/images/sprint3-buildatrip-comp.png)
 
 **Class Diagram**
 
@@ -234,7 +234,7 @@ This is the only change that will occur in the UI. Simply adding Trip as a suppo
 ### Find places
 **Component Hierarchy** 
 
-![class diagram](../team/images/sprint3_compo.png)
+![class diagram](../team/images/sprint3-findplaces-comp.png)
 
 **Class Diagram**
 
