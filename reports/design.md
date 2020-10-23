@@ -218,31 +218,42 @@ This is a diagram of how the new classes will be interacting. Mainly it's concer
 
 This is the only change that will occur in the UI. Simply adding Trip as a supported request and displaying it in Server Connection.
 
-### Build a trip/Modify a Trip
+### Build a trip 
 **Component Hierarchy** 
+
+We moved all our components back to atlas.js because no one on our team could successfully refactor our components as child classes to the parent class atlas.js. 
+We were spending too much time trying to do this and we decided (for now) to move everything into atlas.js. In the next sprint we hope to overcome this roadblock. 
+Atlas.js is where our Build a Trip component resides. Atlas.js is rendered by App.js.
 
 ![class diagram](../team/images/sprint3-buildatrip-comp.png)
 
 **Class Diagram**
-
+This is currently how our class diagram looks like on the client side where our build a trip component resides (inside of atlas.js). Our component makes use of restfulAPI, react, and reactleaf-let. 
 ![class diagram](../team/images/sprint3_classdia.png)
 
 **UI** 
-
+This is an in-depth picture of our UI and how it looks on our website. The UI components which handle Build A Trip is the "Show Itinerary" button below the map which the user can click on after they have added their locations on the map. This will show them the list of places they have added as well the distances of those places + the round trip total. 
+For the user to build a trip they can do it via three methods on our site: map click, text input of long/lat or by searching places. 
 ![class diagram](../team/images/buildatrip_UI.png)
+
 
 ### Find places
 **Component Hierarchy** 
 
+The component hierarchy for "Find places" depicted below shows our top-level App component and the component that relatively to "Find Places". The App renders the major components on the screen. Atlas renders a map and all marker information. Find Places contains all the information which needed to find a place and set markers.
+
 ![class diagram](../team/images/sprint3-findplaces-comp.png)
 
-**Class Diagram**
+We only show the components related to "Find Places", which could help to understand the hierarchy quickly.
 
+**Class Diagram**
+This is currently how our class diagram looks like on the client side where our find places component resides (inside of atlas.js). Our component makes use of restfulAPI, react, and reactleaf-let.
 ![class diagram](../team/images/sprint3_classdia.png)
 
 **UI** 
 
 ![class diagram](../team/images/findplaces_UI.png)
 
+The basic screen in black shows the view on the computer. Users can type their searching string to the searching box. After press "Enter", the data related to the searching string will pop up and showed in the table. We also have "add" buttons for users to add markers to locate the place where they search.
 # Sprint 4 
 # Sprint 5

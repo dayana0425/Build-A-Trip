@@ -63,9 +63,9 @@ For this epic, we plan to allow users to modify a trip that they already created
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | *5* | *0* |
-| Tasks |  *30*   | *0* | 
-| Story Points |  *55*  | *0* | 
+| Epics | *5* | *3* |
+| Tasks |  *56*   | *39* | 
+| Story Points |  *58*  | *54* | 
 
 We as a team did not complete the amount of tasks and story points that we planned to. We did not get started on Sprint 2 until later on in the sprint and we plan to start right away for Sprint 3. Last sprint, we designated one team member for their own epic, and we plan to all work on the same epic as a team until it is completed for this sprint. We believe this will not only improve our communication, but also improve our clean code scores from last sprint because everyone needs to be able to understand it. We also have a new team member, and we think this will help us to get more tasks and story points completed.
 
@@ -79,27 +79,30 @@ We as a team did not complete the amount of tasks and story points that we plann
 | October 12, 2020 | *#156, #300, #273, #284, #308* | *#152, #164, #211, #259, #270, #305*| *#164, #152* | 
 | October 14, 2020 | *#156, #255, #300, #273, #284, #308, #259, #270, #305* | *#277, #250, #256, #164, #152, #211* | *#164, #152* | 
 | October 16, 2020 | *#156, #166, #211, #250, #255, #256, #267, #276, #277, #284, #300, #273, #284, #308, #259, #270, #305* | * #164, #152, #339* | *#164, #152* | 
-| October 19, 2020 | *#152, #156, #166, #211, #250, #255, #256, #259, #267, #276, #277, #284, #300, #273, #284, #308, #270, #305* | * #164, #358, #355, #356 | *#164| 
-| October 21, 2020 | *#152, #156, #166, #211, #250, #255, #256, #259, #265, #267, #270, #273,#276, #277, #284, #300, #305, #308, #355, #356, #359, #360, #363, #370, #373, #387* | * #164, #167, #358, #272 | *#164| 
-
+| October 19, 2020 | *#152, #156, #166, #211, #250, #255, #256, #259, #267, #276, #277, #284, #300, #273, #284, #308, #270, #305* | * #164, #358, #355, #356 | *#164*| 
+| October 21, 2020 | *#152, #156, #166, #211, #250, #255, #256, #259, #265, #267, #270, #273,#276, #277, #284, #300, #305, #308, #355, #356, #359, #360, #363, #370, #373, #387* | *#164, #167, #358, #272* | *#164*| 
+| October 22, 2020 | *#152, #156, #166, #211, #250, #255, #256, #259, #265, #267, #270, #273,#276, #277, #284, #300, #305, #308, #355, #356, #359, #360, #363, #370, #373, #387, #164, #167, #358, #272* | || 
 
 ## Review
 
 ### Epics done  
-
+We have finished 3 Epics: V3 protocol, Find Places, Find Distance 
 ### Epics not done 
-
+We did not finish 2 Epics: Build a Trip (we were really close) and Modify a trip. 
 ### What went well
-
+We got better at coding for client-side compared to the last sprint where we only completed server-side tasks as a team. 
 ### Problems encountered and resolutions
-
-
+A problem we encountered we couldn't figure out how to refactor our componets to be outside of atlas. As a resolution, we are going to be heavily focusing on refactoring atlas.js for the next sprint. 
 ## Retrospective
 
 ### What we changed this sprint
-
+Were more productive earlier in the sprint compared to the last sprint where we had started late. We a got a new teammate who has been a great addition to the team. We collaborated more since most of the time we were working on the same file so it was crucial for us. We also created better tasks this time too. 
 ### What went well
-
+We did a better job in creating tasks and in response we got a lot more work done as a team. 
 ### Potential improvements
-
+We need to work on committing clean code and creating test cases for our code.
+We also want not work on the same file as much anymore. 
 ### What we will change next time
+Next time we will change the structure of our client-side files so that all the components in atlas.js have their own class/file. 
+We will also be checking code climate after each PR to make sure there are no code smells or duplications before merging and if there is we will each go back and fix our issues. 
+
