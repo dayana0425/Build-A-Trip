@@ -220,10 +220,12 @@ This is the only change that will occur in the UI. Simply adding Trip as a suppo
 
 ### Build a trip 
 **Component Hierarchy** 
+
 We moved all our components back to atlas.js because no one on our team could successfully refactor our components as child classes to the parent class atlas.js. 
 We were spending too much time trying to do this and we decided (for now) to move everything into atlas.js. In the next sprint we hope to overcome this roadblock. 
 Atlas.js is where our Build a Trip component resides. Atlas.js is rendered by App.js.
-![class diagram](../team/images/sprint3_compo.png)
+
+![class diagram](../team/images/sprint3-buildatrip-comp.png)
 
 **Class Diagram**
 This is currently how our class diagram looks like on the client side where our build a trip component resides (inside of atlas.js). Our component makes use of restfulAPI, react, and reactleaf-let. 
@@ -237,11 +239,10 @@ For the user to build a trip they can do it via three methods on our site: map c
 
 ### Find places
 **Component Hierarchy** 
-The component hierarchy for "Find places" depicted below shows our top-level App component and the component that relatively to "Find Places".
-* App renders the major components on the screen
-* Atlas renders a map and all markers information
-* Find Place contains all the information which needed to find a place and set markers
-![class diagram](../team/images/sprint3_compo.png)
+
+The component hierarchy for "Find places" depicted below shows our top-level App component and the component that relatively to "Find Places". The App renders the major components on the screen. Atlas renders a map and all marker information. Find Places contains all the information which needed to find a place and set markers.
+
+![class diagram](../team/images/sprint3-findplaces-comp.png)
 
 We only show the components related to "Find Places", which could help to understand the hierarchy quickly.
 
