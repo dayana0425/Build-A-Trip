@@ -471,8 +471,6 @@ export default class Atlas extends Component {
 
     setMarker(mapClickInfo) {
         this.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
-
-
     }
 
     getMarker() {

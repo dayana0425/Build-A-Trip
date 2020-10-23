@@ -83,11 +83,18 @@ function testHandleClick(){
 }
 test("Testing handleClick",testHandleClick);
 
+function testgetStringMarkerPosition(){
+    var MarkerPos = { lat: 3.0, lng: 3.0 };
+    const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+    Wrapper.instance().getStringMarkerPosition(MarkerPos);
+}
+test("Testing getStringMarkerPosition",testgetStringMarkerPosition);
+
 function testGetMarker(){
   const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
   Wrapper.instance().getMarker();
 }
-test("Testing testGetMarker",testGetMarker);
+test("Testing handleGetMarker",testGetMarker);
 
 
 
