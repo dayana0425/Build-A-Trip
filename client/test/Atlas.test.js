@@ -77,4 +77,17 @@ function testDrawLines(){
 }
 test("Testing Draw Lines",testDrawLines);
 
+function testHandleClick(){
+  const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+  Wrapper.instance().handleClick();
+}
+test("Testing handleClick",testHandleClick);
+
+function testGetMarker(){
+  const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+  Wrapper.instance().getMarker();
+}
+test("Testing testGetMarker",testGetMarker);
+
+
 
