@@ -1,25 +1,7 @@
 import React, {Component} from 'react';
-import {
-    Col,
-    Container,
-    Row,
-    Button,
-    Form,
-    Nav,
-    NavItem,
-    NavLink,
-    TabContent,
-    TabPane,
-    Alert,
-    InputGroup,
-    Input,
-    InputGroupAddon,
-    Table,
-    Collapse,
-    CardBody,
-    Card
-} from 'reactstrap';
-import {List, ListItem, ListItemText} from '@material-ui/core';
+import { Col, Container, Row, Button, Form, Nav, NavItem, NavLink, TabContent, TabPane, Alert, InputGroup, Input,
+         InputGroupAddon, Table, Collapse, CardBody, Card } from 'reactstrap';
+import { List, ListItem, ListItemText } from '@material-ui/core';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -485,11 +467,14 @@ export default class Atlas extends Component {
         return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
 
-    drawLines(points) {
-        if (points.length > 1) {
-            return ( <Polyline positions={points} color='red'/>);
+
+    drawLines(points){
+        if (points.length > 1 ){
+            return (
+               <Polyline positions={points} color='red'/>
+            );
         }
-        return
+        return null
     }
 
 }

@@ -11,3 +11,4 @@ function testChildComponentExists() {
 }
 
 test('Testing to see if a HookCaller is rendered with App', testChildComponentExists);
+

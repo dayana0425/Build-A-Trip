@@ -69,3 +69,32 @@ function testClearAllMarkers(){
     expect(list).toEqual(null);
 }
 test("Testing clear markers",testClearAllMarkers);
+
+function testDrawLines(){
+    const exampleWrapper = mount(<Atlas/>);
+    var point = exampleWrapper.instance().drawLines(1);
+    expect(point).toEqual(null);
+}
+test("Testing Draw Lines",testDrawLines);
+
+function testHandleClick(){
+  const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+  Wrapper.instance().handleClick();
+}
+test("Testing handleClick",testHandleClick);
+
+function testgetStringMarkerPosition(){
+    var MarkerPos = { lat: 3.0, lng: 3.0 };
+    const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+    Wrapper.instance().getStringMarkerPosition(MarkerPos);
+}
+test("Testing getStringMarkerPosition",testgetStringMarkerPosition);
+
+function testGetMarker(){
+  const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+  Wrapper.instance().getMarker();
+}
+test("Testing handleGetMarker",testGetMarker);
+
+
+

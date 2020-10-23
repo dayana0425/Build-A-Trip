@@ -36,7 +36,6 @@ public class TestRequestTrip {
     @BeforeEach
     public void createTripTest(){
         this.initiaOptionsPlaces();
-        System.out.println(options);
         trip = new RequestTrip(options,places);
         trip.buildResponse();
     }
