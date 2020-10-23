@@ -237,16 +237,22 @@ For the user to build a trip they can do it via three methods on our site: map c
 
 ### Find places
 **Component Hierarchy** 
-
+The component hierarchy for "Find places" depicted below shows our top-level App component and the component that relatively to "Find Places".
+* App renders the major components on the screen
+* Atlas renders a map and all markers information
+* Find Place contains all the information which needed to find a place and set markers
 ![class diagram](../team/images/sprint3_compo.png)
 
-**Class Diagram**
+We only show the components related to "Find Places", which could help to understand the hierarchy quickly.
 
+**Class Diagram**
+This is currently how our class diagram looks like on the client side where our find places component resides (inside of atlas.js). Our component makes use of restfulAPI, react, and reactleaf-let.
 ![class diagram](../team/images/sprint3_classdia.png)
 
 **UI** 
 
 ![class diagram](../team/images/findplaces_UI.png)
 
+The basic screen in black shows the view on the computer. Users can type their searching string to the searching box. After press "Enter", the data related to the searching string will pop up and showed in the table. We also have "add" buttons for users to add markers to locate the place where they search.
 # Sprint 4 
 # Sprint 5
