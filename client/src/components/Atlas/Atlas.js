@@ -10,7 +10,8 @@ import classnames from 'classnames';
 import 'leaflet/dist/leaflet.css';
 import {sendServerRequest} from "../../utils/restfulAPI";
 import {Polyline} from 'react-leaflet';
-
+import ClearButton from './ClearButton'
+import ItineraryButton from './ItineraryButton'
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
 const MARKER_ICON = L.icon({iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
@@ -88,27 +89,34 @@ export default class Atlas extends Component {
 
     /* MAP BUTTONS */
 
+    clearAllMarkers() {
+        this.setState({markerPositions: []});
+        this.setState({placesForItinerary: []});
+    }
+
+    toggleIsOpen() {
+        this.setState({isOpen:!this.state.isOpen});
+        console.log(this.state.placesForItinerary);
+    }
+
     renderMapButtons() {
         return (
             <div>
-                <Button color="primary" style={this.buttonStyleReset} onClick={() => this.clearAllMarkers()}>
-                    Reset
-                </Button>
-                <Button color="primary" onClick={() => this.toggleIsOpen()} style={this.buttonStyleClear}>
-                    Show Itinerary
-                </Button>
-                <Collapse isOpen={this.state.isOpen}>
-                    <Card style={{marginTop: 10}}>
-                        <CardBody style={{marginTop: 10}}>
-                            {this.renderBuildATrip()}
-                            <h2> Itinerary {this.state.tripName} </h2>
-                            <List>
-                                {this.renderTripTable(this.state.placesForItinerary)}
-                            </List>
-                            <h2>{"Round Trip Distance (mi): " + this.state.distances.reduce(function (a, b) {return a + b;}, 0)}</h2>
-                        </CardBody>
-                    </Card>
-                </Collapse>
+                <ClearButton style = {this.buttonStyleReset} clearAllMarkers= {this.clearAllMarkers}/>
+                <ItineraryButton style = {this.buttonStyleClear} placesForItinerary = {this.state.placesForItinerary}/>
+
+//                <Collapse isOpen={this.state.isOpen}>
+//                    <Card style={{marginTop: 10}}>
+//                        <CardBody style={{marginTop: 10}}>
+//                            {this.renderBuildATrip()}
+//                            <h2> Itinerary {this.state.tripName} </h2>
+//                            <List>
+//                                {this.renderTripTable(this.state.placesForItinerary)}
+//                            </List>
+//                            <h2>{"Round Trip Distance (mi): " + this.state.distances.reduce(function (a, b) {return a + b;}, 0)}</h2>
+//                        </CardBody>
+//                    </Card>
+//                </Collapse>
             </div>
         );
     }
@@ -160,9 +168,6 @@ export default class Atlas extends Component {
 
     /* START OF TRIP COMPONENT */
 
-    toggleIsOpen() {
-        this.setState({isOpen: !this.state.isOpen});
-    }
 
     renderBuildATrip() {
         return (
@@ -322,7 +327,7 @@ export default class Atlas extends Component {
                 <Button color="primary" style={this.buttonStyleAddCoordinates}
                         onClick={() => this.handleCoordinateSubmit()}>
                         Add Location
-                </Button>{' '}
+                </Button>
             </Col>
         );
     }
@@ -382,10 +387,6 @@ export default class Atlas extends Component {
         this.renderLeafletMap();
     }
 
-    clearAllMarkers() {
-        this.setState({markerPositions: []});
-        this.setState({placesForItinerary: []});
-    }
 
     renderLeafletMap() {
         let map_center;
