@@ -53,8 +53,8 @@ For this epic, we plan to ask friends, classmates, and instructors to get their 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
 | Epics | 5 | *count* |
-| Tasks | 17 | *count* | 
-| Story Points |  35  | *sum* | 
+| Tasks | 23 | *count* | 
+| Story Points |  47  | *sum* | 
 
 ### Metrics Outlook
 We as a team feel like we did very well in Sprint 3 and overall it was our best sprint as a team, and our outlook for Sprint 4 looks very promising. One of our big goals for this sprint is to refactor our Atlas.js file into child components of atlas. We also believe we can up our test coverage from the 69.9% it was last sprint to greater than 70% once we refactor. In Sprint 3, we finished 39 tasks and 54 story points and we think we can get very close to that number once again. We were all very busy last sprint because of midterms, but we still did very well which was exciting. With continued effective communication and cooperation, we believe we can be one of the top teams during this sprint.
@@ -63,7 +63,7 @@ We as a team feel like we did very well in Sprint 3 and overall it was our best 
 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
-| *date* | *#task, ...* | *#task, ...* |  | 
+| *Oct. 28, 2020* | *#447* | *#274, #275, #431, #434, #437, #438, #450* |  | 
 
 
 ## Review
