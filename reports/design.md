@@ -265,4 +265,29 @@ Users can type in their searches into the search box and then press "Enter". The
 
 # Sprint 4 
 
+### v4 Protocol
+
+**Component Hierarchy** 
+
+v4 Protocol won't make any changes to the component hierarchy.
+
+**Class Diagram**
+
+The class diagram depicted below are all the classes which will need to be updated for the v4 protocol.
+We'll be updating the sprint version in the RequestHeader which will get passed down to config. 
+RequestConfig will be updated to make sure that the requestVersion property is optional. Filters will be added to RequestConfig as well.
+Our RequestFind class will get updated to support filters and lastly RequestDatabase will get updated so that the filters can be applied to our query and it can therefore return specialized results.
+
+![class diagram](../team/images/sprint4-class-diagram-v4-protocol.jpg)
+
+**UI**
+
+Our UI for  `Server Connection` will be slightly modify to include information about filter options.
+
+![class diagram](../team/images/sprint4-server-connection-ui.jpg)
+
+Our UI for `Search Places` will be modified to include two drop-down menus that allow the user to filter by `type` and `where`.
+
+![class diagram](../team/images/sprint4-search-places-ui.jpg)
+
 # Sprint 5
