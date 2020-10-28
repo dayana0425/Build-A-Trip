@@ -13,7 +13,7 @@ import ClearButton from './ClearButton';
 import ItineraryButton from './ItineraryButton';
 import AddLocation from './AddLocation';
 import SearchPlaces from './SearchPlaces'
-import DrawLines from './DrawLines'
+
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
