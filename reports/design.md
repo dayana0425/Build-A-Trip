@@ -265,4 +265,19 @@ Users can type in their searches into the search box and then press "Enter". The
 
 # Sprint 4 
 
+### Shorter
+
+**Component Hierarchy**
+
+The Component hierarchy for "Shorter" depicted below shows our top-level App component and all other components related to the trip and other stuff(Because we have refactored our Atlas.js, we want to show our new hierarchy).
+
+![class diagram](../team/images/component-hierarchy.jpeg)
+
+**Class Diagram**
+
+For "Shorter", we are planning to add two more classes to implement the realted algorithms, one for "nearest neighbor" and the other for "User Concurrency"
+
+![class diagram](../team/images/class-diagram.jpeg)
+
+
 # Sprint 5
