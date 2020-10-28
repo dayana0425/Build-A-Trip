@@ -7,6 +7,7 @@ export default class ClearButton extends Component{
         super(props);
         this.state = {
             isOpen:false,
+            placesForItinerary:[]
         }
         this.toggleIsOpen = this.toggleIsOpen.bind(this)
     }
@@ -19,10 +20,10 @@ export default class ClearButton extends Component{
    render(){
         return(
             <div>
-                <Button color="primary" style={this.props.buttonStyleClear} onClick = {this.toggleIsOpen}>
+                <Button color="primary" style={this.props.style} onClick = {this.toggleIsOpen}>
                     Show Itinerary
                 </Button>
-                <ItineraryTable isOpen = {this.state.isOpen} placeForItinerary = {this.props.placesForItinerary}/>
+                <ItineraryTable isOpen = {this.state.isOpen} placesForItinerary = {this.props.placesForItinerary}/>
             </div>
         )
    }

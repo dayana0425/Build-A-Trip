@@ -11,9 +11,9 @@ export default class ItineraryTable extends Component{
             roundTrip:0,
             options:null,
             isOpen:'',
-            place:null
+            places:null,
+            distances:[]
         }
-        console.log(this.state.place)
         this.changeTripName = this.changeTripName.bind(this);
         this.requestTrip = this.requestTrip.bind(this);
     }
@@ -23,13 +23,11 @@ export default class ItineraryTable extends Component{
     }
 
      requestTrip(event){
-            console.log(this.props.placeForItinerary)
-            console.log(this.state.options)
             sendServerRequest({
                 requestType: "trip",
                 requestVersion: 3,
-                options: this.state.options,
-                places: this.props.placeForItinerary,
+                options:this.state.options,
+                places: this.props.placesForItinerary
             })
                 .then(trip => {
                     if (trip) {
@@ -42,7 +40,22 @@ export default class ItineraryTable extends Component{
                         console.error('Error');
                     }
                 });
-        }
+     }
+
+     getTripTable(places){
+         return (
+             <List>
+                 {places.map((place, index) =>
+                     <ListItem key={index}>
+                         <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
+                         <ListItemText primary={"Distance: " + this.state.distances[index]}/>
+                     </ListItem>
+                 )}
+             </List>
+         )
+     }
+
+
 
     render(){
         return(
@@ -56,13 +69,7 @@ export default class ItineraryTable extends Component{
                          </InputGroupAddon>
                       </InputGroup>
                       <h2> Itinerary {this.state.tripName} </h2>
-                         this.props.placesForItinerary.map((place, index) =>
-                                      <ListItem key={index}>
-                                          <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
-                                          <ListItemText primary={"Distance: " + this.state.distances[index]}/>
-                                      </ListItem>
-                                  )
-
+                       {this.getTripTable(this.props.placesForItinerary)}
                   </CardBody>
                 </Card>
             </Collapse>
