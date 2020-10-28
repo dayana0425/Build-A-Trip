@@ -277,7 +277,7 @@ The Component hierarchy for "Shorter" depicted below shows our top-level App com
 
 For "Shorter", we are planning to add two more classes to implement the realted algorithms, one for "nearest neighbor" and the other for "User Concurrency"
 
-[class diagram](../team/images/class-diagram.jpeg)
+![class diagram](../team/images/class-diagram.jpeg)
 
 
 # Sprint 5
