@@ -324,4 +324,12 @@ For "Shorter", we are planning to add two more classes to implement the realted 
 
 ![class diagram](../team/images/class-diagram.jpeg)
 
+### User Experience
+
+**UI**
+
+This is how we want to change our layout right now. We changed the style of the input boxs, and also changed the places of two buttons. We will improve it in the future.
+
+![class diagram](../team/images/sprint4-UserExpeience-UI.png)
+
 # Sprint 5
