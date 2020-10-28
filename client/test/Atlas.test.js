@@ -9,20 +9,7 @@ const startProperties = {
   createSnackBar: jest.fn()
 };
 
-function testInitialAtlasState() {
-
-  const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
-
-  let actualMarkerPosition = atlas.state().markerPosition;
-  let expectedMarkerPosition = null;
-
-  expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
-}
-
-test("Testing Atlas's Initial State", testInitialAtlasState);
-//
-//
-//function testMarkerIsRenderedOnClick() {
+//function testInitialAtlasState() {
 //
 //  const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
 //
@@ -30,20 +17,33 @@ test("Testing Atlas's Initial State", testInitialAtlasState);
 //  let expectedMarkerPosition = null;
 //
 //  expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
-//
-//  let latlng = {lat: 0, lng: 0};
-//  simulateOnClickEvent(atlas, {latlng: latlng});
-//
-//  // expect(atlas.state().markerPosition).toEqual(latlng);
-//  // expect(atlas.find('Marker')).toEqual(1); ??
 //}
 //
-//function simulateOnClickEvent(reactWrapper, event) {
-//  reactWrapper.find('Map').at(0).simulate('click', event);
-//  reactWrapper.update();
-//}
+//test("Testing Atlas's Initial State", testInitialAtlasState);
 //
-//test("Testing Atlas's Initial State", testMarkerIsRenderedOnClick);
+//
+function testMarkerIsRenderedOnClick() {
+
+  const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+
+  let actualMarkerPosition = atlas.state().markerPosition;
+  let expectedMarkerPosition = null;
+
+  expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
+
+  let latlng = {lat: 0, lng: 0};
+  simulateOnClickEvent(atlas, {latlng: latlng});
+
+  // expect(atlas.state().markerPosition).toEqual(latlng);
+  // expect(atlas.find('Marker')).toEqual(1); ??
+}
+
+function simulateOnClickEvent(reactWrapper, event) {
+  reactWrapper.find('Map').at(0).simulate('click', event);
+  reactWrapper.update();
+}
+
+test("Testing Atlas's Initial State", testMarkerIsRenderedOnClick);
 //
 ////function testConvertedString(){
 ////    let match = "xinyi's";

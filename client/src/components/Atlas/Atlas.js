@@ -1,17 +1,20 @@
 import React, {Component} from 'react';
-import { Col, Container, Row, Button, Form, Nav, NavItem, NavLink, TabContent, TabPane, Alert, InputGroup, Input,
-         InputGroupAddon, Table, Collapse, CardBody, Card } from 'reactstrap';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { Col, Container, Row, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import currentLocationIcon from '../../static/images/home-marker-icon.png';
 import classnames from 'classnames';
 import 'leaflet/dist/leaflet.css';
+
 import {sendServerRequest} from "../../utils/restfulAPI";
 import {Polyline} from 'react-leaflet';
-import ClearButton from './ClearButton'
-import ItineraryButton from './ItineraryButton'
+import ClearButton from './ClearButton';
+import ItineraryButton from './ItineraryButton';
+import AddLocation from './AddLocation';
+import SearchPlaces from './SearchPlaces'
+import DrawLines from './DrawLines'
+
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
 const MARKER_ICON = L.icon({iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
@@ -24,28 +27,22 @@ const EARTH_RADIUS = 3959;
 
 export default class Atlas extends Component {
 
-    buttonStyleTable = {
+    buttonStyleTopLeft = {
+       marginTop: 10,
+       marginLeft: 10,
+    }
+
+    buttonStyleBottoms = {
         marginBottom: 10
     }
 
-    buttonStyleClear = {
-        marginTop: 10,
-        marginLeft: 10
-    }
-
-    buttonStyleAddCoordinates = {
-        marginBottom: 10
-    }
-
-    buttonStyleReset = {
+    buttonStyleTop = {
         marginTop: 10
     }
 
     constructor(props) {
         super(props);
         this.setMarker = this.setMarker.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
         this.handleChangeLatitude = this.handleChangeLatitude.bind(this);
@@ -53,25 +50,17 @@ export default class Atlas extends Component {
         this.handleCoordinateSubmit = this.handleCoordinateSubmit.bind(this);
 
         this.state = {
-            markerPosition: null, //client testing will fail if you take this out
-            markerPositions: [], //holds all markerPositions via input, map click, searched places, and current location botton
+            markerPosition:null,
+            markerPositions: [],
             activeTab: '1',
-            searching: '',
-            places: [], //for find places component
-            found: 0,
-            results: 0,
-            tripName: '',
-            isOpen: false,
-            options: null,
             placesForItinerary: [],
-            distances: [],
-            roundTrip: 0,
             lat1: 0,
             lng1: 0
         };
     }
 
     render() {
+
         return (
             <div>
                 <Container>
@@ -79,7 +68,8 @@ export default class Atlas extends Component {
                         <Col sm={12} md={{size: 10, offset: 1}}>
                             {this.renderTabs()}
                             {this.renderLeafletMap()}
-                            {this.renderMapButtons()}
+                             <ClearButton style = {this.buttonStyleTop} clearAllMarkers= {this.clearAllMarkers}/>
+                             <ItineraryButton style = {this.buttonStyleTopLeft}  placesForItinerary = {this.state.placesForItinerary}/>
                         </Col>
                     </Row>
                 </Container>
@@ -94,37 +84,6 @@ export default class Atlas extends Component {
         this.setState({placesForItinerary: []});
     }
 
-    toggleIsOpen() {
-        this.setState({isOpen:!this.state.isOpen});
-        console.log(this.state.placesForItinerary);
-    }
-
-    renderMapButtons() {
-        return (
-            <div>
-                <ClearButton style = {this.buttonStyleReset} clearAllMarkers= {this.clearAllMarkers}/>
-                <ItineraryButton style = {this.buttonStyleClear} placesForItinerary = {this.state.placesForItinerary}/>
-
-//                <Collapse isOpen={this.state.isOpen}>
-//                    <Card style={{marginTop: 10}}>
-//                        <CardBody style={{marginTop: 10}}>
-//                            {this.renderBuildATrip()}
-//                            <h2> Itinerary {this.state.tripName} </h2>
-//                            <List>
-//                                {this.renderTripTable(this.state.placesForItinerary)}
-//                            </List>
-//                            <h2>{"Round Trip Distance (mi): " + this.state.distances.reduce(function (a, b) {return a + b;}, 0)}</h2>
-//                        </CardBody>
-//                    </Card>
-//                </Collapse>
-            </div>
-        );
-    }
-
-    /* END OF MAP BUTTONS */
-
-    /* START OF TAB COMPONENT */
-
     toggle(tab) {
         if (this.state.activeTab !== tab) {
             this.setState({activeTab: tab});
@@ -137,8 +96,7 @@ export default class Atlas extends Component {
                 <Nav tabs>
                     <NavItem>
                         <NavLink
-                            className={classnames({active: this.state.activeTab === '1'})}
-                            onClick={() => {this.toggle('1');}}>
+                            className={classnames({active: this.state.activeTab === '1'})} onClick={() => {this.toggle('1');}}>
                             Add Location
                         </NavLink>
                     </NavItem>
@@ -152,184 +110,14 @@ export default class Atlas extends Component {
                 </Nav>
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="1">
-                        {this.state.activeTab == 1}
-                        {this.renderAddLocationByCoordinates()}
+                        <AddLocation style={this.buttonStyleBottom} handleCoordinateSubmit = {this.handleCoordinateSubmit}/>
                     </TabPane>
                     <TabPane tabId="2">
-                        {this.state.activeTab == 2}
-                        {this.renderFindPlaces()}
+                        <SearchPlaces addMarkersToMap = {this.addMarkersToMap}/>
                     </TabPane>
                 </TabContent>
             </div>
         )
-    }
-
-    /* END OF TAB COMPONENT */
-
-    /* START OF TRIP COMPONENT */
-
-
-    renderBuildATrip() {
-        return (
-            <div>
-                <InputGroup>
-                    <Input type="text" name="options" value={this.name} placeholder="Enter Trip Name" onChange={(e) => {this.handleChangeTrip(e)}}/>
-                    <InputGroupAddon addonType="append">
-                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {this.requestTrip(e)}}>Enter</Button>
-                    </InputGroupAddon>
-                </InputGroup>
-            </div>
-        );
-    }
-
-    renderTripTable(places) {
-        return (
-            places.map((place, index) =>
-                <ListItem key={index}>
-                    <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
-                    <ListItemText primary={"Distance: " + this.state.distances[index]}/>
-                </ListItem>
-            )
-        )
-    }
-
-    handleChangeTrip = (event) => {
-        this.setState({[event.target.name]: {title: event.target.value, earthRadius: "3959.0"}});
-    }
-
-    requestTrip(event) {
-        sendServerRequest({
-            requestType: "trip",
-            requestVersion: 3,
-            options: this.state.options,
-            places: this.state.placesForItinerary
-        })
-            .then(trip => {
-                if (trip) {
-                    this.setState({distances: trip.data.distances});
-                    this.setState({tripName: trip.data.options.title});
-                    if (trip.data.distances) {
-                        this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
-                    }
-                } else {
-                    console.error('Error');
-                }
-            });
-    }
-
-    /* END OF BUILD A TRIP COMPONENT */
-
-    /*  START OF FIND PLACES COMPONENTS */
-
-    renderFindPlaces() {
-        return (
-            <div>
-                <InputGroup>
-                    <Input type="text"
-                           name="searching"
-                           value={this.match}
-                           placeholder="Enter Place"
-                           onChange={(e) => {this.handleChange(e)}}/>
-                    <InputGroupAddon addonType="append">
-                        <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {this.handleClick(e)}}>Search</Button>
-                    </InputGroupAddon>
-                </InputGroup>
-                <Table bordered hover striped>
-                    {this.renderTableHeader()}
-                    <tbody>{this.renderTable(this.state.places)}</tbody>
-                </Table>
-                {this.renderResultsFound(this.state.found, this.state.results)}
-            </div>
-        );
-    }
-
-    renderTableHeader() {
-        return (
-            <thead>
-            <tr>
-                <th>Airport Name</th>
-                <th> </th>
-            </tr>
-            </thead>
-        )
-    }
-
-    renderTable(places) {
-        return places.map((place) => {
-            const {id, name, longitude, latitude} = place
-            return (
-                <tr key={id}>
-                    <td>
-                        {name}
-                    </td>
-                    <td>
-                        <Button variant="primary" onClick={() => {this.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
-                    </td>
-                </tr>
-            )
-        })
-    }
-
-    renderResultsFound(found, results) {
-        return (<Alert color="success">{found} results found. Currently displaying {results} of the most relevant results.</Alert>);
-    }
-
-    handleChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    }
-
-    handleClick() {
-        let match = this.convertInputString(this.state.searching)
-        this.requestMatch(match)
-    }
-
-    convertInputString(searching) {
-        let match = '';
-        searching.split("").map(letter => {
-            if ((/[a-zA-Z0-9_]/).test(letter))
-                match += letter
-            else
-                match += '_'
-        })
-        return match;
-    }
-
-    requestMatch(inputValue) {
-        const {places} = this.state;
-        sendServerRequest({requestType: "find", requestVersion: 3, match: inputValue, limit: 5, places: []})
-            .then(find => {
-                if (find) {
-                    this.setState({places: find.data.places, found: find.data.found, results: find.data.places.length});
-                    {
-                        this.renderTable(places)
-                    }
-                } else {
-                    console.error('Error');
-                }
-            });
-    }
-
-    /* END OF FIND PLACES COMPONENT */
-
-    /* START OF ADD LOCATION BY COORDINATES COMPONENT */
-
-    renderAddLocationByCoordinates() {
-        return (
-            <Col sm="30">
-                <Form>
-                    <Input type="text" name="lat1" value={this.lat1} placeholder="Enter Latitude" onChange={(e) => {
-                        this.handleChangeLatitude(e)
-                    }}/>
-                    <Input type="text" name="lng1" value={this.lng1} placeholder="Enter Longitude" onChange={(e) => {
-                        this.handleChangeLongitude(e)
-                    }}/>
-                </Form>
-                <Button color="primary" style={this.buttonStyleAddCoordinates}
-                        onClick={() => this.handleCoordinateSubmit()}>
-                        Add Location
-                </Button>
-            </Col>
-        );
     }
 
     handleCoordinateSubmit() {
@@ -356,7 +144,7 @@ export default class Atlas extends Component {
                 function (error) {
                     console.error("Error Code = " + error.code + " - " + error.message);
                 });
-        } else {
+        } else {!
             console.error("Not Available");
         }
     }
@@ -365,7 +153,6 @@ export default class Atlas extends Component {
         let coords = L.latLng(lat, long);
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
-
         var distances = [0];
         var i;
         for (i = 1; i < this.state.placesForItinerary.length; i++) {
@@ -409,10 +196,11 @@ export default class Atlas extends Component {
 
         var points = [];
 
-        this.state.markerPositions.forEach((position) => {
-                points.push([position.lat, position.lng])
-            }
+                this.state.markerPositions.forEach((position) => {
+                        points.push([position.lat, position.lng])
+                    }
         );
+
 
         return (
             <Map className={'mapStyle'}
