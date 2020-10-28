@@ -68,30 +68,30 @@ function simulateOnChangeEvent(reactWrapper, event) {
 test("onChangeEvent should update the component's state", testUpdateInputText);
 
 
-function testUpdateServerPort() {
-    mockConfigResponse();
-
-    const page = mount(<Page/>);
-    const settings = shallow(
-        <ServerSettings
-            isOpen={startProperties.isOpen}
-            serverSettings={startProperties.serverSettings}
-            toggleOpen={startProperties.toggleOpen}
-            processServerConfigSuccess={(value, config) => page.instance().processServerConfigSuccess(value, config)}
-        />);
-
-    let actualBeforeServerPort = page.state().serverSettings.serverPort;
-    let expectedBeforeServerPort = `http://${location.hostname}:`;
-
-    let inputText = 'https://black-bottle.cs.colostate.edu:31400';
-    simulateOnChangeEvent(settings, {target: {value: inputText}});
-    settings.find('Button').at(1).simulate('click');
-
-    let actualAfterServerPort = page.state().serverSettings.serverPort;
-
-    expect(actualBeforeServerPort).toEqual(expectedBeforeServerPort);
-    expect(actualAfterServerPort).toEqual(inputText);
-}
+//function testUpdateServerPort() {
+//    mockConfigResponse();
+//
+//    const page = mount(<Page/>);
+//    const settings = shallow(
+//        <ServerSettings
+//            isOpen={startProperties.isOpen}
+//            serverSettings={startProperties.serverSettings}
+//            toggleOpen={startProperties.toggleOpen}
+//            processServerConfigSuccess={(value, config) => page.instance().processServerConfigSuccess(value, config)}
+//        />);
+//
+//    let actualBeforeServerPort = page.state().serverSettings.serverPort;
+//    let expectedBeforeServerPort = `http://${location.hostname}:`;
+//
+//    let inputText = 'https://black-bottle.cs.colostate.edu:31400';
+//    simulateOnChangeEvent(settings, {target: {value: inputText}});
+//    settings.find('Button').at(1).simulate('click');
+//
+//    let actualAfterServerPort = page.state().serverSettings.serverPort;
+//
+//    expect(actualBeforeServerPort).toEqual(expectedBeforeServerPort);
+//    expect(actualAfterServerPort).toEqual(inputText);
+//}
 
 function mockConfigResponse() {
     fetch.mockResponse(JSON.stringify(
@@ -104,10 +104,4 @@ function mockConfigResponse() {
         }));
 }
 
-test('onClick event for Save Button should update server port in Page component', testUpdateServerPort);
-
-function testProcessConfig(){
-    const Wrapper = mount(<ServerSettings/>);
-
-
-}
+//test('onClick event for Save Button should update server port in Page component', testUpdateServerPort);
