@@ -290,6 +290,26 @@ Our UI for `Search Places` will be modified to include two drop-down menus that 
 
 ![class diagram](../team/images/sprint4-search-places-ui.jpg)
 
+### Build a Trip
+
+**Component Hierarchy**
+
+The Build a Trip component is called by Atlas.js to show the itenerary and allows you to build a trip. Before we had the Build a Trip component in Atlas.js because we could not figure out how to do state uplifting. Atlas.js is rendered by App.js.
+
+![class diagram](../team/images/sprint3-buildatrip-comp.png)
+
+**Class Diagram**
+
+This is currently how our class diagram looks like on the client side where our build a trip component resides. Our component makes use of restfulAPI, react, and reactleaf-let. 
+
+![class diagram](../team/images/sprint3_classdia.png)
+
+**UI** 
+
+This is an in-depth picture of our UI and how it looks on our website. The UI components which handle Build A Trip is the "Show Itinerary" button below the map which the user can click on after they have added their locations on the map. This will show them the list of places they have added as well the distances of those places + the round trip total. For the user to build a trip they can do it via three methods on our site: map click, text input of long/lat or by searching places. To the right of search, there is one button for saving the current trip and one for uploading a saved trip.
+
+![class diagram](../team/images/buildatrip_UI_sprint4.jpg)
+
 ### Shorter
 
 **Component Hierarchy**
