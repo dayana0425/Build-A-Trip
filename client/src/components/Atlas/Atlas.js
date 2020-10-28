@@ -13,7 +13,7 @@ import ClearButton from './ClearButton';
 import ItineraryButton from './ItineraryButton';
 import AddLocation from './AddLocation';
 import SearchPlaces from './SearchPlaces'
-
+import OurMap from './Map'
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
@@ -48,6 +48,7 @@ export default class Atlas extends Component {
         this.handleChangeLatitude = this.handleChangeLatitude.bind(this);
         this.handleChangeLongitude = this.handleChangeLongitude.bind(this);
         this.handleCoordinateSubmit = this.handleCoordinateSubmit.bind(this);
+        this.requestCurrentLocation = this.requestCurrentLocation(this);
 
         this.state = {
             markerPosition:null,
@@ -67,7 +68,7 @@ export default class Atlas extends Component {
                     <Row>
                         <Col sm={12} md={{size: 10, offset: 1}}>
                             {this.renderTabs()}
-                            {this.renderLeafletMap()}
+                             <OurMap markerPositions = {this.state.markerPositions} requestCurrentLocation = {this.requestCurrentLocations} setMarker = {this.setMarker}/>
                              <ClearButton style = {this.buttonStyleTop} clearAllMarkers= {this.clearAllMarkers}/>
                              <ItineraryButton style = {this.buttonStyleTopLeft}  placesForItinerary = {this.state.placesForItinerary}/>
                         </Col>
@@ -171,56 +172,56 @@ export default class Atlas extends Component {
             });
         }
         this.setState({distances: distances});
-        this.renderLeafletMap();
+        <OurMap markerPositions = {this.state.markerPositions} requestCurrentLocation = {this.requestCurrentLocations}  setMarker = {this.setMarker}/>
+
     }
 
 
-    renderLeafletMap() {
-        let map_center;
-        let fit_bounds;
-        let zoom = 15;
-
-        if (this.state.markerPositions.length != 0) {
-            let sortedMarkerPositions = [...this.state.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
-
-            if (sortedMarkerPositions.length == 1) {
-                map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
-                zoom = 17;
-            } else {
-                fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
-            }
-        } else {
-            map_center = MAP_CENTER_DEFAULT;
-            this.requestCurrentLocation();
-        }
-
-        var points = [];
-
-                this.state.markerPositions.forEach((position) => {
-                        points.push([position.lat, position.lng])
-                    }
-        );
-
-
-        return (
-            <Map className={'mapStyle'}
-                 boxZoom={false}
-                 zoom={zoom}
-                 minZoom={MAP_MIN_ZOOM}
-                 maxZoom={MAP_MAX_ZOOM}
-                 maxBounds={MAP_BOUNDS}
-                 center={map_center}
-                 bounds={fit_bounds}
-                 boundsOptions={{padding: [50, 50]}}
-                 onClick={this.setMarker}
-                 useFlyTo={true}
-                 maxBoundsViscosity={1.0}>
-                <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-                {this.getMarker()}
-                {this.drawLines(points)}
-            </Map>
-        );
-    }
+//    renderLeaflet() {
+//        let map_center;
+//        let fit_bounds;
+//        let zoom = 15;
+//
+//        if (this.state.markerPositions.length != 0) {
+//            let sortedMarkerPositions = [...this.state.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
+//
+//            if (sortedMarkerPositions.length == 1) {
+//                map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
+//                zoom = 17;
+//            } else {
+//                fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
+//            }
+//        } else {
+//            map_center = MAP_CENTER_DEFAULT;
+//            this.requestCurrentLocation();
+//        }
+//
+//        var points = [];
+//            this.state.markerPositions.forEach((position) => {
+//            points.push([position.lat, position.lng])
+//            }
+//        );
+//
+//
+//        return (
+//            <Map className={'mapStyle'}
+//                 boxZoom={false}
+//                 zoom={zoom}
+//                 minZoom={MAP_MIN_ZOOM}
+//                 maxZoom={MAP_MAX_ZOOM}
+//                 maxBounds={MAP_BOUNDS}
+//                 center={map_center}
+//                 bounds={fit_bounds}
+//                 boundsOptions={{padding: [50, 50]}}
+//                 onClick={this.setMarker}
+//                 useFlyTo={true}
+//                 maxBoundsViscosity={1.0}>
+//                <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
+//                {this.getMarker()}
+//                {this.drawLines(points)}
+//            </Map>
+//        );
+//    }
 
     setMarker(mapClickInfo) {
         this.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
