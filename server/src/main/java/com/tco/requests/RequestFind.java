@@ -1,9 +1,10 @@
 package com.tco.requests;
 import java.util.ArrayList;
 import java.lang.String;
+
+import com.tco.misc.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 public class RequestFind extends RequestHeader{
     private String match = null;
@@ -24,7 +25,7 @@ public class RequestFind extends RequestHeader{
     }
 
     @Override
-    public void buildResponse(){
+    public void buildResponse() throws BadRequestException {
         this.getRequestVersion();
         FindDatabase fdb = new FindDatabase(match, limit);
         fdb.environment();
@@ -49,7 +50,5 @@ public class RequestFind extends RequestHeader{
     public ArrayList getPlaces() {
         return places;
     }
-
-
 
 }

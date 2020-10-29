@@ -1,4 +1,6 @@
 package com.tco.requests;
+
+import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +15,7 @@ public class TestRequestTrip {
     private HashMap<String,String> options = new HashMap<String, String>();
     private ArrayList places = new ArrayList<HashMap>();
 
-    private void initiaOptionsPlaces(){
+    private void initialOptionsPlaces(){
         options.put("title","My Trip");
         options.put("earthRadius","3959.0");
         HashMap<String, String> place1 = new HashMap<String, String>();
@@ -34,8 +36,8 @@ public class TestRequestTrip {
     }
 
     @BeforeEach
-    public void createTripTest(){
-        this.initiaOptionsPlaces();
+    public void createTripTest() throws BadRequestException {
+        this.initialOptionsPlaces();
         trip = new RequestTrip(options,places);
         trip.buildResponse();
     }
@@ -48,10 +50,10 @@ public class TestRequestTrip {
     }
 
     @Test
-    @DisplayName("Request version is  \"3\"")
+    @DisplayName("Request version is  \"4\"")
     public void testRequestVersion() {
         int version = trip.getRequestVersion();
-        assertEquals(3, version);
+        assertEquals(4, version);
     }
 
     @Test
@@ -88,6 +90,5 @@ public class TestRequestTrip {
         Long[] distance = trip.getDistance();
         assertEquals(62,distance[2]);
     }
-
 
 }

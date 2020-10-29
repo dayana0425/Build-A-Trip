@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Col, Container, Row, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
+import { Col, Container, Row, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
@@ -138,7 +138,7 @@ export default class Atlas extends Component {
         for (i = 1; i < this.state.placesForItinerary.length; i++) {
             let data = {
                 requestType: "distance",
-                requestVersion: 3,
+                requestVersion: 4,
                 place1: this.state.placesForItinerary[i - 1],
                 place2: this.state.placesForItinerary[i],
                 earthRadius: 3959.0

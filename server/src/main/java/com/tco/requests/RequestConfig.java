@@ -2,6 +2,8 @@ package com.tco.requests;
 import java.lang.String;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.tco.misc.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,7 +15,7 @@ public class RequestConfig extends RequestHeader {
   private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
 
   @Override
-  public void buildResponse() {
+  public void buildResponse() throws BadRequestException {
     this.serverName = "T16 Team Hexadecimal";
     this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
     this.requestType = "config";

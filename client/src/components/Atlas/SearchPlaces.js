@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Button, Form,  Alert, InputGroup, InputGroupAddon, Input, Table } from 'reactstrap';
+import { Button,  Alert, InputGroup, InputGroupAddon, Input, Table } from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
 
 export default class SearchPlaces extends Component{
@@ -37,7 +37,7 @@ export default class SearchPlaces extends Component{
 
      requestMatch(inputValue) {
             const {places} = this.state;
-            sendServerRequest({requestType: "find", requestVersion: 3, match: inputValue, limit: 5, places: []})
+            sendServerRequest({requestType: "find", requestVersion: 4, match: inputValue, limit: 5, places: []})
                 .then(find => {
                     if (find) {
                         this.setState({places: find.data.places, found: find.data.found, results: find.data.places.length});
