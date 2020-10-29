@@ -23,7 +23,6 @@ const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quo
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_MIN_ZOOM = 1;
 const MAP_MAX_ZOOM = 19;
-const EARTH_RADIUS = 3959;
 
 export default class Atlas extends Component {
 
@@ -45,17 +44,12 @@ export default class Atlas extends Component {
         this.setMarker = this.setMarker.bind(this);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
-        this.handleChangeLatitude = this.handleChangeLatitude.bind(this);
-        this.handleChangeLongitude = this.handleChangeLongitude.bind(this);
-        this.handleCoordinateSubmit = this.handleCoordinateSubmit.bind(this);
 
         this.state = {
             markerPosition:null,
             markerPositions: [],
             activeTab: '1',
-            placesForItinerary: [],
-            lat1: 0,
-            lng1: 0
+            placesForItinerary: []
         };
     }
 
@@ -110,7 +104,7 @@ export default class Atlas extends Component {
                 </Nav>
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="1">
-                        <AddLocation style={this.buttonStyleBottom} handleCoordinateSubmit = {this.handleCoordinateSubmit}/>
+                        <AddLocation style={this.buttonStyleBottoms} addMarkersToMap = {this.addMarkersToMap}/>
                     </TabPane>
                     <TabPane tabId="2">
                         <SearchPlaces addMarkersToMap = {this.addMarkersToMap}/>
@@ -119,20 +113,6 @@ export default class Atlas extends Component {
             </div>
         )
     }
-
-    handleCoordinateSubmit() {
-        this.addMarkersToMap("User's Typed Coordinates", this.state.lat1, this.state.lng1);
-    }
-
-    handleChangeLatitude = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    }
-
-    handleChangeLongitude = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    }
-
-    /* END OF ADD LOCATION BY COORDINATES COMPONENT */
 
     requestCurrentLocation() {
         self = this;

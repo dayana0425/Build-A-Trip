@@ -5,8 +5,13 @@ export default class AddLocation extends Component{
 
     constructor(props){
         super(props)
+        this.state = {
+            lat1: 0,
+            lng1: 0,
+        }
         this.handleChangeLatitude = this.handleChangeLatitude.bind(this)
         this.handleChangeLongitude = this.handleChangeLongitude.bind(this)
+        this.handleCoordinateSubmit = this.handleCoordinateSubmit.bind(this)
     }
 
 
@@ -18,6 +23,9 @@ export default class AddLocation extends Component{
         this.setState({[event.target.name]: event.target.value});
     }
 
+    handleCoordinateSubmit() {
+        this.props.addMarkersToMap("User's Typed Coordinates", this.state.lat1, this.state.lng1);
+    }
 
      render() {
          return (
@@ -30,7 +38,7 @@ export default class AddLocation extends Component{
                            this.handleChangeLongitude(e)
                      }}/>
                  </Form>
-                    <Button color="primary" style={this.props.style} onClick={() => this.props.handleCoordinateSubmit}>
+                    <Button color="primary" style={this.props.style} onClick={() => this.handleCoordinateSubmit()}>
                         Add Location
                     </Button>
              </Col>
