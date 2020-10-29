@@ -5,8 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.Map;
 import java.util.HashMap;
-import java.util.List;
-
 
 public class RequestDistance extends RequestHeader {
 
@@ -33,7 +31,7 @@ public class RequestDistance extends RequestHeader {
     }
 
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws BadRequestException {
         log.trace("buildResponse -> {}", this);
         this.distance = calculate(this.place1, this.place2, this.earthRadius);
     }
@@ -45,13 +43,14 @@ public class RequestDistance extends RequestHeader {
         else if(lon < -180 || lon > 180){
             //throw new IllegalArgumentException("Longitude must be between -90 and 90 degrees");
             return false;
-        }else{
+        }
+        else{
             return true;
         }
     }
 
     protected static Long calculate(Map<String, String> place1, Map<String, String> place2, Double earthRad){
-        Double dist1Lat = Double.parseDouble(place1.get("latitude")); //PARSE PLACE 1 and 2
+        Double dist1Lat = Double.parseDouble(place1.get("latitude"));
         Double dist1Lng = Double.parseDouble(place1.get("longitude"));
         validateCoords(dist1Lat,dist1Lng);
         Double dist2Lat = Double.parseDouble(place2.get("latitude"));
@@ -73,8 +72,11 @@ public class RequestDistance extends RequestHeader {
     }
 
     public Map<String,String> getPlace1(){return this.place1;}
+
     public Map<String,String> getPlace2(){return this.place2;}
+
     public double getEarthRadius(){return earthRadius;}
+
     public Long getDistance() { return distance; }
 
 

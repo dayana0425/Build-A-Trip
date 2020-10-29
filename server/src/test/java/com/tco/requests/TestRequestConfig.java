@@ -1,14 +1,12 @@
 package com.tco.requests;
 
-import com.tco.requests.RequestConfig;
-
 import java.lang.String;
 import java.util.List;
 
+import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,7 +15,7 @@ public class TestRequestConfig {
   private RequestConfig conf;
 
   @BeforeEach
-  public void createConfigurationForTestCases(){
+  public void createConfigurationForTestCases() throws BadRequestException {
     conf = new RequestConfig();
     conf.buildResponse();
   }
@@ -30,10 +28,10 @@ public class TestRequestConfig {
   }
 
   @Test
-  @DisplayName("Version number is 3")
+  @DisplayName("Version number is 4")
   public void testVersion() {
     int version = conf.getRequestVersion();
-    assertEquals(3, version);
+    assertEquals(4, version);
   }
 
   @Test
