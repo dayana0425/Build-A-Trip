@@ -282,7 +282,7 @@ Our RequestFind class will get updated to support filters and lastly RequestData
 
 **UI**
 
-Our UI for  `Server Connection` will be slightly modify to include information about filter options.
+Our UI for  `Server Connection` will be slightly modified to include information about filter options.
 
 ![class diagram](../team/images/sprint4-server-connection-ui.jpg)
 
@@ -294,7 +294,7 @@ Our UI for `Search Places` will be modified to include two drop-down menus that 
 
 **Component Hierarchy**
 
-The Build a Trip component is called by Atlas.js to show the itenerary and allows you to build a trip. Before we had the Build a Trip component in Atlas.js because we could not figure out how to do state uplifting. Atlas.js is rendered by App.js.
+The Build a Trip component is called by Atlas.js to show the itinerary and allow you to build a trip. Before we had the Build a Trip component in Atlas.js because we could not figure out how to do state uplifting. Atlas.js is rendered by App.js.
 
 ![class diagram](../team/images/sprint3-buildatrip-comp.png)
 
@@ -320,7 +320,7 @@ The Component hierarchy for "Shorter" depicted below shows our top-level App com
 
 **Class Diagram**
 
-For "Shorter", we are planning to add two more classes to implement the realted algorithms, one for "nearest neighbor" and the other for "User Concurrency"
+For "Shorter", we are planning to add two more classes to implement the related algorithms, one for "nearest neighbor" and the other for "User Concurrency"
 
 ![class diagram](../team/images/class-diagram.jpeg)
 
@@ -328,8 +328,29 @@ For "Shorter", we are planning to add two more classes to implement the realted 
 
 **UI**
 
-This is how we want to change our layout right now. We changed the style of the input boxs, and also changed the places of two buttons. We will improve it in the future.
+This is how we want to change our layout right now. We changed the style of the input box's, and also changed the places of two buttons. We will improve it in the future.
 
 ![class diagram](../team/images/sprint4-UserExpeience-UI.png)
+
+### Filter Search 
+
+**Component Hierarchy**
+
+The component hierarchy stems off of our Search Places. Search places includes all of the information to create a table of places and set markers. Filter Places will be built within this component and allow for the table to be filtered and the markers to be set accordingly. 
+
+![class diagram](../team/images/ComponentHeirarchy-FilterPlaces.jpg)
+
+**Class Diagram**
+
+This is how our class diagram is currently built for Find Places. Our Filter Search will use the same components: react, react-leaflet, and RestfulAPI. Filters will be implemented in our RequestFind Class.
+
+![class diagram](../team/images/sprint3_classdia.png)
+
+**UI**
+
+Our current plan for Search Places is to implement drop down menus that allow for filtering. As of right now we plan to add filtering options, Type and Country, that will allow the user to filter for the Type of place they want to find and the Country in which it resides. Our Search Places UI will likely change throughout this sprint as we look at implementing addition filter tabs. Our `User Experience` epic will help us to decide what additional filter options are desirable as we reach out to other classmates, friends, and strangers to see what options they would enjoy. 
+
+![class diagram](../team/images/sprint4-search-places-ui.jpg)
+
 
 # Sprint 5
