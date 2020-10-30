@@ -64,7 +64,7 @@ We as a team feel like we did very well in Sprint 3 and overall it was our best 
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
 | *Oct. 28, 2020* | *#447* | *#274, #275, #431, #434, #437, #438, #450* |  | 
-| *Oct. 30, 2020* | *#431, #434* | *#274, #275, #433, #437, #438, #439, #450 * |  |
+| *Oct. 30, 2020* | *#431, #434* | *#274, #275, #433, #437, #438, #439, #450* |  |
 
 
 ## Review
