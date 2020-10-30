@@ -42,12 +42,8 @@ export default class Atlas extends Component {
 
     constructor(props) {
         super(props);
-        this.setMarker = this.setMarker.bind(this);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
-        this.handleChangeLatitude = this.handleChangeLatitude.bind(this);
-        this.handleChangeLongitude = this.handleChangeLongitude.bind(this);
-        this.handleCoordinateSubmit = this.handleCoordinateSubmit.bind(this);
         this.requestCurrentLocation = this.requestCurrentLocation(this);
 
         this.state = {
@@ -61,16 +57,22 @@ export default class Atlas extends Component {
     }
 
     render() {
-
         return (
             <div>
                 <Container>
                     <Row>
                         <Col sm={12} md={{size: 10, offset: 1}}>
                             {this.renderTabs()}
-                             <OurMap markerPositions = {this.state.markerPositions} requestCurrentLocation = {this.requestCurrentLocations} setMarker = {this.setMarker}/>
-                             <ClearButton style = {this.buttonStyleTop} clearAllMarkers= {this.clearAllMarkers}/>
-                             <ItineraryButton style = {this.buttonStyleTopLeft}  placesForItinerary = {this.state.placesForItinerary}/>
+                             <OurMap markerPositions = {this.state.markerPositions}
+                                     requestCurrentLocation = {this.requestCurrentLocations}
+                                     addMarkersToMap = {this.addMarkersToMap}/>
+                             <ClearButton style = {this.buttonStyleTop}
+                                          clearAllMarkers= {this.clearAllMarkers}
+                                          markerPositions = {this.state.markerPositions}
+                                          requestCurrentLocation = {this.requestCurrentLocations}
+                                          addMarkersToMap = {this.addMarkersToMap}/>
+                             <ItineraryButton style = {this.buttonStyleTopLeft}
+                                              placesForItinerary = {this.state.placesForItinerary}/>
                         </Col>
                     </Row>
                 </Container>
@@ -80,9 +82,11 @@ export default class Atlas extends Component {
 
     /* MAP BUTTONS */
 
-    clearAllMarkers() {
+    clearAllMarkers(){
         this.setState({markerPositions: []});
         this.setState({placesForItinerary: []});
+        console.log(this.state.markerPositions);
+        this.requestCurrentLocation;
     }
 
     toggle(tab) {
@@ -121,30 +125,15 @@ export default class Atlas extends Component {
         )
     }
 
-    handleCoordinateSubmit() {
-        this.addMarkersToMap("User's Typed Coordinates", this.state.lat1, this.state.lng1);
-    }
-
-    handleChangeLatitude = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    }
-
-    handleChangeLongitude = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-    }
-
-    /* END OF ADD LOCATION BY COORDINATES COMPONENT */
-
     requestCurrentLocation() {
-        self = this;
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(
                 function (position) {
-                    self.addMarkersToMap("Home", position.coords.latitude, position.coords.longitude);
+                    this.addMarkersToMap("Home", position.coords.latitude, position.coords.longitude);
                 },
                 function (error) {
                     console.error("Error Code = " + error.code + " - " + error.message);
-                });
+                },this);
         } else {!
             console.error("Not Available");
         }
@@ -154,108 +143,27 @@ export default class Atlas extends Component {
         let coords = L.latLng(lat, long);
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
-        var distances = [0];
-        var i;
-        for (i = 1; i < this.state.placesForItinerary.length; i++) {
-            let data = {
-                requestType: "distance",
-                requestVersion: 3,
-                place1: this.state.placesForItinerary[i - 1],
-                place2: this.state.placesForItinerary[i],
-                earthRadius: 3959.0
-            }
-            sendServerRequest(data).then(trip => {
-                if (!trip) {
-                    distances.push(-1);
-                }
-                distances.push(trip.data.distance);
-            });
-        }
-        this.setState({distances: distances});
-        <OurMap markerPositions = {this.state.markerPositions} requestCurrentLocation = {this.requestCurrentLocations}  setMarker = {this.setMarker}/>
-
-    }
-
-
-//    renderLeaflet() {
-//        let map_center;
-//        let fit_bounds;
-//        let zoom = 15;
-//
-//        if (this.state.markerPositions.length != 0) {
-//            let sortedMarkerPositions = [...this.state.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
-//
-//            if (sortedMarkerPositions.length == 1) {
-//                map_center = [sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng];
-//                zoom = 17;
-//            } else {
-//                fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
+//        var distances = [0];
+//        var i;
+//        for (i = 1; i < this.state.placesForItinerary.length; i++) {
+//            let data = {
+//                requestType: "distance",
+//                requestVersion: 3,
+//                place1: this.state.placesForItinerary[i - 1],
+//                place2: this.state.placesForItinerary[i],
+//                earthRadius: 3959.0
 //            }
-//        } else {
-//            map_center = MAP_CENTER_DEFAULT;
-//            this.requestCurrentLocation();
+//            sendServerRequest(data).then(trip => {
+//                if (!trip) {
+//                    distances.push(-1);
+//                }
+//                distances.push(trip.data.distance);
+//            });
 //        }
-//
-//        var points = [];
-//            this.state.markerPositions.forEach((position) => {
-//            points.push([position.lat, position.lng])
-//            }
-//        );
-//
-//
-//        return (
-//            <Map className={'mapStyle'}
-//                 boxZoom={false}
-//                 zoom={zoom}
-//                 minZoom={MAP_MIN_ZOOM}
-//                 maxZoom={MAP_MAX_ZOOM}
-//                 maxBounds={MAP_BOUNDS}
-//                 center={map_center}
-//                 bounds={fit_bounds}
-//                 boundsOptions={{padding: [50, 50]}}
-//                 onClick={this.setMarker}
-//                 useFlyTo={true}
-//                 maxBoundsViscosity={1.0}>
-//                <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-//                {this.getMarker()}
-//                {this.drawLines(points)}
-//            </Map>
-//        );
-//    }
-
-    setMarker(mapClickInfo) {
-        this.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
+//        this.setState({distances: distances});
+//        <OurMap markerPositions = {this.state.markerPositions} requestCurrentLocation = {this.requestCurrentLocations}  setMarker = {this.setMarker}/>
     }
 
-    getMarker() {
-        const initMarker = ref => {
-            if (ref) {
-                ref.leafletElement.openPopup()
-            }
-        };
-
-        if (this.state.markerPositions.length > 1) {
-            return (
-                this.state.markerPositions.map((position, idx) =>
-                    <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
-                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                    </Marker>
-                )
-            );
-        } else {
-            return (
-                this.state.markerPositions.map((position, idx) =>
-                    <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
-                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                    </Marker>
-                )
-            );
-        }
-    }
-
-    getStringMarkerPosition(markerPos) {
-        return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
-    }
 
 
     drawLines(points){
@@ -266,5 +174,4 @@ export default class Atlas extends Component {
         }
         return null
     }
-
 }

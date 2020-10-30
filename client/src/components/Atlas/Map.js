@@ -3,6 +3,7 @@ import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import currentLocationIcon from '../../static/images/home-marker-icon.png';
+import 'leaflet/dist/leaflet.css';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
@@ -24,9 +25,11 @@ export default class OurMap extends Component{
             zoom: 15
         }
         this.getBounds =  this.getBounds.bind(this)
+        this.setMarker = this.setMarker.bind(this)
     }
 
     getBounds(){
+         console.log(this.props.markerPositions)
          if (this.props.markerPositions.length != 0) {
              let sortedMarkerPositions = [...this.props.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
                  if (sortedMarkerPositions.length == 1) {
@@ -39,53 +42,61 @@ export default class OurMap extends Component{
          }
          else {
              this.setState({map_center: MAP_CENTER_DEFAULT});
-             this.props.requestCurrentLocation();
+             this.props.requestCurrentLocation;
          }
     }
 
-    getMarker() {
-             const initMarker = ref => {
-                 if (ref) {
-                     ref.leafletElement.openPopup()
-                 }
-             };
+    getStringMarkerPosition(markerPos) {
+       return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
+    }
 
-             if (this.state.markerPositions.length > 1) {
-                 return (
-                     this.state.markerPositions.map((position, idx) =>
-                         <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
-                             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                         </Marker>
-                     )
-                 );
-             } else {
-                 return (
-                     this.state.markerPositions.map((position, idx) =>
-                         <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
-                             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                         </Marker>
-                     )
-                 );
-             }
-         }
+    getMarker() {
+       const initMarker = ref => {
+           if (ref) {
+               ref.leafletElement.openPopup()
+           }
+       };
+       if (this.props.markerPositions.length > 1) {
+          return (
+             this.props.markerPositions.map((position, idx) =>
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
+                   <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                </Marker>
+             )
+          );
+       }
+       else {
+          return (
+             this.props.markerPositions.map((position, idx) =>
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
+                   <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                </Marker>
+             )
+          );
+       }
+    }
+
+    setMarker(mapClickInfo) {
+       this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
+    }
 
     render(){
        return (
-                <Map className={'mapStyle'}
-                     boxZoom={false}
-                     zoom={this.state.zoom}
-                     minZoom={MAP_MIN_ZOOM}
-                     maxZoom={MAP_MAX_ZOOM}
-                     maxBounds={MAP_BOUNDS}
-                     center={this.state.map_center}
-                     bounds={this.state.fit_bounds}
-                     boundsOptions={{padding: [50, 50]}}
-                     onClick={this.props.setMarker, this.getBounds}
-                     useFlyTo={true}
-                     maxBoundsViscosity={1.0}>
-                    <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-                    {this.getMarker}
-                </Map>
+           <Map className={'mapStyle'}
+               boxZoom={false}
+               zoom={this.state.zoom}
+               minZoom={MAP_MIN_ZOOM}
+               maxZoom={MAP_MAX_ZOOM}
+               maxBounds={MAP_BOUNDS}
+               center={this.state.map_center}
+               bounds={this.state.fit_bounds}
+               boundsOptions={{padding: [50, 50]}}
+               onClick={ this.setMarker }
+               useFlyTo={true}
+               maxBoundsViscosity={1.0}>
+               <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
+               {this.getMarker()}
+               </Map>
             )
         }
 }
