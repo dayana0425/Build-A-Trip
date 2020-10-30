@@ -2,9 +2,9 @@
  
 | Inspection | Details |
 | ----- | ----- |
-| Subject | *file and methods/line range to review for meeting* |
-| Meeting | *date, time, location* |
-| Checklist | *reference, URL, etc.* |
+| Subject | *Atlas.js*|
+| Meeting | *November 2, 2020* |
+| Checklist | *t16/reports/checklist.md* |
 
 ### Roles
 
