@@ -92,7 +92,7 @@ export default class SearchPlaces extends Component{
                        {name}
                     </td>
                     <td>
-                       <Button variant="primary" onClick={() => {console.log(name);this.props.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
+                       <Button variant="primary" onClick={() => {this.props.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
                     </td>
                 </tr>
             )
