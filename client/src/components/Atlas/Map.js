@@ -4,6 +4,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import currentLocationIcon from '../../static/images/home-marker-icon.png';
 import 'leaflet/dist/leaflet.css';
+import {Polyline} from 'react-leaflet';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
@@ -19,31 +20,8 @@ export default class OurMap extends Component{
 
     constructor(props){
         super(props)
-        this.state = {
-            map_center:MAP_CENTER_DEFAULT,
-            fit_bounds:null,
-            zoom: 15
-        }
-        this.getBounds =  this.getBounds.bind(this)
         this.setMarker = this.setMarker.bind(this)
-    }
-
-    getBounds(){
-         console.log(this.props.markerPositions)
-         if (this.props.markerPositions.length != 0) {
-             let sortedMarkerPositions = [...this.props.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
-                 if (sortedMarkerPositions.length == 1) {
-                     this.setState({map_center:[sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng]});
-                     this.setState({zoom:17});
-                 }
-                 else {
-                     this.setState({fit_bounds:L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1])});
-                 }
-         }
-         else {
-             this.setState({map_center: MAP_CENTER_DEFAULT});
-             this.props.requestCurrentLocation;
-         }
+        this.drawLines = this.drawLines.bind(this)
     }
 
     getStringMarkerPosition(markerPos) {
@@ -80,22 +58,39 @@ export default class OurMap extends Component{
        this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
     }
 
+    drawLines(){
+       var points = [];
+          this.props.markerPositions.forEach((position) => {
+             points.push([position.lat, position.lng])
+          }
+       );
+       if (points.length > 1 ){
+          return (
+              <Polyline positions={points} color='red'/>
+          );
+       }
+          return null
+       }
+
+
+
     render(){
        return (
-           <Map className={'mapStyle'}
+         <Map className={'mapStyle'}
                boxZoom={false}
-               zoom={this.state.zoom}
+               zoom={this.props.zoom}
                minZoom={MAP_MIN_ZOOM}
                maxZoom={MAP_MAX_ZOOM}
                maxBounds={MAP_BOUNDS}
-               center={this.state.map_center}
-               bounds={this.state.fit_bounds}
+               center={this.props.map_center}
+               bounds={this.props.fit_bounds}
                boundsOptions={{padding: [50, 50]}}
                onClick={ this.setMarker }
                useFlyTo={true}
                maxBoundsViscosity={1.0}>
                <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
                {this.getMarker()}
+               {this.drawLines()}
                </Map>
             )
         }
