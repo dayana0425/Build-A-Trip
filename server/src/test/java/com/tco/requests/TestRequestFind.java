@@ -1,10 +1,8 @@
 package com.tco.requests;
 
-import com.tco.requests.RequestFind;
-
 import java.lang.String;
-import java.util.List;
 
+import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +14,7 @@ public class TestRequestFind {
     private RequestFind find;
 
     @BeforeEach
-    public void creatFindForTestCases(){
+    public void creatFindForTestCases() throws BadRequestException {
         find = new RequestFind("Dave",10);
         find.buildResponse();
     }
@@ -29,10 +27,10 @@ public class TestRequestFind {
     }
 
     @Test
-    @DisplayName("Version number is 3")
+    @DisplayName("Version number is 4")
     public void testVersion() {
         int version = find.getRequestVersion();
-        assertEquals(3, version);
+        assertEquals(4, version);
     }
 
     @Test

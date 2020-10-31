@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+
 import { Col, Container, Row, Button, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
 
@@ -31,6 +32,7 @@ export default class Atlas extends Component {
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
         this.requestCurrentLocation = this.requestCurrentLocation(this);
+
         this.state = {
             markerPosition:null,
             markerPositions: [],
@@ -104,7 +106,7 @@ export default class Atlas extends Component {
                 </Nav>
                 <TabContent activeTab={this.state.activeTab}>
                     <TabPane tabId="1">
-                        <AddLocation style={this.buttonStyleBottom} handleCoordinateSubmit = {this.handleCoordinateSubmit}/>
+                        <AddLocation style={this.buttonStyleBottoms} addMarkersToMap = {this.addMarkersToMap}/>
                     </TabPane>
                     <TabPane tabId="2">
                         <SearchPlaces addMarkersToMap = {this.addMarkersToMap}/>
@@ -128,6 +130,7 @@ export default class Atlas extends Component {
             console.error("Not Available");
         }
     }
+
 
     getBounds(coords){
         let sortedMarkerPositions = [coords]

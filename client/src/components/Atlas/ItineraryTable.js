@@ -25,7 +25,7 @@ export default class ItineraryTable extends Component{
      requestTrip(event){
             sendServerRequest({
                 requestType: "trip",
-                requestVersion: 3,
+                requestVersion: 4,
                 options:this.state.options,
                 places: this.props.placesForItinerary
             })

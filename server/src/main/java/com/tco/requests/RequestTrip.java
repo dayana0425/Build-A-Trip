@@ -1,29 +1,31 @@
 package com.tco.requests;
 import com.tco.misc.BadRequestException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.lang.String;
 
 public class RequestTrip extends RequestHeader{
-    private HashMap<String,String> options = new HashMap<String, String>();         //haven't initialized it
+    private HashMap<String,String> options = new HashMap<String, String>();
     private ArrayList<HashMap> places = new ArrayList<HashMap>();
     private Long[] distances;
-
+    private final transient Logger log = LoggerFactory.getLogger(RequestTrip.class);
 
     public RequestTrip(){
         this.requestType = "trip";
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
     }
 
-    public RequestTrip(HashMap options2, ArrayList places){
+    public RequestTrip(HashMap options2, ArrayList places) throws BadRequestException {
         this();
         options.putAll(options2);
         this.places = places;
         this.distance();
     }
 
-    public void distance(){
+    public void distance() throws BadRequestException {
         int len = places.size();
         distances = new Long[len];
         Double earthRadius = Double.parseDouble(options.get("earthRadius"));
@@ -42,7 +44,7 @@ public class RequestTrip extends RequestHeader{
 
 
     @Override
-    public void buildResponse() {
+    public void buildResponse() throws BadRequestException {
         this.getOptions();
         this.distance();
     }
@@ -55,7 +57,5 @@ public class RequestTrip extends RequestHeader{
         return options;
     }
 
-    public ArrayList<HashMap> getPlaces() {
-        return places;
-    }
+    public ArrayList<HashMap> getPlaces() { return places; }
 }

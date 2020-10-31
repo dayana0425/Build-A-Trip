@@ -12,6 +12,7 @@ public class Place {
     String country = "";
     String url = "";
     String note = "";
+
     public Place(){
         this.name = "";
         this.latitude = "";
@@ -71,4 +72,5 @@ public class Place {
     public String getName(){
         return this.name;
     }
+
 }

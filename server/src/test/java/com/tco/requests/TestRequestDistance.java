@@ -1,6 +1,6 @@
 package com.tco.requests;
 
-import com.tco.requests.RequestConfig;
+import com.tco.misc.BadRequestException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -8,8 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import java.util.*;
 import java.lang.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestRequestDistance {
 
@@ -18,7 +17,6 @@ public class TestRequestDistance {
     @BeforeEach
     public void createConfigurationForTestCases(){
         dist = new RequestDistance(3959.0, null, null, null, null);
-        //dist.buildResponse();
     }
 
     @Test
@@ -29,10 +27,10 @@ public class TestRequestDistance {
     }
 
     @Test
-    @DisplayName("Version number is 3")
+    @DisplayName("Version number is 4")
     public void testVersion() {
         int version = dist.getRequestVersion();
-        assertEquals(3, version);
+        assertEquals(4, version);
     }
 
 
@@ -41,9 +39,8 @@ public class TestRequestDistance {
     @DisplayName("Place1 lat/long default to null")
     public void testPlace1Lat(){
         Map<String,String> place1 = dist.getPlace1();
-        assertEquals(null, place1.get("latitude"));
-        assertEquals(null, place1.get("longitude"));
-        //Map<String,String> place2 = dist.getPlace2();
+        assertNull(place1.get("latitude"));
+        assertNull(place1.get("longitude"));
     }
 
 
@@ -52,9 +49,8 @@ public class TestRequestDistance {
     @DisplayName("Place2 lat/long default to null")
     public void testPlace2Lat(){
         Map<String,String> place2 = dist.getPlace2();
-        assertEquals(null, place2.get("latitude"));
-        assertEquals(null, place2.get("longitude"));
-//      Map<String,String> place2 = dist.getPlace2();
+        assertNull(place2.get("latitude"));
+        assertNull(place2.get("longitude"));
     }
 
     @Test
@@ -65,11 +61,10 @@ public class TestRequestDistance {
 
     @Test
     @DisplayName("Distance Test")
-    public void testColorado(){
+    public void testColorado() throws BadRequestException {
         RequestDistance distance = new RequestDistance(3959.0, "41", "-109", "37", "-102");
         distance.buildResponse();
         assertEquals(466, distance.getDistance());
     }
-
 
 }
