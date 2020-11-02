@@ -13,6 +13,7 @@
 | dbilbao | 20 min |
 | rloptien | 30 min |
 | xinyi99 | 30 min |
+| mattv | 30 min |
 
 ### Problems found
 
@@ -28,5 +29,8 @@
 | Atlas.js: 119 | there is an error in the console about self, I'm not sure is because of this line | hi| xinyi99 | |
 | Atlas.js: 134 | think a better way to pass 'coords' | med | xinyi99 | |
 | Atlas.js: 159-175 | considering to remove or keep this commented out code | high | xinyi99 | |
+| Atlas.js: 135,153 | Add descriptive comments explaining complex lines and functions | low | mattv | |
+| Atlas.js: 49-74, 89-115 | Test cases for reactive design and functionality on different devices | med | mattv | |
+
 
 ### Results
