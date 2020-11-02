@@ -90,7 +90,7 @@ export default class Atlas extends Component {
     /* END OF TABS */
 
 
-    clearAllMarkers(){ // clears all markers and returns to home
+    clearAllMarkers(){ // clears all markers and returns to home - TO DO: clear distances
         this.setState({markerPositions: this.state.markerPositions.splice(0,1)});
         this.setState({placesForItinerary: this.state.placesForItinerary.splice(0,1)});
     }
@@ -111,23 +111,6 @@ export default class Atlas extends Component {
         let coords = L.latLng(lat, long);
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
-//        var distances = [0];
-//           var i;
-//           for (i = 1; i < this.state.placesForItinerary.length; i++) {
-//              let data = {
-//                 requestType: "distance",
-//                 requestVersion: 4,
-//                 place1: this.state.placesForItinerary[i - 1],
-//                 place2: this.state.placesForItinerary[i],
-//                 earthRadius: 3959.0
-//                 }
-//                 sendServerRequest(data).then(trip => {
-//                    if (!trip) {
-//                        distances.push(-1);
-//                 }
-//                    distances.push(trip.data.distance);
-//                 });
-//                    this.setState({distances: distances});
     }
 
 }
