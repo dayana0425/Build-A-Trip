@@ -7,12 +7,13 @@ export default class ItineraryTable extends Component{
     constructor(props){
         super(props)
         this.state = {
-            tripName:"",
-            roundTrip:0,
-            options:null,
-            isOpen:'',
-            places:null,
-            distances:[]
+            tripName: "",
+            roundTrip: 0,
+            options: null,
+            isOpen: '',
+            places: null,
+            distances: [],
+            showDistance: false
         }
         this.changeTripName = this.changeTripName.bind(this);
         this.requestTrip = this.requestTrip.bind(this);
@@ -31,10 +32,11 @@ export default class ItineraryTable extends Component{
             })
                 .then(trip => {
                     if (trip) {
-                        this.setState({distances: trip.data.distances});
                         this.setState({tripName: trip.data.options.title});
                         if (trip.data.distances) {
+                            this.setState({distances: trip.data.distances});
                             this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
+                            this.setState({showDistance: true})
                         }
                     } else {
                         console.error('Error');
@@ -48,14 +50,12 @@ export default class ItineraryTable extends Component{
                  {places.map((place, index) =>
                      <ListItem key={index}>
                          <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
-                         <ListItemText primary={"Distance: " + this.state.distances[index]}/>
+                         <ListItemText primary={((index != 0 && this.state.showDistance) ? "Distance: " + this.state.distances[index-1] : "" )}/>
                      </ListItem>
                  )}
              </List>
          )
      }
-
-
 
     render(){
         return(
@@ -65,7 +65,7 @@ export default class ItineraryTable extends Component{
                       <InputGroup>
                          <Input type="text" name="options" value={this.name} placeholder="Enter Trip Name" onChange={(e) => {this.changeTripName(e)}}/>
                          <InputGroupAddon addonType="append">
-                                <Button color="primary" style={this.props.buttonStyleTable} onClick={(e) => {this.requestTrip(e)}}>Enter</Button>
+                                <Button color="primary" onClick={(e) => {this.requestTrip(e)}}>Enter</Button>
                          </InputGroupAddon>
                       </InputGroup>
                       <h2> Itinerary {this.state.tripName} </h2>

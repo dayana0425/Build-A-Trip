@@ -18,12 +18,12 @@ export default class SearchPlaces extends Component{
             <div>
                 <InputGroup>
                     <Input type="text"
-                        name="searching"
+                            name="searching"
                             value={this.match}
                             placeholder="Enter Place"
                             onChange={(e) => {this.handleChange(e)}}/>
                     <InputGroupAddon addonType="append">
-                    <Button color="primary" style={this.buttonStyleTable} onClick={(e) => {this.handleClick(e)}}>Search</Button>
+                    <Button color="primary" onClick={(e) => {this.handleClick(e)}}>Search</Button>
                         </InputGroupAddon>
                     </InputGroup>
                     <Table bordered hover striped>
@@ -70,7 +70,6 @@ export default class SearchPlaces extends Component{
         })
         return match;
     }
-
 
     renderTableHeader() {
         return (
