@@ -87,9 +87,26 @@ export default class Atlas extends Component {
             </div>
         )
     }
+
+    // getBounds(coords){
+    //     let sortedMarkerPositions = [coords]
+    //     if (this.state.markerPositions.length != 0) {
+    //         sortedMarkerPositions = [...sortedMarkerPositions,...this.state.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
+    //            if (sortedMarkerPositions.length == 1) {
+    //                 this.setState({map_center:[sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng]});
+    //                 this.setState({zoom:15});
+    //                 console.log('gere')
+    //            }
+    //            else
+    //         this.setState({fit_bounds:L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1])});
+    //     }
+    //     else {
+    //         this.setState({map_center: MAP_CENTER_DEFAULT});
+    //         this.requestCurrentLocation();
+    //     }
+    // }
+
     /* END OF TABS */
-
-
     clearAllMarkers(){ // clears all markers and returns to home - TO DO: clear distances
         this.setState({markerPositions: this.state.markerPositions.splice(0,1)});
         this.setState({placesForItinerary: this.state.placesForItinerary.splice(0,1)});
@@ -112,5 +129,7 @@ export default class Atlas extends Component {
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
     }
+
+
 
 }
