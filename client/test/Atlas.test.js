@@ -13,13 +13,57 @@ function testInitialAtlasState() {
 
   const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
 
-  let actualMarkerPosition = atlas.state().markerPosition;
-  let expectedMarkerPosition = null;
+  let actualMarkerPositions = atlas.state().markerPositions;
+  let expectedMarkerPositions = [];
 
-  expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
+  expect(actualMarkerPositions).toEqual(expectedMarkerPositions);
 }
 
 test("Testing Atlas's Initial State", testInitialAtlasState);
+
+
+function testAddMarkersToMap(){
+
+    const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+
+    let coords = {lat: 36, lng: 118};
+    atlas.instance().addMarkersToMap("Home", 36, 118);
+    let actualMarkerPositions = atlas.state().markerPositions;
+
+    expect(actualMarkerPositions[0]).toEqual(coords);
+}
+
+test("Testing Atlas's AddMarkersToMap method", testAddMarkersToMap)
+
+
+function testGetBounds(){
+
+    const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+
+    let coords = {lat: 36, lng: 118};
+    atlas.instance().getBounds(coords);
+    let actualMapCenter = atlas.state().map_center;
+    let expectMapCenter = [40.5734, -105.0865]
+
+    expect(actualMapCenter).toEqual(expectMapCenter);
+}
+
+test("Testing Atlas's getBounds method", testGetBounds)
+
+
+function testClearAllMarkers(){
+
+    const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+
+    atlas.instance().addMarkersToMap("Home", 36, 118);
+    atlas.instance().clearAllMarkers();
+    let expectedMarkerPositions = [];
+    let actualMarkerPositions = atlas.state().markerPositions;
+
+    expect(actualMarkerPositions).toEqual(expectedMarkerPositions);
+}
+
+test("Testing Atlas's clearAllMarkers method", testClearAllMarkers)
 
 
 //function testMarkerIsRenderedOnClick() {

@@ -31,10 +31,9 @@ export default class Atlas extends Component {
         super(props);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
-        this.requestCurrentLocation = this.requestCurrentLocation(this);
+        this.requestCurrentLocation = this.requestCurrentLocation.bind(this);
 
         this.state = {
-            markerPosition:null,
             markerPositions: [],
             activeTab: '1',
             placesForItinerary: [],
@@ -142,6 +141,7 @@ export default class Atlas extends Component {
 //                     console.log('gere')
 //                }
 //                else
+                  console.log(this.state.fit_bounds)
                   this.setState({fit_bounds:L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1])});
              }
             else {
