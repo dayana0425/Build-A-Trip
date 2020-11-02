@@ -40,11 +40,11 @@ function simulateOnClick(button, itineraryButton){
 test('Testing state change with a button toggle', testToggleIsOpen);
 
 
-//function testItineraryTableExists(){
-//
-//    const itineraryButton = shallow(<ItineraryButton/>);
-//    expect(itineraryButton.contains(<ItineraryTable/>)).toEqual(true);
-//
-//}
-//
-//test('Testing to see if ItineraryTable is rendered with ItineraryButton', testItineraryTableExists);
+function testItineraryTableExists(){
+
+    const itineraryButton = shallow(<ItineraryButton/>);
+    expect(itineraryButton.exists(ItineraryTable)).toEqual(true);
+
+}
+
+test('Testing to see if ItineraryTable is rendered with ItineraryButton', testItineraryTableExists);

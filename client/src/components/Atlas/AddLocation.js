@@ -17,6 +17,7 @@ export default class AddLocation extends Component{
 
     handleChangeLatitude = (event) => {
         this.setState({[event.target.name]: event.target.value});
+         console.log(this.state.lat1)
     }
 
     handleChangeLongitude = (event) => {
