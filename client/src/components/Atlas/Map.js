@@ -14,7 +14,6 @@ const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quo
 const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const MAP_MIN_ZOOM = 1;
 const MAP_MAX_ZOOM = 19;
-const EARTH_RADIUS = 3959;
 
 export default class OurMap extends Component{
 
@@ -34,6 +33,7 @@ export default class OurMap extends Component{
                ref.leafletElement.openPopup()
            }
        };
+
        if (this.props.markerPositions.length > 1) {
           return (
              this.props.markerPositions.map((position, idx) =>
@@ -59,39 +59,46 @@ export default class OurMap extends Component{
     }
 
     drawLines(){
-       var points = [];
-          this.props.markerPositions.forEach((position) => {
-             points.push([position.lat, position.lng])
-          }
-       );
-       if (points.length > 1 ){
-          return (
-              <Polyline positions={points} color='red'/>
-          );
-       }
-          return null
-       }
-
-
+        let points = [];
+        this.props.markerPositions.forEach((position) => { points.push([position.lat, position.lng]) });
+        if (points.length > 1) { return (<Polyline positions={points} color='red'/>); }
+    }
 
     render(){
-       return (
-         <Map className={'mapStyle'}
-               boxZoom={false}
-               zoom={this.props.zoom}
-               minZoom={MAP_MIN_ZOOM}
-               maxZoom={MAP_MAX_ZOOM}
-               maxBounds={MAP_BOUNDS}
-               center={this.props.map_center}
-               bounds={this.props.fit_bounds}
-               boundsOptions={{padding: [50, 50]}}
-               onClick={ this.setMarker }
-               useFlyTo={true}
-               maxBoundsViscosity={1.0}>
-               <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-               {this.getMarker()}
-               {this.drawLines()}
-               </Map>
-            )
+        let map_center;
+        let fit_bounds;
+        let zoom = 17;
+
+        if (this.props.markerPositions.length > 0) {
+            if (this.props.markerPositions.length == 1) {
+                map_center = [this.props.markerPositions[0].lat, this.props.markerPositions[0].lng];
+                zoom = 17;
+            } else {
+                let sortedMarkerPositions = [...this.props.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
+                fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
+            }
+        } else {
+            map_center = MAP_CENTER_DEFAULT;
         }
+
+       return (
+         <Map
+           className={'mapStyle'}
+           boxZoom={false}
+           minZoom={MAP_MIN_ZOOM}
+           maxZoom={MAP_MAX_ZOOM}
+           maxBounds={MAP_BOUNDS}
+           zoom={zoom}
+           center={map_center}
+           bounds={fit_bounds}
+           boundsOptions={{padding: [50, 50]}}
+           onClick={this.setMarker}
+           useFlyTo={true}
+           maxBoundsViscosity={1.0}>
+           <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
+           {this.getMarker()}
+           {this.drawLines()}
+         </Map>
+       )
+    }
 }
