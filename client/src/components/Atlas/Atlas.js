@@ -15,7 +15,7 @@ export default class Atlas extends Component {
         super(props);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
-        this.requestCurrentLocation = this.requestCurrentLocation.bind(this);
+        this.requestCurrentLocation = this.requestCurrentLocation(this);
 
         this.state = {
             markerPosition: null,
@@ -88,24 +88,6 @@ export default class Atlas extends Component {
         )
     }
 
-    // getBounds(coords){
-    //     let sortedMarkerPositions = [coords]
-    //     if (this.state.markerPositions.length != 0) {
-    //         sortedMarkerPositions = [...sortedMarkerPositions,...this.state.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
-    //            if (sortedMarkerPositions.length == 1) {
-    //                 this.setState({map_center:[sortedMarkerPositions[0].lat, sortedMarkerPositions[0].lng]});
-    //                 this.setState({zoom:15});
-    //                 console.log('gere')
-    //            }
-    //            else
-    //         this.setState({fit_bounds:L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1])});
-    //     }
-    //     else {
-    //         this.setState({map_center: MAP_CENTER_DEFAULT});
-    //         this.requestCurrentLocation();
-    //     }
-    // }
-
     /* END OF TABS */
     clearAllMarkers(){ // clears all markers and returns to home - TO DO: clear distances
         this.setState({markerPositions: this.state.markerPositions.splice(0,1)});
@@ -119,8 +101,7 @@ export default class Atlas extends Component {
                 function (position) {
                     self.addMarkersToMap("Home", position.coords.latitude, position.coords.longitude);},
                 function (error) {
-                    console.error("Error Code = " + error.code + " - " + error.message);
-                };
+                    console.error("Error Code = " + error.code + " - " + error.message);});
         }
         else { console.error("Not Available"); }
     }
@@ -129,7 +110,6 @@ export default class Atlas extends Component {
         let coords = L.latLng(lat, long);
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
-        //this.getBounds(coords);
     }
 
 
