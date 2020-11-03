@@ -11,8 +11,8 @@ function testInitialState() {
 
     let expectedLat = 0;
     let expectedLng = 0;
-    let actualLat = addLocation.state().lat1;
-    let actualLng = addLocation.state().lng1;
+    let actualLat = addLocation.state().lat;
+    let actualLng = addLocation.state().lng;
 
     expect(actualLat).toEqual(expectedLat);
     expect(actualLng).toEqual(expectedLng);
@@ -28,7 +28,7 @@ function testChangeLatitude(){
     let latitude = 38;
     simulateOnClickEvent(addLocation, latitude);
 
-    expect(addLocation.state().lat1).toEqual(latitude);
+    expect(addLocation.state().lat).toEqual(latitude);
 }
 
 //function simulateOnClickEvent(addLocation, event){

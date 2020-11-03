@@ -7,6 +7,7 @@ export default class AddLocation extends Component{
         super(props)
         this.state = {
             lat: 0,
+            lng: 0,
         }
         this.handleChangeLatitude = this.handleChangeLatitude.bind(this)
         this.handleChangeLongitude = this.handleChangeLongitude.bind(this)
