@@ -66,7 +66,9 @@ export default class ItineraryTable extends Component{
                          <Input type="text" name="options" value={this.name} placeholder="Enter Trip Name" onChange={(e) => {this.changeTripName(e)}}/>
                          <InputGroupAddon addonType="append">
                                 <Button color="primary" onClick={(e) => {this.requestTrip(e)}}>Enter</Button>
-                         </InputGroupAddon>
+                         </InputGroupAddon> &nbsp;
+                         <Button color="primary" >Save Trip</Button>
+                         <Input type="file" name="file"></Input>
                       </InputGroup>
                       <h2> Itinerary {this.state.tripName} </h2>
                        {this.getTripTable(this.props.placesForItinerary)}
