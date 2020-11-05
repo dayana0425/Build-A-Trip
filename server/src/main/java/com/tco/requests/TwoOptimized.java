@@ -1,7 +1,4 @@
 package com.tco.requests;
-
-import com.tco.misc.BadRequestException;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -17,20 +14,27 @@ public class TwoOptimized {
 
 
     TwoOptimized(int size, ArrayList<HashMap> places, Double earthRadius){
+        /* INITIALIZING */
         this.size = size;
-        this.tour = new int[size+1];
         this.visited = new boolean[size];
-        this.distances = new long[size][size];
-        this.roundTripDistance = 0;
         this.places = places;
         this.EARTH_RADIUS = earthRadius;
+
+        /* SETUP */
+        //set tour size
+        this.tour = new int[size+1];
+        //populate tour
+        this.populateTour();
+        //set matrix size
+        this.distances = new long[size][size];
+        //populate matrix
+        this.calculateDistances();
+        //get initial roundTripDistance
+        this.roundTripDistance = getCost(tour);
     }
 
     //Main method for two opt
     public void twoOptimized(){
-        populateTour(); //populate tour
-        calculateDistances(); //populate distance matrix
-
         while(improvement){
             improvement = false; //reset improvement
             for(int i = 0; i <= tour.length-3; i++){
@@ -49,11 +53,6 @@ public class TwoOptimized {
             sum += getDistFromMatrix(i, i+1);
         }
         return sum;
-    }
-
-    //Helper Method: will return the distance from place i to place j (indexes) from the distances matrix
-    public long getDistFromMatrix(int i, int j){
-        return distances[i][j];
     }
 
     //Helper Method: populates tour with initial indexes that index to the corresponding place in the places arraylist in the trip class
@@ -84,6 +83,11 @@ public class TwoOptimized {
         }
     }
 
+    //Helper Method: will return the distance from place i to place j (indexes) from the distances matrix
+    public long getDistFromMatrix(int i, int j){
+        return distances[i][j];
+    }
+
     //Helper Method: calculates the distance between two places
     public long getDist(int i, int j) {
         HashMap p1 = places.get(i);
@@ -102,7 +106,7 @@ public class TwoOptimized {
     }
 
     //Accessor Method: returns the optimized round trip result
-    public long getOptimizedRoundTrip(){
+    public long getRoundTripDistance(){
         return roundTripDistance;
     }
 
