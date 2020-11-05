@@ -81,7 +81,7 @@ export default class ItineraryTable extends Component{
                          <InputGroupAddon addonType="append">
                                 <Button color="primary" onClick={(e) => {this.requestTrip(e)}}>Enter</Button>
                          </InputGroupAddon> &nbsp;
-                         <Button color="primary" onClick={() => {this.saveFile(this.props.placesForItinerary, this.state.tripName, 'application/json')}}>Save Trip</Button>
+                         <Button color="primary" onClick={() => {this.saveFile(JSON.stringify(this.props.placesForItinerary), this.state.tripName, 'application/json')}}>Save Trip</Button>
                          <Input type="file" name="file"></Input>
                       </InputGroup>
                       <h2> Itinerary {this.state.tripName} </h2>
