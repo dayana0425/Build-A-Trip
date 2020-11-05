@@ -12,13 +12,13 @@ public class TwoOptimized {
     private long roundTripDistance; // will hold the resulting optimized round trip distance
     private int size; // saves the size of the matrix
     private ArrayList<HashMap> places = new ArrayList<HashMap>(); // holds the places
-    private final double EARTH_RADIUS; // earth radius constant - will be used to manage unit changes in the findDistance
+    private final Double EARTH_RADIUS; // earth radius constant - will be used to manage unit changes in the findDistance
     private boolean improvement = false;
 
 
     TwoOptimized(int size, ArrayList<HashMap> places, Double earthRadius){
         this.size = size;
-        this.tour = new int[size];
+        this.tour = new int[size+1];
         this.visited = new boolean[size];
         this.distances = new long[size][size];
         this.roundTripDistance = 0;
@@ -27,30 +27,50 @@ public class TwoOptimized {
     }
 
     //Main method for two opt
-//    public void twoOptimized(){
-//        populateTour(); //populate tour
-//        calculateDistances(); //populate distance matrix
-//
-//        this.improvement = true;
-//        while (improvement) {
-//            this.improvement = false; // reset
-//            for (int i = 0; i <= n-3; i++) {
-//                for (k = i + 2; k <= n-1; k++) {
-//                    delta = -dis(route,i,i+1)-dis(route,k,k+1)+dis(route,i,k)+dis(route,i+1,k+1)
-//                    if (delta < 0) { //improvement?
-//                        2optReverse(route, i+1, k)
-//                        improvement = true
-//                    }
-//                }
-//            }
-//        }
-//    }
+    public void twoOptimized(){
+        populateTour(); //populate tour
+        calculateDistances(); //populate distance matrix
+
+        while(improvement){
+            improvement = false; //reset improvement
+            for(int i = 0; i <= tour.length-3; i++){
+                for(int j = i+ 2; j <= tour.length-1; j++){
+
+                }
+            }
+
+        }
+    }
+
+    //Helper Method: will get the cost of the new tour
+    public long getCost(int [] currTour){
+        long sum = 0;
+        for(int i = 0; i < currTour.length-1; i++){
+            sum += getDistFromMatrix(i, i+1);
+        }
+        return sum;
+    }
+
+    //Helper Method: will return the distance from place i to place j (indexes) from the distances matrix
+    public long getDistFromMatrix(int i, int j){
+        return distances[i][j];
+    }
 
     //Helper Method: populates tour with initial indexes that index to the corresponding place in the places arraylist in the trip class
     public void populateTour(){
         for(int i = 0; i < tour.length; i++){
-            tour[i] = i;
+            if(i == tour.length-1){
+                tour[i] = 0;
+            }
+            else{
+                tour[i] = i;
+            }
         }
+    }
+
+    //Helper Method: swaps elements in the tour array
+    public void swap(int i, int j){
+        tour[i] = (tour[i] + tour[j]) - (tour[j] = tour[i]);
     }
 
     //Helper Method: populates the distance matrix
@@ -85,15 +105,6 @@ public class TwoOptimized {
     public long getOptimizedRoundTrip(){
         return roundTripDistance;
     }
-
-//    2optReverse(route, i1, k) { // reverse in place
-//        while(i1 < k) {
-//            temp = route[i1]
-//            route[i1] = route[k]
-//            route[k] = temp
-//            i1++; k--
-//        }
-//    }
 
 }
 
