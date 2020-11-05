@@ -44,6 +44,10 @@ public class ThreeOptimization {
                 String lon1 = (String)place1.get("longitude");
                 String lat2 = (String)place2.get("latitude");
                 String lon2 = (String)place2.get("longitude");
+                String name1 = (String)place1.get("name");
+                String name2 = (String)place2.get("name");
+                System.out.println(name1 + " " + name2);
+                System.out.println("i: " +i + " j: " +j);
                 RequestDistance rd =  new RequestDistance(earthRadius,lat1,lon1,lat2,lon2);
                 rd.buildResponse();
                 Long currentDistance = rd.getDistance();
@@ -81,28 +85,30 @@ public class ThreeOptimization {
                         int index2 = 0;
                         int index3 = 0;
                         int index4 = 0;
-                        //swap(i+1, j)
+                        int index5 = 0;
+                        int index6 = 0;
+                        //reverse(i+1, j)
                         Long delta1 = distances[i][j] + distances[i+1][j+1] + distances[k][(k+1)%num];
                         if (delta1 < best){
                             best = delta1;
                             index1 = i+1;
                             index2 = j;
                         }
-                        // swap(j+1, k)
+                        // reverse(j+1, k)
                         Long delta2 = distances[i][i+1] +distances[j][k] + distances[j+1][(k+1)%num];
                         if (delta2 < best){
                             best = delta2;
                             index1 = j+1;
                             index2 = k;
                         }
-                        // swap(i+1, k)
+                        // reverse(i+1, k)
                         Long delta3 = distances[i][k] + distances[j][j+1] + distances[i+1][(k+1)%num];
                         if (delta3 < best ){
                             best = delta3;
                             index1 = k;
                             index2 = i+1;
                         }
-                        // swap(i+1,j) and (k,j+1)
+                        // reverse(i+1,j) and (k,j+1)
                         Long delta4 = distances[i][j] + distances[i+1][k] + distances[j+1][(k+1)%num];
                         if(delta4 < best){
                             best = delta4;
@@ -111,26 +117,41 @@ public class ThreeOptimization {
                             index3 = j+1;
                             index4 = k;
                         }
-                        //first swap(i+1, k) and then swap (j, i+1)
+                        //first reverse(i+1, k) and then reverse (j+1, k)
                         Long delta5 = distances[i][k] + distances[j+1][i+1] + distances[j][(k+1)%num];
                         if(delta5 < best){
                             best = delta5;
                             index1 = i+1;
                             index2 = k;
-                            index3 = j;
-                            index4 = i+1;
+                            index3 = j+1;
+                            index4 = k;
                         }
-                        //first swap(i+1, k) and then swap (k, j+1)
-//                        Long delta6 = distances[i][j+1] + distances[k][j] + distances[i+1][k+1];
-//                        if(delta6 < best){
-//                            best = delta6;
-//                            index1 = i+1;
-//                            index2 = k;
-//                            index3 = k;
-//                            index4 =
+                        //first reverse(i+1, k) and then reverse (i+1, j)
+                        Long delta6 = distances[i][j+1] + distances[k][j] + distances[i+1][(k+1)%num];
+                        if(delta6 < best) {
+                            best = delta6;
+                            index1 = i + 1;
+                            index2 = k;
+                            index3 = i+1;
+                            index4 = j;
+                        }
+                        //first reverse(i+1, k) -> (i+1, j) -> (j+1, k)
+                        Long delta7 = distances[i][j+1] + distances[k][i+1] + distances[j][(k+1)%num];
+                        if(delta7 < best){
+                            best = delta7;
+                            index1 = i+1;
+                            index2 = k;
+                            index3 = i+1;
+                            index4 = j;
+                            index5 = j+1;
+                            index6 = k;
+                        }
                             reversePlaces(index1,index2);
                             if (index3 != 0){
                                 reversePlaces(index3,index4);
+                            }
+                            if (index5!= 0){
+                                reversePlaces(index5,index6);
                             }
                         }
                     }
