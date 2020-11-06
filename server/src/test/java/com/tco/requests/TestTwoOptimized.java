@@ -1,11 +1,13 @@
 package com.tco.requests;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.ArrayList;
 
 import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestTwoOptimized {
 
@@ -42,14 +44,62 @@ public class TestTwoOptimized {
     }
 
     @Test
-    @DisplayName("Show the distance metrics")
+    @DisplayName("Test Get Distance")
+    public void testGetDistance() throws BadRequestException {
+        this.initialPlaces();
+        twoOpt = new TwoOptimized(places.size(), places, earthRadius);
+        long dist = twoOpt.getDist(1,2);
+        assertEquals(dist, 54);
+    }
+
+    @Test
+    @DisplayName("Test Getting The Distance From Matrix")
+    public void testCalculateMatrix() throws BadRequestException {
+        this.initialPlaces();
+        twoOpt = new TwoOptimized(places.size(), places, earthRadius);
+        long [][] before = twoOpt.getDistanceMatrix();
+        twoOpt.calculateDistances();
+        long[][] after = twoOpt.getDistanceMatrix();
+        assertEquals(Arrays.toString(after), Arrays.toString(before));
+    }
+
+    @Test
+    @DisplayName("Test Getting The Distance From Matrix")
+    public void testReversePlaces() throws BadRequestException {
+        this.initialPlaces();
+        twoOpt = new TwoOptimized(places.size(), places, earthRadius);
+        int [] before = twoOpt.getTour();
+        int [] after = twoOpt.reversePlaces(before, 1,2);
+        int [] arrayContents = {0,2,1,3,4,0};
+        assertEquals(Arrays.toString(after), Arrays.toString(arrayContents));
+    }
+
+    @Test
+    @DisplayName("Test Getting The Distance From Matrix")
+    public void testGetDistanceFromDistanceMatrix() throws BadRequestException {
+        this.initialPlaces();
+        twoOpt = new TwoOptimized(places.size(), places, earthRadius);
+        Long dist = twoOpt.getDistFromMatrix(1,1);
+        assertEquals(dist,0);
+    }
+
+    @Test
+    @DisplayName("Test cost")
+    public void testGetCost() throws BadRequestException {
+        this.initialPlaces();
+        twoOpt = new TwoOptimized(places.size(), places, earthRadius);
+        Long cost = twoOpt.getCost(twoOpt.getTour());
+        assertEquals(cost, 323);
+    }
+
+    @Test
+    @DisplayName("Test for distance")
     public void getDistance() throws BadRequestException {
         this.initialPlaces();
         twoOpt = new TwoOptimized(places.size(), places, earthRadius);
         Long oldD = twoOpt.getRoundTripDistance();
         twoOpt.twoOptimizedAlgo();
         Long newD = twoOpt.getRoundTripDistance();
-        System.out.println("GWWWddddSAVCDFSSVS");
-        System.out.print("the distance is: "+ oldD + " " + newD);
+        assertEquals(newD, 235);
     }
 }

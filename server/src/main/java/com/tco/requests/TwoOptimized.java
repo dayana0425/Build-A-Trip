@@ -115,7 +115,7 @@ public class TwoOptimized {
     }
 
     //Accessor Method: returns the optimizedTour result
-    public int[] getOptimizedTour(){
+    public int[] getTour(){
         return tour;
     }
 
@@ -124,6 +124,8 @@ public class TwoOptimized {
         return roundTripDistance;
     }
 
+    //Accessor Method: returns the distance matrix
+    public long[][] getDistanceMatrix(){ return distances; }
 }
 
 
