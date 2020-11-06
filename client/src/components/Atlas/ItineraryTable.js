@@ -17,6 +17,7 @@ export default class ItineraryTable extends Component{
         }
         this.changeTripName = this.changeTripName.bind(this);
         this.requestTrip = this.requestTrip.bind(this);
+        this.clearDistance = this.clearDistance.bind(this);
     }
 
     changeTripName(event){
@@ -71,6 +72,11 @@ export default class ItineraryTable extends Component{
         }, 0);
      }
 
+    clearDistance(){
+        {this.props.clearAllMarkers()};
+        this.setState({distance: []});
+    }
+
     render(){
         return(
             <Collapse isOpen={this.props.isOpen}>
@@ -87,6 +93,9 @@ export default class ItineraryTable extends Component{
                       <h2> Itinerary {this.state.tripName} </h2>
                        {this.getTripTable(this.props.placesForItinerary)}
                       <h3>{"Round Trip Distance (mi): " + this.state.distances.reduce(function (a, b) {return a + b;}, 0)}</h3>
+                       <Button color="primary" style={{marginTop: 10}} onClick= {this.clearDistance}>
+                           Reset
+                       </Button>
                   </CardBody>
                 </Card>
             </Collapse>

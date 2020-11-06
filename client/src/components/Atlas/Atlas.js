@@ -15,7 +15,7 @@ export default class Atlas extends Component {
         super(props);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
-        this.requestCurrentLocation = this.requestCurrentLocation(this);
+        this.requestCurrentLocation = this.requestCurrentLocation.bind(this);
 
         this.state = {
             markerPosition: null,
@@ -42,7 +42,8 @@ export default class Atlas extends Component {
                                      requestCurrentLocation = {this.requestCurrentLocation}
                                      addMarkersToMap = {this.addMarkersToMap}/>
                              <ItineraryButton
-                                     placesForItinerary = {this.state.placesForItinerary}/>
+                                     placesForItinerary = {this.state.placesForItinerary}
+                                     clearAllMarkers = {this.clearAllMarkers}/>
                         </Col>
                     </Row>
                 </Container>
