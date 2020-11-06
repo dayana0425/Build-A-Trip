@@ -13,13 +13,41 @@ function testInitialAtlasState() {
 
   const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
 
-  let actualMarkerPosition = atlas.state().markerPosition;
-  let expectedMarkerPosition = null;
+  let actualMarkerPositions = atlas.state().markerPositions;
+  let expectedMarkerPositions = [];
 
-  expect(actualMarkerPosition).toEqual(expectedMarkerPosition);
+  expect(actualMarkerPositions).toEqual(expectedMarkerPositions);
 }
 
 test("Testing Atlas's Initial State", testInitialAtlasState);
+
+
+function testAddMarkersToMap(){
+
+    const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+
+    let coords = {lat: 36, lng: 118};
+    atlas.instance().addMarkersToMap("Home", 36, 118);
+    let actualMarkerPositions = atlas.state().markerPositions;
+
+    expect(actualMarkerPositions[0]).toEqual(coords);
+}
+
+test("Testing Atlas's AddMarkersToMap method", testAddMarkersToMap)
+
+function testClearAllMarkers(){
+
+    const atlas = shallow(<Atlas createSnackBar={startProperties.createSnackBar}/>);
+
+    atlas.instance().addMarkersToMap("Home", 36, 118);
+    atlas.instance().clearAllMarkers();
+    let expectedNumberOfMarker = 1;
+    let actualMarkerPositions = atlas.state().markerPositions.length;
+
+    expect(actualMarkerPositions).toEqual(expectedNumberOfMarker);
+}
+
+test("Testing Atlas's clearAllMarkers method", testClearAllMarkers)
 
 
 //function testMarkerIsRenderedOnClick() {
@@ -45,56 +73,4 @@ test("Testing Atlas's Initial State", testInitialAtlasState);
 
 //test("Testing Atlas's Initial State", testMarkerIsRenderedOnClick);
 //
-////function testConvertedString(){
-////    let match = "xinyi's";
-////    const exampleWrapper = mount(<Atlas/>);
-////    let convertedString = exampleWrapper.instance().convertInputString(match);
-////    expect(convertedString).toEqual("xinyi_s");
-////}
-////test("Testing converting punctuation to '_'", testConvertedString);
-////
-////function testRequestMatch(){
-////    let match = "Dave";
-////    const exampleWrapper = shallow(<Atlas/>);
-////    exampleWrapper.instance().requestMatch(match);
-////    const found = exampleWrapper.state().found;
-////    expect(found).toEqual(0);
-////}
-////test ("Testing requestMatch", testRequestMatch);
-////
-//////function testClearAllMarkers(){
-//////    const exampleWrapper = mount(<Atlas/>);
-//////    exampleWrapper.instance().clearAllMarkers();
-//////    var list = exampleWrapper.state().markerPosition;
-//////    expect(list).toEqual(null);
-//////}
-//////test("Testing clear markers",testClearAllMarkers);
-////
-////function testDrawLines(){
-////    const exampleWrapper = mount(<Atlas/>);
-////    var point = exampleWrapper.instance().drawLines(1);
-////    expect(point).toEqual(null);
-////}
-////test("Testing Draw Lines",testDrawLines);
-////
-////function testHandleClick(){
-////  const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
-////  Wrapper.instance().handleClick();
-////}
-////test("Testing handleClick",testHandleClick);
-////
-////function testgetStringMarkerPosition(){
-////    var MarkerPos = { lat: 3.0, lng: 3.0 };
-////    const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
-////    Wrapper.instance().getStringMarkerPosition(MarkerPos);
-////}
-////test("Testing getStringMarkerPosition",testgetStringMarkerPosition);
-////
-////function testGetMarker(){
-////  const Wrapper = mount(<Atlas createSnackBar={startProperties.createSnackBar}/>);
-////  Wrapper.instance().getMarker();
-////}
-////test("Testing handleGetMarker",testGetMarker);
-////
-////
-////
+
