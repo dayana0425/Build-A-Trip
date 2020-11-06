@@ -14,7 +14,7 @@ export default class ClearButton extends Component {
 
     toggleIsOpen() {
         this.setState({isOpen: !this.state.isOpen});
-        this.open();
+       // this.open();
     }
 
     render() {
