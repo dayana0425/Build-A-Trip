@@ -20,7 +20,6 @@ public class RequestTrip extends RequestHeader{
 
     public RequestTrip(HashMap options2, ArrayList places) throws BadRequestException {
         this();
-        System.out.println("hello");
         options.putAll(options2);
         this.places = places;
         this.distance();

@@ -43,17 +43,47 @@ public class TestThreeOpt {
         places.add(place5);
     }
 
-    @Test
-    @DisplayName("Show the distance metrics")
-    public void getDistance() throws BadRequestException{
+    @BeforeEach
+    public void initialize()throws BadRequestException{
         this.initialPlaces();
         threeOpt = new ThreeOptimization(places,earthRadius);
         threeOpt.initializeTour();
         threeOpt.calculateDistance();
-        Long oldD = threeOpt.getRoundTripDistance();
-        threeOpt.getDistances();
+    }
+
+    @Test
+    @DisplayName("Show the original distance")
+    public void testDistance(){
+        Long originalDistance = threeOpt.getRoundTripDistance();
+        Long expectedDistance = 323L;
+        assertEquals(expectedDistance,originalDistance);
+    }
+
+    @Test
+    @DisplayName("Show the original tour")
+    public void testTour(){
+        int[] expectedTour = {0,1,2,3,4};
+        int[] actualTour = threeOpt.getTour();
+        for(int i=0; i< expectedTour.length; i++)
+            assertEquals(expectedTour[i],actualTour[i]);
+    }
+
+    @Test
+    @DisplayName("Do the optimization and get the roundTrip")
+    public void testRoundTripDistance(){
         threeOpt.threeOptimize();
-        Long newD = threeOpt.getRoundTripDistance();
-        System.out.print("the distance is: "+ oldD + " " + newD);
+        Long actialDistance = threeOpt.getRoundTripDistance();
+        Long expectDistance = 197L;
+        assertEquals(expectDistance,actialDistance);
+    }
+
+    @Test
+    @DisplayName("Get the final tour order")
+    public void testTourOrder(){
+        threeOpt.threeOptimize();
+        int[] expectedTour = {0,3,1,4,2};
+        int[] actualTour = threeOpt.getTour();
+        for(int i=0; i< expectedTour.length; i++)
+            assertEquals(expectedTour[i],actualTour[i]);
     }
 }
