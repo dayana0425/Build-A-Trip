@@ -16,6 +16,7 @@ public class RequestTrip extends RequestHeader{
     public RequestTrip(){
         this.requestType = "trip";
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
+
     }
 
     public RequestTrip(HashMap options2, ArrayList places) throws BadRequestException {
@@ -23,6 +24,7 @@ public class RequestTrip extends RequestHeader{
         options.putAll(options2);
         this.places = places;
         this.distance();
+
     }
 
     public void distance() throws BadRequestException {
@@ -39,6 +41,7 @@ public class RequestTrip extends RequestHeader{
             RequestDistance rd =  new RequestDistance(earthRadius,lat1,lon1,lat2,lon2);
             rd.buildResponse();
             distances[i] = rd.getDistance();
+
         }
     }
 

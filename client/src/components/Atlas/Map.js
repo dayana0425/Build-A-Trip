@@ -21,6 +21,8 @@ export default class OurMap extends Component{
         super(props)
         this.setMarker = this.setMarker.bind(this)
         this.drawLines = this.drawLines.bind(this)
+        this.getMarker = this.getMarker.bind(this)
+        this.setMap = this.setMap.bind(this)
     }
 
     getStringMarkerPosition(markerPos) {
@@ -64,15 +66,12 @@ export default class OurMap extends Component{
         if (points.length > 1) { return (<Polyline positions={points} color='red'/>); }
     }
 
-    render(){
+    setMap(){
         let map_center;
         let fit_bounds;
-        let zoom = 17;
-
         if (this.props.markerPositions.length > 0) {
             if (this.props.markerPositions.length == 1) {
                 map_center = [this.props.markerPositions[0].lat, this.props.markerPositions[0].lng];
-                zoom = 17;
             } else {
                 let sortedMarkerPositions = [...this.props.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);
                 fit_bounds = L.latLngBounds(sortedMarkerPositions[0], sortedMarkerPositions[sortedMarkerPositions.length - 1]);
@@ -80,6 +79,15 @@ export default class OurMap extends Component{
         } else {
             map_center = MAP_CENTER_DEFAULT;
         }
+        return [map_center, fit_bounds];
+    }
+
+    render(){
+
+        let value = this.setMap();
+        let map_center = value[0];
+        let fit_bounds = value[1];
+        let zoom = 17;
 
        return (
          <Map
