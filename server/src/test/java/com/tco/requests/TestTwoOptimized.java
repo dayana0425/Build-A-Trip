@@ -2,6 +2,8 @@ package com.tco.requests;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+
+import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -30,22 +32,24 @@ public class TestTwoOptimized {
         HashMap<String, String> place4 = new HashMap<String, String>();
         place4.put("name","Place4");
         place4.put("latitude","40.24");
-        place4.put("longitude","-104.78");
+        place4.put("longitude","-104.73");
         places.add(place4);
         HashMap<String, String> place5 = new HashMap<String, String>();
         place5.put("name","Place5");
         place5.put("latitude","39.97");
-        place5.put("longitude","-106.6");
+        place5.put("longitude","-106.06");
         places.add(place5);
     }
 
     @Test
     @DisplayName("Show the distance metrics")
-    public void getDistance() {
+    public void getDistance() throws BadRequestException {
         this.initialPlaces();
         twoOpt = new TwoOptimized(places.size(), places, earthRadius);
         Long oldD = twoOpt.getRoundTripDistance();
+        twoOpt.twoOptimizedAlgo();
         Long newD = twoOpt.getRoundTripDistance();
+        System.out.println("GWWWddddSAVCDFSSVS");
         System.out.print("the distance is: "+ oldD + " " + newD);
     }
 }
