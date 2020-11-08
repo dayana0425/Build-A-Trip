@@ -10,7 +10,7 @@ import java.util.List;
 public class FindDatabase {
     private Integer limit;
     private int count = 0;
-    private ArrayList<Place> places = new ArrayList<Place>();
+    private ArrayList<Place> places = new ArrayList<>();
     private String match;
     private String isTravis;
     private String useTunnel;
@@ -65,13 +65,10 @@ public class FindDatabase {
     }
 
     public void getQuery() {
-        System.out.println("Narrow: " + narrow);
         if((narrow.getType() == null  && narrow.getWhere() == null) || (narrow.getType().isEmpty() && narrow.getWhere().isEmpty())){
-            System.out.println("No Filters");
             queryWithNoFilters();
         }
         else{
-            System.out.println("Filters");
             queryWithFilters();
         }
     }
@@ -116,8 +113,6 @@ public class FindDatabase {
             filterAdditions += " AND country.name = " + "'" + where.get(i) + "'";
         }
 
-        System.out.println(filterAdditions);
-
         if (checkForTravis()) { //this check is here just in case travis make it's way here for some reason and doesn't fail us
             QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%" + match + "%');";
         } else { //if travis is not present then query becomes -> query + filter additions
@@ -131,7 +126,6 @@ public class FindDatabase {
             }
             QUERY += ";";
         }
-        System.out.println("Query");
     }
 
     //connects to the database and if it's travis it'll run a special query
@@ -200,7 +194,7 @@ public class FindDatabase {
     public void limitPlaces() {
         if (limit != null) {
             if (limit > 0 && limit < places.size()) {
-                places = new ArrayList<Place>(places.subList(0, limit));
+                places = new ArrayList<>(places.subList(0, limit));
             }
         }
     }
