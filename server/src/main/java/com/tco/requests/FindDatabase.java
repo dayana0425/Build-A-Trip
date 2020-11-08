@@ -1,4 +1,5 @@
 package com.tco.requests;
+
 import java.lang.String;
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,19 +18,19 @@ public class FindDatabase {
     private Boolean isRandom = false;
     private Integer limitFound = 0;
 
-    public FindDatabase(String match, Integer limit){
+    public FindDatabase(String match, Integer limit) {
         this.match = match;
         this.limit = limit;
-        if(match == null){
+
+        if (match == null) {
             this.match = getRandomMatch(2);
             this.isRandom = true;
-            if(limit == null || limit == 0)
+            if (limit == null || limit == 0)
                 this.limitFound = 1;
-            if(limit != null && limit >0)
+            if (limit != null && limit > 0)
                 this.limitFound = limit;
-        }
-        else if(match != null){
-            if(limit == null || limit == 0)
+        } else if (match != null) {
+            if (limit == null || limit == 0)
                 this.limit = 100;
         }
     }
@@ -38,22 +39,21 @@ public class FindDatabase {
         String alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
         StringBuilder sb = new StringBuilder(n);
         for (int i = 0; i < n; i++) {
-            int index = (int)(alphaString.length() * Math.random());
+            int index = (int) (alphaString.length() * Math.random());
             sb.append(alphaString.charAt(index));
         }
         return sb.toString();
     }
 
-    public void environment(){
+    public void environment() {
         isTravis = System.getenv("TRAVIS");
         useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
 
-        if(isTravis != null && isTravis.equals("true")) {
+        if (isTravis != null && isTravis.equals("true")) {
             DB_URL = "jdbc:mysql://127.0.0.1/cs314";
             DB_USER = "root";
             DB_PASSWORD = "";
-        }
-        else if (useTunnel != null && useTunnel.equals("true")) {
+        } else if (useTunnel != null && useTunnel.equals("true")) {
             DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";        // the port-number is 56247
             DB_USER = "cs314-db";
             DB_PASSWORD = "eiK5liet1uej";
@@ -88,11 +88,11 @@ public class FindDatabase {
 
             if (isTravis != null && isTravis.equals("true")) {
                 travisGetPlaces(results);
-            } else {
+            }
+            else {
                 masterGetPlaces(results);
             }
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             System.err.println("Exception: " + e.getMessage());
         }
     }
@@ -116,7 +116,7 @@ public class FindDatabase {
         }
     }
 
-    public void masterGetPlaces(ResultSet results) throws SQLException{
+    public void masterGetPlaces(ResultSet results) throws SQLException {
         {
             while (results.next()) {
                 Place p = new Place(
@@ -134,49 +134,45 @@ public class FindDatabase {
                 places.add(p);
                 count++;
             }
-           limitPlaces();
+            limitPlaces();
         }
     }
 
-    public void limitPlaces(){
-        if (limit!=null){
-            if(limit > 0 && limit < places.size()) {
+    public void limitPlaces() {
+        if (limit != null) {
+            if (limit > 0 && limit < places.size()) {
                 places = new ArrayList<Place>(places.subList(0, limit));
             }
         }
     }
 
-    public String getURL(String home_link, String region_wiki, String country_wiki, String continent_wiki){
+    public String getURL(String home_link, String region_wiki, String country_wiki, String continent_wiki) {
         String result = "";
-        if(home_link != null){
+        if (home_link != null) {
             result = home_link;
-        }
-        else if(region_wiki != null){
+        } else if (region_wiki != null) {
             result = region_wiki;
-        }
-        else if(country_wiki != null){
+        } else if (country_wiki != null) {
             result = country_wiki;
-        }
-        else if(continent_wiki != null){
+        } else if (continent_wiki != null) {
             result = continent_wiki;
         }
-
         return result;
     }
 
-    public int getCount(){
+    public int getCount() {
         return this.count;
     }
 
-    public ArrayList<Place> getPlaces(){
+    public ArrayList<Place> getPlaces() {
         return this.places;
     }
 
-    public int getLimitFound(){
+    public int getLimitFound() {
         return this.limitFound;
     }
 
-    public String getMatch(){
+    public String getMatch() {
         return this.match;
     }
 
