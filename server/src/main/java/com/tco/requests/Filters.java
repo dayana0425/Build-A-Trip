@@ -21,4 +21,13 @@ public class Filters {
         db.connect2DB();
         this.where = db.getCountries();
     }
+
+    public List<String> getType(){
+        return type;
+    }
+
+    public List<String> getWhere(){
+        return where;
+    }
+
 }
