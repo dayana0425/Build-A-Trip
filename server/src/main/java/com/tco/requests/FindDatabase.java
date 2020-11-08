@@ -1,15 +1,14 @@
 package com.tco.requests;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import com.tco.misc.BadRequestException;
-
-import javax.management.Query;
 import java.lang.String;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class FindDatabase {
-    private Integer limit = null;
+    private Integer limit;
     private int count = 0;
     private ArrayList<Place> places = new ArrayList<Place>();
     private String match;
@@ -22,6 +21,7 @@ public class FindDatabase {
     private Boolean isRandom = false;
     private Integer limitFound = 0;
     private Filters narrow;
+    private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
 
     public FindDatabase(String match, Integer limit) {
         this.match = match;
@@ -38,22 +38,11 @@ public class FindDatabase {
             if (limit == null || limit == 0)
                 this.limit = 100;
         }
-
     }
 
     public FindDatabase(String match, Integer limit, Filters narrow) {
         this(match, limit);
         this.narrow = narrow;
-    }
-
-    public String getRandomMatch(int n) {
-        String alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
-        StringBuilder sb = new StringBuilder(n);
-        for (int i = 0; i < n; i++) {
-            int index = (int) (alphaString.length() * Math.random());
-            sb.append(alphaString.charAt(index));
-        }
-        return sb.toString();
     }
 
     public void environment() {
@@ -73,10 +62,6 @@ public class FindDatabase {
             DB_USER = "cs314-db";
             DB_PASSWORD = "eiK5liet1uej";
         }
-    }
-
-    public boolean checkForTravis(){
-        return isTravis != null && isTravis.equals("true");
     }
 
     public void getQuery() {
@@ -106,12 +91,24 @@ public class FindDatabase {
         }
     }
 
+    // method handles when narrow is specified so that the query can be narrowed by modifying the WHERE clause
     public void queryWithFilters(){
+        if(narrow.getType() == null || narrow.getWhere() == null){ //check that type and where are not null before doing anything
+            log.debug("Method: queryWithFilters - null input.");
+            return;
+        }
         List<String> type = narrow.getType();
         List<String> where = narrow.getWhere();
         String filterAdditions = "";
 
+        if(type.contains("airport")) { //if airport is specified then we include all airport sizes
+            filterAdditions += " AND (world.type = 'small_airport' OR world.type = 'medium_airport' OR world.type = 'large_airport')";
+        }
+
         for(int i = 0; i < type.size(); i++){
+            if(type.get(i).equals("airport")){
+                continue;
+            }
             filterAdditions += " AND world.type = " + "'" + type.get(i) + "'";
         }
 
@@ -121,34 +118,30 @@ public class FindDatabase {
 
         System.out.println(filterAdditions);
 
-
-        if (checkForTravis()) {
+        if (checkForTravis()) { //this check is here just in case travis make it's way here for some reason and doesn't fail us
             QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%" + match + "%');";
-        } else {
+        } else { //if travis is not present then query becomes -> query + filter additions
             QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
                     "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
                     "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') " +
                     filterAdditions + " " +
                     "ORDER BY world.name ASC";
-            if (this.isRandom) {
+            if (this.isRandom) { //handles random - may not be necessary
                 QUERY += " LIMIT " + Integer.toString(this.limitFound);
             }
             QUERY += ";";
-            System.out.println(QUERY);
         }
+        System.out.println("Query");
     }
 
+    //connects to the database and if it's travis it'll run a special query
     public void connect2DB() {
-        try (
-                Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-                Statement query = conn.createStatement();
-                ResultSet results = query.executeQuery(QUERY);
-        ) {
-
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             Statement query = conn.createStatement();
+             ResultSet results = query.executeQuery(QUERY);) {
             if (isTravis != null && isTravis.equals("true")) {
                 travisGetPlaces(results);
-            }
-            else {
+            } else {
                 masterGetPlaces(results);
             }
         } catch (Exception e) {
@@ -156,6 +149,7 @@ public class FindDatabase {
         }
     }
 
+    //Handles when travis runs out tests
     public void travisGetPlaces(ResultSet results) throws SQLException {
         {
             while (results.next()) {
@@ -175,6 +169,7 @@ public class FindDatabase {
         }
     }
 
+    //master get places - gets all the places returned by the specified query with filter or no filter
     public void masterGetPlaces(ResultSet results) throws SQLException {
         {
             while (results.next()) {
@@ -195,6 +190,11 @@ public class FindDatabase {
             }
             limitPlaces();
         }
+    }
+
+    /* Helper Methods Below */
+    public boolean checkForTravis(){
+        return isTravis != null && isTravis.equals("true");
     }
 
     public void limitPlaces() {
@@ -219,6 +219,17 @@ public class FindDatabase {
         return result;
     }
 
+    public String getRandomMatch(int n) {
+        String alphaString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(n);
+        for (int i = 0; i < n; i++) {
+            int index = (int) (alphaString.length() * Math.random());
+            sb.append(alphaString.charAt(index));
+        }
+        return sb.toString();
+    }
+
+    /* Accessor Methods Below */
     public int getCount() {
         return this.count;
     }
