@@ -2,9 +2,11 @@ package com.tco.requests;
 
 import com.tco.misc.BadRequestException;
 
+import javax.management.Query;
 import java.lang.String;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FindDatabase {
     private Integer limit = null;
@@ -19,8 +21,7 @@ public class FindDatabase {
     private String QUERY;
     private Boolean isRandom = false;
     private Integer limitFound = 0;
-    private Filters narrow = new Filters(new ArrayList<>(), new ArrayList<>());
-
+    private Filters narrow;
 
     public FindDatabase(String match, Integer limit) {
         this.match = match;
@@ -37,6 +38,7 @@ public class FindDatabase {
             if (limit == null || limit == 0)
                 this.limit = 100;
         }
+
     }
 
     public FindDatabase(String match, Integer limit, Filters narrow) {
@@ -63,7 +65,7 @@ public class FindDatabase {
             DB_USER = "root";
             DB_PASSWORD = "";
         } else if (useTunnel != null && useTunnel.equals("true")) {
-            DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314";        // the port-number is 56247
+            DB_URL = "jdbc:mysql://127.0.0.1:56247/cs314"; // the port-number is 56247
             DB_USER = "cs314-db";
             DB_PASSWORD = "eiK5liet1uej";
         } else {
@@ -73,8 +75,24 @@ public class FindDatabase {
         }
     }
 
+    public boolean checkForTravis(){
+        return isTravis != null && isTravis.equals("true");
+    }
+
     public void getQuery() {
-        if (isTravis != null && isTravis.equals("true")) {
+        System.out.println("Narrow: " + narrow);
+        if((narrow.getType() == null  && narrow.getWhere() == null) || (narrow.getType().isEmpty() && narrow.getWhere().isEmpty())){
+            System.out.println("No Filters");
+            queryWithNoFilters();
+        }
+        else{
+            System.out.println("Filters");
+            queryWithFilters();
+        }
+    }
+
+    public void queryWithNoFilters(){
+        if (checkForTravis()) {
             QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%" + match + "%');";
         } else {
             QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
@@ -85,6 +103,38 @@ public class FindDatabase {
                 QUERY += " LIMIT " + Integer.toString(this.limitFound);
             }
             QUERY += ";";
+        }
+    }
+
+    public void queryWithFilters(){
+        List<String> type = narrow.getType();
+        List<String> where = narrow.getWhere();
+        String filterAdditions = "";
+
+        for(int i = 0; i < type.size(); i++){
+            filterAdditions += " AND world.type = " + "'" + type.get(i) + "'";
+        }
+
+        for(int i = 0; i < where.size(); i++){
+            filterAdditions += " AND country.name = " + "'" + where.get(i) + "'";
+        }
+
+        System.out.println(filterAdditions);
+
+
+        if (checkForTravis()) {
+            QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%" + match + "%');";
+        } else {
+            QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
+                    "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
+                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') " +
+                    filterAdditions + " " +
+                    "ORDER BY world.name ASC";
+            if (this.isRandom) {
+                QUERY += " LIMIT " + Integer.toString(this.limitFound);
+            }
+            QUERY += ";";
+            System.out.println(QUERY);
         }
     }
 

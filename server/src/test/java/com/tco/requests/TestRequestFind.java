@@ -14,7 +14,7 @@ public class TestRequestFind {
     private RequestFind find;
 
     @BeforeEach
-    public void creatFindForTestCases() throws BadRequestException {
+    public void createFindForTestCases() throws BadRequestException {
         find = new RequestFind("Dave",10);
         find.buildResponse();
     }

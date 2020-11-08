@@ -11,7 +11,7 @@ public class RequestFind extends RequestHeader{
     private Integer limit = null;
     private Integer found = 0;
     private ArrayList places = new ArrayList<Place>(); //list of places found
-    private Filters narrow;
+    private Filters narrow = new Filters(null, null);
     private final transient Logger log = LoggerFactory.getLogger(RequestFind.class);
 
     public RequestFind() throws BadRequestException {
