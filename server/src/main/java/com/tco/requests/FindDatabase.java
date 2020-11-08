@@ -1,5 +1,7 @@
 package com.tco.requests;
 
+import com.tco.misc.BadRequestException;
+
 import java.lang.String;
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class FindDatabase {
     private String QUERY;
     private Boolean isRandom = false;
     private Integer limitFound = 0;
+    private Filters narrow = new Filters(new ArrayList<>(), new ArrayList<>());
+
 
     public FindDatabase(String match, Integer limit) {
         this.match = match;
@@ -33,6 +37,11 @@ public class FindDatabase {
             if (limit == null || limit == 0)
                 this.limit = 100;
         }
+    }
+
+    public FindDatabase(String match, Integer limit, Filters narrow) {
+        this(match, limit);
+        this.narrow = narrow;
     }
 
     public String getRandomMatch(int n) {

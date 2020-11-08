@@ -4,6 +4,8 @@ import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestFilters {
@@ -13,15 +15,15 @@ public class TestFilters {
     @Test
     @DisplayName("Get Filter Type")
     public void defaultPlace() throws BadRequestException {
-        filters = new Filters();
-        assertEquals(3, filters.getType().size());
+        filters = new Filters(new ArrayList<>(), new ArrayList<>());
+        assertEquals(0, filters.getType().size());
     }
 
 
     @Test
     @DisplayName("Get Filter Where - Countries Only")
     public void mainPlace() throws BadRequestException {
-        filters = new Filters();
-        assertEquals(246,filters.getWhere().size());
+        filters = new Filters(new ArrayList<>(), new ArrayList<>());
+        assertEquals(0,filters.getWhere().size());
     }
 }

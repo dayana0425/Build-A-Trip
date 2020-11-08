@@ -11,14 +11,15 @@ public class RequestFind extends RequestHeader{
     private Integer limit = null;
     private Integer found = 0;
     private ArrayList places = new ArrayList<Place>(); //list of places found
+    private Filters narrow;
     private final transient Logger log = LoggerFactory.getLogger(RequestFind.class);
 
-    public RequestFind(){
+    public RequestFind() throws BadRequestException {
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
         this.requestType = "find";
     }
 
-    public RequestFind(String match, Integer limit){
+    public RequestFind(String match, Integer limit) throws BadRequestException {
         this();
         this.limit = limit;
         this.match = match;
@@ -27,7 +28,7 @@ public class RequestFind extends RequestHeader{
     @Override
     public void buildResponse() throws BadRequestException {
         this.getRequestVersion();
-        FindDatabase fdb = new FindDatabase(match, limit);
+        FindDatabase fdb = new FindDatabase(match, limit, narrow);
         fdb.environment();
         fdb.getQuery();
         fdb.connect2DB();
