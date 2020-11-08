@@ -2,6 +2,7 @@ package com.tco.requests;
 
 import java.lang.String;;
 
+import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 
@@ -14,14 +15,14 @@ public class TestFindDatabase {
 
     @Test
     @DisplayName("If match = \"null\", limit = \"0\"")
-    public void noMatchLimit(){
+    public void noMatchLimit() throws BadRequestException {
         fd = new FindDatabase(null,0);
         assertEquals(1,fd.getLimitFound());
     }
 
     @Test
     @DisplayName("If no match")
-    public void noMatch(){
+    public void noMatch() throws BadRequestException {
         fd = new FindDatabase(null,3);
         assertEquals(2,fd.getMatch().length());
     }
@@ -44,7 +45,7 @@ public class TestFindDatabase {
 
     @Test
     @DisplayName("Test URL for country_link")
-    public void testURL_COUNTRY(){
+    public void testURL_COUNTRY() throws BadRequestException {
         fd = new FindDatabase(null,null);
         String URL = fd.getURL(null,null,"country",null);
         assertEquals("country",URL);
@@ -52,7 +53,7 @@ public class TestFindDatabase {
 
     @Test
     @DisplayName("Test URL for continent_link")
-    public void testURL_CONTINENT(){
+    public void testURL_CONTINENT() throws BadRequestException {
         fd = new FindDatabase(null,null);
         String URL = fd.getURL(null,null,null,"continent");
         assertEquals("continent",URL);

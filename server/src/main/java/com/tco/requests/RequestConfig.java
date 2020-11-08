@@ -1,6 +1,8 @@
 package com.tco.requests;
 import java.lang.String;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.tco.misc.BadRequestException;
@@ -12,6 +14,7 @@ public class RequestConfig extends RequestHeader {
 
   private String serverName;
   private List<String> supportedRequests;
+  private Filters filters;
   private final transient Logger log = LoggerFactory.getLogger(RequestConfig.class);
 
   @Override
@@ -24,6 +27,11 @@ public class RequestConfig extends RequestHeader {
     this.supportedRequests.add("distance");
     this.supportedRequests.add("find");
     this.supportedRequests.add("trip");
+    FiltersDBRequests db = new FiltersDBRequests("country");
+    db.environment();
+    db.getQuery();
+    db.connect2DB();
+    this.filters = new Filters(Arrays.asList("airport", "heliport", "balloonport"), db.getCountries());
     log.trace("buildResponse -> {}", this);
   }
 

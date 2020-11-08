@@ -1,6 +1,8 @@
 package com.tco.requests;
 import com.tco.misc.BadRequestException;
 
+import java.sql.SQLException;
+
 public abstract class RequestHeader {
 
   protected final static int CURRENT_SUPPORTED_VERSION = 4;
