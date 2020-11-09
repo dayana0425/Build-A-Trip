@@ -24,7 +24,7 @@
 | 102-105 | When map reaches max zoom it glitches/shakes - we may need to experiment with the maxBoundViscosity or boundsOptions settings | med | dbilbao | #521 |
 | 39-57 |  why we need this if else? can they just combine together? | med | xinyi99 | |
 | 63-67 |  for drawLines method maybe we also need to show the line between the last destination to "home"  | high | xinyi99 | |
-| 39-56 | similiar code, can we find a more efficient way for getmarker. | med | daynight | |
+| 39-56 | similiar code, can we find a more efficient way for getmarker. | med | daynight | #516 |
 | 2,7 | Combine import for Polyline to the other imports for 'react-strap' | low | rloptien | |
 | 39-56 | Only part that is different is the icon | med | rloptien | |
 | 85-111 | Render function is 26 lines long. Find way to shorten, or declare all variables on same line. | low | mattv | --- |
