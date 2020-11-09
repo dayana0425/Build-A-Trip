@@ -14,7 +14,7 @@
 | rloptien | |
 | xinyi99 | 30 min|
 | mattv | |
-| daynight| |
+| daynight| 15 min |
 
 ### Problems found
 
@@ -24,5 +24,6 @@
 | 102-105 | When map reaches max zoom it glitches/shakes - we may need to experiment with the maxBoundViscosity or boundsOptions settings | med | dbilbao | |
 | 39-57 |  why we need this if else? can they just combine together? | med | xinyi99 | |
 | 63-67 |  for drawLines method maybe we also need to show the line between the last destination to "home"  | high | xinyi99 | |
+| 39-56 | similiar code, can we find a more efficient way for getmarker. | med | daynight | |
 
 ### Results
