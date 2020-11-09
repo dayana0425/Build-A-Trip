@@ -30,31 +30,45 @@ export default class OurMap extends Component{
     }
 
     getMarker() {
-       const initMarker = ref => {
-           if (ref) {
-               ref.leafletElement.openPopup()
-           }
-       };
+        const initMarker = ref => {
+            if (ref) {
+                ref.leafletElement.openPopup()
+            }
+        };
 
-       if (this.props.markerPositions.length > 1) {
-          return (
-             this.props.markerPositions.map((position, idx) =>
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
-                   <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+        let Icon = CURR_LOC_MARKER_ICON;
+        if (this.props.markerPositions.length > 1) {
+            Icon = MARKER_ICON;
+        }
+        return (
+            this.props.markerPositions.map((position, idx) =>
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={Icon}>
+                    <Popup offset={[0, -18]}
+                           className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
                 </Marker>
-             )
-          );
-       }
-       else {
-          return (
-             this.props.markerPositions.map((position, idx) =>
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
-                   <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                </Marker>
-             )
-          );
-       }
+            )
+        );
     }
+
+
+       // if (this.props.markerPositions.length > 1) {
+       //    return (
+       //       this.props.markerPositions.map((position, idx) =>
+       //          <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
+       //             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+       //          </Marker>
+       //       )
+       //    );
+       // }
+       // else {
+       //    return (
+       //       this.props.markerPositions.map((position, idx) =>
+       //          <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
+       //             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+       //          </Marker>
+       //       )
+       //    );
+       // }
 
     setMarker(mapClickInfo) {
        this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
