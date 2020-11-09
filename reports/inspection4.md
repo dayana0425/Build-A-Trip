@@ -11,7 +11,7 @@
 | Name | Preparation Time |
 | ---- | ---- |
 | dbilbao | 20 min |
-| rloptien | |
+| rloptien | 30 min |
 | xinyi99 | 30 min|
 | mattv | |
 | daynight| 15 min |
@@ -25,5 +25,7 @@
 | 39-57 |  why we need this if else? can they just combine together? | med | xinyi99 | |
 | 63-67 |  for drawLines method maybe we also need to show the line between the last destination to "home"  | high | xinyi99 | |
 | 39-56 | similiar code, can we find a more efficient way for getmarker. | med | daynight | |
+| 2,7 | Combine import for Polyline to the other imports for 'react-strap' | low | rloptien | |
+| 39-56 | Only part that is different is the icon | med | rloptien | |
 
 ### Results
