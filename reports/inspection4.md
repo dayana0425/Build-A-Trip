@@ -13,7 +13,7 @@
 | dbilbao | 20 min |
 | rloptien | 30 min |
 | xinyi99 | 30 min|
-| mattv | |
+| mattv | 30 min |
 | daynight| 15 min |
 
 ### Problems found
@@ -27,5 +27,9 @@
 | 39-56 | similiar code, can we find a more efficient way for getmarker. | med | daynight | |
 | 2,7 | Combine import for Polyline to the other imports for 'react-strap' | low | rloptien | |
 | 39-56 | Only part that is different is the icon | med | rloptien | |
+| 85-111 | Render function is 26 lines long. Find way to shorten, or declare all variables on same line. | med | mattv | |
+| 32-57 | getMarker function is also too long for clean code, find way to compartmentalize | low | mattv | |
+| 9-16 | Consider declaring all of our contants in our constants.js file | low | mattv | |
+
 
 ### Results
