@@ -50,26 +50,6 @@ export default class OurMap extends Component{
         );
     }
 
-
-       // if (this.props.markerPositions.length > 1) {
-       //    return (
-       //       this.props.markerPositions.map((position, idx) =>
-       //          <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
-       //             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-       //          </Marker>
-       //       )
-       //    );
-       // }
-       // else {
-       //    return (
-       //       this.props.markerPositions.map((position, idx) =>
-       //          <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
-       //             <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-       //          </Marker>
-       //       )
-       //    );
-       // }
-
     setMarker(mapClickInfo) {
        this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
     }
