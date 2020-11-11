@@ -1,7 +1,6 @@
 package com.tco.requests;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.lang.String;
 import java.sql.*;
 import java.util.ArrayList;
@@ -48,8 +47,7 @@ public class FindDatabase {
     public void environment() {
         isTravis = System.getenv("TRAVIS");
         useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
-
-        if (isTravis != null && isTravis.equals("true")) {
+        if (checkForTravis()) {
             DB_URL = "jdbc:mysql://127.0.0.1/cs314";
             DB_USER = "root";
             DB_PASSWORD = "";
@@ -65,9 +63,7 @@ public class FindDatabase {
     }
 
     public void getQuery() {
-        System.out.println(narrow);
         if((narrow == null) || (narrow.getType() == null  && narrow.getWhere() == null) || (narrow.getType().isEmpty() && narrow.getWhere().isEmpty())){
-            System.out.println("hi");
             queryWithNoFilters();
         }
         else{
@@ -82,90 +78,35 @@ public class FindDatabase {
             QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
                     "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
                     "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') " +
-                    "ORDER BY world.name ASC";
-            if (this.isRandom) {
-                QUERY += " LIMIT " + Integer.toString(this.limitFound);
-            }
-            QUERY += ";";
+                    "ORDER BY world.name ASC" + checkIsRandom();
         }
     }
 
-    // method handles when narrow is specified so that the query can be narrowed by modifying the WHERE clause
     public void queryWithFilters(){
-        if(narrow == null || narrow.getType() == null || narrow.getWhere() == null){ //check that type and where are not null before doing anything
-            log.debug("Method: queryWithFilters - null input.");
-            return;
-        }
         List<String> type = narrow.getType();
         List<String> where = narrow.getWhere();
-        String filterAdditions = "";
-
-        if(type.contains("airport")) { //if airport is specified then we include all airport sizes
-            filterAdditions += " AND (world.type = 'small_airport' OR world.type = 'medium_airport' OR world.type = 'large_airport')";
-        }
-
-        for(int i = 0; i < type.size(); i++){
-            if(type.get(i).equals("airport")){
-                continue;
-            }
-            filterAdditions += " AND world.type = " + "'" + type.get(i) + "'";
-        }
-
-        for(int i = 0; i < where.size(); i++){
-            filterAdditions += " AND country.name = " + "'" + where.get(i) + "'";
-        }
-
-        if (checkForTravis()) { //this check is here just in case travis make it's way here for some reason and doesn't fail us
-            QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%" + match + "%');";
-        } else { //if travis is not present then query becomes -> query + filter additions
-            QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
-                    "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
-                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') " +
-                    filterAdditions + " " +
-                    "ORDER BY world.name ASC";
-            if (this.isRandom) { //handles random - may not be necessary
-                QUERY += " LIMIT " + Integer.toString(this.limitFound);
-            }
-            QUERY += ";";
-        }
+        String filterAdditions = getFilterAdditionsForType(type) + getFilterAdditionsForWhere(where);
+        System.out.println("Everything together: " + filterAdditions);
+        QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
+                "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
+                "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') " + filterAdditions + " " +
+                "ORDER BY world.name ASC" + checkIsRandom();
     }
 
-    //connects to the database and if it's travis it'll run a special query
     public void connect2DB() {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              Statement query = conn.createStatement();
              ResultSet results = query.executeQuery(QUERY);) {
-            if (isTravis != null && isTravis.equals("true")) {
+            if (checkForTravis()) {
                 travisGetPlaces(results);
             } else {
                 masterGetPlaces(results);
             }
         } catch (Exception e) {
-            System.err.println("Exception: " + e.getMessage());
+            log.debug("Exception: " + e.getMessage());
         }
     }
 
-    //Handles when travis runs out tests
-    public void travisGetPlaces(ResultSet results) throws SQLException {
-        {
-            while (results.next()) {
-                Place p = new Place(
-                        results.getString("name"),
-                        results.getString("latitude"),
-                        results.getString("longitude"),
-                        results.getString("id"),
-                        results.getString("altitude"),
-                        results.getString("municipality"),
-                        results.getString("type")
-                );
-                places.add(p);
-                count++;
-            }
-            limitPlaces();
-        }
-    }
-
-    //master get places - gets all the places returned by the specified query with filter or no filter
     public void masterGetPlaces(ResultSet results) throws SQLException {
         {
             while (results.next()) {
@@ -223,6 +164,66 @@ public class FindDatabase {
             sb.append(alphaString.charAt(index));
         }
         return sb.toString();
+    }
+
+    private String getFilterAdditionsForType(List<String> type){
+        String filterAdditions = "";
+        if(type.contains("airport")) { //if airport is specified then we include all airport sizes
+            filterAdditions += " AND (world.type = 'small_airport' OR world.type = 'medium_airport' OR world.type = 'large_airport'";
+        }
+        for(int i = 0; i < type.size(); i++){
+            if(type.get(i).equals("airport")){
+                continue;
+            }
+            else if(i == 0){
+                filterAdditions += "AND ( world.type = '" + type.get(i) + "'" ;
+            }
+            else{
+                filterAdditions += " OR world.type = " + "'" + type.get(i) + "'";
+            }
+        }
+        filterAdditions += ") ";
+        System.out.println("Type: " + filterAdditions);
+        return filterAdditions;
+    }
+
+    private String getFilterAdditionsForWhere(List<String> where){
+        String filterAdditions = "";
+        for(int i = 0; i < where.size(); i++){
+            if(i == 0){
+                filterAdditions += " AND (country.name = '" + where.get(i) + "'" ;
+            }
+            else{
+                filterAdditions += " OR country.name = " + "'" + where.get(i) + "'";
+            }
+        }
+        filterAdditions += ") ";
+        System.out.println("Where: " + filterAdditions);
+        return filterAdditions;
+    }
+
+    private String checkIsRandom(){
+        return (this.isRandom) ? " LIMIT " + Integer.toString(this.limitFound) + ";" : ";";
+    }
+
+    public void travisGetPlaces(ResultSet results) throws SQLException {
+        {
+            while (results.next()) {
+                Place p = new Place(
+                        results.getString("name"),
+                        results.getString("latitude"),
+                        results.getString("longitude"),
+                        results.getString("id"),
+                        results.getString("altitude"),
+                        results.getString("municipality"),
+                        results.getString("type")
+                );
+                places.add(p);
+                count++;
+            }
+            limitPlaces();
+        }
+
     }
 
     /* Accessor Methods Below */
