@@ -65,7 +65,9 @@ public class FindDatabase {
     }
 
     public void getQuery() {
-        if((narrow.getType() == null  && narrow.getWhere() == null) || (narrow.getType().isEmpty() && narrow.getWhere().isEmpty())){
+        System.out.println(narrow);
+        if((narrow == null) || (narrow.getType() == null  && narrow.getWhere() == null) || (narrow.getType().isEmpty() && narrow.getWhere().isEmpty())){
+            System.out.println("hi");
             queryWithNoFilters();
         }
         else{
@@ -90,7 +92,7 @@ public class FindDatabase {
 
     // method handles when narrow is specified so that the query can be narrowed by modifying the WHERE clause
     public void queryWithFilters(){
-        if(narrow.getType() == null || narrow.getWhere() == null){ //check that type and where are not null before doing anything
+        if(narrow == null || narrow.getType() == null || narrow.getWhere() == null){ //check that type and where are not null before doing anything
             log.debug("Method: queryWithFilters - null input.");
             return;
         }
