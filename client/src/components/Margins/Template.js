@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Col, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
 
 export function tableFormat(typeName, valueName, ){
     return(
@@ -13,3 +13,7 @@ export function tableFormat(typeName, valueName, ){
     </Row>
     )
 };
+
+
+
+

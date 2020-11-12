@@ -41,7 +41,7 @@ function testClearAllMarkers(){
 
     atlas.instance().addMarkersToMap("Home", 36, 118);
     atlas.instance().clearAllMarkers();
-    let expectedNumberOfMarker = 1;
+    let expectedNumberOfMarker = 0;
     let actualMarkerPositions = atlas.state().markerPositions.length;
 
     expect(actualMarkerPositions).toEqual(expectedNumberOfMarker);
