@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Button, Col, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row } from "reactstrap";
+import React, {Component, useState} from "react";
+import { Button, Col, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row, UncontrolledCollapse, CardBody, Card } from "reactstrap";
 import { sendServerRequest, isJsonResponseValid } from "../../utils/restfulAPI";
 import * as configSchema from "../../../schemas/ResponseConfig";
 import {tableFormat} from './Template.js'
@@ -12,15 +12,14 @@ export default class ServerSettings extends Component {
         this.state = {
             inputText: this.props.serverSettings.serverPort,
             validServer: null,
-            config: {}
+            config: {},
+            modal: false
         };
         this.saveInputText = this.state.inputText;
 
     }
 
-
     render() {
-        this.getCurretnSupportedRequest
         return (
             <div>
                 <Modal isOpen={this.props.isOpen} toggle={() => this.props.toggleOpen()}>
@@ -29,23 +28,43 @@ export default class ServerSettings extends Component {
                      this.getProperties("serverName"),
                      this.getProperties("requestVersion"),
                      this.getProperties("requestType"),
-                     this.getProperties("supportedRequests"))}
+                     this.getProperties("supportedRequests"),
+                     this.getProperties("filters")
+                    )}
                     {this.renderActions()}
                 </Modal>
             </div>
         );
     }
 
-    renderSettings(currentServerName, currentVersion, currentType, currentSupportedRequests) {
+    renderSettings(currentServerName, currentVersion, currentType, currentSupportedRequests, filters) {
         return (
             <ModalBody>
                { tableFormat("Name",currentServerName)}
                { tableFormat("URL",this.renderInputField())}
                { tableFormat("Type", currentType)}
                { tableFormat("Version", currentVersion)}
-               { tableFormat("Supported Requests", currentSupportedRequests)
-               }
+               { tableFormat("Supported Requests", JSON.stringify(currentSupportedRequests))}
+               { tableFormat("Filter by Type", JSON.stringify(filters.type))}
+               { tableFormat("Filter by Where", this.seeMore(JSON.stringify(filters.where)))}
             </ModalBody>
+        );
+    }
+
+    seeMore(text){
+        return (
+            <div>
+                <Button size = "sm" color="primary" id="toggler" style={{ marginBottom: '1rem' }}>
+                    View All
+                </Button>
+                <UncontrolledCollapse toggler="#toggler">
+                    <Card>
+                        <CardBody>
+                            {(text) ? text.replace(/[\[\]"]+/g,'').replace(/,/g, ', ') : ''}
+                        </CardBody>
+                    </Card>
+                </UncontrolledCollapse>
+            </div>
         );
     }
 
@@ -80,10 +99,9 @@ export default class ServerSettings extends Component {
     }
 
     getProperties(type){
-        let value = this.props.serverSettings.serverConfig && this.state.validServer=== null ?
-                                                    this.props.serverSettings.serverConfig[type]: "";
+        let value = this.props.serverSettings.serverConfig && this.state.validServer=== null ? this.props.serverSettings.serverConfig[type]: "";
         if(this.state.config && Object.keys(this.state.config).length > 0) {
-                    value = this.state.config[type];
+            value = this.state.config[type];
          }
          return value;
     }
@@ -124,4 +142,5 @@ export default class ServerSettings extends Component {
             config: false
         });
     }
+
 }
