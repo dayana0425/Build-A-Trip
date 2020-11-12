@@ -60,7 +60,7 @@ public class RequestTrip extends RequestHeader{
     }
 
 
-    public Long[] optimization() throws BadRequestException{
+    public void optimization() throws BadRequestException{
         Long[][] distanceMatrix = calculateDistance();
         int num = this.places.size();
         System.out.println("hi" +num);
@@ -74,6 +74,7 @@ public class RequestTrip extends RequestHeader{
             NearestNeighbor nn = new NearestNeighbor(num,distanceMatrix);
             nn.nearestNeighbor();
             trip = nn.getTrip();
+            getOptimizedArray(trip);
 //            if(num <= 50){
 //                TwoOptimized two = new TwoOptimized(num,distanceMatrix,trip);
 //                two.optimization();
@@ -83,12 +84,22 @@ public class RequestTrip extends RequestHeader{
 //                trip = three.getTrip();
     //        }
         }
-        for(int i=0; i< num; i++){
-            distances[i] = distanceMatrix[trip[i]][trip[(i+1)%num]];
+        for(int i=0; i< num; i++) {
+            distances[i] = distanceMatrix[trip[i]][trip[(i + 1) % num]];
         }
-        return distances;
     }
 
+
+    public void getOptimizedArray(int[] trip){
+        ArrayList optimizedPlaces = new ArrayList<HashMap>();
+        for(int i=0; i<this.places.size(); i++){
+            HashMap singlePlace = this.places.get(trip[i]);
+            optimizedPlaces.add(singlePlace);
+        }
+        HashMap first = this.places.get(trip[0]);
+        this.places = optimizedPlaces;
+
+    }
 
 
     @Override
