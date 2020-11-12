@@ -12,7 +12,6 @@ public class FindDatabase {
     private ArrayList<Place> places = new ArrayList<>();
     private String match;
     private String isTravis;
-    private String useTunnel;
     private String DB_URL;
     private String DB_USER;
     private String DB_PASSWORD;
@@ -27,7 +26,7 @@ public class FindDatabase {
         this.limit = limit;
 
         if (match == null) {
-            this.match = getRandomMatch(2);
+            this.match = getRandomMatch(1);
             this.isRandom = true;
             if (limit == null || limit == 0)
                 this.limitFound = 1;
@@ -46,7 +45,7 @@ public class FindDatabase {
 
     public void environment() {
         isTravis = System.getenv("TRAVIS");
-        useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
+        String useTunnel = System.getenv("CS314_USE_DATABASE_TUNNEL");
         if (checkForTravis()) {
             DB_URL = "jdbc:mysql://127.0.0.1/cs314";
             DB_USER = "root";
@@ -63,6 +62,10 @@ public class FindDatabase {
     }
 
     public void getQuery() {
+        QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
+                "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
+                "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') ";
+
         if((narrow == null) || (narrow.getType() == null  && narrow.getWhere() == null) || (narrow.getType().isEmpty() && narrow.getWhere().isEmpty())){
             queryWithNoFilters();
         }
@@ -75,10 +78,7 @@ public class FindDatabase {
         if (checkForTravis()) {
             QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%" + match + "%');";
         } else {
-            QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
-                    "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
-                    "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') " +
-                    "ORDER BY world.name ASC" + checkIsRandom();
+            QUERY += "ORDER BY world.name ASC" + checkIsRandom();
         }
     }
 
@@ -86,17 +86,13 @@ public class FindDatabase {
         List<String> type = narrow.getType();
         List<String> where = narrow.getWhere();
         String filterAdditions = getFilterAdditionsForType(type) + getFilterAdditionsForWhere(where);
-        System.out.println("Everything together: " + filterAdditions);
-        QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
-                "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
-                "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') " + filterAdditions + " " +
-                "ORDER BY world.name ASC" + checkIsRandom();
+        QUERY += filterAdditions + " " + "ORDER BY world.name ASC" + checkIsRandom();
     }
 
     public void connect2DB() {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
              Statement query = conn.createStatement();
-             ResultSet results = query.executeQuery(QUERY);) {
+             ResultSet results = query.executeQuery(QUERY)) {
             if (checkForTravis()) {
                 travisGetPlaces(results);
             } else {
@@ -172,33 +168,35 @@ public class FindDatabase {
             filterAdditions += " AND (world.type = 'small_airport' OR world.type = 'medium_airport' OR world.type = 'large_airport'";
         }
         for(int i = 0; i < type.size(); i++){
-            if(type.get(i).equals("airport")){
-                continue;
-            }
-            else if(i == 0){
-                filterAdditions += "AND ( world.type = '" + type.get(i) + "'" ;
-            }
-            else{
-                filterAdditions += " OR world.type = " + "'" + type.get(i) + "'";
+            if(!type.get(i).equals("airport")){
+                if(i == 0){
+                    filterAdditions += "AND ( world.type = '" + type.get(i) + "'" ;
+                }
+                else{
+                    filterAdditions += " OR world.type = " + "'" + type.get(i) + "'";
+                }
             }
         }
-        filterAdditions += ") ";
-        System.out.println("Type: " + filterAdditions);
-        return filterAdditions;
+        return checkLengthForFilterAdditions(filterAdditions);
     }
 
     private String getFilterAdditionsForWhere(List<String> where){
         String filterAdditions = "";
         for(int i = 0; i < where.size(); i++){
             if(i == 0){
-                filterAdditions += " AND (country.name = '" + where.get(i) + "'" ;
+                filterAdditions += " AND (country.name LIKE '" + where.get(i) + "'" ;
             }
             else{
-                filterAdditions += " OR country.name = " + "'" + where.get(i) + "'";
+                filterAdditions += " OR country.name LIKE " + "'" + where.get(i) + "'";
             }
         }
-        filterAdditions += ") ";
-        System.out.println("Where: " + filterAdditions);
+        return checkLengthForFilterAdditions(filterAdditions);
+    }
+
+    private String checkLengthForFilterAdditions(String filterAdditions){
+        if (filterAdditions.length() > 0) {
+            filterAdditions += ") ";
+        }
         return filterAdditions;
     }
 
