@@ -24,7 +24,7 @@ public class TestFindDatabase {
     @DisplayName("If no match")
     public void noMatch() throws BadRequestException {
         fd = new FindDatabase(null,3);
-        assertEquals(2,fd.getMatch().length());
+        assertEquals(1,fd.getMatch().length());
     }
 
     @Test
