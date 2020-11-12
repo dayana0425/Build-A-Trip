@@ -7,16 +7,25 @@ import java.util.HashMap;
 
 public class TwoOptimized {
     private int [] tour; // holds the ordered list of places to visit
-    private long [][] distances; // the distance between cities
-    private long roundTripDistance; // will hold the resulting optimized round trip distance
+    private Long [][] distances; // the distance between cities
     private int size; // saves the size of the matrix
 
 
-    TwoOptimized(int size, long[][] distances, int[] tour) throws BadRequestException {
+    TwoOptimized(int size, Long[][] distances, int[] tour) throws BadRequestException {
         /* INITIALIZING */
         this.size = size;
         this.distances = distances;
         this.tour = tour;
+    }
+
+    public void reverse(int index1, int index2){
+        while(index1<index2) {
+            int temp = tour[index1];
+            tour[index1] = tour[index2];
+            tour[index2] = temp;
+            index1 ++;
+            index2 --;
+        }
     }
 
     public void optimization(){
@@ -27,8 +36,8 @@ public class TwoOptimized {
             for(int k = i+2; k<size; k++){
                 long delta = distances[tour[i]][tour[i+1]] + distances[tour[k]][tour[(k+1)%size]] - distances[tour[i]][tour[k]]- distances[tour[i+1]][tour[(k+1)%size]];
                 if(delta > 0){
-                    //reverse(i,k);
-
+                    reverse(i,k);
+                    improvement = true;
                 }
             }
         }
@@ -41,13 +50,6 @@ public class TwoOptimized {
         return tour;
     }
 
-    //Accessor Method: returns the optimized round trip result
-    public long getRoundTripDistance(){
-        return roundTripDistance;
-    }
-
-    //Accessor Method: returns the distance matrix
-    public long[][] getDistanceMatrix(){ return distances; }
 }
 
 
