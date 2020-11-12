@@ -15,10 +15,10 @@ export default class ItineraryTable extends Component{
             distances: [],
             showDistance: false
         }
-
         this.changeTripName = this.changeTripName.bind(this);
         this.requestTrip = this.requestTrip.bind(this);
         this.clearDistance = this.clearDistance.bind(this);
+        this.uploadTrip = this.uploadTrip.bind(this);
     }
 
     changeTripName(event){
@@ -32,29 +32,29 @@ export default class ItineraryTable extends Component{
                 options:this.state.options,
                 places: this.props.placesForItinerary
             })
-            .then(trip => {
-                if (trip) {
-                    this.setState({tripName: trip.data.options.title});
-                    if (trip.data.distances) {
-                        this.setState({distances: trip.data.distances});
-                        this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
-                        this.setState({showDistance: true})
+                .then(trip => {
+                    if (trip) {
+                        this.setState({tripName: trip.data.options.title});
+                        if (trip.data.distances) {
+                            this.setState({distances: trip.data.distances});
+                            this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
+                            this.setState({showDistance: true})
+                        }
+                    } else {
+                        console.error('Error');
                     }
-                } else {
-                    console.error('Error');
-                }
-            });
+                });
      }
 
      getTripTable(places){
          return (
              <List>
-                 { places.map((place, index) =>
+                 {places.map((place, index) =>
                      <ListItem key={index}>
                          <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
                          <ListItemText primary={((index != 0 && this.state.showDistance) ? "Distance: " + this.state.distances[index-1] : "" )}/>
-                     </ListItem>)
-                 }
+                     </ListItem>
+                 )}
              </List>
          )
      }
@@ -73,6 +73,42 @@ export default class ItineraryTable extends Component{
         }, 0);
      }
 
+    onUploadChange(event) {
+       const scope = this;
+       let file = event.target;
+       //if (file) {
+           const reader = new FileReader();
+           reader.onload = async (event) => {
+               const data = (reader.result);
+               //console.log(reader.result.substring(0, 200));
+               scope.uploadTrip(data);
+           };
+           reader.readAsText(file.files[0]);
+       //}
+       //console.log("test");
+    }
+
+    uploadTrip(data) {
+        const text = JSON.parse(data);
+       // this.props.placesForItinerary.push(text);
+        var loadFilePositions = []
+        loadFilePositions.push(text);
+        if(loadFilePositions ){
+        console.log(loadFilePositions[0].places)
+        var positions = loadFilePositions[0].places;
+        console.log(positions);
+        positions.forEach((index) =>{
+            console.log(index);
+            let latitude = parseFloat(index.latitude);
+            let longitude = parseFloat(index.longitude);
+           console.log(index.name, latitude, longitude);
+            this.props.addMarkersToMap(index.name, latitude, longitude);
+        });
+
+          this.getTripTable(loadFilePositions);
+        }
+    }
+
     clearDistance(){
         {this.props.clearAllMarkers()};
         this.setState({distance: []});
@@ -89,7 +125,7 @@ export default class ItineraryTable extends Component{
                                 <Button color="primary" onClick={(e) => {this.requestTrip(e)}}>Enter</Button>
                          </InputGroupAddon> &nbsp;
                          <Button color="primary" onClick={() => {this.saveFile(JSON.stringify(this.props.placesForItinerary), this.state.tripName, 'application/json')}}>Save Trip</Button>
-                         <Input type="file" name="file"></Input>
+                         <Input type="file" onChange={(e) => {this.onUploadChange(e)}} >Upload</Input>
                       </InputGroup>
                       <h2> Itinerary {this.state.tripName} </h2>
                        {this.getTripTable(this.props.placesForItinerary)}
@@ -102,7 +138,4 @@ export default class ItineraryTable extends Component{
             </Collapse>
     )}
 }
-
-
-
 
