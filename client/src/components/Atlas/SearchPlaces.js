@@ -1,19 +1,36 @@
 import React, {Component} from 'react';
+import Select from 'react-select';
 import { Button,  Alert, InputGroup, InputGroupAddon, Input, Table } from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
+
 
 export default class SearchPlaces extends Component{
     constructor(props){
         super(props)
+        this.requestFilter()
         this.state = {
            searching: null,
            places: [], //for find places component
            found: 0,
            results: 0,
+
         }
     }
 
     render() {
+        //console.log("hello there" + this.state.filter);
+        let filter = this.state.filterCountries;
+        console.log(filter);
+        let options = [];
+        let type = []
+        var x;
+        if(filter){
+        filter.forEach(x =>{
+            //console.log(x);
+            options.push({ value: x, label: x})
+        })
+        }
+
         return (
             <div>
                 <InputGroup>
@@ -26,6 +43,19 @@ export default class SearchPlaces extends Component{
                     <Button color="primary" onClick={(e) => {this.handleClick(e)}}>Search</Button>
                         </InputGroupAddon>
                     </InputGroup>
+
+                       <Select
+                       options= {options}
+                       isMulti
+                       onChange={this.handleFilter}
+                       />
+                       <Select
+                       options= {[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
+                       isMulti
+                       onChange={this.handleFilterType}
+                       />
+
+
                     <Table bordered hover striped>
                         {this.renderTableHeader()}
                         <tbody>{this.renderTable(this.state.places)}</tbody>
@@ -35,9 +65,42 @@ export default class SearchPlaces extends Component{
             );
         }
 
+        handleFilter = (selected)=> {
+            this.setState({filters:selected})
+        }
+
+        handleFilterType = (selected)=> {
+            this.setState({filtersType:selected})
+        }
+
+        requestFilter() {
+                    sendServerRequest({requestType: "config", requestVersion: 4})
+                        .then(config => {
+                            if (config) {
+                                console.log(config);
+                                this.setState({filterCountries: config.data.filters.where});
+                            } else {
+                                console.error('Error');
+                            }
+                        });
+                }
+
      requestMatch(inputValue) {
             const {places} = this.state;
-            sendServerRequest({requestType: "find", requestVersion: 4, match: inputValue, limit: 5, places: []})
+            let filters = [];
+            let options = this.state.filters;
+            var x;
+            options.forEach( x => {
+                filters.push(this.convertInputString(x.label));
+            })
+            let types = [];
+            let optionsType = this.state.filtersType;
+            var x;
+            optionsType.forEach( x => {
+            console.log(x);
+                types.push(this.convertInputString(x.label));
+            })
+            sendServerRequest({requestType: "find", requestVersion: 4, match: inputValue, limit: 5, places: [], narrow: {type: types, where: filters}})
                 .then(find => {
                     if (find) {
                         this.setState({places: find.data.places, found: find.data.found, results: find.data.places.length});
@@ -50,13 +113,16 @@ export default class SearchPlaces extends Component{
                 });
         }
 
+
     handleChange = (event) => {
        this.setState({[event.target.name]: event.target.value});
     }
 
     handleClick() {
+
         let match = this.convertInputString(this.state.searching)
         this.requestMatch(match)
+
     }
 
     convertInputString(searching) {
@@ -86,12 +152,14 @@ export default class SearchPlaces extends Component{
             const {id, name, longitude, latitude} = place
             return(
                 <tr key={id}>
-                    <td> {name} </td>
+                    <td>
+                       {name}
+                    </td>
                     <td>
                        <Button variant="primary" onClick={() => {this.props.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
                     </td>
                 </tr>
             )
         })
+       }
     }
-}
