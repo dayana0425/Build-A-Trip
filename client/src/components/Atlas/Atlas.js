@@ -15,7 +15,6 @@ export default class Atlas extends Component {
         super(props);
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
-        this.requestCurrentLocation = this.requestCurrentLocation.bind(this);
 
         this.state = {
             markerPosition: null,
@@ -34,12 +33,12 @@ export default class Atlas extends Component {
                             {this.renderTabs()}
                              <OurMap
                                      markerPositions = {this.state.markerPositions}
-                                     requestCurrentLocation = {this.requestCurrentLocation}
+                                     requestCurrentLocation = {this.props.requestCurrentLocation}
                                      addMarkersToMap = {this.addMarkersToMap}/>
                              <ClearButton
                                      clearAllMarkers= {this.clearAllMarkers}
                                      markerPositions = {this.state.markerPositions}
-                                     requestCurrentLocation = {this.requestCurrentLocation}
+                                     requestCurrentLocation = {this.props.requestCurrentLocation}
                                      addMarkersToMap = {this.addMarkersToMap}/>
                              <ItineraryButton
                                      placesForItinerary = {this.state.placesForItinerary}
@@ -91,20 +90,8 @@ export default class Atlas extends Component {
 
     /* END OF TABS */
     clearAllMarkers(){ // clears all markers and returns to home - TO DO: clear distances
-        this.setState({markerPositions: this.state.markerPositions.splice(0,1)});
-        this.setState({placesForItinerary: this.state.placesForItinerary.splice(0,1)});
-    }
-
-    requestCurrentLocation() {
-        self = this
-        if ("geolocation" in navigator) {
-            navigator.geolocation.getCurrentPosition(
-                function (position) {
-                    self.addMarkersToMap("Home", position.coords.latitude, position.coords.longitude);},
-                function (error) {
-                    console.error("Error Code = " + error.code + " - " + error.message);});
-        }
-        else { console.error("Not Available"); }
+        this.setState({markerPositions: this.state.markerPositions.splice(0,0)});
+        this.setState({placesForItinerary: this.state.placesForItinerary.splice(0,0)});
     }
 
     addMarkersToMap(placeName, lat, long) {
@@ -115,7 +102,4 @@ export default class Atlas extends Component {
         //this.getBounds(coords);
 
     }
-
-
-
 }
