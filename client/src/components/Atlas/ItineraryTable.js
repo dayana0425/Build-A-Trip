@@ -15,6 +15,7 @@ export default class ItineraryTable extends Component{
             distances: [],
             showDistance: false
         }
+
         this.changeTripName = this.changeTripName.bind(this);
         this.requestTrip = this.requestTrip.bind(this);
         this.clearDistance = this.clearDistance.bind(this);
@@ -31,29 +32,29 @@ export default class ItineraryTable extends Component{
                 options:this.state.options,
                 places: this.props.placesForItinerary
             })
-                .then(trip => {
-                    if (trip) {
-                        this.setState({tripName: trip.data.options.title});
-                        if (trip.data.distances) {
-                            this.setState({distances: trip.data.distances});
-                            this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
-                            this.setState({showDistance: true})
-                        }
-                    } else {
-                        console.error('Error');
+            .then(trip => {
+                if (trip) {
+                    this.setState({tripName: trip.data.options.title});
+                    if (trip.data.distances) {
+                        this.setState({distances: trip.data.distances});
+                        this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
+                        this.setState({showDistance: true})
                     }
-                });
+                } else {
+                    console.error('Error');
+                }
+            });
      }
 
      getTripTable(places){
          return (
              <List>
-                 {places.map((place, index) =>
+                 { places.map((place, index) =>
                      <ListItem key={index}>
                          <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
                          <ListItemText primary={((index != 0 && this.state.showDistance) ? "Distance: " + this.state.distances[index-1] : "" )}/>
-                     </ListItem>
-                 )}
+                     </ListItem>)
+                 }
              </List>
          )
      }

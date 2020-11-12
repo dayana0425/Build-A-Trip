@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Row, Col} from 'reactstrap';
 import ItineraryTable from './ItineraryTable';
+
 export default class ClearButton extends Component {
 
     constructor(props) {
