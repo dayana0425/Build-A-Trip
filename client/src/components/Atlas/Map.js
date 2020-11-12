@@ -46,6 +46,7 @@ export default class OurMap extends Component{
     drawLines(){
         let points = [];
         this.props.markerPositions.forEach((position) => { points.push([position.lat, position.lng]) });
+        if(points.length > 2){ points.push(points[0]); }
         if (points.length > 1) { return (<Polyline positions={points} color='red'/>); }
     }
 
