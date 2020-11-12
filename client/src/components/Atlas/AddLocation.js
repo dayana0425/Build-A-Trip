@@ -12,6 +12,7 @@ export default class AddLocation extends Component{
         this.handleChangeLatitude = this.handleChangeLatitude.bind(this)
         this.handleChangeLongitude = this.handleChangeLongitude.bind(this)
         this.handleCoordinateSubmit = this.handleCoordinateSubmit.bind(this)
+        this.requestCurrentLocation = this.requestCurrentLocation.bind(this)
     }
 
     handleChangeLatitude = (event) => {
@@ -24,6 +25,18 @@ export default class AddLocation extends Component{
 
     handleCoordinateSubmit() {
         this.props.addMarkersToMap("User's Typed Coordinates", this.state.lat, this.state.lng);
+    }
+
+    requestCurrentLocation() {
+        self = this
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    self.props.addMarkersToMap("Home", position.coords.latitude, position.coords.longitude);},
+                function (error) {
+                    console.error("Error Code = " + error.code + " - " + error.message);});
+        }
+        else { console.error("Not Available"); }
     }
 
      render() {
@@ -39,6 +52,9 @@ export default class AddLocation extends Component{
                  </Form>
                     <Button color="primary" style={{marginTop: 10, marginBottom: 10}} onClick={() => this.handleCoordinateSubmit()}>
                         Add Location
+                    </Button>
+                    <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={() => this.requestCurrentLocation()}>
+                        Current Location
                     </Button>
              </Col>
          )
