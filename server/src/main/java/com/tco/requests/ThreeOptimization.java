@@ -22,6 +22,11 @@ public class ThreeOptimization {
 
 
     public void reverse(int index1, int index2){
+        if(index1 > index2){
+            int temp = index1;
+            index1 = index2;
+            index2 = temp;
+        }
         while(index1<index2) {
             int temp = tour[index1];
             tour[index1] = tour[index2];
@@ -44,6 +49,17 @@ public class ThreeOptimization {
         reverse(i,j);
     }
 
+    public Long getCompareDistance(int index1, int index2, int index3, int index4, int index5, int index6){
+        int p1 = tour[index1];
+        int p2 = tour[index2];
+        int p3 = tour[index3];
+        int p4 = tour[index4];
+        int p5 = tour[index5];
+        int p6 = tour[index6 % num];
+        Long result = distances[p1][p2] + distances[p3][p4] + distances[p5][p6];
+        return result;
+    }
+
 
     public void threeOptimize(){
         boolean improvement = true;
@@ -53,21 +69,21 @@ public class ThreeOptimization {
                 for ( int j = i+1; j < num-1; j++){
                     for ( int k=j+1; k < num; k++){
                         Long [] compare = new Long [8];
-                        compare[0]= distances[tour[i]][tour[i+1]] + distances[tour[j]][tour[j+1]] + distances[tour[k]][tour[(k+1)%num]];
+                        compare[0] = getCompareDistance(i,i+1,j,j+1,k,k+1);
                         //reverse(i+1, j)
-                        compare[1] = distances[tour[i]][tour[j]] + distances[tour[i+1]][tour[j+1]] + distances[tour[k]][tour[(k+1)%num]];
+                        compare[1] = getCompareDistance(i,j,i+1,j+1,k,k+1);
                         // reverse(j+1, k)
-                        compare[2] = distances[tour[i]][tour[i+1]] +distances[tour[j]][tour[k]] + distances[tour[j+1]][tour[(k+1)%num]];
-                        // reverse(i+1, k)
-                        compare[4] = distances[tour[i]][tour[k]] + distances[tour[j]][tour[j+1]] + distances[tour[i+1]][tour[(k+1)%num]];
+                        compare[2] = getCompareDistance(i,i+1,j,k,j+1,k+1);
                         // reverse(i+1,j) and (k,j+1)
-                        compare[3] = distances[tour[i]][tour[j]] + distances[tour[i+1]][tour[k]] + distances[tour[j+1]][tour[(k+1)%num]];
-                        //first reverse(i+1, k) and then reverse (j+1, k)
-                        compare[6] = distances[tour[i]][tour[k]] + distances[tour[j+1]][tour[i+1]] + distances[tour[j]][tour[(k+1)%num]];
-                        //first reverse(i+1, k) and then reverse (i+1, j)
-                        compare[5] = distances[tour[i]][tour[j+1]] + distances[tour[k]][tour[j]] + distances[tour[i+1]][tour[(k+1)%num]];
-                        //first reverse(i+1, k) -> (i+1, j) -> (j+1, k)
-                        compare[7] = distances[tour[i]][tour[j+1]] + distances[tour[k]][tour[i+1]] + distances[tour[j]][tour[(k+1)%num]];
+                        compare[3] = getCompareDistance(i,j,i+1,k,j+1,k+1);
+                        // reverse(i+1, k)
+                        compare[4] = getCompareDistance(i,k,j,j+1,i+1,k+1);
+                        // reverse(i+1, k) -> (i+1, j)
+                        compare[5] = getCompareDistance(i,j+1,k,j,i+1,k+1);
+                        // reverse(i+1,k) -> (k,j+1)
+                        compare[6] = getCompareDistance(i,k,j+1,i+1,j,k+1);
+                        // reverse(i+1, k) -> (i+1, j) -> (j+1, k)
+                        compare[7] = getCompareDistance(i,j+1,k,i+1,j,k+1);
                         Long best = compare[0];
                         int index = 0;
                         for(int it =0 ; it<8; it++){
