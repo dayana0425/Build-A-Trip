@@ -1,10 +1,9 @@
 import React,{Component} from 'react'
-import {Map, Marker, Popup, TileLayer} from 'react-leaflet';
+import {Map, Marker, Popup, TileLayer, Polyline} from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import currentLocationIcon from '../../static/images/home-marker-icon.png';
 import 'leaflet/dist/leaflet.css';
-import {Polyline} from 'react-leaflet';
 
 const MAP_BOUNDS = [[-90, -180], [90, 180]];
 const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
@@ -30,30 +29,24 @@ export default class OurMap extends Component{
     }
 
     getMarker() {
-       const initMarker = ref => {
-           if (ref) {
-               ref.leafletElement.openPopup()
-           }
-       };
+        const initMarker = ref => {
+            if (ref) {
+                ref.leafletElement.openPopup()
+            }
+        };
 
-       if (this.props.markerPositions.length > 1) {
-          return (
-             this.props.markerPositions.map((position, idx) =>
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
-                   <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+        let Icon = CURR_LOC_MARKER_ICON;
+        if (this.props.markerPositions.length > 1) {
+            Icon = MARKER_ICON;
+        }
+        return (
+            this.props.markerPositions.map((position, idx) =>
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={Icon}>
+                    <Popup offset={[0, -18]}
+                           className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
                 </Marker>
-             )
-          );
-       }
-       else {
-          return (
-             this.props.markerPositions.map((position, idx) =>
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={CURR_LOC_MARKER_ICON}>
-                   <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                </Marker>
-             )
-          );
-       }
+            )
+        );
     }
 
     setMarker(mapClickInfo) {
