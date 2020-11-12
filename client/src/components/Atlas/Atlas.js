@@ -41,6 +41,7 @@ export default class Atlas extends Component {
                                      addMarkersToMap = {this.addMarkersToMap}/>
                              <ItineraryButton
                                      placesForItinerary = {this.state.placesForItinerary}
+                                     addMarkersToMap = {this.addMarkersToMap}
                                      clearAllMarkers = {this.clearAllMarkers}/>
                         </Col>
                     </Row>
@@ -95,8 +96,11 @@ export default class Atlas extends Component {
     }
 
     addMarkersToMap(placeName, lat, long) {
+        console.log(placeName + " " + lat + " " +long);
         let coords = L.latLng(lat, long);
+        console.log(coords);
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
+        console.log(this.state.markerPositions);
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
     }
 }
