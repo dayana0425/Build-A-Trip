@@ -45,8 +45,8 @@ export default class ServerSettings extends Component {
                { tableFormat("Type", currentType)}
                { tableFormat("Version", currentVersion)}
                { tableFormat("Supported Requests", JSON.stringify(currentSupportedRequests))}
-               { tableFormat("Filter by Type", (filters) ? JSON.stringify(filters.type) : "")}
-               { tableFormat("Filter by Where", this.seeMore( (filters) ? JSON.stringify(filters.where) : ""))}
+               { tableFormat("Filter Type", (filters) ? JSON.stringify(filters.type) : "")}
+               { tableFormat("Filter Where", this.seeMore( (filters) ? JSON.stringify(filters.where) : ""))}
             </ModalBody>
         );
     }

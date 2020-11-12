@@ -1,18 +1,8 @@
-import React,{Component} from 'react'
+import React, {Component} from 'react'
 import {Map, Marker, Popup, TileLayer, Polyline} from 'react-leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import currentLocationIcon from '../../static/images/home-marker-icon.png';
 import 'leaflet/dist/leaflet.css';
 
-const MAP_BOUNDS = [[-90, -180], [90, 180]];
-const MAP_CENTER_DEFAULT = [40.5734, -105.0865];
-const MARKER_ICON = L.icon({iconUrl: icon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
-const CURR_LOC_MARKER_ICON = L.icon({iconUrl: currentLocationIcon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
-const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
-const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-const MAP_MIN_ZOOM = 1;
-const MAP_MAX_ZOOM = 19;
+import {MAP_BOUNDS, MAP_CENTER_DEFAULT, MARKER_ICON, CURR_LOC_MARKER_ICON, MAP_LAYER_ATTRIBUTION, MAP_LAYER_URL, MAP_MIN_ZOOM, MAP_MAX_ZOOM} from "../../utils/constants";
 
 export default class OurMap extends Component{
 

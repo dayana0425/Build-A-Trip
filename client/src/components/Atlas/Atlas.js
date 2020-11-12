@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Col, Container, Row, Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap';
 import classnames from 'classnames';
 
-/* Components */
 import AddLocation from './AddLocation';
 import ClearButton from './ClearButton';
 import ItineraryButton from './ItineraryButton';
@@ -89,17 +88,15 @@ export default class Atlas extends Component {
     }
 
     /* END OF TABS */
+
     clearAllMarkers(){ // clears all markers and returns to home - TO DO: clear distances
         this.setState({markerPositions: this.state.markerPositions.splice(0,0)});
         this.setState({placesForItinerary: this.state.placesForItinerary.splice(0,0)});
     }
 
     addMarkersToMap(placeName, lat, long) {
-        console.log(this.state.markerPositions);
         let coords = L.latLng(lat, long);
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
-        //this.getBounds(coords);
-
     }
 }

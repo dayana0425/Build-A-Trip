@@ -1,5 +1,4 @@
- import React, { Component } from "react";
-
+import React, { Component } from "react";
 import { Collapse } from "reactstrap";
 
 import Header from "./Margins/Header";

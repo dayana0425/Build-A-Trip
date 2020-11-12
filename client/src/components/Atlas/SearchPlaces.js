@@ -50,7 +50,6 @@ export default class SearchPlaces extends Component{
                 });
         }
 
-
     handleChange = (event) => {
        this.setState({[event.target.name]: event.target.value});
     }
@@ -87,9 +86,7 @@ export default class SearchPlaces extends Component{
             const {id, name, longitude, latitude} = place
             return(
                 <tr key={id}>
-                    <td>
-                       {name}
-                    </td>
+                    <td> {name} </td>
                     <td>
                        <Button variant="primary" onClick={() => {this.props.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
                     </td>
@@ -97,9 +94,4 @@ export default class SearchPlaces extends Component{
             )
         })
     }
-
-
-
-
-
 }
