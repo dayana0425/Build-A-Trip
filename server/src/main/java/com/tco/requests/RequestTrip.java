@@ -1,11 +1,13 @@
 package com.tco.requests;
+
 import com.tco.misc.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.lang.String;
+import java.lang.System;
+import java.lang.Long;
 
 public class RequestTrip extends RequestHeader{
     private HashMap<String,String> options = new HashMap<String, String>();
@@ -13,43 +15,86 @@ public class RequestTrip extends RequestHeader{
     private Long[] distances;
     private final transient Logger log = LoggerFactory.getLogger(RequestTrip.class);
 
+
     public RequestTrip(){
         this.requestType = "trip";
         this.requestVersion = RequestHeader.CURRENT_SUPPORTED_VERSION;
 
     }
 
-    public RequestTrip(HashMap options2, ArrayList places) throws BadRequestException {
+    public RequestTrip(HashMap options1, ArrayList places) throws BadRequestException {
         this();
-        options.putAll(options2);
+        options.putAll(options1);
         this.places = places;
-        this.distance();
-
     }
 
-    public void distance() throws BadRequestException {
-        int len = places.size();
-        distances = new Long[len];
+    public Long[][] calculateDistance() throws BadRequestException {    //get the distance matrix
+        Long[][] distanceMatrix;
         Double earthRadius = Double.parseDouble(options.get("earthRadius"));
-        for(int i = 0; i < len; i++){
-            HashMap place1 = places.get(i%len);
-            HashMap place2 = places.get((i+1)%len);
-            String lat1 = (String)place1.get("latitude");
-            String lon1 = (String)place1.get("longitude");
-            String lat2 = (String)place2.get("latitude");
-            String lon2 = (String)place2.get("longitude");
-            RequestDistance rd =  new RequestDistance(earthRadius,lat1,lon1,lat2,lon2);
-            rd.buildResponse();
-            distances[i] = rd.getDistance();
-
+        int num = this.places.size();
+        distanceMatrix = new Long[num][num];
+        for(int i=0; i< num; i++){
+            for(int j=i; j< num; j++) {
+                HashMap place1 = places.get(i);
+                HashMap place2 = places.get(j);
+                String lat1 = (String)place1.get("latitude");
+                String lon1 = (String)place1.get("longitude");
+                String lat2 = (String)place2.get("latitude");
+                String lon2 = (String)place2.get("longitude");
+                RequestDistance rd =  new RequestDistance(earthRadius,lat1,lon1,lat2,lon2);
+                rd.buildResponse();
+                Long currentDistance = rd.getDistance();
+                distanceMatrix[i][j] = currentDistance;
+                distanceMatrix[j][i] = currentDistance;
+            }
         }
+        return distanceMatrix;
     }
+
+    public int[] initiaTrip(int num){
+        int[] trip = new int[num];
+        for(int i=0; i< num; i++){
+            trip[i] = i;
+        }
+        return trip;
+    }
+
+
+    public Long[] optimization() throws BadRequestException{
+        Long[][] distanceMatrix = calculateDistance();
+        int num = this.places.size();
+        System.out.println("hi" +num);
+        distances = new Long[num];
+        int[]trip;
+        String requirement = options.get("response");
+        if(requirement == null || num <4  || num > 380 || requirement.equals("0.0")){
+            trip = initiaTrip(num);
+        }
+        else{
+            NearestNeighbor nn = new NearestNeighbor(num,distanceMatrix);
+            nn.nearestNeighbor();
+            trip = nn.getTrip();
+//            if(num <= 50){
+//                TwoOptimized two = new TwoOptimized(num,distanceMatrix,trip);
+//                two.optimization();
+//                two.getTour();
+//                ThreeOptimization three = new ThreeOptimization(distanceMatrix,num,trip);
+//                three.threeOptimize();
+//                trip = three.getTrip();
+    //        }
+        }
+        for(int i=0; i< num; i++){
+            distances[i] = distanceMatrix[trip[i]][trip[(i+1)%num]];
+        }
+        return distances;
+    }
+
 
 
     @Override
-    public void buildResponse() throws BadRequestException {
+    public void buildResponse()throws BadRequestException {
         this.getOptions();
-        this.distance();
+        this.optimization();
     }
 
     public Long[] getDistance(){
@@ -61,4 +106,5 @@ public class RequestTrip extends RequestHeader{
     }
 
     public ArrayList<HashMap> getPlaces() { return places; }
+
 }

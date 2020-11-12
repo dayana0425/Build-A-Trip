@@ -15,24 +15,35 @@ public class TestRequestTrip {
     private HashMap<String,String> options = new HashMap<String, String>();
     private ArrayList places = new ArrayList<HashMap>();
 
-    private void initialOptionsPlaces(){
-        options.put("title","My Trip");
-        options.put("earthRadius","3959.0");
+    private void initialOptionsPlaces() {
+        options.put("title", "My Trip");
+        options.put("earthRadius", "3959.0");
+        options.put("response","1.0");
         HashMap<String, String> place1 = new HashMap<String, String>();
-        place1.put("name","Denver");
-        place1.put("latitude","39.7");
-        place1.put("longitude","-105.0");
+        place1.put("name", "Place1");
+        place1.put("latitude", "40.573");
+        place1.put("longitude", "-105.09");
         places.add(place1);
         HashMap<String, String> place2 = new HashMap<String, String>();
-        place2.put("name","Boulder");
-        place2.put("latitude","40.0");
-        place2.put("longitude","-105.4");
+        place2.put("name", "Place2");
+        place2.put("latitude", "39.7");
+        place2.put("longitude", "-105.5");
         places.add(place2);
         HashMap<String, String> place3 = new HashMap<String, String>();
-        place3.put("name","Fort Collins");
-        place3.put("longitude","-105.1");
-        place3.put("latitude","40.6");
+        place3.put("name", "Place3");
+        place3.put("latitude", "40.4");
+        place3.put("longitude", "-105.96");
         places.add(place3);
+        HashMap<String, String> place4 = new HashMap<String, String>();
+        place4.put("name", "Place4");
+        place4.put("latitude", "40.24");
+        place4.put("longitude", "-104.73");
+        places.add(place4);
+        HashMap<String, String> place5 = new HashMap<String, String>();
+        place5.put("name", "Place5");
+        place5.put("latitude", "39.97");
+        place5.put("longitude", "-106.06");
+        places.add(place5);
     }
 
     @BeforeEach
@@ -57,10 +68,10 @@ public class TestRequestTrip {
     }
 
     @Test
-    @DisplayName("The first place is \"Denver\"")
+    @DisplayName("The first place is \"Boulder\"")
     public void testPlacesName(){
         ArrayList<HashMap> place = trip.getPlaces();
-        assertEquals("Denver", place.get(0).get("name"));
+        assertEquals("Place1", place.get(0).get("name"));
     }
 
     @Test
@@ -71,24 +82,24 @@ public class TestRequestTrip {
     }
 
     @Test
-    @DisplayName("The first distance should be 30")
+    @DisplayName("The first distance should be 44")
     public void testDistance4FirstPlace(){
         Long[] distance = trip.getDistance();
         assertEquals(30,distance[0]);
     }
 
     @Test
-    @DisplayName("The first distance should be 4")
+    @DisplayName("The second distance should be 54")
     public void testDistance4SecondPlace(){
         Long[] distance = trip.getDistance();
-        assertEquals(44,distance[1]);
+        assertEquals(55,distance[1]);
     }
 
     @Test
-    @DisplayName("The first distance should be 62")
+    @DisplayName("The third distance should be 66")
     public void testDistance4ThirdPlace(){
         Long[] distance = trip.getDistance();
-        assertEquals(62,distance[2]);
+        assertEquals(35,distance[2]);
     }
 
 }
