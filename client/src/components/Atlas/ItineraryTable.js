@@ -75,7 +75,9 @@ export default class ItineraryTable extends Component{
 
     clearDistance(){
         {this.props.clearAllMarkers()};
-        this.setState({distance: []});
+        this.setState({distances: []});
+        this.setState({showDistance: false});
+        this.setState({roundTrip: 0});
     }
 
     render(){
@@ -95,7 +97,7 @@ export default class ItineraryTable extends Component{
                        {this.getTripTable(this.props.placesForItinerary)}
                       <h3>{"Round Trip Distance (mi): " + this.state.distances.reduce(function (a, b) {return a + b;}, 0)}</h3>
                        <Button color="primary" style={{marginTop: 10}} onClick= {this.clearDistance}>
-                           Reset
+                           Reset Trip
                        </Button>
                   </CardBody>
                 </Card>
