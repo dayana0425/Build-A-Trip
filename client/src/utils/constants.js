@@ -29,5 +29,5 @@ export const MARKER_ICON = L.icon({iconUrl: icon, shadowUrl: iconShadow, iconAnc
 export const CURR_LOC_MARKER_ICON = L.icon({iconUrl: currentLocationIcon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
 export const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 export const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-export const MAP_MIN_ZOOM = 1;
+export const MAP_MIN_ZOOM = 2;
 export const MAP_MAX_ZOOM = 19;

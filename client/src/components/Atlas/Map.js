@@ -3,6 +3,7 @@ import {Map, Marker, Popup, TileLayer, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import {MAP_BOUNDS, MAP_CENTER_DEFAULT, MARKER_ICON, CURR_LOC_MARKER_ICON, MAP_LAYER_ATTRIBUTION, MAP_LAYER_URL, MAP_MIN_ZOOM, MAP_MAX_ZOOM} from "../../utils/constants";
+import ClearButton from "./ClearButton";
 
 export default class OurMap extends Component{
 
@@ -12,6 +13,11 @@ export default class OurMap extends Component{
         this.drawLines = this.drawLines.bind(this)
         this.getMarker = this.getMarker.bind(this)
         this.setMap = this.setMap.bind(this)
+        this.toggle = this.toggle.bind(this)
+
+        this.state = {
+            showLine: true
+        };
     }
 
     getStringMarkerPosition(markerPos) {
@@ -44,10 +50,17 @@ export default class OurMap extends Component{
     }
 
     drawLines(){
-        let points = [];
-        this.props.markerPositions.forEach((position) => { points.push([position.lat, position.lng]) });
-        if(points.length > 2){ points.push(points[0]); }
-        if (points.length > 1) { return (<Polyline positions={points} color='red'/>); }
+        if (this.state.showLine) {
+            let points = [];
+            this.props.markerPositions.forEach((position) => { points.push([position.lat, position.lng]) });
+            if(points.length > 2){ points.push(points[0]); }
+            if (points.length > 1) { return (<Polyline positions={points} color='red'/>); }
+        }
+    }
+
+    toggle() {
+        console.log("hi")
+        this.setState({showLine: !this.state.showLine});
     }
 
     setMap(){
@@ -89,6 +102,8 @@ export default class OurMap extends Component{
            useFlyTo={true}
            maxBoundsViscosity={1.0}>
            <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
+             <ClearButton
+                 toggle = {this.toggle}/>
            {this.getMarker()}
            {this.drawLines()}
          </Map>
