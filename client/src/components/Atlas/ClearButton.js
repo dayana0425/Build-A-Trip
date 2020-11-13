@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button} from 'reactstrap';
+import {Button, Col, Row} from 'reactstrap';
 
 export default class ClearButton extends Component{
 
@@ -9,9 +9,17 @@ export default class ClearButton extends Component{
 
     render(){
         return(
-            <Button color="primary" style={{marginTop: 10}} onClick= {this.props.clearAllMarkers}>
-                Reset
-            </Button>
+            <Row>
+                <Col>
+                    <Button color="primary" style={{marginTop: 10}} onClick={this.props.toggle}>
+                        Show Line
+                    </Button>
+                    <Button color="primary" style={{marginTop: 10, marginLeft: 10}} onClick= {this.props.clearAllMarkers}>
+                        Reset
+                    </Button>
+                </Col>
+            </Row>
+
         )
     }
 }
