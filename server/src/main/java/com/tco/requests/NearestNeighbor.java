@@ -26,29 +26,35 @@ public class NearestNeighbor {
         }
     }
 
+    public int[] getNearestNeighbor(int star_point){
+        int current = star_point;
+        int index = 0;
+        int[] trip = new int[len];
+        while(visited[current]==false){        // get the round trip tour
+            visited[current] = true;           // this place has been visited
+            trip[index] = current;             // this is the order of visiting a place
+            int next = current;                          // next location
+            Long min = Long.MAX_VALUE;
+            for(int i =0; i < len ; i++){
+                if (i == current)
+                    continue;
+                if((distance[current][i] < min) && (!visited[i])){
+                    min = distance[current][i];
+                    next = i;
+                }
+            }
+            current = next;
+            index ++;
+        }
+        return trip;
+    }
+
+
 
     public void nearestNeighbor(){
         Long roundTripDistance = 0L;
-        for(int p =0; p < len; p++){                //for each starting city
-            int current = p;
-            int index = 0;
-            int[] trip = new int[len];
-            while(visited[current]==false){        // get the round trip tour
-                visited[current] = true;           // this place has been visited
-                trip[index] = current;             // this is the order of visiting a place
-                int next = current;                          // next location
-                Long min = Long.MAX_VALUE;
-                for(int i =0; i < len ; i++){
-                    if (i == current)
-                        continue;
-                    if((distance[current][i] < min) && (!visited[i])){
-                        min = distance[current][i];
-                        next = i;
-                    }
-                }
-                current = next;
-                index ++;
-            }
+        for(int p =0;  p < len; p++){                //for each starting city
+            int[] trip = getNearestNeighbor(p);
             Long roundDistance = 0L;
             for(int i =0; i<len; i++){
                 roundDistance += distance[trip[i]][trip[(i+1)%len]];

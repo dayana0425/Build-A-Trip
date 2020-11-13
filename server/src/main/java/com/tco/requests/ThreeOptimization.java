@@ -60,6 +60,18 @@ public class ThreeOptimization {
         return result;
     }
 
+    public int getBestvalue(Long[] result){
+        int best = result[0];
+        int index = 0;
+        for(int i =0 ; i<8; i++){
+            if(result[i] <  best){
+                best = result[i];
+                index = i;
+            }
+        }
+        return index;
+    }
+
 
     public void threeOptimize(){
         boolean improvement = true;
@@ -84,23 +96,16 @@ public class ThreeOptimization {
                         compare[6] = getCompareDistance(i,k,j+1,i+1,j,k+1);
                         // reverse(i+1, k) -> (i+1, j) -> (j+1, k)
                         compare[7] = getCompareDistance(i,j+1,k,i+1,j,k+1);
-                        Long best = compare[0];
-                        int index = 0;
-                        for(int it =0 ; it<8; it++){
-                            if(compare[it] <  best){
-                                best = compare[it];
-                                index = it;
-                            }
-                        }
+                        int index = getBestvalue(compare);
                         if(index != 0){
                             reversePlaces(index, i, j, k);
                             improvement = true;
                        }
-                        }
                     }
                 }
             }
         }
+    }
 
     public int[] getTrip(){
         return tour;
