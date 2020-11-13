@@ -52,9 +52,9 @@ For this epic, we plan to ask friends, classmates, and instructors to get their 
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | 5 | *count* |
-| Tasks | 24 | *count* | 
-| Story Points |  48  | *sum* | 
+| Epics | 5 | *4* |
+| Tasks | 24 | *42* | 
+| Story Points |  48  | *64* | 
 
 ### Metrics Outlook
 We as a team feel like we did very well in Sprint 3 and overall it was our best sprint as a team, and our outlook for Sprint 4 looks very promising. One of our big goals for this sprint is to refactor our Atlas.js file into child components of atlas. We also believe we can up our test coverage from the 69.9% it was last sprint to greater than 70% once we refactor. In Sprint 3, we finished 39 tasks and 54 story points and we think we can get very close to that number once again. We were all very busy last sprint because of midterms, but we still did very well which was exciting. With continued effective communication and cooperation, we believe we can be one of the top teams during this sprint.
@@ -68,25 +68,41 @@ We as a team feel like we did very well in Sprint 3 and overall it was our best 
 | *Nov. 2, 2020* | *#450* | *#274, #275, #391, #433, #437, #438, #439, #449, #476, #480* |  |
 | *Nov. 4, 2020* | *#391, #476, #480* | *#274, #275, #433, #437, #438, #439, #449, #465, #488* |  |
 | *Nov. 6, 2020* | *#274, #433, #437, #438, #439, #449, #488* | *#275, #426, #427, #428, #465, #469* |  |
+| *Nov. 12, 2020* | *#274, #275, #391, #426, #427, #428, #431, #433, #434, #437, #438, #439, #447, #449, #450, #465, #469, #476, #480, #488* |  |  |
 
 
 ## Review
 
-### Epics done  
+### Epics done 
+
+We finished 4 Epics: v4 Protocol, Build a Trip, Filter Search, and User Experience
 
 ### Epics not done 
 
+We did not finish Shorter, we are about halfway done with completing it. Nearest neighbor works. 
+
 ### What went well
+
+We had great teamwork this Sprint. Whenever someone encountered a problem they made it known to the team and we worked together to overcome difficulties. We also were successful in refactoring our files and Atlas.js which we had a lot of trouble with in Sprint 3. 
 
 ### Problems encountered and resolutions
 
+Similar to what went well, we were very good in working together to find a resolution. We had some issues with the Shorter epic and implementations of the algorithms. Another problem we had at the beginning of this sprint was that our tasks were not specific enough and we ended up doing some different things than what the task was originally intended to do. 
 
 ## Retrospective
 
 ### What we changed this sprint
 
+Our teamwork is continuously improving and got better throughout this sprint. We also focused more on clean code from the start rather than writing unclean code and needing to fix it toward the end of the sprint. 
+
 ### What went well
+
+We had success communicating with each other, and thus, writing individual code and having it come together and work successfully. Refactoring was also a great thing we got completed this sprint and made our code much more readable and navigatable. 
 
 ### Potential improvements
 
+We feel we can improve on time management and getting a jump on the sprint earlier. 
+
 ### What we will change next time
+
+We will start working on the sprint earlier and we will also try to improve our clean code more. We also will add more tests and test coverage. 
