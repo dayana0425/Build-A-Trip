@@ -73,6 +73,18 @@ export default class ItineraryTable extends Component{
         }, 0);
      }
 
+     saveFileFormat(){
+        var format = {
+            requestType: "trip",
+            requestVersion: 4,
+            title: this.state.tripName,
+            earthRadius: 3959.0,
+            places: this.props.placesForItinerary
+        }
+
+        return format;
+     }
+
     onUploadChange(event) {
        const scope = this;
        let file = event.target;
@@ -90,7 +102,6 @@ export default class ItineraryTable extends Component{
 
     uploadTrip(data) {
         const text = JSON.parse(data);
-       // this.props.placesForItinerary.push(text);
         var loadFilePositions = []
         loadFilePositions.push(text);
         if(loadFilePositions ){
@@ -101,10 +112,10 @@ export default class ItineraryTable extends Component{
             console.log(index);
             let latitude = parseFloat(index.latitude);
             let longitude = parseFloat(index.longitude);
-           console.log(index.name, latitude, longitude);
+            console.log(index.name, latitude, longitude);
             this.props.addMarkersToMap(index.name, latitude, longitude);
         });
-
+          // this.props.addMarkersByArrayToMap(positions);
           this.getTripTable(loadFilePositions);
         }
     }
@@ -126,7 +137,7 @@ export default class ItineraryTable extends Component{
                          <InputGroupAddon addonType="append">
                                 <Button color="primary" onClick={(e) => {this.requestTrip(e)}}>Enter</Button>
                          </InputGroupAddon> &nbsp;
-                         <Button color="primary" onClick={() => {this.saveFile(JSON.stringify(this.props.placesForItinerary), this.state.tripName, 'application/json')}}>Save Trip</Button>
+                         <Button color="primary" onClick={() => {this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')}}>Save Trip</Button>
                          <Input type="file" onChange={(e) => {this.onUploadChange(e)}} >Upload</Input>
                       </InputGroup>
                       <h2> Itinerary {this.state.tripName} </h2>
