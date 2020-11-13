@@ -16,7 +16,7 @@ export default class OurMap extends Component{
         this.toggle = this.toggle.bind(this)
 
         this.state = {
-            showLine: false
+            showLine: true
         };
     }
 
