@@ -61,7 +61,7 @@ public class ThreeOptimization {
     }
 
     public int getBestvalue(Long[] result){
-        int best = result[0];
+        Long best = result[0];
         int index = 0;
         for(int i =0 ; i<8; i++){
             if(result[i] <  best){

@@ -63,7 +63,6 @@ public class RequestTrip extends RequestHeader{
     public void optimization() throws BadRequestException{
         Long[][] distanceMatrix = calculateDistance();
         int num = this.places.size();
-        System.out.println("hi" +num);
         distances = new Long[num];
         int[]trip;
         String requirement = options.get("response");
