@@ -12,8 +12,7 @@ export default class SearchPlaces extends Component{
            searching: null,
            places: [], //for find places component
            found: 0,
-           results: 0,
-
+           results: 0
         }
     }
 
@@ -90,16 +89,24 @@ export default class SearchPlaces extends Component{
             let filters = [];
             let options = this.state.filters;
             var x;
-            options.forEach( x => {
-                filters.push(this.convertInputString(x.label));
-            })
+
+            if(options){
+                options.forEach( x => {
+                    filters.push(this.convertInputString(x.label));
+                })
+            }
+
             let types = [];
             let optionsType = this.state.filtersType;
             var x;
-            optionsType.forEach( x => {
-            console.log(x);
-                types.push(this.convertInputString(x.label));
-            })
+
+            if(optionsType){
+                optionsType.forEach( x => {
+                    console.log(x);
+                    types.push(this.convertInputString(x.label));
+                })
+            }
+
             sendServerRequest({requestType: "find", requestVersion: 4, match: inputValue, limit: 5, places: [], narrow: {type: types, where: filters}})
                 .then(find => {
                     if (find) {
