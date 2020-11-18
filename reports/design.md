@@ -375,8 +375,6 @@ We still need to optimize trips on our client-side. We are planning to add a but
 
 ![class diagram](../team/images/sprint5-shorter-ui.jpeg)
 
-**UI**
-
 ### User Experience
 
 **Component Hierarchy**
@@ -415,3 +413,24 @@ After clicking "Save File" button, it will have a pop up and contains 4 differen
 
 ![class diagram](../team/images/File_Format_UI.jpeg)
 
+### Where is?
+
+**Component Hierarchy**
+
+This is our component hierarchy below. It shows that we change our initial files to "AddLocation.js".
+
+![class diagram](../team/images/sprint5-whereIs-componentH.jpg)
+
+**Class Diagram**
+
+The class diagram below shows that we have a file called "AddLocation.js" with more specific functions to achieve Where is.
+
+![class diagram](../team/images/sprint5-whereIs-classDiagram.jpg)
+
+**UI**
+
+In this epic, Where is, we plan to accept the latitude and longitude that users enter with a variety of formats.
+Before we can just accept the format that we can use in our code. In this epic, we will accept other formats by checking validation.
+Then we will converse the atitude and longitude to the format that wo can use to do calculation.
+
+![class diagram](../team/images/sprint5-whereIs-UI.jpg)
