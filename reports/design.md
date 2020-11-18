@@ -371,6 +371,12 @@ For "Shorter", we are planning to add two more classes to implement the related 
 
 **UI**
 
+We still need to optimize trips on our client-side. We are planning to add a button to the itinerary that will optimize the trip for the user. It will display a shorter round trip distance than it originally was and it will update the new order on the itinerary and on the map as well.  
+
+![class diagram](../team/images/sprint5-shorter-ui.jpeg)
+
+**UI**
+
 ### User Experience
 
 **Component Hierarchy**
