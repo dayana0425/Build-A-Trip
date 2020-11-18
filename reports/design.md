@@ -434,3 +434,21 @@ Before we can just accept the format that we can use in our code. In this epic, 
 Then we will converse the atitude and longitude to the format that wo can use to do calculation.
 
 ![class diagram](../team/images/sprint5-whereIs-UI.jpg)
+
+### Place Details
+
+**Component Hierarchy**
+
+This is our component hierarchy for the place details epic. We have the component to add a location by requesting current location and by coordinates in this file, so we are going to add the component for reverse geocoding here.
+
+![class diagram](../team/images/sprint5_places_details_hierarchy.png)
+
+**Class Diagram**
+
+No changes to the class diagram are planned.
+
+**UI**
+
+This is how are UI will look for the changes made for the Place Details epic. We have a pop up above the marker on the map displaying both the latitude/longitude and a description of the marker place. We will alos display this information in the itinerary.
+
+![class diagram](../team/images/sprint5_places_details_UI.png)
