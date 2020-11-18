@@ -17,15 +17,13 @@ export default class SearchPlaces extends Component{
     }
 
     render() {
-        //console.log("hello there" + this.state.filter);
         let filter = this.state.filterCountries;
-        console.log(filter);
         let options = [];
         let type = []
         var x;
+
         if(filter){
         filter.forEach(x =>{
-            //console.log(x);
             options.push({ value: x, label: x})
         })
         }
@@ -76,7 +74,6 @@ export default class SearchPlaces extends Component{
                     sendServerRequest({requestType: "config", requestVersion: 4})
                         .then(config => {
                             if (config) {
-                                console.log(config);
                                 this.setState({filterCountries: config.data.filters.where});
                             } else {
                                 console.error('Error');
@@ -102,7 +99,6 @@ export default class SearchPlaces extends Component{
 
             if(optionsType){
                 optionsType.forEach( x => {
-                    console.log(x);
                     types.push(this.convertInputString(x.label));
                 })
             }
