@@ -2,7 +2,7 @@
  
 | Inspection | Details |
 | ----- | ----- |
-| Subject | *INSERT FILENAME HERE*|
+| Subject | *FILENAME HERE*|
 | Meeting | *November 20, 2020* |
 | Checklist | *t16/reports/checklist.md* |
 
