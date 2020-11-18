@@ -354,3 +354,22 @@ Our current plan for Search Places is to implement drop down menus that allow fo
 
 
 # Sprint 5
+
+
+### File Format
+
+**Component Hierarchy**
+
+The component hierarchy for the file format depicted below shows our top level App component with the children components that related to saveing file format.
+
+- Due to support multiple file formats, we decided to add one more component inside "Itinerary Table". This can handle all the stuff related to files.
+![class diagram](../team/images/File_Format_Component.jpeg)
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI**
+
+After clicking "Save File" button, it will have a pop up and contains 4 different choices, which contains JSON, KML, SVG, CSV. Users can choose one of these four choices to decide the saving file format. 
+![class diagram](../team/images/File_Format_UI.jpeg)
