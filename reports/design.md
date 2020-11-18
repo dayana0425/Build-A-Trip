@@ -388,3 +388,24 @@ Next, we'll be relocating our reset button to be on the map for there to be less
 Lastly, when loading a BIG trip, it takes a really long time to load on the map - we'll be improving this for usefullness and efficiency of our service. 
 
 ![class diagram](../team/images/sprint5-ui-user-exp.jpeg)
+
+### File Format
+
+**Component Hierarchy**
+
+The component hierarchy for the file format depicted below shows our top level App component with the children components that related to saveing file format.
+
+- Due to support multiple file formats, we decided to add one more component inside "Itinerary Table". This can handle all the stuff related to files.
+
+![class diagram](../team/images/File_Format_Component.jpeg)
+
+**Class Diagram**
+
+No changes to the Class Diagram are planned.
+
+**UI**
+
+After clicking "Save File" button, it will have a pop up and contains 4 different choices, which contains JSON, KML, SVG, CSV. Users can choose one of these four choices to decide the saving file format. 
+
+![class diagram](../team/images/File_Format_UI.jpeg)
+
