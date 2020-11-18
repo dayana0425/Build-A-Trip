@@ -2,7 +2,7 @@
  
 | Inspection | Details |
 | ----- | ----- |
-| Subject | *FILENAME HERE*|
+| Subject | *NearestNeighbor.java*|
 | Meeting | *November 20, 2020* |
 | Checklist | *t16/reports/checklist.md* |
 
