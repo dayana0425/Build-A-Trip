@@ -355,6 +355,39 @@ Our current plan for Search Places is to implement drop down menus that allow fo
 
 # Sprint 5
 
+### Shorter
+
+**Component Hierarchy**
+
+The Component hierarchy for "Shorter" depicted below shows our top-level App component and all other components related to the trip and other stuff(Because we have refactored our Atlas.js, we want to show our new hierarchy).
+
+![class diagram](../team/images/component-hierarchy.jpeg)
+
+**Class Diagram**
+
+For "Shorter", we are planning to add two more classes to implement the related algorithms, one for "nearest neighbor" and the other for "User Concurrency"
+
+![class diagram](../team/images/class-diagram.jpeg)
+
+**UI**
+
+### User Experience
+
+**Component Hierarchy**
+
+Our component hierarchy is shown below. Atlas is the parent of Map and Map will be the parent of Map Buttons. Map Buttons will be responsible for rendering all buttons which will show up on the map. 
+
+![class diagram](../team/images/sprint5-component-h.jpeg)
+
+**UI**
+
+For our user experience we are focusing on adding useful features and als o making our website less cluttered.
+The new features we are adding are intended to make utilizing our service more useful and efficient to creating a trip. 
+The two new functionalities we are adding are toggling between lines/no line & toggling between marks/no markers. These will be buttons added onto the map for convinence and less clutter. 
+Next, we'll be relocating our reset button to be on the map for there to be less clutter on our website. 
+Lastly, when loading a BIG trip, it takes a really long time to load on the map - we'll be improving this for usefullness and efficiency of our service. 
+
+![class diagram](../team/images/sprint5-ui-user-exp.jpeg)
 
 ### File Format
 
@@ -363,6 +396,7 @@ Our current plan for Search Places is to implement drop down menus that allow fo
 The component hierarchy for the file format depicted below shows our top level App component with the children components that related to saveing file format.
 
 - Due to support multiple file formats, we decided to add one more component inside "Itinerary Table". This can handle all the stuff related to files.
+
 ![class diagram](../team/images/File_Format_Component.jpeg)
 
 **Class Diagram**
@@ -372,4 +406,6 @@ No changes to the Class Diagram are planned.
 **UI**
 
 After clicking "Save File" button, it will have a pop up and contains 4 different choices, which contains JSON, KML, SVG, CSV. Users can choose one of these four choices to decide the saving file format. 
+
 ![class diagram](../team/images/File_Format_UI.jpeg)
+

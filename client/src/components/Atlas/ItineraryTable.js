@@ -88,16 +88,12 @@ export default class ItineraryTable extends Component{
     onUploadChange(event) {
        const scope = this;
        let file = event.target;
-       //if (file) {
            const reader = new FileReader();
            reader.onload = async (event) => {
                const data = (reader.result);
-               //console.log(reader.result.substring(0, 200));
                scope.uploadTrip(data);
            };
            reader.readAsText(file.files[0]);
-       //}
-       //console.log("test");
     }
 
     uploadTrip(data) {
@@ -105,17 +101,12 @@ export default class ItineraryTable extends Component{
         var loadFilePositions = []
         loadFilePositions.push(text);
         if(loadFilePositions ){
-        console.log(loadFilePositions[0].places)
         var positions = loadFilePositions[0].places;
-        console.log(positions);
         positions.forEach((index) =>{
-            console.log(index);
             let latitude = parseFloat(index.latitude);
             let longitude = parseFloat(index.longitude);
-            console.log(index.name, latitude, longitude);
             this.props.addMarkersToMap(index.name, latitude, longitude);
         });
-          // this.props.addMarkersByArrayToMap(positions);
           this.getTripTable(loadFilePositions);
         }
     }
