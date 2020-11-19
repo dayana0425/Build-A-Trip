@@ -452,3 +452,26 @@ No changes to the class diagram are planned.
 This is how are UI will look for the changes made for the Place Details epic. We have a pop up above the marker on the map displaying both the latitude/longitude and a description of the marker place. We will alos display this information in the itinerary.
 
 ![class diagram](../team/images/sprint5_places_details_UI.png)
+
+### Modify a Trip
+
+**Component Hierarchy**
+
+This is the component heirarchy for Modify a Trip. We allow the user 5 new options to modify a trip: Select new starting location, reorder trip, remove destinations, add destination notes, and reverse the order of the trip
+
+![class diagram](../team/images/ModifyTripComponentHeirarchy.jpg)
+
+
+**Class Diagram**
+
+No changes to the class diagram are planned.
+
+**UI**
+
+This is how we plan the UI will look for Modify a trip. All changes will be made in the itinerary section. Note that there will be three new buttons for each destination in the itinerary: Make starting location, remove destination, and add destination notes. Additionally, by dragging and dropping, you will be able to reorder the trip. There is also an option at the bottom of the table to reverse the trip order. 
+
+![class diagram](../team/images/ModifyTripUI.jpg)
+
+
+
+
