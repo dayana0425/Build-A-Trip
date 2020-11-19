@@ -22,8 +22,10 @@
 | --- | --- | :---: | :---: | --- |
 | 3 | unused import| low | dbilbao | |
 | 13 | unused variable| low | dbilbao | |
-| 17 | unnecessary Arrays.fill because the default values of a boolean array is already false | low | dbilbao | |
-
+| 17-18 | unnecessary Arrays.fill because the default values of a boolean array is already false  -- this could make it faster| low | dbilbao | |
+| 33 | while loop condition can be: !visited[current] instead | low | dbilbao | |
+| 23-27 | We can use System.arraycopy() instead -- this could make it faster | low | dbilbao | |
+| 54 | Long can be primitive - i think this might make it faster | low | dbilbao | |
 
 
 ### Results
