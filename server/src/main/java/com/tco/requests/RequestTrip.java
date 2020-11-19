@@ -66,7 +66,11 @@ public class RequestTrip extends RequestHeader{
         distances = new Long[num];
         int[]trip;
         String requirement = options.get("response");
-        if(requirement == null || num <4  || num > 380 || requirement.equals("0.0")){
+        double requirement_convert = 0;
+        if(requirement != null){
+            requirement_convert = Double.parseDouble(requirement);
+        }
+        if(requirement_convert == 0|| num <4  || num > 380  ){
             trip = initiaTrip(num);
         }
         else{
