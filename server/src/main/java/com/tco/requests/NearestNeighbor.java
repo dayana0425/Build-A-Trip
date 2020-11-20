@@ -20,50 +20,48 @@ public class NearestNeighbor {
         this.distance = distance;
     }
 
-    public void copyTour(int[] tour){
-        for(int i = 0; i< len; i++ ){
+    public void copyTour(int[] tour) {
+        for (int i = 0; i < len; i++) {
             Tour[i] = tour[i];
         }
     }
 
-    public int[] getNearestNeighbor(int star_point){
+    public int[] getNearestNeighbor(int star_point) {
         int current = star_point;
         int index = 0;
         int[] trip = new int[len];
-        while(visited[current]==false){        // get the round trip tour
+        while (visited[current] == false) {        // get the round trip tour
             visited[current] = true;           // this place has been visited
             trip[index] = current;             // this is the order of visiting a place
             int next = current;                          // next location
             Long min = Long.MAX_VALUE;
-            for(int i =0; i < len ; i++){
+            for (int i = 0; i < len; i++) {
                 if (i == current)
                     continue;
-                if((distance[current][i] < min) && (!visited[i])){
+                if ((distance[current][i] < min) && (!visited[i])) {
                     min = distance[current][i];
                     next = i;
                 }
             }
             current = next;
-            index ++;
+            index++;
         }
         return trip;
     }
 
 
-
-    public void nearestNeighbor(){
+    public void nearestNeighbor() {
         Long roundTripDistance = 0L;
-        for(int p =0;  p < len; p++){                //for each starting city
+        for (int p = 0; p < len; p++) {                //for each starting city
             int[] trip = getNearestNeighbor(p);
             Long roundDistance = 0L;
-            for(int i =0; i<len; i++){
-                roundDistance += distance[trip[i]][trip[(i+1)%len]];
+            for (int i = 0; i < len; i++) {
+                roundDistance += distance[trip[i]][trip[(i + 1) % len]];
             }
-            if(p == 0){
+            if (p == 0) {
                 roundTripDistance = roundDistance;
                 copyTour(trip);
-            }
-            else if(roundDistance < roundTripDistance){
+            } else if (roundDistance < roundTripDistance) {
                 roundTripDistance = roundDistance;
                 copyTour(trip);
             }
@@ -71,6 +69,8 @@ public class NearestNeighbor {
         }
     }
 
-    public int[] getTrip(){ return Tour; }
+    public int[] getTrip() {
+        return Tour;
+    }
 
 }
