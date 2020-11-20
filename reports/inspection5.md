@@ -32,5 +32,6 @@
 | 3/13 | unused import and variable | low | daynight | |
 | 23-27 | we have manual array copy method | low | daynight | |
 | 29-54 | What is the use of "index" | low | daynight | |
-
+| 59-61 | Moving this for-loop into getNearestNeighbor to reduce a for loop? | mid | xinyi99 | |
+| 64&68 | Can we find a more effiencient way to replace copyTour()? | mid | xinyi99 | |
 ### Results
