@@ -66,7 +66,7 @@ public class FindDatabase {
                 "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
                 "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') ";
 
-        if((narrow == null) || (narrow.getType() == null  && narrow.getWhere() == null) || (narrow.getType().isEmpty() && narrow.getWhere().isEmpty())){
+        if((narrow == null) || (narrow.getType() == null  && narrow.getWhere() == null)){
             queryWithNoFilters();
         }
         else{
@@ -83,9 +83,18 @@ public class FindDatabase {
     }
 
     public void queryWithFilters(){
-        List<String> type = narrow.getType();
-        List<String> where = narrow.getWhere();
-        String filterAdditions = getFilterAdditionsForType(type) + getFilterAdditionsForWhere(where);
+        List<String> type = (narrow.getType() != null) ? narrow.getType() : null;
+        List<String> where = (narrow.getWhere() != null) ? narrow.getWhere() : null;
+        String filterAdditions = "";
+
+        if(type != null){
+            filterAdditions += getFilterAdditionsForType(type);
+        }
+
+        if(where != null){
+            filterAdditions += getFilterAdditionsForWhere(where);
+        }
+
         QUERY += filterAdditions + " " + "ORDER BY world.name ASC" + checkIsRandom();
     }
 
