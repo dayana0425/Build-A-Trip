@@ -276,5 +276,4 @@ public class FindDatabase {
     public String getMatch() {
         return this.match;
     }
-
 }
