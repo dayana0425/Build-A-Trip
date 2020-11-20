@@ -11,7 +11,7 @@
 | Name | Preparation Time |
 | ---- | ---- |
 | dbilbao | 20 min |
-| rloptien | |
+| rloptien | 30 min |
 | xinyi99 | |
 | mattv | |
 | daynight| |
@@ -26,6 +26,9 @@
 | 33 | while loop condition can be: !visited[current] instead | low | dbilbao | |
 | 23-27 | We can use System.arraycopy() instead -- this could make it faster | low | dbilbao | |
 | 54 | Long can be primitive - i think this might make it faster | low | dbilbao | |
+| 23&29 | Change the names for more readable code. We have two different tours and is star_point supposed to be start_point? | low | rloptien | |
+| 9 | Len never is instantiated, when does it change value | med | rloptien | |
+| 56&62 | What is p? | low | rloptien | |
 
 
 ### Results
