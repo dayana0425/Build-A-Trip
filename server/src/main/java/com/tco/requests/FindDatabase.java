@@ -16,6 +16,7 @@ public class FindDatabase {
     private String DB_USER;
     private String DB_PASSWORD;
     private String QUERY;
+    private String COUNT_QUERY;
     private Boolean isRandom = false;
     private Integer limitFound = 0;
     private Filters narrow;
@@ -62,9 +63,10 @@ public class FindDatabase {
     }
 
     public void getQuery() {
-        QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " +
-                "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
-                "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') ";
+        String FROM_WHERE = "FROM world INNER JOIN continent ON world.continent = continent.id INNER JOIN region ON world.iso_region = region.id INNER JOIN country ON world.iso_country = country.id " +
+                            "WHERE (world.name LIKE '%" + match + "%' OR world.municipality LIKE '%" + match + "%' OR continent.name LIKE '%" + match + "%' OR region.name LIKE '%" + match + "%' OR country.name LIKE '%" + match + "%' OR world.id LIKE '%" + match + "%') ";
+        QUERY = "SELECT world.name, world.latitude, world.longitude, world.id, world.altitude, world.municipality, world.type, world.iso_region, world.iso_country, world.home_link, region.wikipedia_link AS 'region_url', continent.wikipedia_link AS 'continent_url', country.wikipedia_link AS 'country_url' " + FROM_WHERE;
+        COUNT_QUERY = "SELECT COUNT(*) " + FROM_WHERE;
 
         if((narrow == null) || (narrow.getType() == null  && narrow.getWhere() == null)){
             queryWithNoFilters();
@@ -79,6 +81,7 @@ public class FindDatabase {
             QUERY = "SELECT name, id, type, latitude, longitude, municipality, altitude FROM world WHERE (municipality like '%" + match + "%' OR name like '%" + match + "%');";
         } else {
             QUERY += "ORDER BY world.name ASC" + checkIsRandom();
+            COUNT_QUERY += "ORDER BY world.name ASC" + checkIsRandom();
         }
     }
 
@@ -96,25 +99,50 @@ public class FindDatabase {
         }
 
         QUERY += filterAdditions + " " + "ORDER BY world.name ASC" + checkIsRandom();
+        COUNT_QUERY += filterAdditions + " " + "ORDER BY world.name ASC" + checkIsRandom();
     }
 
     public void connect2DB() {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             Statement query = conn.createStatement();
-             ResultSet results = query.executeQuery(QUERY)) {
-            if (checkForTravis()) {
-                travisGetPlaces(results);
-            } else {
-                masterGetPlaces(results);
+        if (isRandom) {
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                 Statement query = conn.createStatement();
+                 ResultSet results = query.executeQuery(QUERY)) {
+                if (checkForTravis()) {
+                    travisGetPlaces(results);
+                } else {
+                    masterGetPlaces(results);
+                }
+            } catch (Exception e) {
+                log.debug("Exception: " + e.getMessage());
             }
-        } catch (Exception e) {
-            log.debug("Exception: " + e.getMessage());
+        } else {
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                 Connection connForCount = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                 Statement query = conn.createStatement();
+                 Statement queryForCount = connForCount.createStatement();
+                 ResultSet results = query.executeQuery(QUERY);
+                 ResultSet count_results = queryForCount.executeQuery(COUNT_QUERY)) {
+                if (checkForTravis()) {
+                    travisGetPlaces(results);
+                } else {
+                    masterGetPlaces(results);
+                }
+                setCount(count_results);
+            } catch (Exception e) {
+                log.debug("Exception: " + e.getMessage());
+            }
+        }
+    }
+
+    private void setCount(ResultSet results) throws SQLException {
+        while(results.next()){
+            count = Integer.parseInt(results.getString(1));
         }
     }
 
     public void masterGetPlaces(ResultSet results) throws SQLException {
         {
-            while (results.next()) {
+            while (results.next() && count < 100) {
                 Place p = new Place(
                         results.getString("name"),
                         results.getString("latitude"),
@@ -203,19 +231,19 @@ public class FindDatabase {
     }
 
     private String checkLengthForFilterAdditions(String filterAdditions){
-        if (filterAdditions.length() > 0) {
+        if (filterAdditions != null && filterAdditions.length() > 0) {
             filterAdditions += ") ";
         }
         return filterAdditions;
     }
 
     private String checkIsRandom(){
-        return (this.isRandom) ? " LIMIT " + Integer.toString(this.limitFound) + ";" : ";";
+        return (this.isRandom) ? " LIMIT " + this.limitFound + ";" : ";";
     }
 
     public void travisGetPlaces(ResultSet results) throws SQLException {
         {
-            while (results.next()) {
+            while (results.next() && count < 100) {
                 Place p = new Place(
                         results.getString("name"),
                         results.getString("latitude"),
@@ -230,7 +258,6 @@ public class FindDatabase {
             }
             limitPlaces();
         }
-
     }
 
     /* Accessor Methods Below */
