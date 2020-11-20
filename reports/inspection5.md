@@ -13,7 +13,7 @@
 | dbilbao | 20 min |
 | rloptien | 30 min |
 | xinyi99 | |
-| mattv | |
+| mattv | 30 min |
 | daynight| 20 min |
 
 ### Problems found
@@ -34,4 +34,7 @@
 | 29-54 | What is the use of "index" | low | daynight | |
 | 59-61 | Moving this for-loop into getNearestNeighbor to reduce a for loop? | mid | xinyi99 | |
 | 64&68 | Can we find a more effiencient way to replace copyTour()? | mid | xinyi99 | |
+| 53-70 | Rename variables for readability. What is i and p? What is difference betweeen roundDistance and roundTripDistance? | low | mattv | |
+| 57 | Declare roundDistance = 0L outside of for loop. Initializing variable every iteration of loop | low | mattv | |
+| 29-49 | Is getNearestNeighbor most efficient right now? Does for have to be inside of while? | low | mattv | |
 ### Results
