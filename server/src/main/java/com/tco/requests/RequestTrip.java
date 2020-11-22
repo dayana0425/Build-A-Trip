@@ -4,10 +4,6 @@ import com.tco.misc.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.lang.System;
-import java.lang.Long;
 
 public class RequestTrip extends RequestHeader{
     private HashMap<String,String> options = new HashMap<String, String>();

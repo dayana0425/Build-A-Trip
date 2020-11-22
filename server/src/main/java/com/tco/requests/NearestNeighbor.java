@@ -47,10 +47,6 @@ public class NearestNeighbor {
         Long roundTripDistance = 0L;
         for (int place = 0; place < len; place++) {                //for each starting city
             int[] trip = getNearestNeighbor(place);
-//            Long currentRoundTripDistance = 0L;
-//            for (int i = 0; i < len; i++) {
-//                currentRoundTripDistance += distance[trip[i]][trip[(i + 1) % len]];
-//            }
             if (place == 0) {
                 roundTripDistance = currentDistance;
                 System.arraycopy(trip,0,finalTour,0,len);
