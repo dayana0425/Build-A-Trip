@@ -71,7 +71,7 @@ public class TestRequestTrip {
     @DisplayName("The first place is \"Boulder\"")
     public void testPlacesName(){
         ArrayList<HashMap> place = trip.getPlaces();
-        assertEquals("Place1", place.get(0).get("name"));
+        assertEquals("Place2", place.get(0).get("name"));
     }
 
     @Test
@@ -85,21 +85,21 @@ public class TestRequestTrip {
     @DisplayName("The first distance should be 44")
     public void testDistance4FirstPlace(){
         Long[] distance = trip.getDistance();
-        assertEquals(30,distance[0]);
+        assertEquals(35,distance[0]);
     }
 
     @Test
     @DisplayName("The second distance should be 54")
     public void testDistance4SecondPlace(){
         Long[] distance = trip.getDistance();
-        assertEquals(55,distance[1]);
+        assertEquals(30,distance[1]);
     }
 
     @Test
     @DisplayName("The third distance should be 66")
-    public void testDistance4ThirdPlace(){
+    public void testDistance4ThirdPlace() throws BadRequestException{
         Long[] distance = trip.getDistance();
-        assertEquals(35,distance[2]);
+        assertEquals(47,distance[2]);
     }
 
 }

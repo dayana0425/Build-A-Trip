@@ -1,41 +1,33 @@
 package com.tco.requests;
 
-import com.google.common.primitives.UnsignedLong;
-
 import java.util.Arrays;
 
 public class NearestNeighbor {
 
     private int len;
     private boolean[] visited;
-    private int[] Tour;
+    private int[] finalTour;
     private Long[][] distance;
-    private Long time;
+    private Long currentDistance;        //calculate current distance based on this trip
 
     NearestNeighbor(int len, Long[][] distance) {
         this.len = len;
         this.visited = new boolean[len];
-        Arrays.fill(visited, Boolean.FALSE);
-        this.Tour = new int[len];
+        this.finalTour = new int[len];
         this.distance = distance;
     }
 
-    public void copyTour(int[] tour) {
-        for (int i = 0; i < len; i++) {
-            Tour[i] = tour[i];
-        }
-    }
-
-    public int[] getNearestNeighbor(int star_point) {
-        int current = star_point;
+    public int[] getNearestNeighbor(int startPlace) {
+        this.currentDistance = 0L;      //initialize currentDistance
+        int current = startPlace;
         int index = 0;
-        int[] trip = new int[len];
-        while (visited[current] == false) {        // get the round trip tour
-            visited[current] = true;           // this place has been visited
-            trip[index] = current;             // this is the order of visiting a place
-            int next = current;                          // next location
+        int[] trip = new int[len+1];
+        while (!visited[current]) {              // get the round trip tour
+            visited[current] = true;             // this place has been visited
+            trip[index] = current;               // this is the order of visiting a place
+            int next = current;                  // next location
             Long min = Long.MAX_VALUE;
-            for (int i = 0; i < len; i++) {
+            for (int i = 0; i < len; i++) {      //iterating all the places to find a nearest and non-visited place
                 if (i == current)
                     continue;
                 if ((distance[current][i] < min) && (!visited[i])) {
@@ -43,6 +35,7 @@ public class NearestNeighbor {
                     next = i;
                 }
             }
+            currentDistance += min;
             current = next;
             index++;
         }
@@ -52,25 +45,21 @@ public class NearestNeighbor {
 
     public void nearestNeighbor() {
         Long roundTripDistance = 0L;
-        for (int p = 0; p < len; p++) {                //for each starting city
-            int[] trip = getNearestNeighbor(p);
-            Long roundDistance = 0L;
-            for (int i = 0; i < len; i++) {
-                roundDistance += distance[trip[i]][trip[(i + 1) % len]];
-            }
-            if (p == 0) {
-                roundTripDistance = roundDistance;
-                copyTour(trip);
-            } else if (roundDistance < roundTripDistance) {
-                roundTripDistance = roundDistance;
-                copyTour(trip);
+        for (int place = 0; place < len; place++) {                //for each starting city
+            int[] trip = getNearestNeighbor(place);
+            if (place == 0) {
+                roundTripDistance = currentDistance;
+                System.arraycopy(trip,0,finalTour,0,len);
+            } else if (currentDistance < roundTripDistance) {
+                roundTripDistance = currentDistance;
+                System.arraycopy(trip,0,finalTour,0,len);
             }
             Arrays.fill(visited, Boolean.FALSE);
         }
     }
 
     public int[] getTrip() {
-        return Tour;
+        return finalTour;
     }
 
 }
