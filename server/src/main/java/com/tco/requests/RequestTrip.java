@@ -70,7 +70,7 @@ public class RequestTrip extends RequestHeader{
         if(requirement != null){
             requirement_convert = Double.parseDouble(requirement);
         }
-        if(requirement_convert == 0|| num <4  || num > 380  ){
+        if(requirement_convert == 0|| num <4  || num > 440){
             trip = initiaTrip(num);
         }
         else{
