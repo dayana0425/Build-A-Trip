@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, InputGroup, Input, InputGroupAddon, Collapse, CardBody, Card} from 'reactstrap';
+import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon} from 'reactstrap';
 import {List, ListItem, ListItemText} from '@material-ui/core';
 import {sendServerRequest} from "../../utils/restfulAPI";
 
@@ -75,14 +75,13 @@ export default class ItineraryTable extends Component {
     }
 
     saveFileFormat() {
-        var format = {
+        return {
             requestType: "trip",
             requestVersion: 4,
             title: this.state.tripName,
             earthRadius: 3959.0,
             places: this.props.placesForItinerary
-        }
-        return format;
+        };
     }
 
     onUploadChange(event) {
