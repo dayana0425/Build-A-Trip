@@ -12,8 +12,11 @@ export default class Atlas extends Component {
 
     constructor(props) {
         super(props);
+
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
+        this.addMarkersByArrayToMap = this.addMarkersByArrayToMap.bind(this);
+        this.addPlacesToItineraryByArray = this.addPlacesToItineraryByArray.bind(this);
 
         this.state = {
             markerPosition: null,
@@ -43,8 +46,8 @@ export default class Atlas extends Component {
                                      placesForItinerary = {this.state.placesForItinerary}
                                      addMarkersToMap = {this.addMarkersToMap}
                                      clearAllMarkers = {this.clearAllMarkers}
-                                     // addMarkersByArrayToMap = {this.addMarkersByArrayToMap}
-                            />
+                                     addMarkersByArrayToMap = {this.addMarkersByArrayToMap}
+                                     addPlacesToItineraryByArray = {this.addPlacesToItineraryByArray}/>
                         </Col>
                     </Row>
                 </Container>
@@ -92,19 +95,30 @@ export default class Atlas extends Component {
 
     /* END OF TABS */
 
+    /* METHODS FOR MAP MARKERS */
+
+    //clears all markers on map
     clearAllMarkers(){ // clears all markers and returns to home - TO DO: clear distances
         this.setState({markerPositions: this.state.markerPositions.splice(0,0)});
         this.setState({placesForItinerary: this.state.placesForItinerary.splice(0,0)});
     }
 
+    //adds markers to map one by one must provide name of marker + lat + long, it also adds places to Itinerary
     addMarkersToMap(placeName, lat, long) {
         let coords = L.latLng(lat, long);
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
     }
 
-    // addMarkersByArrayToMap(markerPositions) {
-    //     this.setState({ markerPositions: markerPositions});
-    //     console.log(this.state.markerPositions);
-    // }
+    //adds markers to map given an array of L.LatLng() objects
+    addMarkersByArrayToMap(positions) {
+        this.setState({ markerPositions: positions});
+    }
+
+    //adds places to itinerary given an array of "place" objects: {name: (string) , latitude: (string) , longitude: (string)}
+    addPlacesToItineraryByArray(places){
+        this.setState({placesForItinerary: places});
+    }
+
+    /* END OF MAP MARKERS */
 }
