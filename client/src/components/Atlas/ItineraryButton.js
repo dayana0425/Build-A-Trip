@@ -27,7 +27,9 @@ export default class ClearButton extends Component {
                     <ItineraryTable isOpen={this.state.isOpen}
                                     placesForItinerary={this.props.placesForItinerary}
                                     clearAllMarkers = {this.props.clearAllMarkers}
-                                    addMarkersToMap = {this.props.addMarkersToMap}/>
+                                    addMarkersToMap = {this.props.addMarkersToMap}
+                                    addMarkersByArrayToMap = {this.props.addMarkersByArrayToMap}
+                                    addPlacesToItineraryByArray = {this.props.addPlacesToItineraryByArray}/>
                 </Col>
             </Row>
         )
