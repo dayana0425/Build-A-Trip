@@ -16,23 +16,49 @@ export default class ItineraryTable extends Component {
             showDistance: false
         }
         this.changeTripName = this.changeTripName.bind(this);
+        this.simpleRequest = this.simpleRequest.bind(this);
+        this.requestWithOptimize = this.requestWithOptimize.bind(this);
         this.requestTrip = this.requestTrip.bind(this);
         this.clearDistance = this.clearDistance.bind(this);
         this.uploadTrip = this.uploadTrip.bind(this);
     }
 
     changeTripName(event) {
-        this.setState({[event.target.name]: {title: event.target.value, earthRadius: "3959.0"}});
+        this.setState({[event.target.name]: {title: event.target.value}});
     }
 
-    requestTrip(event) {
-        sendServerRequest({
+    simpleRequest(event){
+        var name = this.state.options.title
+        console.log(name)
+        var options = {
+            title: name,
+            earthRadius:"3959.0"
+        }
+        this.requestTrip(options)
+    }
+
+    requestWithOptimize(event){
+        var name = this.state.options.title
+        var options = {
+              title:name,
+              earthRadius: "3959.0",
+              response: "1.0"
+        }
+        this.requestTrip(options)
+    }
+
+
+    requestTrip(options) {
+        sendServerRequest(
+          {
             requestType: "trip",
             requestVersion: 4,
-            options: this.state.options,
+            options: options,
             places: this.props.placesForItinerary
-        })
+          }
+        )
             .then(trip => {
+                console.log(trip)
                 if (trip) {
                     this.setState({tripName: trip.data.options.title});
                     if (trip.data.distances) {
@@ -40,6 +66,19 @@ export default class ItineraryTable extends Component {
                         this.setState({roundTrip: trip.data.distances.reduce((a, b) => a + b, 0)})
                         this.setState({showDistance: true})
                     }
+                    if(trip.data.places){
+                        this.props.addPlacesToItineraryByArray(trip.data.places);
+                    }
+                    var markersForLoadingOntoMap = []
+                    trip.data.places.forEach((place) => {
+                        let lat = parseFloat(place.latitude);
+                        let long = parseFloat(place.longitude);
+                        markersForLoadingOntoMap.push(L.latLng(lat, long));
+                    });
+                    if (markersForLoadingOntoMap.length > 0) {
+                        this.props.addMarkersByArrayToMap(markersForLoadingOntoMap);
+                    }
+
                 } else {
                     console.error('Error');
                 }
@@ -140,8 +179,13 @@ export default class ItineraryTable extends Component {
                                    }}/>
                             <InputGroupAddon addonType="append">
                                 <Button color="primary" onClick={(e) => {
-                                    this.requestTrip(e)
+                                    this.simpleRequest(e)
+                                    this.requestTrip()
                                 }}>Enter</Button>
+                                 <Button color="primary" name = "options" onClick={(e) => {
+                                    this.requestWithOptimize(e)
+                                    this.requestTrip()
+                                 }}>Optimize</Button>
                             </InputGroupAddon> &nbsp;
                             <Button color="primary" onClick={() => {
                                 this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')
