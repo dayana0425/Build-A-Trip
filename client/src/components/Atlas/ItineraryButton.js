@@ -26,10 +26,10 @@ export default class ClearButton extends Component {
                     </Button>
                     <ItineraryTable isOpen={this.state.isOpen}
                                     placesForItinerary={this.props.placesForItinerary}
-                                    clearAllMarkers = {this.props.clearAllMarkers}
-                                    addMarkersToMap = {this.props.addMarkersToMap}
-                                    addMarkersByArrayToMap = {this.props.addMarkersByArrayToMap}
-                                    addPlacesToItineraryByArray = {this.props.addPlacesToItineraryByArray}/>
+                                    clearAllMarkers={this.props.clearAllMarkers}
+                                    addMarkersToMap={this.props.addMarkersToMap}
+                                    addMarkersByArrayToMap={this.props.addMarkersByArrayToMap}
+                                    addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}/>
                 </Col>
             </Row>
         )

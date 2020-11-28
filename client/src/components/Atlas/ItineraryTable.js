@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon} from 'reactstrap';
-import {List, ListItem, ListItemText} from '@material-ui/core';
 import {sendServerRequest} from "../../utils/restfulAPI";
+import PlacesTable from "./drag-and-drop-list-view.js";
 
 export default class ItineraryTable extends Component {
     constructor(props) {
@@ -29,7 +29,6 @@ export default class ItineraryTable extends Component {
 
     simpleRequest(event){
         var name = this.state.options.title
-        console.log(name)
         var options = {
             title: name,
             earthRadius:"3959.0"
@@ -47,7 +46,6 @@ export default class ItineraryTable extends Component {
         this.requestTrip(options)
     }
 
-
     requestTrip(options) {
         sendServerRequest(
           {
@@ -58,7 +56,6 @@ export default class ItineraryTable extends Component {
           }
         )
             .then(trip => {
-                console.log(trip)
                 if (trip) {
                     this.setState({tripName: trip.data.options.title});
                     if (trip.data.distances) {
@@ -80,22 +77,18 @@ export default class ItineraryTable extends Component {
                     }
 
                 } else {
-                    console.error('Error');
+                    console.error('requestTrip: Error');
                 }
             });
     }
 
     getTripTable(places) {
         return (
-            <List>
-                {places.map((place, index) =>
-                    <ListItem key={index}>
-                        <ListItemText primary={"Place " + (index + 1) + ": " + place.name}/>
-                        <ListItemText
-                            primary={((index != 0 && this.state.showDistance) ? "Distance: " + this.state.distances[index - 1] : "")}/>
-                    </ListItem>
-                )}
-            </List>
+            <PlacesTable places={places}
+                         addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}
+                         showDistance={this.state.showDistance}
+                         distances={this.state.distances}
+            />
         )
     }
 
@@ -180,11 +173,9 @@ export default class ItineraryTable extends Component {
                             <InputGroupAddon addonType="append">
                                 <Button color="primary" onClick={(e) => {
                                     this.simpleRequest(e)
-                                    this.requestTrip()
                                 }}>Enter</Button>
                                  <Button color="primary" name = "options" onClick={(e) => {
                                     this.requestWithOptimize(e)
-                                    this.requestTrip()
                                  }}>Optimize</Button>
                             </InputGroupAddon> &nbsp;
                             <Button color="primary" onClick={() => {
