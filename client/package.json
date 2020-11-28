@@ -11,6 +11,7 @@
     "@material-ui/core": "^4.9.14",
     "ajv": "^6.12.2",
     "axios": "^0.19.2",
+    "baseui": "^9.105.0",
     "bootstrap": "^4.5.0",
     "leaflet": "^1.6.0",
     "newman": "^5.1.2",
@@ -18,9 +19,14 @@
     "notistack": "^0.9.14",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-drag-listview": "^0.1.7",
     "react-leaflet": "^2.7.0",
+    "react-movable": "^2.5.3",
     "react-select": "^3.1.0",
+    "react-sortable-hoc": "^1.11.0",
     "reactstrap": "^8.4.1",
+    "styletron-engine-atomic": "^1.4.6",
+    "styletron-react": "^5.2.7",
     "ulog": "^1.1.0"
   },
   "devDependencies": {

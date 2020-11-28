@@ -59,7 +59,6 @@ export default class OurMap extends Component{
     }
 
     toggle() {
-        console.log("hi")
         this.setState({showLine: !this.state.showLine});
     }
 
@@ -68,7 +67,6 @@ export default class OurMap extends Component{
         let fit_bounds;
         if (this.props.markerPositions.length > 0) {
             if (this.props.markerPositions.length == 1) {
-                console.log(this.props.markerPositions);
                 map_center = [this.props.markerPositions[0].lat, this.props.markerPositions[0].lng];
             } else {
                 let sortedMarkerPositions = [...this.props.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);

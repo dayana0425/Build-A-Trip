@@ -117,7 +117,6 @@ export default class Atlas extends Component {
 
     //adds places to itinerary given an array of "place" objects: {name: (string) , latitude: (string) , longitude: (string)}
     addPlacesToItineraryByArray(places){
-        console.log(places)
         this.setState({placesForItinerary: places});
     }
 
