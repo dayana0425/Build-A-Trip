@@ -1,10 +1,12 @@
 import './jestConfig/enzyme.config.js';
 
-import React from 'react';
+import React,{Component} from 'react';
 import {shallow,mount} from 'enzyme';
 
 import ItineraryTable from '../src/components/Atlas/ItineraryTable';
 import {Button,Collapse} from 'reactstrap';
+import {Map} from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 //helper function
 
@@ -14,12 +16,6 @@ function simulateOnClick(button,parentWrapper){
     parentWrapper.update();
 }
 
-//function simulateOnChange(input,value,parentWrapper){
-//    input.simulate('change',value);
-//    parentWrapper.update();
-//}
-
-//testing function
 
 function testSaveFileFormat(){
     const itineraryTable = shallow(<ItineraryTable/>);
@@ -60,10 +56,17 @@ function testClearDistance(){
 test("Testing clearDistance function",testClearDistance);
 
 
-function testChangeTripName(){
-     const itineraryTable = shallow(<ItineraryTable/>);
-     itineraryTable.instance().changeTripName(itineraryTable.find('Input').at(0).simulate('change',{target: { name: 'options', value: 'My trip'}}));
-     expect(itineraryTable.state().options.title).toEqual("My trip");
+function testGetMarkersForLoadingOntoMap(){
+      const itineraryTable = shallow(<ItineraryTable/>);
+      const place = [{latitude: '10.1', name: 'place1', longitude:'10.2'},
+                     {latitude: '20.1', name: 'place2', longitude:'20.2'},
+                     {latitude: '30.1', name: 'place3', longitude:'30.2'}
+      ]
+      var markerArray = itineraryTable.instance().getMarkersForLoadingOntoMap(place);
+      const expectedArray = [{lat: 10.1, lng:10.2},
+                             {lat: 20.1, lng:20.2},
+                             {lat: 30.1, lng:30.2}
+      ]
+      expect(markerArray).toEqual(expectedArray);
 }
-test("Testing changeTripName function",testChangeTripName);
-
+test("Testing getMarkersForLoadingOntoMap function",testGetMarkersForLoadingOntoMap);
