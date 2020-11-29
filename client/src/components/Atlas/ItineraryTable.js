@@ -132,7 +132,6 @@ export default class ItineraryTable extends Component {
 
     onUploadChange(event) {
         const testing = new FileReader();
-        console.log(testing);
         const scope = this;
         let file = event.target;
         const reader = new FileReader();
@@ -140,7 +139,6 @@ export default class ItineraryTable extends Component {
             const data = (reader.result);
             scope.uploadTrip(data);
         };
-        console.log(file.files[0])
         reader.readAsText(file.files[0]);
     }
 
