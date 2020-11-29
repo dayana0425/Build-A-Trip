@@ -122,10 +122,8 @@ export default class SearchPlaces extends Component{
     }
 
     handleClick() {
-
         let match = this.convertInputString(this.state.searching)
         this.requestMatch(match)
-
     }
 
     convertInputString(searching) {
