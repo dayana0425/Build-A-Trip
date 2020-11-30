@@ -78,14 +78,6 @@ public class RequestTrip extends RequestHeader{
             nn.nearestNeighbor();
             trip = nn.getTrip();
             getOptimizedArray(trip);
-//            if(num <= 50){
-//                TwoOptimized two = new TwoOptimized(num,distanceMatrix,trip);
-//                two.optimization();
-//                two.getTour();
-//                ThreeOptimization three = new ThreeOptimization(distanceMatrix,num,trip);
-//                three.threeOptimize();
-//                trip = three.getTrip();
-    //        }
         }
         for(int i=0; i< num; i++) {
             distances[i] = distanceMatrix[trip[i]][trip[(i + 1) % num]];
