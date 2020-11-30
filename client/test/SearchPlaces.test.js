@@ -1,9 +1,7 @@
 import './jestConfig/enzyme.config.js';
-
 import React from 'react';
 import {shallow,mount} from 'enzyme';
 import {Table, InputGroup} from 'reactstrap';
-
 import SearchPlaces from '../src/components/Atlas/SearchPlaces';
 
 function simulateOnClick(button,parentWrapper){

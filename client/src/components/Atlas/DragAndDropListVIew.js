@@ -9,7 +9,6 @@ export default class ClearButton extends Component {
     constructor(props) {
         super(props);
     }
-
     render(){
         return(
         <div>

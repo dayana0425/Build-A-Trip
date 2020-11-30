@@ -1,8 +1,6 @@
 import './jestConfig/enzyme.config.js';
-
 import React from 'react';
 import {shallow,mount} from 'enzyme';
-
 import AddLocation from '../src/components/Atlas/AddLocation';
 
 function simulateOnClick(button,parentWrapper){
