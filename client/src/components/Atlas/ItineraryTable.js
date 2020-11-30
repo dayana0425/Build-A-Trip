@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import {Map, Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
-import PlacesTable from "./drag-and-drop-list-view.js";
+import PlacesTable from "./DragAndDropListView.js";
 import 'leaflet/dist/leaflet.css';
-
 
 export default class ItineraryTable extends Component {
     constructor(props) {

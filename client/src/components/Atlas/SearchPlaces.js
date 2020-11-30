@@ -12,7 +12,10 @@ export default class SearchPlaces extends Component{
            searching: null,
            places: [], //for find places component
            found: 0,
-           results: 0
+           results: 0,
+           filters:null,
+           filterCountries:null,
+           filtersType:null,
         }
     }
 
@@ -21,13 +24,11 @@ export default class SearchPlaces extends Component{
         let options = [];
         let type = []
         var x;
-
         if(filter){
         filter.forEach(x =>{
             options.push({ value: x, label: x})
         })
         }
-
         return (
             <div>
                 <InputGroup>
@@ -37,7 +38,7 @@ export default class SearchPlaces extends Component{
                             placeholder="Enter Place"
                             onChange={(e) => {this.handleChange(e)}}/>
                     <InputGroupAddon addonType="append">
-                    <Button color="primary" onClick={(e) => {this.handleClick(e)}}>Search</Button>
+                    <Button color="primary" onClick={() => {this.handleClick()}}>Search</Button>
                         </InputGroupAddon>
                     </InputGroup>
 
@@ -47,7 +48,7 @@ export default class SearchPlaces extends Component{
                        onChange={this.handleFilter}
                        />
                        <Select
-                       options= {[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
+                       options= {[{value:"Airport", label:"Airport"},{value:"Balloonport", label:"Balloonport"},{value:"Heliport", label:"Heliport"}]}
                        isMulti
                        onChange={this.handleFilterType}
                        />
@@ -63,7 +64,7 @@ export default class SearchPlaces extends Component{
         }
 
         handleFilter = (selected)=> {
-            this.setState({filters:selected})
+            this.setState({filters:selected})           //should it change to filterCountries
         }
 
         handleFilterType = (selected)=> {
@@ -71,38 +72,35 @@ export default class SearchPlaces extends Component{
         }
 
         requestFilter() {
-                    sendServerRequest({requestType: "config", requestVersion: 4})
-                        .then(config => {
-                            if (config) {
-                                this.setState({filterCountries: config.data.filters.where});
-                            } else {
-                                console.error('Error');
-                            }
-                        });
-                }
+            sendServerRequest({requestType: "config", requestVersion: 4})
+               .then(config => {
+                  if (config) {
+                     this.setState({filterCountries: config.data.filters.where});
+                  } else {
+                    console.error('Error');
+                  }
+               });
+        }
 
-     requestMatch(inputValue) {
-            const {places} = this.state;
-            let filters = [];
-            let options = this.state.filters;
-            var x;
-
-            if(options){
-                options.forEach( x => {
-                    filters.push(this.convertInputString(x.label));
-                })
-            }
-
+    requestMatch(inputValue) {
+       const {places} = this.state;
+       let filters = [];
+       let options = this.state.filters;
+       console.log(this.state.filters)
+       var x;
+       if(options){
+          options.forEach( x => {
+              filters.push(this.convertInputString(x.label));
+           })
+        }
             let types = [];
             let optionsType = this.state.filtersType;
             var x;
-
             if(optionsType){
                 optionsType.forEach( x => {
                     types.push(this.convertInputString(x.label));
                 })
             }
-
             sendServerRequest({requestType: "find", requestVersion: 4, match: inputValue, limit: 5, places: [], narrow: {type: types, where: filters}})
                 .then(find => {
                     if (find) {
@@ -116,16 +114,13 @@ export default class SearchPlaces extends Component{
                 });
         }
 
-
     handleChange = (event) => {
        this.setState({[event.target.name]: event.target.value});
     }
 
     handleClick() {
-
         let match = this.convertInputString(this.state.searching)
         this.requestMatch(match)
-
     }
 
     convertInputString(searching) {
