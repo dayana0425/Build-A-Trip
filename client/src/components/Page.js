@@ -65,7 +65,6 @@ export default class Page extends Component {
 	}
 
 	processConfigResponse(configResponse) {
-	    console.log(configResponse)
 		if(!isJsonResponseValid(configResponse, configSchema)) {
 			this.processServerConfigError("Configuration Response Not Valid. Check The Server.");
 		} else {

@@ -12,7 +12,10 @@ export default class SearchPlaces extends Component{
            searching: null,
            places: [], //for find places component
            found: 0,
-           results: 0
+           results: 0,
+           filters:null,
+           filterCountries:null,
+           filtersType:null,
         }
     }
 
@@ -37,7 +40,7 @@ export default class SearchPlaces extends Component{
                             placeholder="Enter Place"
                             onChange={(e) => {this.handleChange(e)}}/>
                     <InputGroupAddon addonType="append">
-                    <Button color="primary" onClick={(e) => {this.handleClick(e)}}>Search</Button>
+                    <Button color="primary" onClick={() => {this.handleClick()}}>Search</Button>
                         </InputGroupAddon>
                     </InputGroup>
 
@@ -47,7 +50,7 @@ export default class SearchPlaces extends Component{
                        onChange={this.handleFilter}
                        />
                        <Select
-                       options= {[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
+                       options= {[{value:"Airport", label:"Airport"},{value:"Balloonport", label:"Balloonport"},{value:"Heliport", label:"Heliport"}]}
                        isMulti
                        onChange={this.handleFilterType}
                        />
@@ -63,7 +66,7 @@ export default class SearchPlaces extends Component{
         }
 
         handleFilter = (selected)=> {
-            this.setState({filters:selected})
+            this.setState({filters:selected})           //should it change to filterCountries
         }
 
         handleFilterType = (selected)=> {
@@ -88,7 +91,10 @@ export default class SearchPlaces extends Component{
             var x;
 
             if(options){
+                console.log(options)
                 options.forEach( x => {
+                                    console.log(x)
+
                     filters.push(this.convertInputString(x.label));
                 })
             }
