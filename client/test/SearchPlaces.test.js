@@ -104,15 +104,15 @@ test('Test render rendering an InputGroup',testRenderExists);
 // How to test the button inside a method
 
 
-//function testHandleChange(){
-//    const searchPlaces = shallow(<SearchPlaces/>);
-//    const event = {event:{target:{name:'searching', value: 'happy place'}}};
-//    expect(searchPlaces.state().searching).toEqual(null);
-//    simulateOnChange(searchPlaces.find('Input').at(0),event,searchPlaces,);
-//    searchPlaces.instance().handleChange(event);
-//    expect(searchPlaces.state().searching).toEqual('happy place');
-//}
-//test("Test handleChange method", testHandleChange);
+function testHandleChangeInput(){
+    const searchPlaces = shallow(<SearchPlaces/>);
+    const event = {target:{name:'searching', value: 'happy place'}};
+    expect(searchPlaces.state().searching).toEqual(null);
+    simulateOnChange(searchPlaces.find('Input').at(0),event,searchPlaces,);
+    searchPlaces.instance().handleChange(event);
+    expect(searchPlaces.state().searching).toEqual('happy place');
+}
+test("Test handleChange method", testHandleChangeInput);
 
 
 

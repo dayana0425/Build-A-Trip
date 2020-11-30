@@ -84,7 +84,7 @@ export default class ClearButton extends Component {
     }
 }
 
-const RemovableIcon = () => (
+export const RemovableIcon = () => (
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
