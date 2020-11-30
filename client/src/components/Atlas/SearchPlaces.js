@@ -24,13 +24,11 @@ export default class SearchPlaces extends Component{
         let options = [];
         let type = []
         var x;
-
         if(filter){
         filter.forEach(x =>{
             options.push({ value: x, label: x})
         })
         }
-
         return (
             <div>
                 <InputGroup>
@@ -74,41 +72,35 @@ export default class SearchPlaces extends Component{
         }
 
         requestFilter() {
-                    sendServerRequest({requestType: "config", requestVersion: 4})
-                        .then(config => {
-                            if (config) {
-                                this.setState({filterCountries: config.data.filters.where});
-                            } else {
-                                console.error('Error');
-                            }
-                        });
-                }
+            sendServerRequest({requestType: "config", requestVersion: 4})
+               .then(config => {
+                  if (config) {
+                     this.setState({filterCountries: config.data.filters.where});
+                  } else {
+                    console.error('Error');
+                  }
+               });
+        }
 
-     requestMatch(inputValue) {
-            const {places} = this.state;
-            let filters = [];
-            let options = this.state.filters;
-            var x;
-
-            if(options){
-                console.log(options)
-                options.forEach( x => {
-                                    console.log(x)
-
-                    filters.push(this.convertInputString(x.label));
-                })
-            }
-
+    requestMatch(inputValue) {
+       const {places} = this.state;
+       let filters = [];
+       let options = this.state.filters;
+       console.log(this.state.filters)
+       var x;
+       if(options){
+          options.forEach( x => {
+              filters.push(this.convertInputString(x.label));
+           })
+        }
             let types = [];
             let optionsType = this.state.filtersType;
             var x;
-
             if(optionsType){
                 optionsType.forEach( x => {
                     types.push(this.convertInputString(x.label));
                 })
             }
-
             sendServerRequest({requestType: "find", requestVersion: 4, match: inputValue, limit: 5, places: [], narrow: {type: types, where: filters}})
                 .then(find => {
                     if (find) {
@@ -121,7 +113,6 @@ export default class SearchPlaces extends Component{
                     }
                 });
         }
-
 
     handleChange = (event) => {
        this.setState({[event.target.name]: event.target.value});

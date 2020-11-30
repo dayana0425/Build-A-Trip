@@ -2,7 +2,7 @@ import './jestConfig/enzyme.config.js';
 
 import React from 'react';
 import {shallow,mount} from 'enzyme';
-import {Table} from 'reactstrap';
+import {Table, InputGroup} from 'reactstrap';
 
 import SearchPlaces from '../src/components/Atlas/SearchPlaces';
 
@@ -44,14 +44,13 @@ function testHandleChange(){
 test("Test handleChange method", testHandleChange);
 
 
-//function testRequestMatch(){
-//    const searchPlaces = shallow(<SearchPlaces/>);
-//    const match = 'Dave';
-//    searchPlaces.setState({filters: 'United States'})
-//    searchPlaces.setState({filtersType: 'Airport'})
-//    searchPlaces.instance().requestMatch(match);
-//}
-//test("Test requestMatch Method", testRequestMatch);
+function testRequestMatch(){
+    const searchPlaces = shallow(<SearchPlaces/>);
+    const match = 'Dave';
+    searchPlaces.setState({filters: [{value: 'United States', label: 'United States'}]})
+    searchPlaces.instance().requestMatch(match);
+}
+test("Test requestMatch Method", testRequestMatch);
 
 
 function testHandleFilter(){
@@ -87,6 +86,13 @@ function testRenderTable(){
 }
 test('Test handleFilter Method',testRenderTable);
 
+
+function testRenderExists(){
+     const searchPlaces = shallow(<SearchPlaces/>);
+     searchPlaces.setState({filterCountries: ['United States', 'China']})
+     expect(searchPlaces.exists(InputGroup)).toEqual(true);
+}
+test('Test render rendering an InputGroup',testRenderExists);
 
 //function testAddButton(){
 //    const searchPlaces = shallow(<SearchPlaces
