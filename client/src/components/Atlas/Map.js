@@ -46,6 +46,7 @@ export default class OurMap extends Component{
     }
 
     setMarker(mapClickInfo) {
+        console.log(mapClickInfo);
        this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
     }
 
