@@ -101,8 +101,7 @@ export default class OurMap extends Component{
            useFlyTo={true}
            maxBoundsViscosity={1.0}>
            <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-             <ClearButton
-                 toggle = {this.toggle}/>
+           <ClearButton toggle = {this.toggle}/>
            {this.getMarker()}
            {this.drawLines()}
          </Map>

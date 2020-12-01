@@ -108,7 +108,7 @@ function testHandleChangeInput(){
     const searchPlaces = shallow(<SearchPlaces/>);
     const event = {target:{name:'searching', value: 'happy place'}};
     expect(searchPlaces.state().searching).toEqual(null);
-    simulateOnChange(searchPlaces.find('Input').at(0),event,searchPlaces,);
+    simulateOnChange(searchPlaces.find('Input').at(0),event,searchPlaces);
     searchPlaces.instance().handleChange(event);
     expect(searchPlaces.state().searching).toEqual('happy place');
 }

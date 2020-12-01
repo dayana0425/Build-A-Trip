@@ -10,9 +10,13 @@ import 'leaflet/dist/leaflet.css';
 
 //helper function
 
-
 function simulateOnClick(button,parentWrapper){
     button.simulate('click');
+    parentWrapper.update();
+}
+
+function simulateOnChange(input,event,parentWrapper){
+    input.simulate('change',event);
     parentWrapper.update();
 }
 
@@ -70,3 +74,28 @@ function testGetMarkersForLoadingOntoMap(){
       expect(markerArray).toEqual(expectedArray);
 }
 test("Testing getMarkersForLoadingOntoMap function",testGetMarkersForLoadingOntoMap);
+
+
+function testChangeTripName(){
+    const itineraryTable = shallow(<ItineraryTable/>);
+    const event = {target:{name:'options', value: 'My trip'}};
+    expect(itineraryTable.state().options).toEqual(null);
+    simulateOnChange(itineraryTable.find('Input').at(0),event,itineraryTable);
+    itineraryTable.instance().changeTripName(event);
+    expect(itineraryTable.state().options.title).toEqual('My trip');
+}
+test("Testing changeTripName function",testChangeTripName);
+
+
+function testGetTripDistance(){
+    const itineraryTable = shallow(<ItineraryTable/>);
+    const distanceSet = [1,2,3,4,5,6];
+    expect(itineraryTable.state().distances).toEqual([]);
+    expect(itineraryTable.state().roundTrip).toEqual(0);
+    expect(itineraryTable.state().showDistance).toEqual(false);
+    itineraryTable.instance().getTripDistance(distanceSet);
+    expect(itineraryTable.state().distances).toEqual(distanceSet);
+    expect(itineraryTable.state().showDistance).toEqual(true);
+}
+test('Test getTripDistance method', testGetTripDistance);
+
