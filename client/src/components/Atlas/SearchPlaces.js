@@ -48,7 +48,7 @@ export default class SearchPlaces extends Component{
                        onChange={this.handleFilter}
                        />
                        <Select
-                       options= {[{value:"Airport", label:"Airport"},{value:"Balloonport", label:"Balloonport"},{value:"Heliport", label:"Heliport"}]}
+                       options= {[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
                        isMulti
                        onChange={this.handleFilterType}
                        />
