@@ -1,7 +1,7 @@
 package com.tco.requests;
-
-import java.lang.String;;
-
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.String;
 import com.tco.misc.BadRequestException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
@@ -59,6 +59,31 @@ public class TestFindDatabase {
         assertEquals("continent",URL);
     }
 
+
+    @Test
+    @DisplayName("Test constructor with filters")
+    public void testFindDatabase(){
+        List<String> type = new ArrayList<String>();
+        List<String> where = new ArrayList<String>();
+        type.add("airport");
+        where.add("the United States");
+        Filters filter = new Filters(type, where);
+        fd = new FindDatabase("Dave's", 3, filter);
+    }
+
+    @Test
+    @DisplayName("Test getQuery methods with filters and queryWithFilters")
+    public void testGetQuery(){
+        List<String> type = new ArrayList<String>();
+        List<String> where = new ArrayList<String>();
+        type.add("airport");
+        type.add("balloonport");
+        where.add("the United States");
+        where.add("China");
+        Filters filter = new Filters(type,where);
+        fd = new FindDatabase("Dave's", 3, filter);
+        fd.getQuery();
+    }
 
 
 }
