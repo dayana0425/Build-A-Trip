@@ -36,7 +36,9 @@ export default class Atlas extends Component {
                              <OurMap
                                      markerPositions = {this.state.markerPositions}
                                      requestCurrentLocation = {this.props.requestCurrentLocation}
-                                     addMarkersToMap = {this.addMarkersToMap}/>
+                                     addMarkersToMap = {this.addMarkersToMap}
+                                     addMarkersByArrayToMap = {this.addMarkersByArrayToMap}
+                                     addPlacesToItineraryByArray = {this.addPlacesToItineraryByArray}/>
                              <ClearButton
                                      clearAllMarkers= {this.clearAllMarkers}
                                      markerPositions = {this.state.markerPositions}

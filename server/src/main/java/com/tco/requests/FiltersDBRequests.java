@@ -62,14 +62,12 @@ public class FiltersDBRequests {
 
     public void helpCountries(ResultSet results) throws SQLException {
         ArrayList<String> countries = new ArrayList<>();
-
         while(results.next()){
             if(results.getString("name").equals("Unknown or unassigned country")){
                 continue;
             }
             countries.add(results.getString("name"));
         }
-
         this.countries = countries;
     }
 

@@ -3,7 +3,6 @@ import {Button, Row, Col} from 'reactstrap';
 import ItineraryTable from './ItineraryTable';
 
 export default class ClearButton extends Component {
-
     constructor(props) {
         super(props);
         this.state = {

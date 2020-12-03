@@ -1,12 +1,9 @@
 import React, {Component} from 'react'
 import {Map, Marker, Popup, TileLayer, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-
 import {MAP_BOUNDS, MAP_CENTER_DEFAULT, MARKER_ICON, CURR_LOC_MARKER_ICON, MAP_LAYER_ATTRIBUTION, MAP_LAYER_URL, MAP_MIN_ZOOM, MAP_MAX_ZOOM} from "../../utils/constants";
-import ClearButton from "./ClearButton";
 
 export default class OurMap extends Component{
-
     constructor(props){
         super(props)
         this.setMarker = this.setMarker.bind(this)
@@ -14,7 +11,6 @@ export default class OurMap extends Component{
         this.getMarker = this.getMarker.bind(this)
         this.setMap = this.setMap.bind(this)
         this.toggle = this.toggle.bind(this)
-
         this.state = {
             showLine: true
         };
@@ -46,8 +42,7 @@ export default class OurMap extends Component{
     }
 
     setMarker(mapClickInfo) {
-        console.log(mapClickInfo);
-       this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
+        this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
     }
 
     drawLines(){
@@ -80,7 +75,6 @@ export default class OurMap extends Component{
     }
 
     render(){
-
         let value = this.setMap();
         let map_center = value[0];
         let fit_bounds = value[1];
@@ -101,7 +95,7 @@ export default class OurMap extends Component{
            useFlyTo={true}
            maxBoundsViscosity={1.0}>
            <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-           <ClearButton toggle = {this.toggle}/>
+           {/*<ClearButton toggle = {this.toggle}/>*/}
            {this.getMarker()}
            {this.drawLines()}
          </Map>
