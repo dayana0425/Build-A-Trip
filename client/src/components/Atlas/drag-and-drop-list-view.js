@@ -40,11 +40,11 @@ export default class ClearButton extends Component {
                             style={{
                                 ...props.style,
                                 padding: '1.5em',
-                                margin: '0.5em 0em',
+                                margin: '0.1em 0em',
                                 listStyleType: 'none',
                                 cursor: isDragged ? 'grabbing' : 'grab',
-                                border: '2px solid #CCC',
-                                boxShadow: '3px 3px #AAA',
+                                border: '1.5px solid #CCC',
+                                boxShadow: '2px 2px #AAA',
                                 color: '#333',
                                 borderRadius: '5px',
                                 fontFamily: 'Arial, "Helvetica Neue", Helvetica, sans-serif',
@@ -68,8 +68,10 @@ export default class ClearButton extends Component {
                                 <HandleIcon/>
                                 </button>
                                 <div>
-                                    <h6> {'Place ' + (index + 1) + ': ' + value.name} </h6>
-                                    <h7> { (index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h7>
+                                    <h6> {(index === 0) ? 'Begin' + ': ' + value.name : ""} </h6>
+                                    <h6> {(index !== 0 && index !== this.props.places.length-1) ? 'Place ' + (index + 1) + ': ' + value.name : ""} </h6>
+                                    <h6> {(index !== 0 && index === this.props.places.length-1) ? 'End' + ': ' + value.name : ""} </h6>
+                                    <h7> {(index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h7>
                                 </div>{' '}
                                 <button onClick={() => { (typeof index !== 'undefined') ? this.props.addPlacesToItineraryByArray(arrayRemove(this.props.places, index)) : this.addPlacesToItineraryByArray(this.props.places) }} style={buttonStyles}>
                                     <RemovableIcon />
