@@ -83,7 +83,6 @@ export default class SearchPlaces extends Component{
        const {places} = this.state;
        let filters = [];
        let options = this.state.filters;
-       console.log(this.state.filters)
        var x;
        if(options){
           options.forEach( x => {
