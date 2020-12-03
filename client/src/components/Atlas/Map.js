@@ -14,7 +14,6 @@ export default class OurMap extends Component{
         this.getMarker = this.getMarker.bind(this)
         this.setMap = this.setMap.bind(this)
         this.toggle = this.toggle.bind(this)
-
         this.state = {
             showLine: true
         };
@@ -46,7 +45,7 @@ export default class OurMap extends Component{
     }
 
     setMarker(mapClickInfo) {
-        console.log(mapClickInfo);
+        console.log("Map Click Info: " + mapClickInfo.latlng);
        this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
     }
 
@@ -101,8 +100,7 @@ export default class OurMap extends Component{
            useFlyTo={true}
            maxBoundsViscosity={1.0}>
            <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-             <ClearButton
-                 toggle = {this.toggle}/>
+           <ClearButton toggle = {this.toggle}/>
            {this.getMarker()}
            {this.drawLines()}
          </Map>

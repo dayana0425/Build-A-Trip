@@ -18,19 +18,19 @@ export default class ClearButton extends Component {
                     onChange={({ oldIndex, newIndex }) =>
                         this.props.addPlacesToItineraryByArray(arrayMove(this.props.places, oldIndex, newIndex))
                     }
+
                     renderList={({ children, props, isDragged }) => (
                         <ul
                             {...props}
                             style={{
                                 padding: '1em',
                                 cursor: isDragged ? 'grabbing' : undefined,
-                                height: 600,
+                                height: 300,
                                 overflowY: 'scroll',
                                 overflowX: 'hidden',
-                                borderTop: '5px solid #AAA',
-                                borderBottom: '5px solid #AAA'
-                            }}
-                        >
+                                border: '2px solid #CCC',
+                                borderRadius: '5px'
+                            }}>
                             {children}
                         </ul>
                     )}
@@ -56,77 +56,37 @@ export default class ClearButton extends Component {
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'space-between'
-                                }}
-                            >
+                                }}>
                                 <button
-                                    data-movable-handle
                                     style={{
                                         ...buttonStyles,
                                         cursor: isDragged ? 'grabbing' : 'grab',
                                         marginRight: '2em'
                                     }}
-                                    tabIndex={-1}
-                                >
-                                    <HandleIcon />
+                                    tabIndex={-1}>
+                                <HandleIcon/>
                                 </button>
-                                <div> <h4> {'Place ' + (index + 1) + ': ' + value.name} </h4>
-                                      <h5> { (index != 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h5>
+                                <div> <h5> {'Place ' + (index + 1) + ': ' + value.name} </h5>
+                                      <h6> { (index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h6>
                                 </div>{' '}
-
                                 <button onClick={() => { (typeof index !== 'undefined') ? this.props.addPlacesToItineraryByArray(arrayRemove(this.props.places, index)) : this.addPlacesToItineraryByArray(this.props.places) }} style={buttonStyles}>
                                     <RemovableIcon />
                                 </button>
                             </div>
                         </li>
-                    )}
-                />
+                    )}/>
             </div>
         );
     }
 }
 
 const RemovableIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#555"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="feather feather-x-circle"
-    >
-        <title>Remove</title>
-        <circle cx="12" cy="12" r="10" />
-        <line x1="15" y1="9" x2="9" y2="15" />
-        <line x1="9" y1="9" x2="15" y2="15" />
-    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
 );
 
 export const HandleIcon = () => (
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#555"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="feather feather-move"
-    >
-        <polyline points="5 9 2 12 5 15" />
-        <polyline points="9 5 12 2 15 5" />
-        <polyline points="15 19 12 22 9 19" />
-        <polyline points="19 9 22 12 19 15" />
-        <line x1="2" y1="12" x2="22" y2="12" />
-        <line x1="12" y1="2" x2="12" y2="22" />
-    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 15h18v-2H3v2zm0 4h18v-2H3v2zm0-8h18V9H3v2zm0-6v2h18V5H3z"/></svg>
 );
-
 
 const buttonStyles = {
     border: 'none',

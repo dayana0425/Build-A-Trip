@@ -11,10 +11,10 @@ import 'leaflet/dist/leaflet.css';
 //helper function
 
 
-function simulateOnClick(button,parentWrapper){
-    button.simulate('click');
-    parentWrapper.update();
-}
+// function simulateOnClick(button,parentWrapper){
+//     button.simulate('click');
+//     parentWrapper.update();
+// }
 
 
 function testSaveFileFormat(){
@@ -32,20 +32,20 @@ function testRender(){
 test("Testing render()", testRender);
 
 
-function testSimpleRequest(){
-    const itineraryTable = shallow(<ItineraryTable/>);
-    itineraryTable.setState({options:{ title: "My trip"}});
-    itineraryTable.instance().simpleRequest(simulateOnClick(itineraryTable.find('Button').at(0), itineraryTable));
-}
-test("Testing simpleRequest function",testSimpleRequest);
+// function testSimpleRequest(){
+//     const itineraryTable = shallow(<ItineraryTable/>);
+//     itineraryTable.setState({options:{ title: "My trip"}});
+//     itineraryTable.instance().simpleRequest(simulateOnClick(itineraryTable.find('Button').at(0), itineraryTable));
+// }
+// test("Testing simpleRequest function",testSimpleRequest);
 
 
-function testRequestWithOptimize(){
-    const itineraryTable = shallow(<ItineraryTable/>);
-    itineraryTable.setState({options:{ title: "My trip"}});
-    itineraryTable.instance().requestWithOptimize(simulateOnClick(itineraryTable.find('Button').at(1), itineraryTable));
-}
-test("Testing simpleRequest function",testRequestWithOptimize);
+// function testRequestWithOptimize(){
+//     const itineraryTable = shallow(<ItineraryTable/>);
+//     itineraryTable.setState({options:{ title: "My trip"}});
+//     itineraryTable.instance().requestWithOptimize(simulateOnClick(itineraryTable.find('Button').at(1), itineraryTable));
+// }
+// test("Testing simpleRequest function",testRequestWithOptimize);
 
 
 function testClearDistance(){
