@@ -238,9 +238,9 @@ export default class ItineraryTable extends Component {
                     <CardBody style={{marginTop: 10}}>
                         {this.showTripNameInputField()}
                         {(this.state.tripName) ? this.showNameAndLoadFile() : "" }
-                        {(this.props.placesForItinerary !== 'undefined' && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
-                        {(this.state.distances !== 'undefined' && this.state.tripName) ? this.showRoundTrip() : ""}
-                        {(this.props.placesForItinerary !== 'undefined' && this.state.tripName) ? this.showButtonOptions() : ""}
+                        {(this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
+                        {(this.state.distances.length !== 0 && this.state.tripName) ? this.showRoundTrip() : ""}
+                        {(this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.showButtonOptions() : ""}
                     </CardBody>
                 </Card>
             </Collapse>

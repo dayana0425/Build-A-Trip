@@ -54,10 +54,11 @@ export default class ClearButton extends Component {
                             <div
                                 style={{
                                     display: 'flex',
-                                    alignItems: 'center',
+                                    alignItems: 'left',
                                     justifyContent: 'space-between'
                                 }}>
                                 <button
+                                    data-movable-handle
                                     style={{
                                         ...buttonStyles,
                                         cursor: isDragged ? 'grabbing' : 'grab',
@@ -66,8 +67,9 @@ export default class ClearButton extends Component {
                                     tabIndex={-1}>
                                 <HandleIcon/>
                                 </button>
-                                <div> <h5> {'Place ' + (index + 1) + ': ' + value.name} </h5>
-                                      <h6> { (index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h6>
+                                <div>
+                                    <h6> {'Place ' + (index + 1) + ': ' + value.name} </h6>
+                                    <h7> { (index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h7>
                                 </div>{' '}
                                 <button onClick={() => { (typeof index !== 'undefined') ? this.props.addPlacesToItineraryByArray(arrayRemove(this.props.places, index)) : this.addPlacesToItineraryByArray(this.props.places) }} style={buttonStyles}>
                                     <RemovableIcon />
