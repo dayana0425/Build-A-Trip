@@ -40,19 +40,16 @@ export default class SearchPlaces extends Component{
                     <Button color="primary" onClick={(e) => {this.handleClick(e)}}>Search</Button>
                         </InputGroupAddon>
                     </InputGroup>
-
                        <Select
                        options= {options}
+                       placeholder="Select Countries..."
                        isMulti
-                       onChange={this.handleFilter}
-                       />
+                       onChange={this.handleFilter}/>
                        <Select
                        options= {[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
+                       placeholder="Select Type..."
                        isMulti
-                       onChange={this.handleFilterType}
-                       />
-
-
+                       onChange={this.handleFilterType}/>
                     <Table bordered hover striped>
                         {this.renderTableHeader()}
                         <tbody>{this.renderTable(this.state.places)}</tbody>
@@ -143,8 +140,7 @@ export default class SearchPlaces extends Component{
         return (
             <thead>
             <tr>
-                <th>Airport Name</th>
-                <th> </th>
+                <th>Places</th>
             </tr>
             </thead>
         )
@@ -156,13 +152,25 @@ export default class SearchPlaces extends Component{
             return(
                 <tr key={id}>
                     <td>
-                       {name}
-                    </td>
-                    <td>
-                       <Button variant="primary" onClick={() => {this.props.addMarkersToMap(name, latitude, longitude)}}>Add</Button>
+                        <Button style={buttonStyles} onClick={() => {this.props.addMarkersToMap(name, latitude, longitude)}}><Add></Add></Button>{' '}
+                        {name}
                     </td>
                 </tr>
             )
         })
        }
     }
+
+export const Add = () => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+);
+
+const buttonStyles = {
+    border: 'none',
+    margin: 0,
+    padding: 2,
+    width: 'auto',
+    overflow: 'visible',
+    cursor: 'pointer',
+    background: 'transparent'
+};

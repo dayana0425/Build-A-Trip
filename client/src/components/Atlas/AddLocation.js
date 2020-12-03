@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { Col, Button, Form, Input } from 'reactstrap';
 
 export default class AddLocation extends Component{
-
     constructor(props){
         super(props)
         this.state = {
@@ -54,7 +53,7 @@ export default class AddLocation extends Component{
                         Add Location
                     </Button>
                     <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={() => this.requestCurrentLocation()}>
-                        Current Location
+                        Add Current Location
                     </Button>
              </Col>
          )

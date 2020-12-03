@@ -25,7 +25,7 @@ export default class ClearButton extends Component {
                             style={{
                                 padding: '1em',
                                 cursor: isDragged ? 'grabbing' : undefined,
-                                height: 300,
+                                height: 350,
                                 overflowY: 'scroll',
                                 overflowX: 'hidden',
                                 border: '2px solid #CCC',
@@ -39,7 +39,7 @@ export default class ClearButton extends Component {
                             {...props}
                             style={{
                                 ...props.style,
-                                padding: '1.5em',
+                                padding: '1em',
                                 margin: '0.1em 0em',
                                 listStyleType: 'none',
                                 cursor: isDragged ? 'grabbing' : 'grab',
@@ -48,33 +48,29 @@ export default class ClearButton extends Component {
                                 color: '#333',
                                 borderRadius: '5px',
                                 fontFamily: 'Arial, "Helvetica Neue", Helvetica, sans-serif',
-                                backgroundColor: isDragged || isSelected ? '#EEE' : '#FFF'
-                            }}>
-
+                                backgroundColor: isDragged || isSelected ? '#EEE' : '#FFF'}}>
                             <div
                                 style={{
                                     display: 'flex',
                                     alignItems: 'left',
-                                    justifyContent: 'space-between'
-                                }}>
+                                    justifyContent: 'space-between'}}>
                                 <button
                                     data-movable-handle
                                     style={{
                                         ...buttonStyles,
                                         cursor: isDragged ? 'grabbing' : 'grab',
-                                        marginRight: '2em'
-                                    }}
+                                        marginRight: '2em'}}
                                     tabIndex={-1}>
-                                <HandleIcon/>
+                                    <HandleIcon/>
                                 </button>
                                 <div>
-                                    <h6> {(index === 0) ? 'Begin' + ': ' + value.name : ""} </h6>
-                                    <h6> {(index !== 0 && index !== this.props.places.length-1) ? 'Place ' + (index + 1) + ': ' + value.name : ""} </h6>
-                                    <h6> {(index !== 0 && index === this.props.places.length-1) ? 'End' + ': ' + value.name : ""} </h6>
-                                    <h7> {(index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h7>
+                                    <h5> {(index === 0) ? 'Begin' + ': ' + value.name : ""} </h5>
+                                    <h5> {(index !== 0 && index !== this.props.places.length-1) ? 'Place ' + (index + 1) + ': ' + value.name : ""} </h5>
+                                    <h5> {(index !== 0 && index === this.props.places.length-1) ? 'End' + ': ' + value.name : ""} </h5>
+                                    <h5> {(index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h5>
                                 </div>{' '}
-                                <button onClick={() => { (typeof index !== 'undefined') ? this.props.addPlacesToItineraryByArray(arrayRemove(this.props.places, index)) : this.addPlacesToItineraryByArray(this.props.places) }} style={buttonStyles}>
-                                    <RemovableIcon />
+                                <button onClick={() => {(typeof index !== 'undefined') ? this.props.addPlacesToItineraryByArray(arrayRemove(this.props.places, index)) : this.addPlacesToItineraryByArray(this.props.places)}} style={buttonStyles}>
+                                    <RemovableIcon/>
                                 </button>
                             </div>
                         </li>

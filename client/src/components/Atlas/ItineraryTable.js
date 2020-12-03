@@ -3,16 +3,15 @@ import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon, Al
 import {sendServerRequest} from "../../utils/restfulAPI";
 import PlacesTable from "./drag-and-drop-list-view.js";
 import 'leaflet/dist/leaflet.css';
-
 export default class ItineraryTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
             tripName: "",
             roundTrip: 0,
-            options: null,
+            options: {},
             isOpen: '',
-            places: null,
+            places: [],
             distances: [],
             showDistance: false
         }
@@ -24,6 +23,7 @@ export default class ItineraryTable extends Component {
         this.uploadTrip = this.uploadTrip.bind(this);
         this.getTripDistance = this.getTripDistance.bind(this);
         this.getTripTable = this.getTripTable.bind(this);
+        this.showButtonOptions = this.showButtonOptions.bind(this);
     }
 
     changeTripName(event) {
@@ -32,12 +32,14 @@ export default class ItineraryTable extends Component {
     }
 
     simpleRequest(event){
-        var name = this.state.options.title
-        var options = {
-            title: name,
-            earthRadius: "3959.0"
+        if(this.state.options.title){
+            var name = this.state.options.title
+            var options = {
+                title: name,
+                earthRadius: "3959.0"
+            }
+            this.requestTrip(options)
         }
-        this.requestTrip(options)
     }
 
     requestWithOptimize(event){
@@ -51,7 +53,6 @@ export default class ItineraryTable extends Component {
     }
 
     getTripDistance(distanceSet){
-        console.log("OMG" + distanceSet);
         this.setState({distances: distanceSet});
         this.setState({roundTrip: distanceSet.reduce((a, b) => a + b, 0)})
         if(distanceSet.length !== 0) {
