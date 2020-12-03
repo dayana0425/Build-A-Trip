@@ -1,6 +1,5 @@
 import './jestConfig/enzyme.config.js'
 import {mount, shallow} from 'enzyme'
-
 import React from 'react'
 import Page from "../src/components/Page";
 import Footer from '../src/components/Margins/Footer'

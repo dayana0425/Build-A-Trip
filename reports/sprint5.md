@@ -66,9 +66,9 @@ Sprint 4 was our best sprint of the semester so far as a team and we believe tha
 | Date | Tasks closed  | Tasks in progress | Impediments |
 | :--- | :--- | :--- | :--- |
 | *November 18, 2020* | *None* | *#564, #567, #575, #577, #580, #601* |  | 
-| *November 20, 2020* | *#task, ...* | *#task, ...* |  |
-| *November 30, 2020* | *#task, ...* | *#task, ...* |  |
-| *December 2, 2020* | *#task, ...* | *#task, ...* |  |
+| *November 20, 2020* | *#601, #603, #617* | *#564, #567, #575, #580, #581, #582, #436, #626* |  |
+| *November 30, 2020* | *#564, #567, #577, #581, #582, #436, #626* | *#575, #579, #580, #583, #596* |  |
+| *December 2, 2020* | *#432* | *#575, #579, #580, #583, #596* |  |
 | *December 4, 2020* | *#task, ...* | *#task, ...* |  |
 | *December 7, 2020* | *#task, ...* | *#task, ...* |  |
 | *December 9, 2020* | *#task, ...* | *#task, ...* |  |

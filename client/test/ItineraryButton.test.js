@@ -1,8 +1,6 @@
 import './jestConfig/enzyme.config.js';
-
 import React from 'react';
 import {shallow,mount} from 'enzyme';
-
 import ItineraryButton from '../src/components/Atlas/ItineraryButton';
 import ItineraryTable from '../src/components/Atlas/ItineraryTable'
 
