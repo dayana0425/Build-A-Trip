@@ -10,7 +10,7 @@
 
 | Name | Preparation Time |
 | ---- | ---- |
-| dbilbao | |
+| dbilbao | 20 min |
 | rloptien | |
 | xinyi99 | 30 min |
 | mattv | |
@@ -29,5 +29,6 @@
 | 136 | there is a unused const testing | low | daynight | --- |
 | 219 | e is not used in reverseTrip() | low | daynight | --- |
 | 184 | we have roundTrip, why we not use it here | low | daynight | --- |
+| 101-109 | changes to the itinerary should also mean changes to the map, we can do this by combinging placesForItinerary with MarkerPositions OR make a special method that updates both placesForItinerary and MarkerPositions | hi | dbilbao | --- |
 
 ### Results
