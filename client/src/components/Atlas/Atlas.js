@@ -17,6 +17,7 @@ export default class Atlas extends Component {
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
         this.addMarkersByArrayToMap = this.addMarkersByArrayToMap.bind(this);
         this.addPlacesToItineraryByArray = this.addPlacesToItineraryByArray.bind(this);
+        this.reverseTrip = this.reverseTrip.bind(this);
 
         this.state = {
             markerPosition: null,
@@ -46,6 +47,7 @@ export default class Atlas extends Component {
                                      addMarkersToMap = {this.addMarkersToMap}/>
                              <ItineraryButton
                                      placesForItinerary = {this.state.placesForItinerary}
+                                     reverseTrip = {this.reverseTrip}
                                      addMarkersToMap = {this.addMarkersToMap}
                                      clearAllMarkers = {this.clearAllMarkers}
                                      addMarkersByArrayToMap = {this.addMarkersByArrayToMap}
@@ -120,6 +122,17 @@ export default class Atlas extends Component {
     //adds places to itinerary given an array of "place" objects: {name: (string) , latitude: (string) , longitude: (string)}
     addPlacesToItineraryByArray(places){
         this.setState({placesForItinerary: places});
+    }
+
+    reverseTrip() {
+        let length = this.state.placesForItinerary.length;
+        let tripList = this.state.placesForItinerary;
+        for (var i = 0; i < length/2; i++) {
+            let swap = tripList[i];
+            tripList[i] = tripList[length - 1 - i];
+            tripList[length - 1 - i] = swap;
+        }
+        this.setState({placesForItinerary: tripList});
     }
 
     /* END OF MAP MARKERS */
