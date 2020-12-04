@@ -12,7 +12,7 @@
 | ---- | ---- |
 | dbilbao | |
 | rloptien | |
-| xinyi99 | |
+| xinyi99 | 30 min |
 | mattv | |
 | daynight| 25 min |
 
@@ -20,6 +20,12 @@
 
 | file:line | problem | hi/med/low | who found | github#  |
 | --- | --- | :---: | :---: | --- |
+| 31 | remove the setState for tripNmae| mid | xinyi99 | --- |
+| 36,46| don't need to define "name" variable | low | xinyi99 | --- |
+| 111-171 | considering creating a new file component | mid | xinyi99 | --- |
+| 57, 181-187| looks like there are duplicate | mid | xinyi99 | --- |
+| 210 - 220 |considering create a button component | mid | xinyi99 | --- |
+| 255-283| create another file to store all const value | mid | xinyi99 | --- |
 | 136 | there is a unused const testing | low | daynight | --- |
 | 219 | e is not used in reverseTrip() | low | daynight | --- |
 | 184 | we have roundTrip, why we not use it here | low | daynight | --- |
