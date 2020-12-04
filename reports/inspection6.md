@@ -14,7 +14,7 @@
 | rloptien | |
 | xinyi99 | 30 min |
 | mattv | |
-| daynight| |
+| daynight| 25 min |
 
 ### Problems found
 
@@ -26,8 +26,8 @@
 | 57, 181-187| looks like there are duplicate | mid | xinyi99 | --- |
 | 210 - 220 |considering create a button component | mid | xinyi99 | --- |
 | 255-283| create another file to store all const value | mid | xinyi99 | --- |
-
-
-
+| 136 | there is a unused const testing | low | daynight | --- |
+| 219 | e is not used in reverseTrip() | low | daynight | --- |
+| 184 | we have roundTrip, why we not use it here | low | daynight | --- |
 
 ### Results
