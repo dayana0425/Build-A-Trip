@@ -11,7 +11,7 @@
 | Name | Preparation Time |
 | ---- | ---- |
 | dbilbao | 20 min |
-| rloptien | |
+| rloptien | 30 min |
 | xinyi99 | 30 min |
 | mattv | |
 | daynight| 25 min |
@@ -30,5 +30,7 @@
 | 219 | e is not used in reverseTrip() | low | daynight | --- |
 | 184 | we have roundTrip, why we not use it here | low | daynight | --- |
 | 101-109 | changes to the itinerary should also mean changes to the map, we can do this by combinging placesForItinerary with MarkerPositions OR make a special method that updates both placesForItinerary and MarkerPositions | hi | dbilbao | --- |
+| 111-171 | Files is 283 lines long. Maybe move file load and save in its own file if it can still be in the itinerary table. | med | rloptien | --- |
+| 255-283 | Can constants go in constants.js? | low | rloptien | --- |
 
 ### Results
