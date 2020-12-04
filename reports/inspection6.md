@@ -34,3 +34,4 @@
 | 255-283 | Can constants go in constants.js? | low | rloptien | --- |
 
 ### Results
+We've discovered that there is a lot going on in our Itinerary Table and it is becoming too big and it's going to continue to get bigger so we'll be refactoring all components associated with load/save. We'll also be making some additions to the itinerary table so that when you make changes to the itinerary table then it'll update the map with those changes. Then, the other tasks are small fixes we need to make.
