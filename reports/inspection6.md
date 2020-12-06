@@ -13,7 +13,7 @@
 | dbilbao | 20 min |
 | rloptien | 30 min |
 | xinyi99 | 30 min |
-| mattv | |
+| mattv | 20 min |
 | daynight| 25 min |
 
 ### Problems found
@@ -32,6 +32,8 @@
 | 101-109 | changes to the itinerary should also mean changes to the map, we can do this by combinging placesForItinerary with MarkerPositions OR make a special method that updates both placesForItinerary and MarkerPositions | hi | dbilbao | #642 |
 | 111-171 | Files is 283 lines long. Maybe move file load and save in its own file if it can still be in the itinerary table. | med | rloptien | #641 |
 | 255-283 | Can constants go in constants.js? | low | rloptien | #641 |
+| 49, 130, 184 | Begin supporting different units, not just miles | med | mattv | #641 |
+| 181 | Consider providing error messages when something doesn't display or output correctly in itinerary | low | mattv | #641 |
 
 ### Results
 We've discovered that there is a lot going on in our Itinerary Table and it is becoming too big and it's going to continue to get bigger so we'll be refactoring all components associated with load/save. We'll also be making some additions to the itinerary table so that when you make changes to the itinerary table then it'll update the map with those changes. Then, the other tasks are small fixes we need to make.
