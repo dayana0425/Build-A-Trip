@@ -3,7 +3,7 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 import currentLocationIcon from '../static/images/home-marker-icon.png';
-import {Map, Marker, Popup, TileLayer, Polyline} from 'react-leaflet';
+import 'react-leaflet';
 import start from '../static/images/google-start-green.png';
 import end from '../static/images/google-end-red.png';
 import normal from '../static/images/google-normal-blue.png';
