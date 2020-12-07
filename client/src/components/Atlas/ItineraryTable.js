@@ -31,6 +31,9 @@ export default class ItineraryTable extends Component {
 
     changeTripName(event) {
         this.setState({[event.target.name]: {title: event.target.value}});
+    }
+
+    onClickTripName(event){
         this.setState({tripName: this.state.options.title});
     }
 
@@ -242,7 +245,7 @@ export default class ItineraryTable extends Component {
             <InputGroup style={{marginBottom: 10}}>
                 <Input type="text" name="options" value={this.name} onChange={(e) => {this.changeTripName(e)}} placeholder="Enter Trip Name"/>
                 <InputGroupAddon addonType="append">
-                    <Button size="med" color="primary" onClick={(e) => {this.changeTripName(e)}}>Enter</Button>
+                    <Button size="med" color="primary" onClick={(e) => {this.onClickTripName(e)}}>Enter</Button>
                 </InputGroupAddon>
             </InputGroup>
         );
