@@ -16,7 +16,7 @@ export default class ClearButton extends Component {
                 <List
                     values={this.props.places}
                     onChange={({ oldIndex, newIndex }) =>
-                        this.props.addPlacesToItineraryByArray(arrayMove(this.props.places, oldIndex, newIndex))
+                        this.props.updateItineraryAndMapByArray(arrayMove(this.props.places, oldIndex, newIndex))
                     }
 
                     renderList={({ children, props, isDragged }) => (
@@ -69,7 +69,7 @@ export default class ClearButton extends Component {
                                     <h5> {(index !== 0 && index === this.props.places.length-1) ? 'End' + ': ' + value.name : ""} </h5>
                                     <h5> {(index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h5>
                                 </div>{' '}
-                                <button onClick={() => {(typeof index !== 'undefined') ? this.props.addPlacesToItineraryByArray(arrayRemove(this.props.places, index)) : this.addPlacesToItineraryByArray(this.props.places)}} style={buttonStyles}>
+                                <button onClick={() => {(typeof index !== 'undefined') ? this.props.updateItineraryAndMapByArray(arrayRemove(this.props.places, index)) : this.props.updateItineraryAndMapByArray(this.props.places)}} style={buttonStyles}>
                                     <RemovableIcon/>
                                 </button>
                             </div>

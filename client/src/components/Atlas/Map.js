@@ -51,7 +51,7 @@ export default class OurMap extends Component{
         if (this.state.showLine) {
             let points = [];
             this.props.markerPositions.forEach((position) => { points.push([position.lat, position.lng]) });
-            if(points.length > 2){ points.push(points[0]); }
+            if (points.length > 2) { points.push(points[0]); }
             if (points.length > 1) { return (<Polyline positions={points} color='red'/>); }
         }
     }
@@ -64,7 +64,7 @@ export default class OurMap extends Component{
         let map_center;
         let fit_bounds;
         if (this.props.markerPositions.length > 0) {
-            if (this.props.markerPositions.length == 1) {
+            if (this.props.markerPositions.length === 1) {
                 map_center = [this.props.markerPositions[0].lat, this.props.markerPositions[0].lng];
             } else {
                 let sortedMarkerPositions = [...this.props.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);

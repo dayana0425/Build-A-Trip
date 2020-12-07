@@ -102,10 +102,10 @@ export default class ItineraryTable extends Component {
     getTripTable(places) {
         return (
             <PlacesTable places={places}
+                         updateItineraryAndMapByArray={this.props.updateItineraryAndMapByArray}
                          addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}
                          showDistance={this.state.showDistance}
-                         distances={this.state.distances}
-            />
+                         distances={this.state.distances}/>
         )
     }
 

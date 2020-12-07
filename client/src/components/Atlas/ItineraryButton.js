@@ -29,7 +29,8 @@ export default class ClearButton extends Component {
                                     clearAllMarkers={this.props.clearAllMarkers}
                                     addMarkersToMap={this.props.addMarkersToMap}
                                     addMarkersByArrayToMap={this.props.addMarkersByArrayToMap}
-                                    addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}/>
+                                    addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}
+                                    updateItineraryAndMapByArray={this.props.updateItineraryAndMapByArray}/>
                 </Col>
             </Row>
         )

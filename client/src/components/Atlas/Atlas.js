@@ -12,11 +12,11 @@ export default class Atlas extends Component {
 
     constructor(props) {
         super(props);
-
         this.addMarkersToMap = this.addMarkersToMap.bind(this);
         this.clearAllMarkers = this.clearAllMarkers.bind(this);
         this.addMarkersByArrayToMap = this.addMarkersByArrayToMap.bind(this);
         this.addPlacesToItineraryByArray = this.addPlacesToItineraryByArray.bind(this);
+        this.updateItineraryAndMapByArray = this.updateItineraryAndMapByArray.bind(this);
         this.reverseTrip = this.reverseTrip.bind(this);
 
         this.state = {
@@ -51,7 +51,8 @@ export default class Atlas extends Component {
                                      addMarkersToMap = {this.addMarkersToMap}
                                      clearAllMarkers = {this.clearAllMarkers}
                                      addMarkersByArrayToMap = {this.addMarkersByArrayToMap}
-                                     addPlacesToItineraryByArray = {this.addPlacesToItineraryByArray}/>
+                                     addPlacesToItineraryByArray = {this.addPlacesToItineraryByArray}
+                                     updateItineraryAndMapByArray = {this.updateItineraryAndMapByArray}/>
                         </Col>
                     </Row>
                 </Container>
@@ -124,6 +125,15 @@ export default class Atlas extends Component {
         this.setState({placesForItinerary: places});
     }
 
+    //updates both placesForItinerary and markerPositions by array at once - method for itinerary
+    updateItineraryAndMapByArray(places){
+        let newMarkerPositions = [];
+        this.setState({placesForItinerary: places});
+        places.map((place) => newMarkerPositions.push(L.latLng(parseFloat(place.latitude), parseFloat(place.longitude))));
+        this.setState({markerPositions: newMarkerPositions});
+    }
+
+    //reverses trip on map view and on the itinerary
     reverseTrip() {
         let tripList = this.state.placesForItinerary;
         let markerPosList = this.state.markerPositions;
