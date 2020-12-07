@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Map, Marker, Popup, TileLayer, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import {MAP_BOUNDS, MAP_CENTER_DEFAULT, MARKER_ICON, CURR_LOC_MARKER_ICON, MAP_LAYER_ATTRIBUTION, MAP_LAYER_URL, MAP_MIN_ZOOM, MAP_MAX_ZOOM} from "../../utils/constants";
+import {MAP_BOUNDS, MAP_CENTER_DEFAULT, MARKER_ICON, CURR_LOC_MARKER_ICON, START_MARKER, END_MARKER, MAP_LAYER_ATTRIBUTION, MAP_LAYER_URL, MAP_MIN_ZOOM, MAP_MAX_ZOOM} from "../../utils/constants";
 
 export default class OurMap extends Component{
     constructor(props){
@@ -27,15 +27,17 @@ export default class OurMap extends Component{
             }
         };
 
-        let Icon = CURR_LOC_MARKER_ICON;
-        if (this.props.markerPositions.length > 1) {
-            Icon = MARKER_ICON;
-        }
         return (
             this.props.markerPositions.map((position, idx) =>
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={Icon}>
-                    <Popup offset={[0, -18]}
-                           className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                (idx === 0) ?
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={START_MARKER}>
+                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                </Marker> : (idx === this.props.markerPositions.length-1 && idx !== 0) ?
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={END_MARKER}>
+                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                </Marker> :
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={MARKER_ICON}>
+                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
                 </Marker>
             )
         );
