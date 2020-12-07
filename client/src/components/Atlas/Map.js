@@ -5,12 +5,12 @@ import {MAP_BOUNDS, MAP_CENTER_DEFAULT, BLUE_MARKER, START_MARKER, END_MARKER, M
 
 export default class OurMap extends Component{
     constructor(props){
-        super(props)
-        this.setMarker = this.setMarker.bind(this)
-        this.drawLines = this.drawLines.bind(this)
-        this.getMarker = this.getMarker.bind(this)
-        this.setMap = this.setMap.bind(this)
-        this.toggle = this.toggle.bind(this)
+        super(props);
+        this.setMarker = this.setMarker.bind(this);
+        this.drawLines = this.drawLines.bind(this);
+        this.getMarker = this.getMarker.bind(this);
+        this.setMap = this.setMap.bind(this);
+        this.toggle = this.toggle.bind(this);
         this.state = {
             showLine: true
         };
@@ -37,7 +37,7 @@ export default class OurMap extends Component{
                     <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
                 </Marker> :
                 <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={BLUE_MARKER}>
-                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                    <Popup offset={[0, -18]} className="font-weight-bold"> {this.getStringMarkerPosition(position)}</Popup>
                 </Marker>
             )
         );
