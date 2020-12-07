@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { List, arrayMove, arrayRemove } from "react-movable";
+import Tooltip from '@material-ui/core/Tooltip';
 
 /* Source Code for removable button Credit - https://github.com/tajo/react-movable/blob/master/examples/Removable.tsx */
 /* Source Code for scrollable container Credit - https://github.com/tajo/react-movable/blob/master/examples/ScrollingContainer.tsx */
@@ -54,24 +55,28 @@ export default class ClearButton extends Component {
                                     display: 'flex',
                                     alignItems: 'left',
                                     justifyContent: 'space-between'}}>
-                                <button
-                                    data-movable-handle
-                                    style={{
-                                        ...buttonStyles,
-                                        cursor: isDragged ? 'grabbing' : 'grab',
-                                        marginRight: '2em'}}
-                                    tabIndex={-1}>
-                                    <HandleIcon/>
-                                </button>
+                                <Tooltip title="Drag to Reorder Places">
+                                    <button
+                                        data-movable-handle
+                                        style={{
+                                            ...buttonStyles,
+                                            cursor: isDragged ? 'grabbing' : 'grab',
+                                            marginRight: '2em'}}
+                                        tabIndex={-1}>
+                                        <HandleIcon/>
+                                    </button>
+                                </Tooltip>
                                 <div>
                                     <h5> {(index === 0) ? 'Begin' + ': ' + value.name : ""} </h5>
                                     <h5> {(index !== 0 && index !== this.props.places.length-1) ? 'Place ' + (index + 1) + ': ' + value.name : ""} </h5>
                                     <h5> {(index !== 0 && index === this.props.places.length-1) ? 'End' + ': ' + value.name : ""} </h5>
                                     <h5> {(index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h5>
                                 </div>{' '}
+                                <Tooltip title="Remove Place from Trip">
                                 <button onClick={() => {(typeof index !== 'undefined') ? this.props.updateItineraryAndMapByArray(arrayRemove(this.props.places, index)) : this.props.updateItineraryAndMapByArray(this.props.places)}} style={buttonStyles}>
                                     <RemovableIcon/>
                                 </button>
+                                </Tooltip>
                             </div>
                         </li>
                     )}/>

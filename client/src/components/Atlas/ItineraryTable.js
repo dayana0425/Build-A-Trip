@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon, Alert, Row, Col, Label, FormText} from 'reactstrap';
+import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon, Alert, Row, Col, FormText} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
 import Tooltip from '@material-ui/core/Tooltip';
 import PlacesTable from "./DragAndDropListView";
