@@ -21,7 +21,7 @@ export default class ClearButton extends Component {
             <Row>
                 <Col>
                     <Button color="primary" style={{ marginTop: 10 }} onClick={this.toggleIsOpen}>
-                        Show Itinerary
+                        View Itinerary
                     </Button>
                     <ItineraryTable isOpen={this.state.isOpen}
                                     placesForItinerary={this.props.placesForItinerary}
@@ -29,7 +29,8 @@ export default class ClearButton extends Component {
                                     clearAllMarkers={this.props.clearAllMarkers}
                                     addMarkersToMap={this.props.addMarkersToMap}
                                     addMarkersByArrayToMap={this.props.addMarkersByArrayToMap}
-                                    addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}/>
+                                    addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}
+                                    updateItineraryAndMapByArray={this.props.updateItineraryAndMapByArray}/>
                 </Col>
             </Row>
         )

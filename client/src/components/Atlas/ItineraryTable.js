@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
-import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon, Alert, Row, Col, Label, FormText} from 'reactstrap';
+import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon, Alert, Row, Col, FormText} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
+import Tooltip from '@material-ui/core/Tooltip';
 import PlacesTable from "./DragAndDropListView";
 import 'leaflet/dist/leaflet.css';
+import {Save, Delete, Optimize, Distance, Reverse, buttonStyles} from "../../utils/constants";
+
 export default class ItineraryTable extends Component {
     constructor(props) {
         super(props)
@@ -28,6 +31,9 @@ export default class ItineraryTable extends Component {
 
     changeTripName(event) {
         this.setState({[event.target.name]: {title: event.target.value}});
+    }
+
+    onClickTripName(event){
         this.setState({tripName: this.state.options.title});
     }
 
@@ -101,10 +107,10 @@ export default class ItineraryTable extends Component {
     getTripTable(places) {
         return (
             <PlacesTable places={places}
+                         updateItineraryAndMapByArray={this.props.updateItineraryAndMapByArray}
                          addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}
                          showDistance={this.state.showDistance}
-                         distances={this.state.distances}
-            />
+                         distances={this.state.distances}/>
         )
     }
 
@@ -204,21 +210,31 @@ export default class ItineraryTable extends Component {
         return(
             <Col>
                 <Row>
-                    <Button style={buttonStyles} color="primary" onClick={this.clearDistance}>
-                        <Delete> </Delete>
-                    </Button>
-                    <Button style={buttonStyles} color="primary" onClick={() => {this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')}}>
-                        <Save> </Save>
-                    </Button>
-                    <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.requestWithOptimize(e)}}>
-                        <Optimize> </Optimize>
-                    </Button>
-                    <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.simpleRequest(e)}}>
-                        <Distance> </Distance>
-                    </Button>
-                    <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.props.reverseTrip()}}>
-                        <Reverse> </Reverse>
-                    </Button>
+                    <Tooltip title="Delete Trip">
+                            <Button style={buttonStyles} color="primary" onClick={this.clearDistance}>
+                                <Delete> </Delete>
+                            </Button>
+                    </Tooltip>
+                    <Tooltip title="Save Trip">
+                        <Button style={buttonStyles} color="primary" onClick={() => {this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')}}>
+                            <Save> </Save>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Optimize Trip">
+                        <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.requestWithOptimize(e)}}>
+                            <Optimize> </Optimize>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Show Distances">
+                         <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.simpleRequest(e)}}>
+                            <Distance> </Distance>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Reverse Trip">
+                        <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.props.reverseTrip()}}>
+                            <Reverse> </Reverse>
+                        </Button>
+                    </Tooltip>
                 </Row>
             </Col>
         );
@@ -229,7 +245,7 @@ export default class ItineraryTable extends Component {
             <InputGroup style={{marginBottom: 10}}>
                 <Input type="text" name="options" value={this.name} onChange={(e) => {this.changeTripName(e)}} placeholder="Enter Trip Name"/>
                 <InputGroupAddon addonType="append">
-                    <Button size="med" color="primary" onClick={(e) => {this.changeTripName(e)}}>Enter</Button>
+                    <Button size="med" color="primary" onClick={(e) => {this.onClickTripName(e)}}>Enter</Button>
                 </InputGroupAddon>
             </InputGroup>
         );
@@ -251,33 +267,3 @@ export default class ItineraryTable extends Component {
         )
     }
 }
-
-export const Save = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
-);
-
-export const Delete = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zm2.46-7.12l1.41-1.41L12 12.59l2.12-2.12 1.41 1.41L13.41 14l2.12 2.12-1.41 1.41L12 15.41l-2.12 2.12-1.41-1.41L10.59 14l-2.13-2.12zM15.5 4l-1-1h-5l-1 1H5v2h14V4z"/></svg>
-);
-
-export const Optimize = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg>
-);
-
-export const Distance = () => (
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M19.5 9.5c-1.03 0-1.9.62-2.29 1.5h-2.92c-.39-.88-1.26-1.5-2.29-1.5s-1.9.62-2.29 1.5H6.79c-.39-.88-1.26-1.5-2.29-1.5C3.12 9.5 2 10.62 2 12s1.12 2.5 2.5 2.5c1.03 0 1.9-.62 2.29-1.5h2.92c.39.88 1.26 1.5 2.29 1.5s1.9-.62 2.29-1.5h2.92c.39.88 1.26 1.5 2.29 1.5 1.38 0 2.5-1.12 2.5-2.5s-1.12-2.5-2.5-2.5z"/></svg>
-);
-
-export const Reverse = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z"/></svg>
-);
-
-const buttonStyles = {
-    border: 'none',
-    margin: 0,
-    padding: 0,
-    width: 'auto',
-    overflow: 'visible',
-    cursor: 'pointer',
-    background: 'transparent'
-};

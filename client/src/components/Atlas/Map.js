@@ -1,16 +1,16 @@
 import React, {Component} from 'react'
 import {Map, Marker, Popup, TileLayer, Polyline} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import {MAP_BOUNDS, MAP_CENTER_DEFAULT, MARKER_ICON, CURR_LOC_MARKER_ICON, MAP_LAYER_ATTRIBUTION, MAP_LAYER_URL, MAP_MIN_ZOOM, MAP_MAX_ZOOM} from "../../utils/constants";
+import {MAP_BOUNDS, MAP_CENTER_DEFAULT, BLUE_MARKER, START_MARKER, END_MARKER, MAP_LAYER_ATTRIBUTION, MAP_LAYER_URL, MAP_MIN_ZOOM, MAP_MAX_ZOOM} from "../../utils/constants";
 
 export default class OurMap extends Component{
     constructor(props){
-        super(props)
-        this.setMarker = this.setMarker.bind(this)
-        this.drawLines = this.drawLines.bind(this)
-        this.getMarker = this.getMarker.bind(this)
-        this.setMap = this.setMap.bind(this)
-        this.toggle = this.toggle.bind(this)
+        super(props);
+        this.setMarker = this.setMarker.bind(this);
+        this.drawLines = this.drawLines.bind(this);
+        this.getMarker = this.getMarker.bind(this);
+        this.setMap = this.setMap.bind(this);
+        this.toggle = this.toggle.bind(this);
         this.state = {
             showLine: true
         };
@@ -27,15 +27,17 @@ export default class OurMap extends Component{
             }
         };
 
-        let Icon = CURR_LOC_MARKER_ICON;
-        if (this.props.markerPositions.length > 1) {
-            Icon = MARKER_ICON;
-        }
         return (
             this.props.markerPositions.map((position, idx) =>
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={Icon}>
-                    <Popup offset={[0, -18]}
-                           className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                (idx === 0) ?
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={START_MARKER}>
+                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                </Marker> : (idx === this.props.markerPositions.length-1 && idx !== 0) ?
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={END_MARKER}>
+                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                </Marker> :
+                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={BLUE_MARKER}>
+                    <Popup offset={[0, -18]} className="font-weight-bold"> {this.getStringMarkerPosition(position)}</Popup>
                 </Marker>
             )
         );
@@ -49,7 +51,7 @@ export default class OurMap extends Component{
         if (this.state.showLine) {
             let points = [];
             this.props.markerPositions.forEach((position) => { points.push([position.lat, position.lng]) });
-            if(points.length > 2){ points.push(points[0]); }
+            if (points.length > 2) { points.push(points[0]); }
             if (points.length > 1) { return (<Polyline positions={points} color='red'/>); }
         }
     }
@@ -62,7 +64,7 @@ export default class OurMap extends Component{
         let map_center;
         let fit_bounds;
         if (this.props.markerPositions.length > 0) {
-            if (this.props.markerPositions.length == 1) {
+            if (this.props.markerPositions.length === 1) {
                 map_center = [this.props.markerPositions[0].lat, this.props.markerPositions[0].lng];
             } else {
                 let sortedMarkerPositions = [...this.props.markerPositions].sort((a, b) => (a.lng > b.lng) ? 1 : -1);

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Select from 'react-select';
 import { Button,  Alert, InputGroup, InputGroupAddon, Input, Table } from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
+import {Add, buttonStyles} from "../../utils/constants";
 
 
 export default class SearchPlaces extends Component{
@@ -22,8 +23,6 @@ export default class SearchPlaces extends Component{
     render() {
         let filter = this.state.filterCountries;
         let options = [];
-        let type = []
-        var x;
         if(filter){
         filter.forEach(x =>{
             options.push({ value: x, label: x})
@@ -43,7 +42,7 @@ export default class SearchPlaces extends Component{
                     </InputGroup>
                        <Select
                        options= {options}
-                       placeholder="Select Countries..."
+                       placeholder="Select Country..."
                        isMulti
                        onChange={this.handleFilter}/>
                        <Select
@@ -154,17 +153,3 @@ export default class SearchPlaces extends Component{
         })
        }
     }
-
-export const Add = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-);
-
-const buttonStyles = {
-    border: 'none',
-    margin: 0,
-    padding: 2,
-    width: 'auto',
-    overflow: 'visible',
-    cursor: 'pointer',
-    background: 'transparent'
-};
