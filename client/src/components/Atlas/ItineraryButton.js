@@ -21,7 +21,7 @@ export default class ClearButton extends Component {
             <Row>
                 <Col>
                     <Button color="primary" style={{ marginTop: 10 }} onClick={this.toggleIsOpen}>
-                        Show Itinerary
+                        View Itinerary
                     </Button>
                     <ItineraryTable isOpen={this.state.isOpen}
                                     placesForItinerary={this.props.placesForItinerary}

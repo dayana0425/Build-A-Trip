@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon, Alert, Row, Col, Label, FormText} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
+import Tooltip from '@material-ui/core/Tooltip';
 import PlacesTable from "./DragAndDropListView";
 import 'leaflet/dist/leaflet.css';
 export default class ItineraryTable extends Component {
@@ -204,21 +205,31 @@ export default class ItineraryTable extends Component {
         return(
             <Col>
                 <Row>
-                    <Button style={buttonStyles} color="primary" onClick={this.clearDistance}>
-                        <Delete> </Delete>
-                    </Button>
-                    <Button style={buttonStyles} color="primary" onClick={() => {this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')}}>
-                        <Save> </Save>
-                    </Button>
-                    <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.requestWithOptimize(e)}}>
-                        <Optimize> </Optimize>
-                    </Button>
-                    <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.simpleRequest(e)}}>
-                        <Distance> </Distance>
-                    </Button>
-                    <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.props.reverseTrip()}}>
-                        <Reverse> </Reverse>
-                    </Button>
+                    <Tooltip title="Delete Trip">
+                            <Button style={buttonStyles} color="primary" onClick={this.clearDistance}>
+                                <Delete> </Delete>
+                            </Button>
+                    </Tooltip>
+                    <Tooltip title="Save Trip">
+                        <Button style={buttonStyles} color="primary" onClick={() => {this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')}}>
+                            <Save> </Save>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Optimize Trip">
+                        <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.requestWithOptimize(e)}}>
+                            <Optimize> </Optimize>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Show Distances">
+                         <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.simpleRequest(e)}}>
+                            <Distance> </Distance>
+                        </Button>
+                    </Tooltip>
+                    <Tooltip title="Reverse Trip">
+                        <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.props.reverseTrip()}}>
+                            <Reverse> </Reverse>
+                        </Button>
+                    </Tooltip>
                 </Row>
             </Col>
         );
