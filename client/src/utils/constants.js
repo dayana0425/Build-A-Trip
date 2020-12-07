@@ -6,6 +6,7 @@ import currentLocationIcon from '../static/images/home-marker-icon.png';
 import {Map, Marker, Popup, TileLayer, Polyline} from 'react-leaflet';
 import start from '../static/images/google-start-green.png';
 import end from '../static/images/google-end-red.png';
+import normal from '../static/images/google-normal-blue.png';
 
 function setLogLevelIfDefault() {
     const urlString = window.location.search;
@@ -31,6 +32,7 @@ export const MARKER_ICON = L.icon({iconUrl: icon, shadowUrl: iconShadow, iconAnc
 export const CURR_LOC_MARKER_ICON = L.icon({iconUrl: currentLocationIcon, shadowUrl: iconShadow, iconAnchor: [12, 40]});
 export const START_MARKER = L.icon({iconUrl: start, shadowUrl: iconShadow, iconAnchor: [12,40]});
 export const END_MARKER = L.icon({iconUrl: end, shadowUrl: iconShadow, iconAnchor: [12,40]});
+export const BLUE_MARKER = L.icon({iconUrl: normal, shadowUrl: iconShadow, iconAnchor: [12,40]});
 export const MAP_LAYER_ATTRIBUTION = "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors";
 export const MAP_LAYER_URL = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 export const MAP_MIN_ZOOM = 2;
