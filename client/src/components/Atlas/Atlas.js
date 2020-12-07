@@ -125,14 +125,10 @@ export default class Atlas extends Component {
     }
 
     reverseTrip() {
-        let length = this.state.placesForItinerary.length;
         let tripList = this.state.placesForItinerary;
-        for (var i = 0; i < length/2; i++) {
-            let swap = tripList[i];
-            tripList[i] = tripList[length - 1 - i];
-            tripList[length - 1 - i] = swap;
-        }
-        this.setState({placesForItinerary: tripList});
+        let markerPosList = this.state.markerPositions;
+        this.setState({placesForItinerary: tripList.reverse()});
+        this.setState({markerPositions: markerPosList.reverse()})
     }
 
     /* END OF MAP MARKERS */

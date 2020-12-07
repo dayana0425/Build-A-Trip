@@ -43,7 +43,7 @@ export default class SearchPlaces extends Component{
                     </InputGroup>
                        <Select
                        options= {options}
-                       placeholder="Select Countries..."
+                       placeholder="Select Country..."
                        isMulti
                        onChange={this.handleFilter}/>
                        <Select
