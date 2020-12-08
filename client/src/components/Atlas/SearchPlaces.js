@@ -4,7 +4,6 @@ import { Button, Alert, InputGroup, InputGroupAddon, Input, Table } from 'reacts
 import {sendServerRequest} from "../../utils/restfulAPI";
 import {Add, buttonStyles} from "../../utils/constants";
 
-
 export default class SearchPlaces extends Component{
     constructor(props){
         super(props)
@@ -16,8 +15,7 @@ export default class SearchPlaces extends Component{
             results: 0,
             filters: null,
             filterCountries: null,
-            filtersType: null,
-            showTable: false
+            filtersType: null
         }
     }
 
