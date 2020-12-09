@@ -13,12 +13,11 @@ export default class OurMap extends Component{
         this.toggle = this.toggle.bind(this);
         this.state = {
             showLine: true,
-            geocode: ""
         };
     }
 
     getStringMarkerPosition(markerPos) {
-        return this.props.geocode + " Coordinates: " + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
+        return (this.props.geocode) ? this.props.geocode : "" + " Coordinates: " + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
 
     getMarker() {
