@@ -45,7 +45,6 @@ export default class OurMap extends Component{
 
     setMarker(mapClickInfo) {
         this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
-        this.props.getReverseGeocode(mapClickInfo.latlng);
     }
 
     drawLines(){
