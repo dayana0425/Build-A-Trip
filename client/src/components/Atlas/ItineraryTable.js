@@ -46,7 +46,7 @@ export default class ItineraryTable extends Component {
                 earthRadius: "3959.0"
             }
             this.requestTrip(option)
-
+            this.setState({options: option})
         }
     }
 
@@ -58,7 +58,7 @@ export default class ItineraryTable extends Component {
               response: "1.0"
         }
         this.requestTrip(option)
-
+        this.setState({options: option})
     }
 
     getTripDistance(distanceSet){
