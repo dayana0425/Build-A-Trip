@@ -24,7 +24,6 @@ export default class ItineraryTable extends Component {
         this.requestWithOptimize = this.requestWithOptimize.bind(this);
         this.requestTrip = this.requestTrip.bind(this);
         this.clearDistance = this.clearDistance.bind(this);
-       // this.uploadTrip = this.uploadTrip.bind(this);
         this.getTripDistance = this.getTripDistance.bind(this);
         this.getTripTable = this.getTripTable.bind(this);
         this.showButtonOptions = this.showButtonOptions.bind(this);

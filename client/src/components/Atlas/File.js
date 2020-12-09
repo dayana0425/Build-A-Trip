@@ -9,13 +9,11 @@ export default class File extends Component{
     }
 
      saveFileFormat() {
-      console.log(this.props.placesForItinerary);
          return {
              requestType: "trip",
              requestVersion: 4,
              options: this.props.options,
              places: this.props.placesForItinerary
-
          };
      }
 
@@ -68,7 +66,6 @@ export default class File extends Component{
             if(placesForLoadingOntoItinerary.length > 0) {
                 this.props.addPlacesToItineraryByArray(placesForLoadingOntoItinerary);
             }
-           // this.getTripTable(loadFilePositions);
         }
     }
 
@@ -76,15 +73,14 @@ export default class File extends Component{
         return(
             <Col>
                 <Row>
-                         <h2>{this.props.tripName + " Itinerary"}</h2>
-                           </Row>
-                           <Row>
-                               <Input type="file" onChange={(e)=> {this.onUploadChange(e)}}/>
-                               <FormText color="muted">*Supports JSON File Format Only</FormText>
-                           </Row>
-                       </Col>
-                   );
-
+                   <h2>{this.props.tripName + " Itinerary"}</h2>
+                </Row>
+                <Row>
+                    <Input type="file" onChange={(e)=> {this.onUploadChange(e)}}/>
+                    <FormText color="muted">*Supports JSON File Format Only</FormText>
+                </Row>
+            </Col>
+        );
     }
 
 }
