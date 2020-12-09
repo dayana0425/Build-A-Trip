@@ -18,12 +18,14 @@ export default class Atlas extends Component {
         this.addPlacesToItineraryByArray = this.addPlacesToItineraryByArray.bind(this);
         this.updateItineraryAndMapByArray = this.updateItineraryAndMapByArray.bind(this);
         this.reverseTrip = this.reverseTrip.bind(this);
+        this.getReverseGeocode = this.getReverseGeocode.bind(this);
 
         this.state = {
             markerPosition: null,
             markerPositions: [],
             activeTab: '1',
-            placesForItinerary: []
+            placesForItinerary: [],
+            geocode: ""
         };
     }
 
@@ -39,7 +41,9 @@ export default class Atlas extends Component {
                                      requestCurrentLocation = {this.props.requestCurrentLocation}
                                      addMarkersToMap = {this.addMarkersToMap}
                                      addMarkersByArrayToMap = {this.addMarkersByArrayToMap}
-                                     addPlacesToItineraryByArray = {this.addPlacesToItineraryByArray}/>
+                                     addPlacesToItineraryByArray = {this.addPlacesToItineraryByArray}
+                                     getReverseGeocode ={this.getReverseGeocode}
+                                     geocode = {this.state.geocode}/>
                              <ClearButton
                                      clearAllMarkers= {this.clearAllMarkers}
                                      markerPositions = {this.state.markerPositions}
@@ -111,6 +115,7 @@ export default class Atlas extends Component {
     //adds markers to map one by one must provide name of marker + lat + long, it also adds places to Itinerary
     addMarkersToMap(placeName, lat, long) {
         let coords = L.latLng(lat, long);
+        this.getReverseGeocode(coords);
         this.setState({ markerPositions: [...this.state.markerPositions, coords]});
         this.setState({ placesForItinerary: [...this.state.placesForItinerary, {name: placeName, latitude: coords.lat + '', longitude: coords.lng + ''}]});
     }
@@ -139,6 +144,14 @@ export default class Atlas extends Component {
         let markerPosList = this.state.markerPositions;
         this.setState({placesForItinerary: tripList.reverse()});
         this.setState({markerPositions: markerPosList.reverse()})
+    }
+
+    getReverseGeocode(position) {
+        fetch(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&langCode=EN&location=${position.lng},${position.lat}`)
+            .then(res => res.json())
+            .then(myJson => {
+                this.setState({geocode: myJson.address.LongLabel});
+            });
     }
 
     /* END OF MAP MARKERS */

@@ -17,16 +17,8 @@ export default class OurMap extends Component{
         };
     }
 
-    getReverseGeocode(position) {
-        fetch(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&langCode=EN&location=${position.lng},${position.lat}`)
-            .then(res => res.json())
-            .then(myJson => {
-                this.setState({geocode: myJson.address.LongLabel});
-            });
-    }
-
     getStringMarkerPosition(markerPos) {
-        return this.state.geocode + " Coordinates: " + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
+        return this.props.geocode + " Coordinates: " + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
 
     getMarker() {
@@ -54,7 +46,7 @@ export default class OurMap extends Component{
 
     setMarker(mapClickInfo) {
         this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
-        this.getReverseGeocode(mapClickInfo.latlng);
+        this.props.getReverseGeocode(mapClickInfo.latlng);
     }
 
     drawLines(){
