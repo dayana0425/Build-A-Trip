@@ -1,8 +1,18 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
-import { Button, Alert, InputGroup, InputGroupAddon, Input, Table } from 'reactstrap';
+import {
+    Button,
+    Alert,
+    InputGroup,
+    InputGroupAddon,
+    Input,
+    Table,
+    UncontrolledCollapse,
+    Card,
+    CardBody
+} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
-import {Add, buttonStyles} from "../../utils/constants";
+import {Information, Add, buttonStyles} from "../../utils/constants";
 
 export default class SearchPlaces extends Component{
     constructor(props){
@@ -125,10 +135,10 @@ export default class SearchPlaces extends Component{
     renderScrollableTable(){
         return(
             <div style={{
-                maxHeight: '200px',
+                maxHeight: '250px',
                 overflowY: 'auto'
             }}>
-            <Table bordered hover striped height="200">
+            <Table bordered hover striped height="250">
                 {this.renderTable()}
                 </Table>
             </div>
@@ -136,16 +146,37 @@ export default class SearchPlaces extends Component{
     }
 
     renderTable() {
-        return this.state.places.map((place) => {
-            const {id, name, longitude, latitude} = place
+        return this.state.places.map((place, id) => {
+            const {name, longitude, latitude, municipality, region, country, url, type} = place
             return(
-                <tbody>
-                <tr key={id}>
-                    <td>
-                        <Button style={buttonStyles} onClick={() => {this.props.addMarkersToMap(name, latitude, longitude)}}><Add> </Add></Button>{' '}
-                        {name}
-                    </td>
-                </tr>
+                <tbody key={id}>
+                    <tr key={id}>
+                        <td key={id}>
+                            <Button style={buttonStyles} onClick={() => {this.props.addMarkersToMap(name, latitude, longitude)}}><Add> </Add></Button>{' '}
+                            <Button style={buttonStyles} id="toggler"><Information> </Information></Button>{' '}
+                            {name}
+                            <UncontrolledCollapse toggler="#toggler">
+                                <Card>
+                                    <CardBody>
+                                        {"Longitude: " + parseFloat(longitude).toFixed(2)}
+                                        <br></br>
+                                        {"Latitude: " + parseFloat(latitude).toFixed(2)}
+                                        <br></br>
+                                        {"Type: " + type}
+                                        <br></br>
+                                        {"Region: " + region}
+                                        <br></br>
+                                        {"Country: " + country}
+                                        <br></br>
+                                        {"Municipality: " + municipality}
+                                        <br></br>
+                                        {"URL: "}
+                                        <a href={url}>{"" + url}</a>
+                                    </CardBody>
+                                </Card>
+                            </UncontrolledCollapse>
+                        </td>
+                    </tr>
                 </tbody>
             )
         })

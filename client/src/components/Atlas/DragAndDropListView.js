@@ -68,7 +68,7 @@ export default class ClearButton extends Component {
                                     </button>
                                 </Tooltip>
                                 <div>
-                                    <h5> {(index === 0) ? 'Begin' + ': ' + value.name : ""} </h5>
+                                    <h5> {(index === 0) ? 'Start' + ': ' + value.name : ""} </h5>
                                     <h5> {(index !== 0 && index !== this.props.places.length-1) ? 'Place ' + (index + 1) + ': ' + value.name : ""} </h5>
                                     <h5> {(index !== 0 && index === this.props.places.length-1) ? 'End' + ': ' + value.name : ""} </h5>
                                     <h5> {(index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h5>
