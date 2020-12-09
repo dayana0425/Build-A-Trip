@@ -12,12 +12,21 @@ export default class OurMap extends Component{
         this.setMap = this.setMap.bind(this);
         this.toggle = this.toggle.bind(this);
         this.state = {
-            showLine: true
+            showLine: true,
+            geocode: ""
         };
     }
 
+    getReverseGeocode(position) {
+        fetch(`https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&langCode=EN&location=${position.lng},${position.lat}`)
+            .then(res => res.json())
+            .then(myJson => {
+                this.setState({geocode: myJson.address.LongLabel});
+            });
+    }
+
     getStringMarkerPosition(markerPos) {
-       return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
+        return this.state.geocode + " Coordinates: " + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
 
     getMarker() {
@@ -30,21 +39,22 @@ export default class OurMap extends Component{
         return (
             this.props.markerPositions.map((position, idx) =>
                 (idx === 0) ?
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={START_MARKER}>
-                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                </Marker> : (idx === this.props.markerPositions.length-1 && idx !== 0) ?
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={END_MARKER}>
-                    <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                </Marker> :
-                <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={BLUE_MARKER}>
-                    <Popup offset={[0, -18]} className="font-weight-bold"> {this.getStringMarkerPosition(position)}</Popup>
-                </Marker>
+                    <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={START_MARKER}>
+                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                    </Marker> : (idx === this.props.markerPositions.length-1 && idx !== 0) ?
+                    <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={END_MARKER}>
+                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                    </Marker> :
+                    <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={BLUE_MARKER}>
+                        <Popup offset={[0, -18]} className="font-weight-bold"> {this.getStringMarkerPosition(position)}</Popup>
+                    </Marker>
             )
         );
     }
 
     setMarker(mapClickInfo) {
         this.props.addMarkersToMap("mapClickInfo", mapClickInfo.latlng);
+        this.getReverseGeocode(mapClickInfo.latlng);
     }
 
     drawLines(){
