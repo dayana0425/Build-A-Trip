@@ -17,12 +17,12 @@ import 'leaflet/dist/leaflet.css';
 // }
 
 
-function testSaveFileFormat(){
-    const itineraryTable = shallow(<ItineraryTable/>);
-    itineraryTable.instance().saveFileFormat();
-
-}
-test("Testing saveFileFormat Function", testSaveFileFormat);
+//function testSaveFileFormat(){
+//    const itineraryTable = shallow(<ItineraryTable/>);
+//    itineraryTable.instance().saveFileFormat();
+//
+//}
+//test("Testing saveFileFormat Function", testSaveFileFormat);
 
 
 function testRender(){
