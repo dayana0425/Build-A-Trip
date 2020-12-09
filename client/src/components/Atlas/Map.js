@@ -26,7 +26,6 @@ export default class OurMap extends Component{
                 ref.leafletElement.openPopup()
             }
         };
-
         return (
             this.props.markerPositions.map((position, idx) =>
                 (idx === 0) ?

@@ -6,7 +6,7 @@ import {shallow,mount} from 'enzyme';
 import ItineraryTable from '../src/components/Atlas/ItineraryTable';
 import {Button,Collapse} from 'reactstrap';
 import {Map} from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
+
 
 //helper function
 
@@ -15,14 +15,6 @@ import 'leaflet/dist/leaflet.css';
 //     button.simulate('click');
 //     parentWrapper.update();
 // }
-
-
-function testSaveFileFormat(){
-    const itineraryTable = shallow(<ItineraryTable/>);
-    itineraryTable.instance().saveFileFormat();
-
-}
-test("Testing saveFileFormat Function", testSaveFileFormat);
 
 
 function testRender(){

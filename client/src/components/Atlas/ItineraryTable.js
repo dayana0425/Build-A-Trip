@@ -5,6 +5,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import PlacesTable from "./DragAndDropListView";
 import 'leaflet/dist/leaflet.css';
 import {Save, Delete, Optimize, Distance, Reverse, buttonStyles} from "../../utils/constants";
+import File from './File'
 
 export default class ItineraryTable extends Component {
     constructor(props) {
@@ -23,7 +24,6 @@ export default class ItineraryTable extends Component {
         this.requestWithOptimize = this.requestWithOptimize.bind(this);
         this.requestTrip = this.requestTrip.bind(this);
         this.clearDistance = this.clearDistance.bind(this);
-        this.uploadTrip = this.uploadTrip.bind(this);
         this.getTripDistance = this.getTripDistance.bind(this);
         this.getTripTable = this.getTripTable.bind(this);
         this.showButtonOptions = this.showButtonOptions.bind(this);
@@ -33,29 +33,31 @@ export default class ItineraryTable extends Component {
         this.setState({[event.target.name]: {title: event.target.value}});
     }
 
-    onClickTripName(event){
+    onClickTripName(){
         this.setState({tripName: this.state.options.title});
     }
 
     simpleRequest(event){
         if(this.state.options.title){
             var name = this.state.options.title
-            var options = {
+            var option = {
                 title: name,
                 earthRadius: "3959.0"
             }
-            this.requestTrip(options)
+            this.requestTrip(option)
+            this.setState({options: option})
         }
     }
 
     requestWithOptimize(event){
         var name = this.state.options.title
-        var options = {
+        var option = {
               title:name,
               earthRadius: "3959.0",
               response: "1.0"
         }
-        this.requestTrip(options)
+        this.requestTrip(option)
+        this.setState({options: option})
     }
 
     getTripDistance(distanceSet){
@@ -114,68 +116,6 @@ export default class ItineraryTable extends Component {
         )
     }
 
-    saveFile(fileText, fileName, fileType) {
-        let file = new Blob([fileText], {type: fileType});
-        let element = document.createElement('a'),
-            url = URL.createObjectURL(file);
-        element.href = url;
-        element.download = fileName;
-        document.body.appendChild(element);
-        element.click();
-        setTimeout(function () {
-            document.body.removeChild(element);
-            window.URL.revokeObjectURL(url);
-        }, 0);
-    }
-
-    saveFileFormat() {
-        return {
-            requestType: "trip",
-            requestVersion: 4,
-            title: this.state.tripName,
-            earthRadius: 3959.0,
-            places: this.props.placesForItinerary
-        };
-    }
-
-    onUploadChange(event) {
-        const testing = new FileReader();
-        const scope = this;
-        let file = event.target;
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-            const data = (reader.result);
-            scope.uploadTrip(data);
-        };
-        reader.readAsText(file.files[0]);
-    }
-
-    uploadTrip(data) {
-        const text = JSON.parse(data);
-        var loadFilePositions = []
-        var markersForLoadingOntoMap = []
-        var placesForLoadingOntoItinerary = []
-        loadFilePositions.push(text);
-        if (loadFilePositions) {
-            var positions = loadFilePositions[0].places;
-            positions.forEach((place) => {
-                let lat = parseFloat(place.latitude);
-                let long = parseFloat(place.longitude);
-                markersForLoadingOntoMap.push(L.latLng(lat, long));
-                placesForLoadingOntoItinerary.push({name: place.name, latitude: lat + '', longitude: long + ''});
-            });
-            if (markersForLoadingOntoMap.length > 0) {
-                this.props.addMarkersByArrayToMap(markersForLoadingOntoMap);
-            }
-
-            if(placesForLoadingOntoItinerary.length > 0) {
-                this.props.addPlacesToItineraryByArray(placesForLoadingOntoItinerary);
-            }
-
-            this.getTripTable(loadFilePositions);
-        }
-    }
-
     clearDistance() {
         {this.props.clearAllMarkers()}
         this.setState({distances: []});
@@ -192,20 +132,6 @@ export default class ItineraryTable extends Component {
         );
     }
 
-    showNameAndLoadFile(){
-        return(
-            <Col>
-                <Row>
-                    <h2>{this.state.tripName + " Itinerary"}</h2>
-                </Row>
-                <Row>
-                    <Input type="file" onChange={(e)=> {this.onUploadChange(e)}}/>
-                    <FormText color="muted">*Supports JSON File Format Only</FormText>
-                </Row>
-            </Col>
-        );
-    }
-
     showButtonOptions(){
         return(
             <Col>
@@ -216,7 +142,7 @@ export default class ItineraryTable extends Component {
                             </Button>
                     </Tooltip>
                     <Tooltip title="Save Trip">
-                        <Button style={buttonStyles} color="primary" onClick={() => {this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')}}>
+                        <Button style={buttonStyles} color="primary" onClick={() => {this.refs.file.saveFile(JSON.stringify(this.refs.file.saveFileFormat()), this.state.tripName, 'application/json')}}>
                             <Save> </Save>
                         </Button>
                     </Tooltip>
@@ -245,7 +171,7 @@ export default class ItineraryTable extends Component {
             <InputGroup style={{marginBottom: 10}}>
                 <Input type="text" name="options" value={this.name} onChange={(e) => {this.changeTripName(e)}} placeholder="Enter Trip Name"/>
                 <InputGroupAddon addonType="append">
-                    <Button size="med" color="primary" onClick={(e) => {this.onClickTripName(e)}}>Enter</Button>
+                    <Button size="med" color="primary" onClick={() => {this.onClickTripName()}}>Enter</Button>
                 </InputGroupAddon>
             </InputGroup>
         );
@@ -257,7 +183,13 @@ export default class ItineraryTable extends Component {
                 <Card style={{marginTop: 10}}>
                     <CardBody style={{marginTop: 10}}>
                         {this.showTripNameInputField()}
-                        {(this.state.tripName) ? this.showNameAndLoadFile() : "" }
+                        {(this.state.tripName) ? <File ref = "file"
+                                                       tripName = {this.state.tripName}
+                                                       addMarkersByArrayToMap = {this.props.addMarkersByArrayToMap}
+                                                       addPlacesToItineraryByArray = {this.props.addPlacesToItineraryByArray}
+                                                       options = {this.state.options}
+                                                       placesForItinerary = {this.props.placesForItinerary}
+                                                       />: "" }
                         {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
                         {(typeof this.state.distances !== 'undefined' && this.state.distances.length !== 0 && this.state.tripName) ? this.showRoundTrip() : ""}
                         {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.showButtonOptions() : ""}
