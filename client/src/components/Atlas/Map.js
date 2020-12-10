@@ -34,7 +34,7 @@ export default class OurMap extends Component{
                     </Marker> : (idx === this.props.markerPositions.length-1 && idx !== 0) ?
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={END_MARKER}>
                         <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
-                    </Marker> :
+                    </Marker> : //default
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={BLUE_MARKER}>
                         <Popup offset={[0, -18]} className="font-weight-bold"> {this.getStringMarkerPosition(position)}</Popup>
                     </Marker>
@@ -80,7 +80,6 @@ export default class OurMap extends Component{
         let map_center = value[0];
         let fit_bounds = value[1];
         let zoom = 17;
-
        return (
          <Map
            className={'mapStyle'}
@@ -96,7 +95,6 @@ export default class OurMap extends Component{
            useFlyTo={true}
            maxBoundsViscosity={1.0}>
            <TileLayer url={MAP_LAYER_URL} attribution={MAP_LAYER_ATTRIBUTION}/>
-           {/*<ClearButton toggle = {this.toggle}/>*/}
            {this.getMarker()}
            {this.drawLines()}
          </Map>
