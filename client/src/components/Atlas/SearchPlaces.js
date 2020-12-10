@@ -49,20 +49,24 @@ export default class SearchPlaces extends Component{
                         <Button color="primary" onClick={() => {this.handleClick()}}>Search</Button>
                     </InputGroupAddon>
                 </InputGroup>
-                <div style={{marginBottom: 10}}>
                 <Select
-                    options= {options}
-                    placeholder="Select Country..."
+                    styles={{
+                        menu: provided => ({ ...provided, zIndex: 9999, marginTop: 0})
+                    }}
+                    options={options}
+                    placeholder="Filter by Country"
                     isMulti
                     onChange={this.handleFilter}/>
                 <Select
-                    options= {[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
-                    placeholder="Select Type..."
+                    styles={{
+                        menu: provided => ({ ...provided, zIndex: 9999, marginTop: 0})
+                    }}
+                    options={[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
+                    placeholder="Filter by Type"
                     isMulti
                     onChange={this.handleFilterType}/>
                     {(this.state.places.length !== 0) ? this.renderScrollableTable() : ""}
                     {(this.state.places.length !== 0) ? this.renderAlert() : ""}
-                </div>
             </div>
         );
     }
@@ -195,7 +199,7 @@ export default class SearchPlaces extends Component{
 
     renderAlert(){
         return(
-            <Alert style={{marginTop: 5}} color="success">{this.state.found} results found. Currently displaying {this.state.results} of the most relevant results.</Alert>
+            <Alert color="success">{this.state.found} results found. Currently displaying {this.state.results} of the most relevant results.</Alert>
         );
     }
 }
