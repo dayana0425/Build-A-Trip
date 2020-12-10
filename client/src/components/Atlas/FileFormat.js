@@ -9,22 +9,41 @@ export default class FileFormat extends Component{
                 {id:1, value:"JSON"},
                 {id:2, value:"CSV"}
             ],
-            checkedItems: new Map()
+           JSON:false,
+            CSV:false
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-
+        this.JSONDownload = this.JSONDownload.bind(this)
+        this.CSVDownload = this.CSVDownload.bind(this)
     }
 
-    handleChange(event) {
-            var isChecked = event.target.checked;
-            var item = event.target.value;
+    JSONDownload(){
+        this.setState({JSON:!this.state.JSON})
+    }
 
-            this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
+    CSVDownload(){
+        this.setState({CSV:!this.state.CSV})
+    }
+
+
+    handleChange(event) {
+           var item = event.target.value;
+           if(item == 1){
+                this.JSONDownload()
+           }
+           if(item == 2){
+                this.CSVDownload()
+           }
       }
 
       handleSubmit(event) {
-        console.log(this.state);
+          if(JSON){
+
+          }
+          if(CSV)
+
+
       }
 
     render(){
