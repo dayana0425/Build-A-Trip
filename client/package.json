@@ -13,6 +13,7 @@
     "axios": "^0.19.2",
     "baseui": "^9.105.0",
     "bootstrap": "^4.5.0",
+    "json2csv": "^5.0.5",
     "leaflet": "^1.6.0",
     "newman": "^5.1.2",
     "node-sass": "^4.14.1",

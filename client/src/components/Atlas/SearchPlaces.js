@@ -39,7 +39,7 @@ export default class SearchPlaces extends Component{
         }
         return (
             <div>
-                <InputGroup style={{marginBottom: 10}}>
+                <InputGroup>
                     <Input type="text"
                            name="searching"
                            value={this.match}
@@ -149,7 +149,7 @@ export default class SearchPlaces extends Component{
                 maxHeight: '250px',
                 overflowY: 'auto'
             }}>
-            <Table bordered hover striped height="250">
+            <Table bordered hover height="auto">
                 {this.renderTable()}
                 </Table>
             </div>
@@ -195,7 +195,7 @@ export default class SearchPlaces extends Component{
 
     renderAlert(){
         return(
-            <Alert style={{marginTop: 10}} color="success">{this.state.found} results found. Currently displaying {this.state.results} of the most relevant results.</Alert>
+            <Alert style={{marginTop: 5}} color="success">{this.state.found} results found. Currently displaying {this.state.results} of the most relevant results.</Alert>
         );
     }
 }
