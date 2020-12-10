@@ -12,7 +12,7 @@ import {
     CardBody
 } from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
-import {Explore, Information, Add, buttonStyles} from "../../utils/constants";
+import {Information, Add, buttonStyles} from "../../utils/constants";
 
 export default class SearchPlaces extends Component{
     constructor(props){
