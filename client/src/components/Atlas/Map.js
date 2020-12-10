@@ -17,7 +17,10 @@ export default class OurMap extends Component{
     }
 
     getStringMarkerPosition(idx, markerPos) {
-        return (this.props.reverseGeocodedMarkerPositions[idx] !== 'undefined') ? this.props.reverseGeocodedMarkerPositions[idx] + ' ' + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2) : markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
+        if (this.props.reverseGeocodedMarkerPositions !== undefined) {
+            return (this.props.reverseGeocodedMarkerPositions[idx] !== 'undefined' && markerPos) ? this.props.reverseGeocodedMarkerPositions[idx] + ' ' + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2) :
+                (markerPos) ? markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2) : "";
+        }
     }
 
     getMarker() {
