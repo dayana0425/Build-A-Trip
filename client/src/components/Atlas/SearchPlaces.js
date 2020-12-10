@@ -1,16 +1,6 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
-import {
-    Button,
-    Alert,
-    InputGroup,
-    InputGroupAddon,
-    Input,
-    Table,
-    UncontrolledCollapse,
-    Card,
-    CardBody
-} from 'reactstrap';
+import {Button, Alert, InputGroup, InputGroupAddon, Input, Table, UncontrolledCollapse, Card, CardBody} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
 import {Information, Add, buttonStyles} from "../../utils/constants";
 

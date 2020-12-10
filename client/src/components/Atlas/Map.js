@@ -16,8 +16,8 @@ export default class OurMap extends Component{
         };
     }
 
-    getStringMarkerPosition(markerPos) {
-        return (this.props.geocode) ? this.props.geocode : "" + " Coordinates: " + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
+    getStringMarkerPosition(idx, markerPos) {
+        return (this.props.reverseGeocodedMarkerPositions[idx] !== 'undefined') ? this.props.reverseGeocodedMarkerPositions[idx] + ' ' + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2) : markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
     }
 
     getMarker() {
@@ -30,13 +30,13 @@ export default class OurMap extends Component{
             this.props.markerPositions.map((position, idx) =>
                 (idx === 0) ?
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={START_MARKER}>
-                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(idx, position)}</Popup>
                     </Marker> : (idx === this.props.markerPositions.length-1 && idx !== 0) ?
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={END_MARKER}>
-                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(position)}</Popup>
+                        <Popup offset={[0, -18]} className="font-weight-bold">{this.getStringMarkerPosition(idx, position)}</Popup>
                     </Marker> : //default
                     <Marker ref={initMarker} key={`marker-${idx}`} position={position} icon={BLUE_MARKER}>
-                        <Popup offset={[0, -18]} className="font-weight-bold"> {this.getStringMarkerPosition(position)}</Popup>
+                        <Popup offset={[0, -18]} className="font-weight-bold"> {this.getStringMarkerPosition(idx, position)}</Popup>
                     </Marker>
             )
         );
