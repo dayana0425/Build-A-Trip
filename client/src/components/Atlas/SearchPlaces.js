@@ -102,7 +102,15 @@ export default class SearchPlaces extends Component{
                 types.push(this.convertInputString(x.label));
             })
         }
-        sendServerRequest({requestType: "find", requestVersion: 4, match: inputValue, limit: 100, places: [], narrow: {type: types, where: filters}})
+        var request;
+        if(inputValue){
+               request = {requestType: "find", requestVersion: 4, match: inputValue, limit: 100, places: [], narrow: {type: types, where: filters}};
+        }
+        else{
+               request = {requestType: "find", requestVersion: 4, places: [], narrow: {type: types, where: filters}};
+
+        }
+        sendServerRequest(request)
             .then(find => {
                 if (find) {
                     this.setState({places: find.data.places, found: find.data.found, results: find.data.places.length});
@@ -117,7 +125,10 @@ export default class SearchPlaces extends Component{
     }
 
     handleClick() {
-        let match = this.convertInputString(this.state.searching)
+        var match = null;
+        if( this.state.searching != null){
+            match = this.convertInputString(this.state.searching)
+        }
         this.requestMatch(match)
     }
 
