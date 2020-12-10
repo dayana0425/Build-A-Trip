@@ -6,6 +6,7 @@ import PlacesTable from "./DragAndDropListView";
 import 'leaflet/dist/leaflet.css';
 import {Save, Delete, Optimize, Distance, Reverse, buttonStyles} from "../../utils/constants";
 import File from './File'
+import FileFormat from './FileFormat'
 
 export default class ItineraryTable extends Component {
     constructor(props) {
@@ -17,7 +18,8 @@ export default class ItineraryTable extends Component {
             isOpen: '',
             places: [],
             distances: [],
-            showDistance: false
+            showDistance: false,
+            fileFormatOpen: true
         }
         this.changeTripName = this.changeTripName.bind(this);
         this.simpleRequest = this.simpleRequest.bind(this);
@@ -132,19 +134,29 @@ export default class ItineraryTable extends Component {
         );
     }
 
+    testPopup(){
+        return(
+             <FileFormat
+                isOpen = {this.state.fileFormatOpen}
+                toggleOpen={(isOpen = !this.state.fileFormatOpen) => this.setState({fileFormatOpen: isOpen})}
+             />
+        )
+    }
+
 
     showButtonOptions(){
         return(
             <Col>
                 <Row>
+                    {this.testPopup()}
                     <Tooltip title="Delete Trip">
                             <Button style={buttonStyles} color="primary" onClick={this.clearDistance}>
                                 <Delete> </Delete>
                             </Button>
                     </Tooltip>
                     <Tooltip title="Save Trip">
-                        <Button style={buttonStyles} color="primary" onClick={() => {this.refs.file.saveFile(JSON.stringify(this.refs.file.saveFileFormat()), this.state.tripName, 'application/json')}}>
-                            <Save> </Save>
+                        <Button style={buttonStyles} color="primary" onClick={() => this.testPopup()}>
+                                <Save> </Save>
                         </Button>
                     </Tooltip>
                     <Tooltip title="Optimize Trip">
