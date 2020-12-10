@@ -29,6 +29,7 @@ export default class ItineraryTable extends Component {
         this.getTripDistance = this.getTripDistance.bind(this);
         this.getTripTable = this.getTripTable.bind(this);
         this.showButtonOptions = this.showButtonOptions.bind(this);
+        this.filePopup = this.filePopup.bind(this);
     }
 
     changeTripName(event) {
@@ -134,28 +135,21 @@ export default class ItineraryTable extends Component {
         );
     }
 
-    testPopup(){
-        return(
-             <FileFormat
-                isOpen = {this.state.fileFormatOpen}
-                toggleOpen={(isOpen = !this.state.fileFormatOpen) => this.setState({fileFormatOpen: isOpen})}
-             />
-        )
+    filePopup(){
+       this.refs.file.renderDownload()
     }
-
 
     showButtonOptions(){
         return(
             <Col>
                 <Row>
-                    {this.testPopup()}
                     <Tooltip title="Delete Trip">
                             <Button style={buttonStyles} color="primary" onClick={this.clearDistance}>
                                 <Delete> </Delete>
                             </Button>
                     </Tooltip>
                     <Tooltip title="Save Trip">
-                        <Button style={buttonStyles} color="primary" onClick={() => this.testPopup()}>
+                        <Button style={buttonStyles} color="primary" onClick={() => this.filePopup()}>
                                 <Save> </Save>
                         </Button>
                     </Tooltip>
@@ -202,6 +196,8 @@ export default class ItineraryTable extends Component {
                                                        addPlacesToItineraryByArray = {this.props.addPlacesToItineraryByArray}
                                                        options = {this.state.options}
                                                        placesForItinerary = {this.props.placesForItinerary}
+                                                       isOpen = {this.state.fileFormatOpen}
+                                                       toggleOpen={(isOpen = !this.state.serverSettingsOpen) => this.setState({serverSettingsOpen: isOpen})}
                                                        />: "" }
                         {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
                         {(typeof this.state.distances !== 'undefined' && this.state.distances.length !== 0 && this.state.tripName) ? this.showRoundTrip() : ""}
