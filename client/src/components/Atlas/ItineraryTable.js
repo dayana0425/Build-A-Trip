@@ -132,6 +132,7 @@ export default class ItineraryTable extends Component {
         );
     }
 
+
     showButtonOptions(){
         return(
             <Col>
