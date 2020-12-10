@@ -12,7 +12,7 @@ import {
     CardBody
 } from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
-import {Information, Add, buttonStyles} from "../../utils/constants";
+import {Explore, Information, Add, buttonStyles} from "../../utils/constants";
 
 export default class SearchPlaces extends Component{
     constructor(props){
@@ -40,7 +40,8 @@ export default class SearchPlaces extends Component{
         return (
             <div>
                 <InputGroup>
-                    <Input type="text"
+                    <Input
+                           type="text"
                            name="searching"
                            value={this.match}
                            placeholder="Enter Place"
