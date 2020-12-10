@@ -1,81 +1,79 @@
 import React, {Component} from 'react';
-import {Button, Col, Row, Input,  FormText} from 'reactstrap';
-import { CSVLink,CSVDownload} from 'react-csv';
+import {Button, Col, Row, Input, FormText} from 'reactstrap';
+import {CSVLink, CSVDownload} from 'react-csv';
 
 
-export default class File extends Component{
+export default class File extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.uploadTrip = this.uploadTrip.bind(this);
     }
 
-    csvTesting(){
+    csvTesting() {
 
-    console.log('das')
-    const headers = [
-      { label: "First Name", key: "firstname" },
-      { label: "Last Name", key: "lastname" },
-      { label: "Email", key: "email" }
-    ];
+        console.log('das')
+        const headers = [
+            {label: "First Name", key: "firstname"},
+            {label: "Last Name", key: "lastname"},
+            {label: "Email", key: "email"}
+        ];
 
-    const data = [
-      { firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com" },
-      { firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com" },
-      { firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com" }
-    ];
+        const data = [
+            {firstname: "Ahmed", lastname: "Tomi", email: "ah@smthing.co.com"},
+            {firstname: "Raed", lastname: "Labes", email: "rl@smthing.co.com"},
+            {firstname: "Yezzi", lastname: "Min l3b", email: "ymin@cocococo.com"}
+        ];
 
-    <CSVLink data={data} headers={headers}>
-      Download me
-    </CSVLink>;
-
-
+        <CSVLink data={data} headers={headers}>
+            Download me
+        </CSVLink>;
     }
 
-    csvTest(data){
-        const { Parser, transforms: { unwind }  } = require('json2csv');
+    csvTest(data) {
+        const {Parser, transforms: {unwind}} = require('json2csv');
         const place = data.places;
-        const fields = ['name', 'latitude','longitude'];
-        const transforms = [unwind({ paths: ['name'] })];
-        const json2csvParser = new Parser({ fields, transforms });
+        const fields = ['name', 'latitude', 'longitude'];
+        const transforms = [unwind({paths: ['name']})];
+        const json2csvParser = new Parser({fields, transforms});
         const csv = json2csvParser.parse(place);
         console.log(csv);
-   }
+    }
 
-     saveFileFormat() {
-         return {
-             requestType: "trip",
-             requestVersion: 4,
-             options: this.props.options,
-             places: this.props.placesForItinerary
-         };
-     }
+    saveFileFormat() {
+        return {
+            requestType: "trip",
+            requestVersion: 4,
+            options: this.props.options,
+            places: this.props.placesForItinerary
+        };
+    }
 
-     saveFile(fileText, fileName, fileType) {
-            let file = new Blob([fileText], {type: fileType});
-            let element = document.createElement('a'),
-                url = URL.createObjectURL(file);
-            element.href = url;
-            element.download = fileName;
-            document.body.appendChild(element);
-            element.click();
-            setTimeout(function () {
-                document.body.removeChild(element);
-                window.URL.revokeObjectURL(url);
-            }, 0);
-     }
+    saveFile(fileText, fileName, fileType) {
+        let file = new Blob([fileText], {type: fileType});
+        let element = document.createElement('a'),
+            url = URL.createObjectURL(file);
+        element.href = url;
+        element.download = fileName;
+        document.body.appendChild(element);
+        element.click();
+        setTimeout(function () {
+            document.body.removeChild(element);
+            window.URL.revokeObjectURL(url);
+        }, 0);
+    }
 
-     onUploadChange(event) {
-            const testing = new FileReader();
-            const scope = this;
-            let file = event.target;
-            const reader = new FileReader();
-            reader.onload = async (event) => {
-                const data = (reader.result);
-                scope.uploadTrip(data);
-            };
-            reader.readAsText(file.files[0]);
-     }
+    onUploadChange(event) {
+        const testing = new FileReader();
+        const scope = this;
+        let file = event.target;
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+            const data = (reader.result);
+            scope.uploadTrip(data);
+        };
+        reader.readAsText(file.files[0]);
+    }
 
     uploadTrip(data) {
         const text = JSON.parse(data);
@@ -95,23 +93,27 @@ export default class File extends Component{
                 this.props.addMarkersByArrayToMap(markersForLoadingOntoMap);
             }
 
-            if(placesForLoadingOntoItinerary.length > 0) {
+            if (placesForLoadingOntoItinerary.length > 0) {
                 this.props.addPlacesToItineraryByArray(placesForLoadingOntoItinerary);
             }
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <Col>
                 <Row>
-                   <h2>{this.props.tripName + " Itinerary"}</h2>
+                    <h2>{this.props.tripName + " Itinerary"}</h2>
                 </Row>
                 <Row>
-                    <Input type="file" onChange={(e)=> {this.onUploadChange(e)}}/>
+                    <Input type="file" onChange={(e) => {
+                        this.onUploadChange(e)
+                    }}/>
                     <FormText color="muted">*Supports JSON File Format Only</FormText>
                 </Row>
-                <Button color="primary" onClick={() => {this.csvTesting(this.saveFileFormat())}}>
+                <Button color="primary" onClick={() => {
+                    this.csvTesting(this.saveFileFormat())
+                }}>
                     CSV
                 </Button>
             </Col>

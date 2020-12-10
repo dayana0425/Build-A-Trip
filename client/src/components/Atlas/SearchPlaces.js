@@ -1,16 +1,6 @@
 import React, {Component} from 'react';
 import Select from 'react-select';
-import {
-    Button,
-    Alert,
-    InputGroup,
-    InputGroupAddon,
-    Input,
-    Table,
-    UncontrolledCollapse,
-    Card,
-    CardBody
-} from 'reactstrap';
+import {Button, Alert, InputGroup, InputGroupAddon, Input, Table, UncontrolledCollapse, Card, CardBody} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
 import {Information, Add, buttonStyles} from "../../utils/constants";
 
@@ -39,8 +29,9 @@ export default class SearchPlaces extends Component{
         }
         return (
             <div>
-                <InputGroup style={{marginBottom: 10}}>
-                    <Input type="text"
+                <InputGroup>
+                    <Input
+                           type="text"
                            name="searching"
                            value={this.match}
                            placeholder="Enter Place"
@@ -49,20 +40,24 @@ export default class SearchPlaces extends Component{
                         <Button color="primary" onClick={() => {this.handleClick()}}>Search</Button>
                     </InputGroupAddon>
                 </InputGroup>
-                <div style={{marginBottom: 10}}>
                 <Select
-                    options= {options}
-                    placeholder="Select Country..."
+                    styles={{
+                        menu: provided => ({ ...provided, zIndex: 9999, marginTop: 0})
+                    }}
+                    options={options}
+                    placeholder="Filter by Country"
                     isMulti
                     onChange={this.handleFilter}/>
                 <Select
-                    options= {[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
-                    placeholder="Select Type..."
+                    styles={{
+                        menu: provided => ({ ...provided, zIndex: 9999, marginTop: 0})
+                    }}
+                    options={[{value:"airport", label:"airport"},{value:"balloonport", label:"balloonport"},{value:"heliport", label:"heliport"}]}
+                    placeholder="Filter by Type"
                     isMulti
                     onChange={this.handleFilterType}/>
                     {(this.state.places.length !== 0) ? this.renderScrollableTable() : ""}
                     {(this.state.places.length !== 0) ? this.renderAlert() : ""}
-                </div>
             </div>
         );
     }
@@ -149,7 +144,7 @@ export default class SearchPlaces extends Component{
                 maxHeight: '250px',
                 overflowY: 'auto'
             }}>
-            <Table bordered hover striped height="250">
+            <Table bordered hover height="auto">
                 {this.renderTable()}
                 </Table>
             </div>
@@ -195,7 +190,7 @@ export default class SearchPlaces extends Component{
 
     renderAlert(){
         return(
-            <Alert style={{marginTop: 10}} color="success">{this.state.found} results found. Currently displaying {this.state.results} of the most relevant results.</Alert>
+            <Alert color="success">{this.state.found} results found. Currently displaying {this.state.results} of the most relevant results.</Alert>
         );
     }
 }
