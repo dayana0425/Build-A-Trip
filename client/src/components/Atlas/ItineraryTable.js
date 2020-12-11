@@ -56,7 +56,6 @@ export default class ItineraryTable extends Component {
 
     handleChange(event) {
         var item = event.target.value;
-        console.log(item);
         if(item == 1){
             this.JSONDownload()
         }
@@ -66,8 +65,6 @@ export default class ItineraryTable extends Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state.JSON)
-        console.log(this.state.CSV)
         if(this.state.JSON){
             this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')
         }
