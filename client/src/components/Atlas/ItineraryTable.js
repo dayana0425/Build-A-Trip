@@ -144,15 +144,15 @@ export default class ItineraryTable extends Component {
             <Col>
                 <Row>
                     <Tooltip title="Delete Trip">
-                            <Button style={buttonStyles} color="primary" onClick={this.clearDistance}>
-                                <Delete> </Delete>
-                            </Button>
-                    </Tooltip>
-                    <Tooltip title="Save Trip">
-                        <Button style={buttonStyles} color="primary" onClick={() => this.filePopup()}>
-                                <Save> </Save>
+                        <Button style={buttonStyles} color="primary" onClick={this.clearDistance}>
+                            <Delete> </Delete>
                         </Button>
                     </Tooltip>
+//                    <Tooltip title="Save Trip">
+//                        <Button style={buttonStyles} color="primary" onClick={() => this.filePopup()}>
+//                                <Save> </Save>
+//                        </Button>
+//                    </Tooltip>
                     <Tooltip title="Optimize Trip">
                         <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.requestWithOptimize(e)}}>
                             <Optimize> </Optimize>
@@ -197,7 +197,7 @@ export default class ItineraryTable extends Component {
                                                        options = {this.state.options}
                                                        placesForItinerary = {this.props.placesForItinerary}
                                                        isOpen = {this.state.fileFormatOpen}
-                                                       toggleOpen={(isOpen = !this.state.serverSettingsOpen) => this.setState({serverSettingsOpen: isOpen})}
+                                                       toggleOpen={(isOpen = !this.state.fileFormatOpen) => this.setState({fileFormatOpenn: isOpen})}
                                                        />: "" }
                         {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
                         {(typeof this.state.distances !== 'undefined' && this.state.distances.length !== 0 && this.state.tripName) ? this.showRoundTrip() : ""}

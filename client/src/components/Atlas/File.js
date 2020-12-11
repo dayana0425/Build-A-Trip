@@ -41,7 +41,7 @@ export default class File extends Component{
               this.JSONDownload()
            }
            if(item == 2){
-               this.CSVDownload()
+              this.CSVDownload()
            }
        }
 
@@ -132,32 +132,34 @@ export default class File extends Component{
                 <Row>
                     <Input type="file" onChange={(e)=> {this.onUploadChange(e)}}/>
                     <FormText color="muted">*Supports JSON File Format Only</FormText>
+                    <form onClick = {this.renderDownload}>
+                    <input type = "button" value = "Save" onClick = {()=> {this.renderDownload}}/>
+                    </form>
                 </Row>
-                <Button color="primary" onClick={() => {this.saveCSVFile(this.saveFileFormat())}}>
-                    CSV
-                </Button>
-                {console.log(this)}
+
             </Col>
+
         );
     }
 
-     renderDownload(){
-         return(
-              <Modal isOpen = {this.props.isOpen} toggle = {() => this.props.toggleOpen()}>
-                   <ModalBody>
+   renderDownload(){
+       return(
+            <Modal isOpen = {true} >
+                  <ModalBody>
                        <form onSubmit={this.handleSubmit}>
                             {this.state.categories.map(item => (
-                                 <li>
+                                 <li key = {item.id}>
                                      <label>
                                          <input type="checkbox" value={item.id} onChange={this.handleChange}/>
                                          {item.value}
                                      </label>
                                  </li>
                             ))}
+                            <br />
                             <Button color="primary" style={{marginTop: 10, marginBottom: 10}} onClick={this.handleSubmit}>
                                 Submit
                             </Button>
-                            <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={this.toggleOpen}>
+                            <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={this.close}>
                                 Close
                             </Button>
                        </form>
