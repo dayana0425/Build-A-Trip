@@ -88,7 +88,7 @@ export default class ItineraryTable extends Component {
             requestType: "trip",
             requestVersion: 4,
             options: this.state.options,
-            places: this.state.placesForItinerary
+            places: this.props.placesForItinerary
         };
     }
 
@@ -214,6 +214,8 @@ export default class ItineraryTable extends Component {
         this.setState({
             modal: !this.state.modal
         });
+        this.setState({CSV:false});
+        this.setState({JSON:false});
     }
 
     showButtonOptions(){
