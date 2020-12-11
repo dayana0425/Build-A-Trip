@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { List, arrayMove, arrayRemove } from "react-movable";
 import Tooltip from '@material-ui/core/Tooltip';
-import {RemovableIcon, HandleIcon, buttonStyles} from "../../utils/constants";
-
+import {RemovableIcon, HandleIcon, buttonStyles, Information} from "../../utils/constants";
+import {Button, Card, CardBody, UncontrolledCollapse} from "reactstrap";
 /* Source Code for removable button Credit - https://github.com/tajo/react-movable/blob/master/examples/Removable.tsx */
 /* Source Code for scrollable container Credit - https://github.com/tajo/react-movable/blob/master/examples/ScrollingContainer.tsx */
 /* Handle Icon Credit - https://github.com/tajo/react-movable/blob/master/examples/Handle.tsx */
@@ -68,10 +68,17 @@ export default class ClearButton extends Component {
                                     </button>
                                 </Tooltip>
                                 <div>
-                                    <h5> {(index === 0) ? 'Start' + ': ' + value.name : ""} </h5>
-                                    <h5> {(index !== 0 && index !== this.props.places.length-1) ? 'Place ' + (index + 1) + ': ' + value.name : ""} </h5>
-                                    <h5> {(index !== 0 && index === this.props.places.length-1) ? 'End' + ': ' + value.name : ""} </h5>
-                                    <h5> {(index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h5>
+                                    <h5 id="toggler"> {(index === 0) ? 'Start' + ': ' + value.name : ""} </h5>
+                                    <h5 id="toggler"> {(index !== 0 && index !== this.props.places.length-1) ? 'Place ' + (index + 1) + ': ' + value.name : ""} </h5>
+                                    <h5 id="toggler"> {(index !== 0 && index === this.props.places.length-1) ? 'End' + ': ' + value.name : ""} </h5>
+                                    <h5 id="toggler"> {(index !== 0 && this.props.showDistance) ? "Distance: " + this.props.distances[index - 1] : ""} </h5>
+                                    <UncontrolledCollapse toggler="#toggler">
+                                        <Card>
+                                            <CardBody>
+                                                <p> {(this.props.reverseGeocodedMarkerPositions[index] !== 'undefined') ?  this.props.reverseGeocodedMarkerPositions[index] + "" : "No address found"} </p>
+                                            </CardBody>
+                                        </Card>
+                                    </UncontrolledCollapse>
                                 </div>{' '}
                                 <Tooltip title="Remove Place from Trip">
                                 <button onClick={() => {(typeof index !== 'undefined') ? this.props.updateItineraryAndMapByArray(arrayRemove(this.props.places, index)) : this.props.updateItineraryAndMapByArray(this.props.places)}} style={buttonStyles}>
