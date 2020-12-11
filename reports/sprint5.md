@@ -54,9 +54,9 @@ For Where Is, we plan to allow the user to enter latitude and longitude coordina
 
 | Statistic | # Planned | # Completed |
 | --- | ---: | ---: |
-| Epics | 6 | *count* |
-| Tasks |  25   | *count* | 
-| Story Points |  46  | *sum* | 
+| Epics | 6 | 4 |
+| Tasks |  25   | 37 | 
+| Story Points |  46  | 46 | 
 
 ### Metrics Outlook
 Sprint 4 was our best sprint of the semester so far as a team and we believe that our communication and teamwork have gotten better as the semester goes on. Last sprint we completed four out of the five epics, but we were really close to completing all of them. While we have six epics planned for this sprint, we also have an extra week and we believe we can complete all of them if we continue to work well together and put in the time required.
@@ -69,27 +69,37 @@ Sprint 4 was our best sprint of the semester so far as a team and we believe tha
 | *November 20, 2020* | *#601, #603, #617* | *#564, #567, #575, #580, #581, #582, #436, #626* |  |
 | *November 30, 2020* | *#564, #567, #577, #581, #582, #436, #626* | *#575, #579, #580, #583, #596* |  |
 | *December 2, 2020* | *#432* | *#575, #579, #580, #583, #596* |  |
-| *December 4, 2020* | *#430, #436, #575, #579, #580, #583, #626, * | *#568, #569, #594, #595, #642, #644* |  |
+| *December 4, 2020* | *#430, #436, #575, #579, #580, #583, #626* | *#568, #569, #594, #595, #642, #644* |  |
 | *December 7, 2020* | *#642* | *#568, #569, #594, #595, #644* |  |
-| *December 9, 2020* | *# 559, #560, #594, #595, #641* | *#562, #568, #569, #643, #644* |  |
+| *December 9, 2020* | *#559, #560, #594, #595, #641* | *#562, #568, #569, #643, #644* |  |
+| *December 10, 2020* | *#562, #568, #569, #643, #644* |  |  |
 
 ## Review
 
 ### Epics done  
 
+Shorter, Modify a Trip, Place Details, User Experience 
+
 ### Epics not done 
+For File Formats we only completed CSV. And Where is? is mostly completed. 
 
 ### What went well
+We feel we significantly improved the User Experience and fluidity of our project. Our overall test coverage also improved a lot this sprint. 
 
 ### Problems encountered and resolutions
+Balancing our schedules toward the end of this semester has been hard for a lot of our team and there was not an even distribution of our tasks. 
 
 
 ## Retrospective
 
 ### What we changed this sprint
+During this sprint we made sure that we had a test class for every file and that helped improve our website's quality. 
 
 ### What went well
+Helping each other when someone had a problem is something we have continued to do well. 
 
 ### Potential improvements
+Finding a better way to balance time and keep tasks distributed equally. 
 
 ### What we will change next time
+Asking for more help, and earlier on. 
