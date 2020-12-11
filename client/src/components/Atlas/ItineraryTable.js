@@ -127,9 +127,8 @@ export default class ItineraryTable extends Component {
     }
 
     requestWithOptimize(event){
-        var name = this.state.options.title
         var option = {
-              title:name,
+              title:this.state.options.title,
               earthRadius: "3959.0",
               response: "1.0"
         }
@@ -205,7 +204,7 @@ export default class ItineraryTable extends Component {
     showRoundTrip(){
         return(
             <Alert>
-                <h3>{"Round Trip (mi): " + this.state.distances.reduce(function (a, b) {return a + b;}, 0)}</h3>
+                <h3>{"Round Trip (mi): " + this.state.roundTrip}</h3>
             </Alert>
         );
     }
@@ -263,7 +262,7 @@ export default class ItineraryTable extends Component {
                         </Button>
                     </Tooltip>
                     <Tooltip title="Reverse Trip">
-                        <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.props.reverseTrip()}}>
+                        <Button color="primary" style={buttonStyles} name = "options" onClick={() => {this.props.reverseTrip()}}>
                             <Reverse> </Reverse>
                         </Button>
                     </Tooltip>
