@@ -23,8 +23,8 @@ export default class ItineraryTable extends Component {
                 {id:1, value:"JSON"},
                 {id:2, value:"CSV"}
             ],
-            JSON:false,
-            CSV:false,
+            JSON: false,
+            CSV: false,
             modal: false,
             fade: false
         }
@@ -47,19 +47,19 @@ export default class ItineraryTable extends Component {
     }
 
     JSONDownload(){
-        this.setState({JSON:!this.state.JSON})
+        this.setState({JSON: !this.state.JSON});
     }
 
     CSVDownload(){
-        this.setState({CSV:!this.state.CSV})
+        this.setState({CSV: !this.state.CSV});
     }
 
     handleChange(event) {
         var item = event.target.value;
-        if(item === 1){
+        if(item == 1){
             this.JSONDownload()
         }
-        if(item === 2){
+        if(item == 2){
             this.CSVDownload()
         }
     }
@@ -88,7 +88,7 @@ export default class ItineraryTable extends Component {
             requestType: "trip",
             requestVersion: 4,
             options: this.state.options,
-            places: this.state.placesForItinerary
+            places: this.props.placesForItinerary
         };
     }
 
@@ -186,6 +186,7 @@ export default class ItineraryTable extends Component {
     getTripTable(places) {
         return (
             <PlacesTable places={places}
+                         reverseGeocodedMarkerPositions = {this.props.reverseGeocodedMarkerPositions}
                          updateItineraryAndMapByArray={this.props.updateItineraryAndMapByArray}
                          addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}
                          showDistance={this.state.showDistance}
@@ -213,6 +214,8 @@ export default class ItineraryTable extends Component {
         this.setState({
             modal: !this.state.modal
         });
+        this.setState({CSV:false});
+        this.setState({JSON:false});
     }
 
     showButtonOptions(){
@@ -232,18 +235,18 @@ export default class ItineraryTable extends Component {
                         <Modal isOpen={this.state.modal} fade={this.state.fade} toggle={this.toggle}>
                             <ModalBody>
                                 <form onSubmit={this.handleSubmit}>
-                                    {this.state.categories.map((item,id) => (
+                                    {(this.state.categories !== undefined) ? this.state.categories.map((item, id) => (
                                         <li key={id}>
                                             <label>
                                                 <input type="checkbox" value={item.id} onChange={this.handleChange}/>
                                                 {item.value}
                                             </label>
                                         </li>
-                                    ))}
-                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10}} onClick={()=>{this.handleSubmit}}>
+                                    )) : ""}
+                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10}} onClick={this.handleSubmit}>
                                         Submit
                                     </Button>
-                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={this.toggleOpen}>
+                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={this.toggle}>
                                         Close
                                     </Button>
                                 </form>
@@ -292,7 +295,7 @@ export default class ItineraryTable extends Component {
                                                        addPlacesToItineraryByArray = {this.props.addPlacesToItineraryByArray}
                                                        options = {this.state.options}
                                                        placesForItinerary = {this.props.placesForItinerary}/>: "" }
-                        {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
+                        {(this.props.placesForItinerary !== undefined && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
                         {(typeof this.state.distances !== 'undefined' && this.state.distances.length !== 0 && this.state.tripName) ? this.showRoundTrip() : ""}
                         {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.showButtonOptions() : ""}
                     </CardBody>
