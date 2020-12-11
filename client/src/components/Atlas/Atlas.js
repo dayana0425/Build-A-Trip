@@ -137,6 +137,7 @@ export default class Atlas extends Component {
         this.setState({placesForItinerary: places});
         places.map((place) => newMarkerPositions.push(L.latLng(parseFloat(place.latitude), parseFloat(place.longitude))));
         this.setState({markerPositions: newMarkerPositions});
+        this.setState({reverseGeocodedMarkerPositions: []});
     }
 
     //reverses trip on map view and on the itinerary
@@ -155,7 +156,7 @@ export default class Atlas extends Component {
                     this.setState({reverseGeocodedMarkerPositions: [...this.state.reverseGeocodedMarkerPositions, myJson.address.LongLabel]});
                 }
                 catch(e){
-                    this.setState({reverseGeocodedMarkerPositions: [...this.state.reverseGeocodedMarkerPositions, 'undefined']});
+                    this.setState({reverseGeocodedMarkerPositions: [...this.state.reverseGeocodedMarkerPositions, '']});
                 }
             });
     }

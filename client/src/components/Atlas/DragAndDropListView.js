@@ -75,7 +75,7 @@ export default class ClearButton extends Component {
                                     <UncontrolledCollapse toggler="#toggler">
                                         <Card>
                                             <CardBody>
-                                                <p> {(this.props.reverseGeocodedMarkerPositions[index] !== 'undefined') ?  this.props.reverseGeocodedMarkerPositions[index] + "" : "No address found"} </p>
+                                                <p> {(this.props.reverseGeocodedMarkerPositions !== undefined && this.props.reverseGeocodedMarkerPositions.length != 0) ?  this.props.reverseGeocodedMarkerPositions[index] + "" : "No address found"} </p>
                                             </CardBody>
                                         </Card>
                                     </UncontrolledCollapse>
