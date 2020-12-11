@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { List, arrayMove, arrayRemove } from "react-movable";
 import Tooltip from '@material-ui/core/Tooltip';
-import {RemovableIcon, HandleIcon, buttonStyles, Information} from "../../utils/constants";
-import {Button, Card, CardBody, UncontrolledCollapse} from "reactstrap";
+import {RemovableIcon, HandleIcon, buttonStyles} from "../../utils/constants";
+import {Card, CardBody, UncontrolledCollapse} from "reactstrap";
 /* Source Code for removable button Credit - https://github.com/tajo/react-movable/blob/master/examples/Removable.tsx */
 /* Source Code for scrollable container Credit - https://github.com/tajo/react-movable/blob/master/examples/ScrollingContainer.tsx */
 /* Handle Icon Credit - https://github.com/tajo/react-movable/blob/master/examples/Handle.tsx */

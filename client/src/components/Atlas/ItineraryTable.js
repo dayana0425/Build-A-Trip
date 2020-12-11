@@ -55,7 +55,9 @@ export default class ItineraryTable extends Component {
     }
 
     handleChange(event) {
+
         var item = event.target.value;
+        console.log(item);
         if(item === 1){
             this.JSONDownload()
         }
@@ -66,9 +68,11 @@ export default class ItineraryTable extends Component {
 
     handleSubmit(event) {
         if(this.state.JSON){
+            console.log(Hi);
             this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')
         }
         if(this.state.CSV){
+            console.log(Hi);
             this.saveCSVFile(this.saveFileFormat())
         }
     }
@@ -186,6 +190,7 @@ export default class ItineraryTable extends Component {
     getTripTable(places) {
         return (
             <PlacesTable places={places}
+                         reverseGeocodedMarkerPositions = {this.props.reverseGeocodedMarkerPositions}
                          updateItineraryAndMapByArray={this.props.updateItineraryAndMapByArray}
                          addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}
                          showDistance={this.state.showDistance}
@@ -232,18 +237,18 @@ export default class ItineraryTable extends Component {
                         <Modal isOpen={this.state.modal} fade={this.state.fade} toggle={this.toggle}>
                             <ModalBody>
                                 <form onSubmit={this.handleSubmit}>
-                                    {this.state.categories.map((item,id) => (
+                                    {(this.state.categories !== undefined) ? this.state.categories.map((item, id) => (
                                         <li key={id}>
                                             <label>
                                                 <input type="checkbox" value={item.id} onChange={this.handleChange}/>
                                                 {item.value}
                                             </label>
                                         </li>
-                                    ))}
-                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10}} onClick={()=>{this.handleSubmit}}>
+                                    )) : ""}
+                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10}} onClick={this.handleSubmit}>
                                         Submit
                                     </Button>
-                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={this.toggleOpen}>
+                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={this.toggle}>
                                         Close
                                     </Button>
                                 </form>
@@ -292,7 +297,7 @@ export default class ItineraryTable extends Component {
                                                        addPlacesToItineraryByArray = {this.props.addPlacesToItineraryByArray}
                                                        options = {this.state.options}
                                                        placesForItinerary = {this.props.placesForItinerary}/>: "" }
-                        {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
+                        {(this.props.placesForItinerary !== undefined && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
                         {(typeof this.state.distances !== 'undefined' && this.state.distances.length !== 0 && this.state.tripName) ? this.showRoundTrip() : ""}
                         {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.showButtonOptions() : ""}
                     </CardBody>
