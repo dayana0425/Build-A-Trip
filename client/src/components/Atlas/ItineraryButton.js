@@ -20,7 +20,7 @@ export default class ClearButton extends Component {
         return (
             <Row>
                 <Col>
-                    <Button color="primary" style={{ marginTop: 10 }} onClick={this.toggleIsOpen}>
+                    <Button color="primary" onClick={this.toggleIsOpen}>
                         View Itinerary
                     </Button>
                     <ItineraryTable isOpen={this.state.isOpen}

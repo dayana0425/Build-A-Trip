@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Col, Button, Form, Input } from 'reactstrap';
+import { Col, Button, Form, Input} from 'reactstrap';
 
 export default class AddLocation extends Component{
     constructor(props){

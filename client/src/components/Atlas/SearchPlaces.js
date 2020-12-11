@@ -119,6 +119,7 @@ export default class SearchPlaces extends Component{
         this.setState({[event.target.name]: event.target.value});
     }
 
+
     handleClick() {
         var match = null;
         if( this.state.searching != null){

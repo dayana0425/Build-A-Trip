@@ -6,14 +6,6 @@ import {Row} from 'reactstrap';
 
 import {Map} from 'react-leaflet';
 
-
-
-function testSaveFileFormat(){
-    const file = shallow(<File/>);
-    file.instance().saveFileFormat();
-}
-test("Testing saveFileFormat Function", testSaveFileFormat);
-
 function testRender(){
     const file = shallow(<File/>);
     expect(file.exists(Row)).toEqual(true);
