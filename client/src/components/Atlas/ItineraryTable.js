@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon, Alert, Row, Col, FormText} from 'reactstrap';
+import {Button, Card, CardBody, Collapse, Input, InputGroup, InputGroupAddon, Alert, Row, Col, ModalBody, Modal} from 'reactstrap';
 import {sendServerRequest} from "../../utils/restfulAPI";
 import Tooltip from '@material-ui/core/Tooltip';
 import PlacesTable from "./DragAndDropListView";
 import 'leaflet/dist/leaflet.css';
 import {Save, Delete, Optimize, Distance, Reverse, buttonStyles} from "../../utils/constants";
 import File from './File'
-import FileFormat from './FileFormat'
 
 export default class ItineraryTable extends Component {
     constructor(props) {
@@ -19,7 +18,15 @@ export default class ItineraryTable extends Component {
             places: [],
             distances: [],
             showDistance: false,
-            fileFormatOpen: true
+            fileFormatOpen: false,
+            categories:[
+                {id:1, value:"JSON"},
+                {id:2, value:"CSV"}
+            ],
+            JSON:false,
+            CSV:false,
+            modal: false,
+            fade: false
         }
         this.changeTripName = this.changeTripName.bind(this);
         this.simpleRequest = this.simpleRequest.bind(this);
@@ -29,7 +36,74 @@ export default class ItineraryTable extends Component {
         this.getTripDistance = this.getTripDistance.bind(this);
         this.getTripTable = this.getTripTable.bind(this);
         this.showButtonOptions = this.showButtonOptions.bind(this);
-        this.filePopup = this.filePopup.bind(this);
+        this.toggle = this.toggle.bind(this);
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.JSONDownload = this.JSONDownload.bind(this)
+        this.CSVDownload = this.CSVDownload.bind(this)
+        this.saveFileFormat = this.saveFileFormat.bind(this);
+        this.saveFile = this.saveFile.bind(this);
+        this.saveCSVFile = this.saveCSVFile.bind(this);
+    }
+
+    JSONDownload(){
+        this.setState({JSON:!this.state.JSON})
+    }
+
+    CSVDownload(){
+        this.setState({CSV:!this.state.CSV})
+    }
+
+    handleChange(event) {
+        var item = event.target.value;
+        if(item === 1){
+            this.JSONDownload()
+        }
+        if(item === 2){
+            this.CSVDownload()
+        }
+    }
+
+    handleSubmit(event) {
+        if(this.state.JSON){
+            this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')
+        }
+        if(this.state.CSV){
+            this.saveCSVFile(this.saveFileFormat())
+        }
+    }
+
+    saveCSVFile(data){
+        const { Parser, transforms: { unwind }  } = require('json2csv');
+        const place = data.places;
+        const fields = ['name', 'latitude','longitude'];
+        const transforms = [unwind({ paths: ['name'] })];
+        const json2csvParser = new Parser({ fields, transforms });
+        const csv = json2csvParser.parse(place);
+        this.saveFile(csv, "trip", 'text/csv')
+    }
+
+    saveFileFormat() {
+        return {
+            requestType: "trip",
+            requestVersion: 4,
+            options: this.state.options,
+            places: this.state.placesForItinerary
+        };
+    }
+
+    saveFile(fileText, fileName, fileType) {
+        let file = new Blob([fileText], {type: fileType});
+        let element = document.createElement('a'),
+            url = URL.createObjectURL(file);
+        element.href = url;
+        element.download = fileName;
+        document.body.appendChild(element);
+        element.click();
+        setTimeout(function () {
+            document.body.removeChild(element);
+            window.URL.revokeObjectURL(url);
+        }, 0);
     }
 
     changeTripName(event) {
@@ -135,8 +209,10 @@ export default class ItineraryTable extends Component {
         );
     }
 
-    filePopup(){
-       this.refs.file.renderDownload()
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
     }
 
     showButtonOptions(){
@@ -149,10 +225,30 @@ export default class ItineraryTable extends Component {
                             </Button>
                     </Tooltip>
                     <Tooltip title="Save Trip">
-                        <Button style={buttonStyles} color="primary" onClick={() => this.filePopup()}>
+                        <Button style={buttonStyles} color="primary" onClick={()=>{this.toggle()}}>
                                 <Save> </Save>
                         </Button>
                     </Tooltip>
+                        <Modal isOpen={this.state.modal} fade={this.state.fade} toggle={this.toggle}>
+                            <ModalBody>
+                                <form onSubmit={this.handleSubmit}>
+                                    {this.state.categories.map((item,id) => (
+                                        <li key={id}>
+                                            <label>
+                                                <input type="checkbox" value={item.id} onChange={this.handleChange}/>
+                                                {item.value}
+                                            </label>
+                                        </li>
+                                    ))}
+                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10}} onClick={()=>{this.handleSubmit}}>
+                                        Submit
+                                    </Button>
+                                    <Button color="primary" style={{marginTop: 10, marginBottom: 10, marginLeft: 10}} onClick={this.toggleOpen}>
+                                        Close
+                                    </Button>
+                                </form>
+                            </ModalBody>
+                        </Modal>
                     <Tooltip title="Optimize Trip">
                         <Button color="primary" style={buttonStyles} name = "options" onClick={(e) => {this.requestWithOptimize(e)}}>
                             <Optimize> </Optimize>
@@ -195,10 +291,7 @@ export default class ItineraryTable extends Component {
                                                        addMarkersByArrayToMap = {this.props.addMarkersByArrayToMap}
                                                        addPlacesToItineraryByArray = {this.props.addPlacesToItineraryByArray}
                                                        options = {this.state.options}
-                                                       placesForItinerary = {this.props.placesForItinerary}
-                                                       isOpen = {this.state.fileFormatOpen}
-                                                       toggleOpen={(isOpen = !this.state.serverSettingsOpen) => this.setState({serverSettingsOpen: isOpen})}
-                                                       />: "" }
+                                                       placesForItinerary = {this.props.placesForItinerary}/>: "" }
                         {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.getTripTable(this.props.placesForItinerary) : ""}
                         {(typeof this.state.distances !== 'undefined' && this.state.distances.length !== 0 && this.state.tripName) ? this.showRoundTrip() : ""}
                         {(typeof this.props.placesForItinerary !== 'undefined' && this.props.placesForItinerary.length !== 0 && this.state.tripName) ? this.showButtonOptions() : ""}

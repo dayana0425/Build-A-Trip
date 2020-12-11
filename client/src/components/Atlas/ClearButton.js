@@ -9,7 +9,7 @@ export default class ClearButton extends Component{
 
     render(){
         return(
-            <Button color="primary" style={{marginTop: 10, marginBottom: 10}} onClick= {this.props.clearAllMarkers}>
+            <Button color="primary" style={{marginTop: 10, marginBottom: 5}} onClick= {this.props.clearAllMarkers}>
                 Clear
             </Button>
         )
