@@ -361,7 +361,7 @@ Our current plan for Search Places is to implement drop down menus that allow fo
 
 The Component hierarchy for "Shorter" depicted below shows our top-level App component and all other components related to the trip and other stuff(Because we have refactored our Atlas.js, we want to show our new hierarchy).
 
-![class diagram](../team/images/component-hierarchy.jpeg)
+![class diagram](../team/images/sprint5-shorter-CH.png)
 
 **Class Diagram**
 
@@ -373,7 +373,7 @@ For "Shorter", we are planning to add two more classes to implement the related 
 
 We still need to optimize trips on our client-side. We are planning to add a button to the itinerary that will optimize the trip for the user. It will display a shorter round trip distance than it originally was and it will update the new order on the itinerary and on the map as well.  
 
-![class diagram](../team/images/sprint5-shorter-ui.jpeg)
+![class diagram](../team/images/sprint5-shorter-UI.png)
 
 ### User Experience
 
@@ -391,7 +391,7 @@ The two new functionalities we are adding are toggling between lines/no line & t
 Next, we'll be relocating our reset button to be on the map for there to be less clutter on our website. 
 Lastly, when loading a BIG trip, it takes a really long time to load on the map - we'll be improving this for usefullness and efficiency of our service. 
 
-![class diagram](../team/images/sprint5-ui-user-exp.jpeg)
+![class diagram](../team/images/sprint5-User-UI.png)
 
 ### File Format
 
@@ -401,7 +401,7 @@ The component hierarchy for the file format depicted below shows our top level A
 
 - Due to support multiple file formats, we decided to add one more component inside "Itinerary Table". This can handle all the stuff related to files.
 
-![class diagram](../team/images/File_Format_Component.jpeg)
+![class diagram](../team/images/sprint5-FileFormat-CH.png)
 
 **Class Diagram**
 
@@ -411,7 +411,7 @@ No changes to the Class Diagram are planned.
 
 After clicking "Save File" button, it will have a pop up and contains 4 different choices, which contains JSON, KML, SVG, CSV. Users can choose one of these four choices to decide the saving file format. 
 
-![class diagram](../team/images/File_Format_UI.jpeg)
+![class diagram](../team/images/sprint5-file-UI.png)
 
 ### Where is?
 
@@ -470,7 +470,7 @@ No changes to the class diagram are planned.
 
 This is how we plan the UI will look for Modify a trip. All changes will be made in the itinerary section. Note that there will be three new buttons for each destination in the itinerary: Make starting location, remove destination, and add destination notes. Additionally, by dragging and dropping, you will be able to reorder the trip. There is also an option at the bottom of the table to reverse the trip order. 
 
-![class diagram](../team/images/ModifyTripUI.jpg)
+![class diagram](../team/images/sprint5-modify-UI.png)
 
 
 
