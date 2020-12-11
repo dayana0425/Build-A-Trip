@@ -23,8 +23,8 @@ export default class ItineraryTable extends Component {
                 {id:1, value:"JSON"},
                 {id:2, value:"CSV"}
             ],
-            JSON:false,
-            CSV:false,
+            JSON: false,
+            CSV: false,
             modal: false,
             fade: false
         }
@@ -47,32 +47,31 @@ export default class ItineraryTable extends Component {
     }
 
     JSONDownload(){
-        this.setState({JSON:!this.state.JSON})
+        this.setState({JSON: !this.state.JSON});
     }
 
     CSVDownload(){
-        this.setState({CSV:!this.state.CSV})
+        this.setState({CSV: !this.state.CSV});
     }
 
     handleChange(event) {
-
         var item = event.target.value;
         console.log(item);
-        if(item === 1){
+        if(item == 1){
             this.JSONDownload()
         }
-        if(item === 2){
+        if(item == 2){
             this.CSVDownload()
         }
     }
 
     handleSubmit(event) {
+        console.log(this.state.JSON)
+        console.log(this.state.CSV)
         if(this.state.JSON){
-            console.log(Hi);
             this.saveFile(JSON.stringify(this.saveFileFormat()), this.state.tripName, 'application/json')
         }
         if(this.state.CSV){
-            console.log(Hi);
             this.saveCSVFile(this.saveFileFormat())
         }
     }
