@@ -17,9 +17,12 @@ export default class OurMap extends Component{
     }
 
     getStringMarkerPosition(idx, markerPos) {
-        if (this.props.reverseGeocodedMarkerPositions !== undefined) {
-            return (this.props.reverseGeocodedMarkerPositions[idx] !== 'undefined' && markerPos) ? this.props.reverseGeocodedMarkerPositions[idx] + ' ' + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2) :
+        if (this.props.reverseGeocodedMarkerPositions !== undefined && this.props.reverseGeocodedMarkerPositions.length != 0) {
+            return (this.props.reverseGeocodedMarkerPositions[idx] !== '' && markerPos) ? this.props.reverseGeocodedMarkerPositions[idx] + ' ' + markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2) :
                 (markerPos) ? markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2) : "";
+        }
+        else{
+            return markerPos.lat.toFixed(2) + ', ' + markerPos.lng.toFixed(2);
         }
     }
 
