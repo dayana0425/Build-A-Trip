@@ -30,7 +30,8 @@ export default class ClearButton extends Component {
                                     addMarkersToMap={this.props.addMarkersToMap}
                                     addMarkersByArrayToMap={this.props.addMarkersByArrayToMap}
                                     addPlacesToItineraryByArray={this.props.addPlacesToItineraryByArray}
-                                    updateItineraryAndMapByArray={this.props.updateItineraryAndMapByArray}/>
+                                    updateItineraryAndMapByArray={this.props.updateItineraryAndMapByArray}
+                                    reverseGeocodedMarkerPositions = {this.props.reverseGeocodedMarkerPositions}/>
                 </Col>
             </Row>
         )
